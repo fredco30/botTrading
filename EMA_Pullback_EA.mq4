@@ -48,6 +48,9 @@ int        g_digits;
 datetime   g_lastBarTime = 0;
 datetime   g_currentDay  = 0;
 int        g_dailyTrades = 0;
+int        g_consecutiveSL = 0;   // Track consecutive SL hits
+datetime   g_cooldownUntil = 0;   // Cooldown end time
+int        g_prevTradeCount = 0;  // Track trade count changes
 
 //+------------------------------------------------------------------+
 //| Expert initialization                                             |
@@ -80,6 +83,29 @@ void OnTick() {
    // --- Manage open trades on every tick (breakeven) ---
    ManageOpenTrades();
 
+   // --- Detect trade close: track consecutive SL ---
+   int currentTradeCount = CountOpenTrades();
+   if(currentTradeCount < g_prevTradeCount) {
+      // A trade just closed — check if it was a loss
+      for(int i = OrdersHistoryTotal() - 1; i >= 0; i--) {
+         if(!OrderSelect(i, SELECT_BY_POS, MODE_HISTORY)) continue;
+         if(OrderSymbol() != Symbol() || OrderMagicNumber() != MagicNumber) continue;
+         if(OrderCloseTime() >= TimeCurrent() - 60) {
+            if(OrderProfit() < -1.0) {
+               g_consecutiveSL++;
+               if(g_consecutiveSL >= 3) {
+                  g_cooldownUntil = TimeCurrent() + 24 * 3600; // 24h cooldown
+                  Print("COOLDOWN: 3 consecutive SL — pausing until ", TimeToString(g_cooldownUntil));
+               }
+            } else {
+               g_consecutiveSL = 0; // Reset on win or BE
+            }
+            break;
+         }
+      }
+   }
+   g_prevTradeCount = currentTradeCount;
+
    // --- New bar check (M15) ---
    datetime currentBarTime = iTime(Symbol(), PERIOD_M15, 0);
    if(currentBarTime == g_lastBarTime) return;
@@ -97,6 +123,7 @@ void OnTick() {
    if(SpreadTooWide()) return;
    if(CountOpenTrades() >= 1) return;
    if(g_dailyTrades >= MaxTradesPerDay) return;
+   if(TimeCurrent() < g_cooldownUntil) return;  // Cooldown after 3 consecutive SL
 
    // --- Check for entry ---
    CheckEntry();
