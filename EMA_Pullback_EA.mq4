@@ -22,6 +22,7 @@ input double MaxSL_Pips         = 30.0;    // Maximum SL distance (pips)
 // --- Trend Filter (H1) ---
 input int    TrendEMA_Period    = 50;      // H1 EMA period for trend direction
 input int    TrendBars          = 5;       // H1 EMA must slope for X bars
+input double MinSlopePips       = 5.0;     // Min EMA slope in pips (filters range)
 
 // --- Entry (M15) ---
 input int    EntryEMA_Period    = 20;      // M15 EMA period for pullback
@@ -142,6 +143,10 @@ int GetTrendDirection() {
    double ema_now  = iMA(Symbol(), PERIOD_H1, TrendEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
    double ema_prev = iMA(Symbol(), PERIOD_H1, TrendEMA_Period, 0, MODE_EMA, PRICE_CLOSE, TrendBars);
    double close_h1 = iClose(Symbol(), PERIOD_H1, 0);
+
+   // Check minimum slope (filter range markets)
+   double slope = MathAbs(ema_now - ema_prev) / g_pipValue;
+   if(slope < MinSlopePips) return 0;  // EMA too flat = range
 
    // Bullish: price above EMA AND EMA rising
    if(close_h1 > ema_now && ema_now > ema_prev)
