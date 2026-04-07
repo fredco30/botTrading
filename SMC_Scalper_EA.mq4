@@ -29,8 +29,8 @@ input int    StructureLookback  = 20;      // Bars to look back for swing H/L
 input int    SwingStrength      = 2;       // Bars on each side for swing point
 input bool   UseEMA_Bias        = true;    // Use EMA as fallback bias filter
 input int    EMA_Period         = 50;      // EMA period for bias (M15)
-input bool   UseHTF_Filter      = true;    // Filter entries against H4 EMA trend
-input int    HTF_EMA_Period     = 50;      // H4 EMA period for trend filter
+input bool   UseHTF_Filter      = true;    // Filter entries against H1 EMA trend
+input int    HTF_EMA_Period     = 50;      // H1 EMA period for trend filter
 
 // --- Order Block Detection (M5) ---
 input int    OB_Lookback        = 30;      // Bars to scan for OB
@@ -138,6 +138,8 @@ double     g_minSLPips;
 double     g_obEntryBuffer;
 datetime   g_lastTradeClose = 0;  // Cooldown tracking
 int        g_prevTradeCount = 0;  // Track open trade count changes
+int        g_dailySLCount = 0;    // SL count for current day
+datetime   g_currentDay = 0;      // Track day change
 
 //+------------------------------------------------------------------+
 //| Expert initialization                                             |
@@ -218,10 +220,27 @@ void OnDeinit(const int reason) {
 //| Expert tick function                                              |
 //+------------------------------------------------------------------+
 void OnTick() {
-   // --- Detect trade close for cooldown ---
+   // --- Reset daily SL counter on new day ---
+   datetime today = TimeCurrent() - TimeCurrent() % 86400;
+   if(today != g_currentDay) {
+      g_dailySLCount = 0;
+      g_currentDay = today;
+   }
+
+   // --- Detect trade close for cooldown + daily SL tracking ---
    int currentTradeCount = CountOpenTrades();
-   if(currentTradeCount < g_prevTradeCount)
+   if(currentTradeCount < g_prevTradeCount) {
       g_lastTradeClose = TimeCurrent();
+      // Check if last closed trade was a loss (SL hit)
+      for(int i = OrdersHistoryTotal() - 1; i >= 0; i--) {
+         if(!OrderSelect(i, SELECT_BY_POS, MODE_HISTORY)) continue;
+         if(OrderSymbol() != Symbol() || OrderMagicNumber() != MagicNumber) continue;
+         if(OrderCloseTime() >= TimeCurrent() - 60) {
+            if(OrderProfit() < 0) g_dailySLCount++;
+            break;
+         }
+      }
+   }
    g_prevTradeCount = currentTradeCount;
 
    // --- New bar check (M5) ---
@@ -242,8 +261,10 @@ void OnTick() {
       if(IsTesting()) PrintOnce("FILTER_NEWS", "Blocked by news filter at " + TimeToString(TimeCurrent()));
       return;
    }
-   // Cooldown: wait 4 M5 bars (20 min) after last trade close
-   if(g_lastTradeClose > 0 && TimeCurrent() - g_lastTradeClose < 20 * 60) return;
+   // Daily loss limit: max 2 SL per day
+   if(g_dailySLCount >= 2) return;
+   // Cooldown: wait 2 hours after last trade close
+   if(g_lastTradeClose > 0 && TimeCurrent() - g_lastTradeClose < 120 * 60) return;
    if(CountOpenTrades() >= MaxOpenTrades) return;
 
    // Reload news file daily
@@ -643,12 +664,12 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
 
    // H4 trend filter: block counter-trend entries
    if(UseHTF_Filter) {
-      double h4Ema  = iMA(Symbol(), PERIOD_H4, HTF_EMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
-      double h4Close = iClose(Symbol(), PERIOD_H4, 0);
-      // Don't buy if H4 is below EMA (bearish trend)
-      if(g_currentBias == BIAS_BULLISH && h4Close < h4Ema) return;
-      // Don't sell if H4 is above EMA (bullish trend)
-      if(g_currentBias == BIAS_BEARISH && h4Close > h4Ema) return;
+      double h1Ema  = iMA(Symbol(), PERIOD_H1, HTF_EMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
+      double h1Close = iClose(Symbol(), PERIOD_H1, 0);
+      // Don't buy if H1 is below EMA (bearish intraday)
+      if(g_currentBias == BIAS_BULLISH && h1Close < h1Ema) return;
+      // Don't sell if H1 is above EMA (bullish intraday)
+      if(g_currentBias == BIAS_BEARISH && h1Close > h1Ema) return;
    }
 
    // --- BULLISH ENTRY ---
