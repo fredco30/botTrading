@@ -170,8 +170,15 @@ void CheckEntry() {
    double low1   = iLow(Symbol(), PERIOD_M15, 1);
 
    // Previous bar (bar 2) — must have touched/crossed EMA
+   double open2  = iOpen(Symbol(), PERIOD_M15, 2);
+   double close2 = iClose(Symbol(), PERIOD_M15, 2);
    double low2   = iLow(Symbol(), PERIOD_M15, 2);
    double high2  = iHigh(Symbol(), PERIOD_M15, 2);
+
+   // Price action: body sizes
+   double body1  = MathAbs(close1 - open1);
+   double range1 = high1 - low1;
+   double body2  = MathAbs(close2 - open2);
 
    double bid = MarketInfo(Symbol(), MODE_BID);
    double ask = MarketInfo(Symbol(), MODE_ASK);
@@ -190,6 +197,9 @@ void CheckEntry() {
       if(close1 <= ema20) return;
       // Bar 1 must be bullish
       if(close1 <= open1) return;
+      // Price action: strong body (>60% of range) and stronger than pullback bar
+      if(range1 > 0 && body1 / range1 < 0.6) return;
+      if(body1 <= body2) return;
 
       // Calculate SL: lowest low of last SL_SwingBars bars
       double sl = low1;
@@ -218,6 +228,9 @@ void CheckEntry() {
       if(close1 >= ema20) return;
       // Bar 1 must be bearish
       if(close1 >= open1) return;
+      // Price action: strong body (>60% of range) and stronger than pullback bar
+      if(range1 > 0 && body1 / range1 < 0.6) return;
+      if(body1 <= body2) return;
 
       // Calculate SL: highest high of last SL_SwingBars bars
       double sl = high1;
