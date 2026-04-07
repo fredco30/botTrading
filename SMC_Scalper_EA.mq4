@@ -1037,19 +1037,14 @@ void LoadNewsCalendar() {
 //| LOAD RECURRING HIGH-IMPACT NEWS (built-in safety net)            |
 //+------------------------------------------------------------------+
 void LoadRecurringNews() {
-   // Get current week's dates
    datetime now = TimeCurrent();
    MqlDateTime dt;
    TimeToStruct(now, dt);
+   string yr = IntegerToString(dt.year);
+   string mo = IntegerToString(dt.mon);
 
-   // Find first day of current week (Monday)
-   int dayOfWeek = dt.day_of_week;
-   if(dayOfWeek == 0) dayOfWeek = 7; // Sunday = 7
-   datetime monday = now - (dayOfWeek - 1) * 86400;
-
-   // NFP: First Friday of the month at 14:30 server time (usually 8:30 ET)
-   datetime firstOfMonth = StringToTime(IntegerToString(dt.year) + "." +
-                                         IntegerToString(dt.mon) + ".01 14:30");
+   // NFP: First Friday of the month at 14:30
+   datetime firstOfMonth = StringToTime(yr + "." + mo + ".01 14:30");
    MqlDateTime fomDt;
    TimeToStruct(firstOfMonth, fomDt);
    int daysToFriday = (5 - fomDt.day_of_week + 7) % 7;
@@ -1058,32 +1053,43 @@ void LoadRecurringNews() {
    AddRecurringEvent(nfpDate, "USD", "Non-Farm Payrolls");
 
    // CPI: Usually around 13th at 14:30
-   datetime cpiDate = StringToTime(IntegerToString(dt.year) + "." +
-                                    IntegerToString(dt.mon) + ".13 14:30");
+   datetime cpiDate = StringToTime(yr + "." + mo + ".13 14:30");
    AddRecurringEvent(cpiDate, "USD", "CPI");
 
-   // FOMC: Check if there's a Wednesday meeting this week (8 meetings/year)
-   // We flag all Wednesdays at 20:00 as potential FOMC
-   datetime wednesday = monday + 2 * 86400;
-   MqlDateTime wedDt;
-   TimeToStruct(wednesday, wedDt);
-   datetime fomcTime = StringToTime(TimeToString(wednesday, TIME_DATE) + " 20:00");
-   // Only add if it's this week and within FOMC months (Jan,Mar,May,Jun,Jul,Sep,Nov,Dec)
-   int fomcMonths[] = {1,3,5,6,7,9,11,12};
-   for(int m = 0; m < ArraySize(fomcMonths); m++) {
-      if(dt.mon == fomcMonths[m]) {
+   // FOMC: 8 fixed meetings per year (actual 2025-2026 schedule)
+   // Only the announcement day matters (Wednesday 20:00 server time)
+   string fomcDates[] = {
+      // 2025
+      "2025.01.29","2025.03.19","2025.05.07","2025.06.18",
+      "2025.07.30","2025.09.17","2025.10.29","2025.12.17",
+      // 2026
+      "2026.01.28","2026.03.18","2026.04.29","2026.06.17",
+      "2026.07.29","2026.09.16","2026.10.28","2026.12.16"
+   };
+   for(int i = 0; i < ArraySize(fomcDates); i++) {
+      datetime fomcTime = StringToTime(fomcDates[i] + " 20:00");
+      // Only add if within 7 days of now
+      if(MathAbs((double)(fomcTime - now)) < 7 * 86400)
          AddRecurringEvent(fomcTime, "USD", "FOMC");
-         break;
-      }
    }
 
-   // ECB Rate Decision: Usually Thursday at 14:15
-   datetime thursday = monday + 3 * 86400;
-   datetime ecbTime = StringToTime(TimeToString(thursday, TIME_DATE) + " 14:15");
-   // ECB meets ~every 6 weeks, simplified: flag if day < 15
-   if(dt.day < 15) {
-      AddRecurringEvent(ecbTime, "EUR", "ECB Rate Decision");
+   // ECB: ~6 fixed meetings per year (actual 2025-2026 schedule)
+   string ecbDates[] = {
+      // 2025
+      "2025.01.30","2025.03.06","2025.04.17","2025.06.05",
+      "2025.07.24","2025.09.11","2025.10.30","2025.12.18",
+      // 2026
+      "2026.01.22","2026.03.05","2026.04.16","2026.06.04",
+      "2026.07.16","2026.09.10","2026.10.29","2026.12.17"
+   };
+   for(int i = 0; i < ArraySize(ecbDates); i++) {
+      datetime ecbTime = StringToTime(ecbDates[i] + " 14:15");
+      if(MathAbs((double)(ecbTime - now)) < 7 * 86400)
+         AddRecurringEvent(ecbTime, "EUR", "ECB Rate Decision");
    }
+
+   Print("Recurring news loaded | Events in scope: ",
+         ArraySize(g_newsEvents));
 }
 
 //+------------------------------------------------------------------+
