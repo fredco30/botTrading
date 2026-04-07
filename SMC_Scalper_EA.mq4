@@ -1060,9 +1060,6 @@ void ManageOpenTrades() {
       if(riskDist <= 0) continue;
 
       bool tp1Done = HasTP1Fired(ticket);
-      // If SL is already near breakeven, TP1 already fired on parent ticket
-      if(!tp1Done && MathAbs(currentSL - openPrice) < 2 * g_pipValue && currentSL != 0)
-         tp1Done = true;
 
       if(OrderType() == OP_BUY) {
          double currentPrice = MarketInfo(Symbol(), MODE_BID);
@@ -1075,20 +1072,28 @@ void ManageOpenTrades() {
             if(closeLots >= minLot && (lots - closeLots) >= minLot) {
                if(OrderClose(ticket, closeLots, currentPrice, 3, clrOrange)) {
                   MarkTP1Fired(ticket);
-                  Print("TP1 hit #", ticket, " | Closed ", closeLots, " lots @ ", currentPrice,
-                        " | Profit: ", DoubleToStr(closeLots * profit / Point * MarketInfo(Symbol(), MODE_TICKVALUE) * Point, 2));
-                  // Move SL to breakeven + 1 pip
-                  if(OrderSelect(ticket, SELECT_BY_TICKET)) {
-                     double beSL = openPrice + 1 * g_pipValue;
-                     if(!OrderModify(ticket, openPrice, beSL, OrderTakeProfit(), 0, clrYellow))
-                        Print("OrderModify BE failed #", ticket, " error=", GetLastError());
+                  Print("TP1 hit #", ticket, " | Closed ", closeLots, " lots @ ", currentPrice);
+                  // Move SL to breakeven + 1 pip on remaining position
+                  // After OrderClose, MT4 creates a new ticket for the remainder
+                  // Find and mark it to prevent cascade
+                  for(int k = OrdersTotal() - 1; k >= 0; k--) {
+                     if(!OrderSelect(k, SELECT_BY_POS, MODE_TRADES)) continue;
+                     if(OrderSymbol() == Symbol() && OrderMagicNumber() == MagicNumber
+                        && OrderOpenPrice() == openPrice && OrderTicket() != ticket) {
+                        int newTicket = OrderTicket();
+                        MarkTP1Fired(newTicket);
+                        double beSL = openPrice + 1 * g_pipValue;
+                        if(!OrderModify(newTicket, openPrice, beSL, OrderTakeProfit(), 0, clrYellow))
+                           Print("OrderModify BE failed #", newTicket, " error=", GetLastError());
+                        break;
+                     }
                   }
                }
             }
          }
 
-         // Breakeven at 1R (if TP1 not used)
-         if(UseBreakeven && !tp1Done && profit >= riskDist && currentSL < openPrice) {
+         // Breakeven at 1R (only if TP1 partial close is disabled)
+         if(UseBreakeven && !UsePartialClose && profit >= riskDist && currentSL < openPrice) {
             ModifySL(ticket, openPrice + 1 * g_pipValue);
          }
 
@@ -1113,18 +1118,25 @@ void ManageOpenTrades() {
                if(OrderClose(ticket, closeLots, currentPrice, 3, clrOrange)) {
                   MarkTP1Fired(ticket);
                   Print("TP1 hit #", ticket, " | Closed ", closeLots, " lots @ ", currentPrice);
-                  // Move SL to breakeven - 1 pip
-                  if(OrderSelect(ticket, SELECT_BY_TICKET)) {
-                     double beSL = openPrice - 1 * g_pipValue;
-                     if(!OrderModify(ticket, openPrice, beSL, OrderTakeProfit(), 0, clrYellow))
-                        Print("OrderModify BE failed #", ticket, " error=", GetLastError());
+                  // Find the new ticket (remainder) and mark + move SL to BE
+                  for(int k = OrdersTotal() - 1; k >= 0; k--) {
+                     if(!OrderSelect(k, SELECT_BY_POS, MODE_TRADES)) continue;
+                     if(OrderSymbol() == Symbol() && OrderMagicNumber() == MagicNumber
+                        && OrderOpenPrice() == openPrice && OrderTicket() != ticket) {
+                        int newTicket = OrderTicket();
+                        MarkTP1Fired(newTicket);
+                        double beSL = openPrice - 1 * g_pipValue;
+                        if(!OrderModify(newTicket, openPrice, beSL, OrderTakeProfit(), 0, clrYellow))
+                           Print("OrderModify BE failed #", newTicket, " error=", GetLastError());
+                        break;
+                     }
                   }
                }
             }
          }
 
-         // Breakeven at 1R (if TP1 not used)
-         if(UseBreakeven && !tp1Done && profit >= riskDist && currentSL > openPrice) {
+         // Breakeven at 1R (only if TP1 partial close is disabled)
+         if(UseBreakeven && !UsePartialClose && profit >= riskDist && currentSL > openPrice) {
             ModifySL(ticket, openPrice - 1 * g_pipValue);
          }
 
