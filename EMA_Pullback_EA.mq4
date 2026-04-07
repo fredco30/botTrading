@@ -15,7 +15,7 @@
 input double RiskPercent        = 1.0;     // Risk % per trade
 input double MaxSpreadPips      = 3.0;     // Max spread allowed (pips)
 input int    MagicNumber        = 20250407;// Magic number
-input double MinRR              = 3.5;     // Minimum Risk:Reward ratio
+input double MinRR              = 2.5;     // Minimum Risk:Reward ratio
 input double MinSL_Pips         = 10.0;    // Minimum SL distance (pips)
 input double MaxSL_Pips         = 30.0;    // Maximum SL distance (pips)
 
