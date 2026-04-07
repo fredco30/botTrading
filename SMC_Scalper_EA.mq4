@@ -11,29 +11,44 @@
 //+------------------------------------------------------------------+
 //| INPUTS                                                            |
 //+------------------------------------------------------------------+
+// --- Instrument Preset ---
+input bool   UseNasdaqPreset    = false;   // Use Nasdaq (NAS100/USTEC) preset
+input bool   UseGoldPreset      = false;   // Use Gold (XAUUSD) preset
+
 // --- Risk Management ---
 input double RiskPercent        = 1.0;     // Risk % per trade
 input double MaxSpreadPips      = 3.0;     // Max spread allowed (pips)
 input int    MagicNumber        = 20240407;// Magic number
 input int    MaxOpenTrades      = 1;       // Max simultaneous trades
-input double MinRR              = 2.0;     // Minimum Risk:Reward ratio
+input double MinRR              = 2.5;     // Minimum Risk:Reward ratio
+input double SL_BufferPips      = 5.0;     // SL buffer beyond OB (pips)
+input double MinSL_Pips         = 10.0;    // Minimum SL distance (pips)
 
 // --- Structure Detection (M15) ---
 input int    StructureLookback  = 20;      // Bars to look back for swing H/L
 input int    SwingStrength      = 3;       // Bars on each side for swing point
+input bool   UseEMA_Bias        = true;    // Use EMA as fallback bias filter
+input int    EMA_Period         = 50;      // EMA period for bias (M15)
+input bool   UseHTF_Filter      = true;    // Filter entries against H4 EMA trend
+input int    HTF_EMA_Period     = 50;      // H4 EMA period for trend filter
 
 // --- Order Block Detection (M5) ---
 input int    OB_Lookback        = 30;      // Bars to scan for OB
-input double OB_MinBodyRatio    = 0.5;     // Min body/range ratio for impulse candle
-input int    OB_MinImpulsePips  = 10;      // Min impulse move (pips)
+input double OB_MinBodyRatio    = 0.3;     // Min body/range ratio for impulse candle
+input int    OB_MinImpulsePips  = 5;       // Min impulse move (pips)
+input bool   RequireConfluence  = false;   // Require OB+FVG or OB+Sweep (false=OB alone OK)
 
 // --- FVG Detection (M5) ---
 input int    FVG_Lookback       = 20;      // Bars to scan for FVG
-input double FVG_MinSizePips    = 3.0;     // Min FVG size (pips)
+input double FVG_MinSizePips    = 1.5;     // Min FVG size (pips)
 
 // --- Liquidity Sweep ---
 input int    LiqSweep_Lookback  = 30;      // Bars to scan for liq levels
 input double LiqSweep_MinPips   = 2.0;     // Min sweep beyond level (pips)
+
+// --- Entry Quality ---
+input int    OB_MaxAgeBars      = 50;      // Max OB age in M5 bars (0=no limit)
+input bool   RequirePullback    = true;    // Price must retrace into OB (not gap in)
 
 // --- Session Filter ---
 input int    LondonStartHour    = 8;       // London session start (server time)
@@ -43,8 +58,8 @@ input int    NYEndHour          = 17;      // New York session end
 
 // --- Trade Management ---
 input bool   UseBreakeven       = true;    // Move SL to BE after 1R
-input bool   UseTrailingStop    = false;   // Trail stop after 1.5R
-input double TrailingRMultiple  = 1.5;     // R-multiple to start trailing
+input bool   UseTrailingStop    = true;    // Trail stop after 1R
+input double TrailingRMultiple  = 1.0;     // R-multiple to start trailing
 input bool   UsePartialClose    = true;    // Close 50% at TP1
 input double TP1_Percent        = 50.0;    // % to close at TP1
 
@@ -109,6 +124,17 @@ datetime   g_lastNewsLoad = 0;
 double     g_pipValue;
 int        g_digits;
 
+// Runtime values (may be overridden by Nasdaq/Gold preset)
+double     g_maxSpreadPips;
+int        g_obMinImpulsePips;
+double     g_fvgMinSizePips;
+double     g_liqSweepMinPips;
+int        g_obLookback;
+int        g_structureLookback;
+int        g_swingStrength;
+double     g_slBufferPips;
+double     g_minSLPips;
+
 //+------------------------------------------------------------------+
 //| Expert initialization                                             |
 //+------------------------------------------------------------------+
@@ -119,11 +145,57 @@ int OnInit() {
    else
       g_pipValue = Point;
 
+   // Default runtime values from inputs
+   g_maxSpreadPips     = MaxSpreadPips;
+   g_obMinImpulsePips  = OB_MinImpulsePips;
+   g_fvgMinSizePips    = FVG_MinSizePips;
+   g_liqSweepMinPips   = LiqSweep_MinPips;
+   g_obLookback        = OB_Lookback;
+   g_structureLookback = StructureLookback;
+   g_swingStrength     = SwingStrength;
+   g_slBufferPips      = SL_BufferPips;
+   g_minSLPips         = MinSL_Pips;
+
+   // Nasdaq preset: wider spread, bigger impulse/FVG thresholds (points not pips)
+   if(UseNasdaqPreset) {
+      g_pipValue          = Point;
+      g_maxSpreadPips     = 50.0;
+      g_obMinImpulsePips  = 80;
+      g_fvgMinSizePips    = 30.0;
+      g_liqSweepMinPips   = 20.0;
+      g_obLookback        = 40;
+      g_structureLookback = 30;
+      g_swingStrength     = 4;
+      g_slBufferPips      = 30.0;   // 30 pts buffer for Nasdaq
+      g_minSLPips         = 50.0;   // 50 pts min SL for Nasdaq
+      Print(">>> Nasdaq preset ACTIVE");
+   }
+
+   // Gold preset: XAUUSD
+   if(UseGoldPreset) {
+      g_pipValue          = 0.01;
+      g_maxSpreadPips     = 40.0;
+      g_obMinImpulsePips  = 50;
+      g_fvgMinSizePips    = 20.0;
+      g_liqSweepMinPips   = 15.0;
+      g_obLookback        = 40;
+      g_structureLookback = 25;
+      g_swingStrength     = 4;
+      g_slBufferPips      = 30.0;   // 30 pips buffer for Gold
+      g_minSLPips         = 40.0;   // 40 pips min SL for Gold
+      Print(">>> Gold preset ACTIVE");
+   }
+
+   if(UseNasdaqPreset && UseGoldPreset) {
+      Print("WARNING: Both Nasdaq and Gold presets are ON — Gold preset takes priority");
+   }
+
    if(UseNewsFilter) LoadNewsCalendar();
 
    Print("SMC Scalper EA initialized | Symbol: ", Symbol(),
          " | Pip value: ", g_pipValue,
          " | Risk: ", RiskPercent, "%",
+         " | Preset: ", UseNasdaqPreset ? "NASDAQ" : (UseGoldPreset ? "GOLD" : "FOREX"),
          " | News filter: ", UseNewsFilter ? "ON" : "OFF");
    return INIT_SUCCEEDED;
 }
@@ -145,9 +217,18 @@ void OnTick() {
    g_lastBarTime = currentBarTime;
 
    // --- Pre-checks ---
-   if(!IsSessionActive()) return;
-   if(SpreadTooWide()) return;
-   if(UseNewsFilter && IsNewsTime()) return;
+   if(!IsSessionActive()) {
+      if(IsTesting()) PrintOnce("FILTER_SESSION", "Blocked by session filter | Hour=" + IntegerToString(TimeHour(TimeCurrent())));
+      return;
+   }
+   if(SpreadTooWide()) {
+      if(IsTesting()) PrintOnce("FILTER_SPREAD", "Blocked by spread filter | Spread=" + DoubleToString(MarketInfo(Symbol(), MODE_SPREAD) * Point / g_pipValue, 1));
+      return;
+   }
+   if(UseNewsFilter && IsNewsTime()) {
+      if(IsTesting()) PrintOnce("FILTER_NEWS", "Blocked by news filter at " + TimeToString(TimeCurrent()));
+      return;
+   }
    if(CountOpenTrades() >= MaxOpenTrades) return;
 
    // Reload news file daily
@@ -155,6 +236,9 @@ void OnTick() {
 
    // --- Step 1: M15 Structure Analysis (BOS detection) ---
    AnalyzeStructure();
+   if(IsTesting() && g_currentBias == BIAS_NONE) {
+      PrintOnce("FILTER_BIAS", "No bias detected (BIAS_NONE) at " + TimeToString(TimeCurrent()));
+   }
 
    // --- Step 2: M5 Order Block Detection ---
    DetectOrderBlocks();
@@ -184,11 +268,22 @@ bool IsSessionActive() {
 }
 
 //+------------------------------------------------------------------+
+//| DEBUG: Print a message only once per key (avoids log spam)        |
+//+------------------------------------------------------------------+
+datetime g_lastDebugDay = 0;
+void PrintOnce(string key, string message) {
+   datetime today = TimeCurrent() - TimeCurrent() % 86400;
+   if(today == g_lastDebugDay) return;
+   g_lastDebugDay = today;
+   Print("[DEBUG] ", message);
+}
+
+//+------------------------------------------------------------------+
 //| SPREAD CHECK                                                      |
 //+------------------------------------------------------------------+
 bool SpreadTooWide() {
    double spread = MarketInfo(Symbol(), MODE_SPREAD) * Point / g_pipValue;
-   return (spread > MaxSpreadPips);
+   return (spread > g_maxSpreadPips);
 }
 
 //+------------------------------------------------------------------+
@@ -212,40 +307,60 @@ void AnalyzeStructure() {
    SwingPoint swingHighs[];
    SwingPoint swingLows[];
 
-   FindSwingPoints(PERIOD_M15, StructureLookback, SwingStrength, swingHighs, swingLows);
+   FindSwingPoints(PERIOD_M15, g_structureLookback, g_swingStrength, swingHighs, swingLows);
 
-   if(ArraySize(swingHighs) < 2 || ArraySize(swingLows) < 2) {
-      g_currentBias = BIAS_NONE;
-      return;
+   BIAS_DIRECTION swingBias = BIAS_NONE;
+
+   if(ArraySize(swingHighs) >= 2 && ArraySize(swingLows) >= 2) {
+      g_lastSwingHigh = swingHighs[0];
+      g_prevSwingHigh = swingHighs[1];
+      g_lastSwingLow  = swingLows[0];
+      g_prevSwingLow  = swingLows[1];
+
+      double currentClose = iClose(Symbol(), PERIOD_M15, 0);
+
+      // Strong BOS: price breaks swing + structure confirms
+      if(currentClose > g_lastSwingHigh.price &&
+         g_lastSwingLow.price > g_prevSwingLow.price) {
+         swingBias = BIAS_BULLISH;
+      }
+      else if(currentClose < g_lastSwingLow.price &&
+              g_lastSwingHigh.price < g_prevSwingHigh.price) {
+         swingBias = BIAS_BEARISH;
+      }
+      // HH + HL = bullish
+      else if(g_lastSwingHigh.price > g_prevSwingHigh.price &&
+              g_lastSwingLow.price > g_prevSwingLow.price) {
+         swingBias = BIAS_BULLISH;
+      }
+      // LH + LL = bearish
+      else if(g_lastSwingHigh.price < g_prevSwingHigh.price &&
+              g_lastSwingLow.price < g_prevSwingLow.price) {
+         swingBias = BIAS_BEARISH;
+      }
+      // Partial: only HL = lean bullish
+      else if(g_lastSwingLow.price > g_prevSwingLow.price) {
+         swingBias = BIAS_BULLISH;
+      }
+      // Partial: only LH = lean bearish
+      else if(g_lastSwingHigh.price < g_prevSwingHigh.price) {
+         swingBias = BIAS_BEARISH;
+      }
    }
 
-   g_lastSwingHigh = swingHighs[0];
-   g_prevSwingHigh = swingHighs[1];
-   g_lastSwingLow  = swingLows[0];
-   g_prevSwingLow  = swingLows[1];
+   // EMA fallback: if swings give no clear direction, use EMA slope
+   if(swingBias == BIAS_NONE && UseEMA_Bias) {
+      double ema0 = iMA(Symbol(), PERIOD_M15, EMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
+      double ema1 = iMA(Symbol(), PERIOD_M15, EMA_Period, 0, MODE_EMA, PRICE_CLOSE, 1);
+      double currentClose = iClose(Symbol(), PERIOD_M15, 0);
 
-   double currentClose = iClose(Symbol(), PERIOD_M15, 0);
+      if(currentClose > ema0 && ema0 > ema1)
+         swingBias = BIAS_BULLISH;
+      else if(currentClose < ema0 && ema0 < ema1)
+         swingBias = BIAS_BEARISH;
+   }
 
-   // Bullish BOS: price breaks above last swing high + higher lows
-   if(currentClose > g_lastSwingHigh.price &&
-      g_lastSwingLow.price > g_prevSwingLow.price) {
-      g_currentBias = BIAS_BULLISH;
-   }
-   // Bearish BOS: price breaks below last swing low + lower highs
-   else if(currentClose < g_lastSwingLow.price &&
-           g_lastSwingHigh.price < g_prevSwingHigh.price) {
-      g_currentBias = BIAS_BEARISH;
-   }
-   // HH + HL = bullish trend
-   else if(g_lastSwingHigh.price > g_prevSwingHigh.price &&
-           g_lastSwingLow.price > g_prevSwingLow.price) {
-      g_currentBias = BIAS_BULLISH;
-   }
-   // LH + LL = bearish trend
-   else if(g_lastSwingHigh.price < g_prevSwingHigh.price &&
-           g_lastSwingLow.price < g_prevSwingLow.price) {
-      g_currentBias = BIAS_BEARISH;
-   }
+   g_currentBias = swingBias;
 }
 
 //+------------------------------------------------------------------+
@@ -301,7 +416,7 @@ void FindSwingPoints(int tf, int lookback, int strength,
 void DetectOrderBlocks() {
    ArrayResize(g_activeOBs, 0);
 
-   for(int i = 2; i < OB_Lookback; i++) {
+   for(int i = 2; i < g_obLookback; i++) {
       double open_i  = iOpen(Symbol(), PERIOD_M5, i);
       double close_i = iClose(Symbol(), PERIOD_M5, i);
       double high_i  = iHigh(Symbol(), PERIOD_M5, i);
@@ -318,7 +433,7 @@ void DetectOrderBlocks() {
 
       double impMovePips = impRange / g_pipValue;
 
-      if(impMovePips < OB_MinImpulsePips) continue;
+      if(impMovePips < g_obMinImpulsePips) continue;
       if(impBody / impRange < OB_MinBodyRatio) continue;
 
       // Bullish OB: bearish candle + strong bullish impulse breaking above
@@ -390,7 +505,7 @@ void DetectFVGs() {
       // Bullish FVG: gap up
       if(low_next > high_prev) {
          double gapSize = (low_next - high_prev) / g_pipValue;
-         if(gapSize >= FVG_MinSizePips) {
+         if(gapSize >= g_fvgMinSizePips) {
             if(!IsFVGFilled(high_prev, low_next, true, i - 2)) {
                FVGZone fvg;
                fvg.top = low_next;
@@ -408,7 +523,7 @@ void DetectFVGs() {
       // Bearish FVG: gap down
       if(high_next < low_prev) {
          double gapSize = (low_prev - high_next) / g_pipValue;
-         if(gapSize >= FVG_MinSizePips) {
+         if(gapSize >= g_fvgMinSizePips) {
             if(!IsFVGFilled(high_next, low_prev, false, i - 2)) {
                FVGZone fvg;
                fvg.top = low_prev;
@@ -465,7 +580,7 @@ bool DetectLiquiditySweep(bool checkBullish) {
       for(int i = 1; i <= 3; i++) {
          double low_i   = iLow(Symbol(), PERIOD_M5, i);
          double close_i = iClose(Symbol(), PERIOD_M5, i);
-         if(low_i < liqLevel - LiqSweep_MinPips * g_pipValue &&
+         if(low_i < liqLevel - g_liqSweepMinPips * g_pipValue &&
             close_i > liqLevel) {
             return true;
          }
@@ -490,7 +605,7 @@ bool DetectLiquiditySweep(bool checkBullish) {
       for(int i = 1; i <= 3; i++) {
          double high_i  = iHigh(Symbol(), PERIOD_M5, i);
          double close_i = iClose(Symbol(), PERIOD_M5, i);
-         if(high_i > liqLevel + LiqSweep_MinPips * g_pipValue &&
+         if(high_i > liqLevel + g_liqSweepMinPips * g_pipValue &&
             close_i < liqLevel) {
             return true;
          }
@@ -509,26 +624,49 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
    double bid = MarketInfo(Symbol(), MODE_BID);
    double ask = MarketInfo(Symbol(), MODE_ASK);
 
+   // H4 trend filter: block counter-trend entries
+   if(UseHTF_Filter) {
+      double h4Ema  = iMA(Symbol(), PERIOD_H4, HTF_EMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
+      double h4Close = iClose(Symbol(), PERIOD_H4, 0);
+      // Don't buy if H4 is below EMA (bearish trend)
+      if(g_currentBias == BIAS_BULLISH && h4Close < h4Ema) return;
+      // Don't sell if H4 is above EMA (bullish trend)
+      if(g_currentBias == BIAS_BEARISH && h4Close > h4Ema) return;
+   }
+
    // --- BULLISH ENTRY ---
    if(g_currentBias == BIAS_BULLISH) {
       for(int i = 0; i < ArraySize(g_activeOBs); i++) {
          if(!g_activeOBs[i].isBullish || !g_activeOBs[i].isValid) continue;
 
+         // Skip stale OBs
+         if(OB_MaxAgeBars > 0 && g_activeOBs[i].barIndex > OB_MaxAgeBars) continue;
+
          // Price in OB zone
          if(bid <= g_activeOBs[i].top && bid >= g_activeOBs[i].bottom) {
-            bool hasFVG = HasFVGConfluence(g_activeOBs[i], true);
+            // Pullback check: previous bar close was above OB (price came down into it)
+            if(RequirePullback) {
+               double prevClose = iClose(Symbol(), PERIOD_M5, 1);
+               if(prevClose < g_activeOBs[i].top) continue;
+            }
 
-            // Minimum confluence: OB + (FVG or liq sweep)
-            if(hasFVG || liqSweepBull) {
-               double sl = g_activeOBs[i].bottom - 2 * g_pipValue;
+            bool hasFVG = HasFVGConfluence(g_activeOBs[i], true);
+            bool hasConfluence = hasFVG || liqSweepBull;
+
+            if(hasConfluence || !RequireConfluence) {
+               double sl = g_activeOBs[i].bottom - g_slBufferPips * g_pipValue;
+               double slDist = (ask - sl) / g_pipValue;
+               if(slDist < g_minSLPips)
+                  sl = ask - g_minSLPips * g_pipValue;
                double tp1 = 0, tp2 = 0;
                FindTPLevels(true, ask, sl, tp1, tp2);
 
                double rr = (tp2 - ask) / (ask - sl);
                if(rr >= MinRR) {
-                  ExecuteTrade(OP_BUY, ask, sl, tp2,
-                              "SMC Buy|OB" + (hasFVG ? "+FVG" : "") +
-                              (liqSweepBull ? "+Sweep" : ""));
+                  string label = "SMC Buy|OB";
+                  if(hasFVG) label = label + "+FVG";
+                  if(liqSweepBull) label = label + "+Sweep";
+                  ExecuteTrade(OP_BUY, ask, sl, tp2, label);
                   g_activeOBs[i].isValid = false;
                   return;
                }
@@ -542,19 +680,33 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
       for(int i = 0; i < ArraySize(g_activeOBs); i++) {
          if(g_activeOBs[i].isBullish || !g_activeOBs[i].isValid) continue;
 
-         if(ask >= g_activeOBs[i].bottom && ask <= g_activeOBs[i].top) {
-            bool hasFVG = HasFVGConfluence(g_activeOBs[i], false);
+         // Skip stale OBs
+         if(OB_MaxAgeBars > 0 && g_activeOBs[i].barIndex > OB_MaxAgeBars) continue;
 
-            if(hasFVG || liqSweepBear) {
-               double sl = g_activeOBs[i].top + 2 * g_pipValue;
+         if(ask >= g_activeOBs[i].bottom && ask <= g_activeOBs[i].top) {
+            // Pullback check: previous bar close was below OB (price came up into it)
+            if(RequirePullback) {
+               double prevClose = iClose(Symbol(), PERIOD_M5, 1);
+               if(prevClose > g_activeOBs[i].bottom) continue;
+            }
+
+            bool hasFVG = HasFVGConfluence(g_activeOBs[i], false);
+            bool hasConfluence = hasFVG || liqSweepBear;
+
+            if(hasConfluence || !RequireConfluence) {
+               double sl = g_activeOBs[i].top + g_slBufferPips * g_pipValue;
+               double slDist = (sl - bid) / g_pipValue;
+               if(slDist < g_minSLPips)
+                  sl = bid + g_minSLPips * g_pipValue;
                double tp1 = 0, tp2 = 0;
                FindTPLevels(false, bid, sl, tp1, tp2);
 
                double rr = (bid - tp2) / (sl - bid);
                if(rr >= MinRR) {
-                  ExecuteTrade(OP_SELL, bid, sl, tp2,
-                              "SMC Sell|OB" + (hasFVG ? "+FVG" : "") +
-                              (liqSweepBear ? "+Sweep" : ""));
+                  string label = "SMC Sell|OB";
+                  if(hasFVG) label = label + "+FVG";
+                  if(liqSweepBear) label = label + "+Sweep";
+                  ExecuteTrade(OP_SELL, bid, sl, tp2, label);
                   g_activeOBs[i].isValid = false;
                   return;
                }
@@ -825,10 +977,11 @@ void ManageOpenTrades() {
             ModifySL(ticket, openPrice + 1 * g_pipValue);
          }
 
-         // Trailing after TrailingRMultiple
+         // Trailing after TrailingRMultiple — trail at 30% of risk behind price
          if(UseTrailingStop && profit >= riskDist * TrailingRMultiple) {
-            double trailSL = currentPrice - riskDist * 0.5;
-            if(trailSL > currentSL) {
+            double trailDist = riskDist * 0.3;
+            double trailSL = currentPrice - trailDist;
+            if(trailSL > currentSL && trailSL > openPrice) {
                ModifySL(ticket, trailSL);
             }
          }
@@ -861,8 +1014,9 @@ void ManageOpenTrades() {
          }
 
          if(UseTrailingStop && profit >= riskDist * TrailingRMultiple) {
-            double trailSL = currentPrice + riskDist * 0.5;
-            if(trailSL < currentSL) {
+            double trailDist = riskDist * 0.3;
+            double trailSL = currentPrice + trailDist;
+            if(trailSL < currentSL && trailSL < openPrice) {
                ModifySL(ticket, trailSL);
             }
          }
@@ -943,19 +1097,14 @@ void LoadNewsCalendar() {
 //| LOAD RECURRING HIGH-IMPACT NEWS (built-in safety net)            |
 //+------------------------------------------------------------------+
 void LoadRecurringNews() {
-   // Get current week's dates
    datetime now = TimeCurrent();
    MqlDateTime dt;
    TimeToStruct(now, dt);
+   string yr = IntegerToString(dt.year);
+   string mo = IntegerToString(dt.mon);
 
-   // Find first day of current week (Monday)
-   int dayOfWeek = dt.day_of_week;
-   if(dayOfWeek == 0) dayOfWeek = 7; // Sunday = 7
-   datetime monday = now - (dayOfWeek - 1) * 86400;
-
-   // NFP: First Friday of the month at 14:30 server time (usually 8:30 ET)
-   datetime firstOfMonth = StringToTime(IntegerToString(dt.year) + "." +
-                                         IntegerToString(dt.mon) + ".01 14:30");
+   // NFP: First Friday of the month at 14:30
+   datetime firstOfMonth = StringToTime(yr + "." + mo + ".01 14:30");
    MqlDateTime fomDt;
    TimeToStruct(firstOfMonth, fomDt);
    int daysToFriday = (5 - fomDt.day_of_week + 7) % 7;
@@ -964,32 +1113,43 @@ void LoadRecurringNews() {
    AddRecurringEvent(nfpDate, "USD", "Non-Farm Payrolls");
 
    // CPI: Usually around 13th at 14:30
-   datetime cpiDate = StringToTime(IntegerToString(dt.year) + "." +
-                                    IntegerToString(dt.mon) + ".13 14:30");
+   datetime cpiDate = StringToTime(yr + "." + mo + ".13 14:30");
    AddRecurringEvent(cpiDate, "USD", "CPI");
 
-   // FOMC: Check if there's a Wednesday meeting this week (8 meetings/year)
-   // We flag all Wednesdays at 20:00 as potential FOMC
-   datetime wednesday = monday + 2 * 86400;
-   MqlDateTime wedDt;
-   TimeToStruct(wednesday, wedDt);
-   datetime fomcTime = StringToTime(TimeToString(wednesday, TIME_DATE) + " 20:00");
-   // Only add if it's this week and within FOMC months (Jan,Mar,May,Jun,Jul,Sep,Nov,Dec)
-   int fomcMonths[] = {1,3,5,6,7,9,11,12};
-   for(int m = 0; m < ArraySize(fomcMonths); m++) {
-      if(dt.mon == fomcMonths[m]) {
+   // FOMC: 8 fixed meetings per year (actual 2025-2026 schedule)
+   // Only the announcement day matters (Wednesday 20:00 server time)
+   string fomcDates[] = {
+      // 2025
+      "2025.01.29","2025.03.19","2025.05.07","2025.06.18",
+      "2025.07.30","2025.09.17","2025.10.29","2025.12.17",
+      // 2026
+      "2026.01.28","2026.03.18","2026.04.29","2026.06.17",
+      "2026.07.29","2026.09.16","2026.10.28","2026.12.16"
+   };
+   for(int i = 0; i < ArraySize(fomcDates); i++) {
+      datetime fomcTime = StringToTime(fomcDates[i] + " 20:00");
+      // Only add if within 7 days of now
+      if(MathAbs((double)(fomcTime - now)) < 7 * 86400)
          AddRecurringEvent(fomcTime, "USD", "FOMC");
-         break;
-      }
    }
 
-   // ECB Rate Decision: Usually Thursday at 14:15
-   datetime thursday = monday + 3 * 86400;
-   datetime ecbTime = StringToTime(TimeToString(thursday, TIME_DATE) + " 14:15");
-   // ECB meets ~every 6 weeks, simplified: flag if day < 15
-   if(dt.day < 15) {
-      AddRecurringEvent(ecbTime, "EUR", "ECB Rate Decision");
+   // ECB: ~6 fixed meetings per year (actual 2025-2026 schedule)
+   string ecbDates[] = {
+      // 2025
+      "2025.01.30","2025.03.06","2025.04.17","2025.06.05",
+      "2025.07.24","2025.09.11","2025.10.30","2025.12.18",
+      // 2026
+      "2026.01.22","2026.03.05","2026.04.16","2026.06.04",
+      "2026.07.16","2026.09.10","2026.10.29","2026.12.17"
+   };
+   for(int i = 0; i < ArraySize(ecbDates); i++) {
+      datetime ecbTime = StringToTime(ecbDates[i] + " 14:15");
+      if(MathAbs((double)(ecbTime - now)) < 7 * 86400)
+         AddRecurringEvent(ecbTime, "EUR", "ECB Rate Decision");
    }
+
+   Print("Recurring news loaded | Events in scope: ",
+         ArraySize(g_newsEvents));
 }
 
 //+------------------------------------------------------------------+
