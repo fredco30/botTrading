@@ -27,19 +27,26 @@ input double MinSL_Pips         = 10.0;    // Minimum SL distance (pips)
 // --- Structure Detection (M15) ---
 input int    StructureLookback  = 20;      // Bars to look back for swing H/L
 input int    SwingStrength      = 3;       // Bars on each side for swing point
+input bool   UseEMA_Bias        = true;    // Use EMA as fallback bias filter
+input int    EMA_Period         = 50;      // EMA period for bias (M15)
 
 // --- Order Block Detection (M5) ---
 input int    OB_Lookback        = 30;      // Bars to scan for OB
-input double OB_MinBodyRatio    = 0.5;     // Min body/range ratio for impulse candle
-input int    OB_MinImpulsePips  = 10;      // Min impulse move (pips)
+input double OB_MinBodyRatio    = 0.3;     // Min body/range ratio for impulse candle
+input int    OB_MinImpulsePips  = 5;       // Min impulse move (pips)
+input bool   RequireConfluence  = false;   // Require OB+FVG or OB+Sweep (false=OB alone OK)
 
 // --- FVG Detection (M5) ---
 input int    FVG_Lookback       = 20;      // Bars to scan for FVG
-input double FVG_MinSizePips    = 3.0;     // Min FVG size (pips)
+input double FVG_MinSizePips    = 1.5;     // Min FVG size (pips)
 
 // --- Liquidity Sweep ---
 input int    LiqSweep_Lookback  = 30;      // Bars to scan for liq levels
 input double LiqSweep_MinPips   = 2.0;     // Min sweep beyond level (pips)
+
+// --- Entry Quality ---
+input int    OB_MaxAgeBars      = 50;      // Max OB age in M5 bars (0=no limit)
+input bool   RequirePullback    = true;    // Price must retrace into OB (not gap in)
 
 // --- Session Filter ---
 input int    LondonStartHour    = 8;       // London session start (server time)
@@ -300,38 +307,58 @@ void AnalyzeStructure() {
 
    FindSwingPoints(PERIOD_M15, g_structureLookback, g_swingStrength, swingHighs, swingLows);
 
-   if(ArraySize(swingHighs) < 2 || ArraySize(swingLows) < 2) {
-      g_currentBias = BIAS_NONE;
-      return;
+   BIAS_DIRECTION swingBias = BIAS_NONE;
+
+   if(ArraySize(swingHighs) >= 2 && ArraySize(swingLows) >= 2) {
+      g_lastSwingHigh = swingHighs[0];
+      g_prevSwingHigh = swingHighs[1];
+      g_lastSwingLow  = swingLows[0];
+      g_prevSwingLow  = swingLows[1];
+
+      double currentClose = iClose(Symbol(), PERIOD_M15, 0);
+
+      // Strong BOS: price breaks swing + structure confirms
+      if(currentClose > g_lastSwingHigh.price &&
+         g_lastSwingLow.price > g_prevSwingLow.price) {
+         swingBias = BIAS_BULLISH;
+      }
+      else if(currentClose < g_lastSwingLow.price &&
+              g_lastSwingHigh.price < g_prevSwingHigh.price) {
+         swingBias = BIAS_BEARISH;
+      }
+      // HH + HL = bullish
+      else if(g_lastSwingHigh.price > g_prevSwingHigh.price &&
+              g_lastSwingLow.price > g_prevSwingLow.price) {
+         swingBias = BIAS_BULLISH;
+      }
+      // LH + LL = bearish
+      else if(g_lastSwingHigh.price < g_prevSwingHigh.price &&
+              g_lastSwingLow.price < g_prevSwingLow.price) {
+         swingBias = BIAS_BEARISH;
+      }
+      // Partial: only HL = lean bullish
+      else if(g_lastSwingLow.price > g_prevSwingLow.price) {
+         swingBias = BIAS_BULLISH;
+      }
+      // Partial: only LH = lean bearish
+      else if(g_lastSwingHigh.price < g_prevSwingHigh.price) {
+         swingBias = BIAS_BEARISH;
+      }
    }
 
-   g_lastSwingHigh = swingHighs[0];
-   g_prevSwingHigh = swingHighs[1];
-   g_lastSwingLow  = swingLows[0];
-   g_prevSwingLow  = swingLows[1];
+   // EMA fallback: if swings give no clear direction, use EMA slope
+   if(swingBias == BIAS_NONE && UseEMA_Bias) {
+      double ema0 = iMA(Symbol(), PERIOD_M15, EMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
+      double ema1 = iMA(Symbol(), PERIOD_M15, EMA_Period, 0, MODE_EMA, PRICE_CLOSE, 1);
+      double currentClose = iClose(Symbol(), PERIOD_M15, 0);
 
-   double currentClose = iClose(Symbol(), PERIOD_M15, 0);
+      if(currentClose > ema0 && ema0 > ema1)
+         swingBias = BIAS_BULLISH;
+      else if(currentClose < ema0 && ema0 < ema1)
+         swingBias = BIAS_BEARISH;
+   }
 
-   // Bullish BOS: price breaks above last swing high + higher lows
-   if(currentClose > g_lastSwingHigh.price &&
-      g_lastSwingLow.price > g_prevSwingLow.price) {
-      g_currentBias = BIAS_BULLISH;
-   }
-   // Bearish BOS: price breaks below last swing low + lower highs
-   else if(currentClose < g_lastSwingLow.price &&
-           g_lastSwingHigh.price < g_prevSwingHigh.price) {
-      g_currentBias = BIAS_BEARISH;
-   }
-   // HH + HL = bullish trend
-   else if(g_lastSwingHigh.price > g_prevSwingHigh.price &&
-           g_lastSwingLow.price > g_prevSwingLow.price) {
-      g_currentBias = BIAS_BULLISH;
-   }
-   // LH + LL = bearish trend
-   else if(g_lastSwingHigh.price < g_prevSwingHigh.price &&
-           g_lastSwingLow.price < g_prevSwingLow.price) {
-      g_currentBias = BIAS_BEARISH;
-   }
+   g_currentBias = swingBias;
 }
 
 //+------------------------------------------------------------------+
@@ -600,14 +627,22 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
       for(int i = 0; i < ArraySize(g_activeOBs); i++) {
          if(!g_activeOBs[i].isBullish || !g_activeOBs[i].isValid) continue;
 
+         // Skip stale OBs
+         if(OB_MaxAgeBars > 0 && g_activeOBs[i].barIndex > OB_MaxAgeBars) continue;
+
          // Price in OB zone
          if(bid <= g_activeOBs[i].top && bid >= g_activeOBs[i].bottom) {
-            bool hasFVG = HasFVGConfluence(g_activeOBs[i], true);
+            // Pullback check: previous bar close was above OB (price came down into it)
+            if(RequirePullback) {
+               double prevClose = iClose(Symbol(), PERIOD_M5, 1);
+               if(prevClose < g_activeOBs[i].top) continue;
+            }
 
-            // Minimum confluence: OB + (FVG or liq sweep)
-            if(hasFVG || liqSweepBull) {
+            bool hasFVG = HasFVGConfluence(g_activeOBs[i], true);
+            bool hasConfluence = hasFVG || liqSweepBull;
+
+            if(hasConfluence || !RequireConfluence) {
                double sl = g_activeOBs[i].bottom - g_slBufferPips * g_pipValue;
-               // Enforce minimum SL distance
                double slDist = (ask - sl) / g_pipValue;
                if(slDist < g_minSLPips)
                   sl = ask - g_minSLPips * g_pipValue;
@@ -616,9 +651,10 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
 
                double rr = (tp2 - ask) / (ask - sl);
                if(rr >= MinRR) {
-                  ExecuteTrade(OP_BUY, ask, sl, tp2,
-                              "SMC Buy|OB" + (hasFVG ? "+FVG" : "") +
-                              (liqSweepBull ? "+Sweep" : ""));
+                  string label = "SMC Buy|OB";
+                  if(hasFVG) label = label + "+FVG";
+                  if(liqSweepBull) label = label + "+Sweep";
+                  ExecuteTrade(OP_BUY, ask, sl, tp2, label);
                   g_activeOBs[i].isValid = false;
                   return;
                }
@@ -632,12 +668,21 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
       for(int i = 0; i < ArraySize(g_activeOBs); i++) {
          if(g_activeOBs[i].isBullish || !g_activeOBs[i].isValid) continue;
 
-         if(ask >= g_activeOBs[i].bottom && ask <= g_activeOBs[i].top) {
-            bool hasFVG = HasFVGConfluence(g_activeOBs[i], false);
+         // Skip stale OBs
+         if(OB_MaxAgeBars > 0 && g_activeOBs[i].barIndex > OB_MaxAgeBars) continue;
 
-            if(hasFVG || liqSweepBear) {
+         if(ask >= g_activeOBs[i].bottom && ask <= g_activeOBs[i].top) {
+            // Pullback check: previous bar close was below OB (price came up into it)
+            if(RequirePullback) {
+               double prevClose = iClose(Symbol(), PERIOD_M5, 1);
+               if(prevClose > g_activeOBs[i].bottom) continue;
+            }
+
+            bool hasFVG = HasFVGConfluence(g_activeOBs[i], false);
+            bool hasConfluence = hasFVG || liqSweepBear;
+
+            if(hasConfluence || !RequireConfluence) {
                double sl = g_activeOBs[i].top + g_slBufferPips * g_pipValue;
-               // Enforce minimum SL distance
                double slDist = (sl - bid) / g_pipValue;
                if(slDist < g_minSLPips)
                   sl = bid + g_minSLPips * g_pipValue;
@@ -646,9 +691,10 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
 
                double rr = (bid - tp2) / (sl - bid);
                if(rr >= MinRR) {
-                  ExecuteTrade(OP_SELL, bid, sl, tp2,
-                              "SMC Sell|OB" + (hasFVG ? "+FVG" : "") +
-                              (liqSweepBear ? "+Sweep" : ""));
+                  string label = "SMC Sell|OB";
+                  if(hasFVG) label = label + "+FVG";
+                  if(liqSweepBear) label = label + "+Sweep";
+                  ExecuteTrade(OP_SELL, bid, sl, tp2, label);
                   g_activeOBs[i].isValid = false;
                   return;
                }
