@@ -22,7 +22,7 @@ input double MaxSL_Pips         = 30.0;    // Maximum SL distance (pips)
 // --- Trend Filter (H1) ---
 input int    TrendEMA_Period    = 50;      // H1 EMA period for trend direction
 input int    TrendBars          = 5;       // H1 EMA must slope for X bars
-input double MinSlopePips       = 5.0;     // Min EMA slope in pips (filters range)
+input double MinSlopePips       = 2.0;     // Min EMA slope in pips (filters range)
 
 // --- Entry (M15) ---
 input int    EntryEMA_Period    = 20;      // M15 EMA period for pullback
