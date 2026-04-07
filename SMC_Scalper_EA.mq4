@@ -33,7 +33,7 @@ input bool   UseHTF_Filter      = true;    // Filter entries against H1 EMA tren
 input int    HTF_EMA_Period     = 50;      // H1 EMA period for trend filter
 
 // --- Order Block Detection (M5) ---
-input int    OB_Lookback        = 30;      // Bars to scan for OB
+input int    OB_Lookback        = 50;      // Bars to scan for OB
 input double OB_MinBodyRatio    = 0.3;     // Min body/range ratio for impulse candle
 input int    OB_MinImpulsePips  = 5;       // Min impulse move (pips)
 input bool   RequireConfluence  = false;   // Require OB+FVG or OB+Sweep (false=OB alone OK)
@@ -47,9 +47,9 @@ input int    LiqSweep_Lookback  = 30;      // Bars to scan for liq levels
 input double LiqSweep_MinPips   = 2.0;     // Min sweep beyond level (pips)
 
 // --- Entry Quality ---
-input int    OB_MaxAgeBars      = 50;      // Max OB age in M5 bars (0=no limit)
+input int    OB_MaxAgeBars      = 80;      // Max OB age in M5 bars (0=no limit)
 input bool   RequirePullback    = false;   // Price must retrace into OB (not gap in)
-input double OB_EntryBuffer     = 3.0;     // Buffer pips around OB zone for entry
+input double OB_EntryBuffer     = 0.0;     // Buffer pips around OB zone for entry (0=exact)
 
 // --- Session Filter ---
 input int    LondonStartHour    = 8;       // London session start (server time)
@@ -453,11 +453,7 @@ void DetectOrderBlocks() {
    ArrayResize(g_activeOBs, 0);
 
    for(int i = 2; i < g_obLookback; i++) {
-      double open_i  = iOpen(Symbol(), PERIOD_M5, i);
-      double close_i = iClose(Symbol(), PERIOD_M5, i);
-      double high_i  = iHigh(Symbol(), PERIOD_M5, i);
-      double low_i   = iLow(Symbol(), PERIOD_M5, i);
-
+      // Check impulse candle (bar i-1)
       double open_imp  = iOpen(Symbol(), PERIOD_M5, i - 1);
       double close_imp = iClose(Symbol(), PERIOD_M5, i - 1);
       double high_imp  = iHigh(Symbol(), PERIOD_M5, i - 1);
@@ -466,49 +462,103 @@ void DetectOrderBlocks() {
       double impBody  = MathAbs(close_imp - open_imp);
       double impRange = high_imp - low_imp;
       if(impRange == 0) continue;
-
-      double impMovePips = impRange / g_pipValue;
-
-      if(impMovePips < g_obMinImpulsePips) continue;
+      if(impRange / g_pipValue < g_obMinImpulsePips) continue;
       if(impBody / impRange < OB_MinBodyRatio) continue;
 
-      // Bullish OB: bearish candle + strong bullish impulse breaking above
-      if(close_i < open_i && close_imp > open_imp) {
-         if(close_imp > high_i) {
-            OrderBlock ob;
-            ob.top = high_i;
-            ob.bottom = low_i;
-            ob.barIndex = i;
-            ob.isBullish = true;
-            ob.isValid = true;
-            ob.time = iTime(Symbol(), PERIOD_M5, i);
+      bool bullImpulse = (close_imp > open_imp);
+      bool bearImpulse = (close_imp < open_imp);
 
-            if(!IsOBMitigated(ob, i)) {
-               int size = ArraySize(g_activeOBs);
-               ArrayResize(g_activeOBs, size + 1);
-               g_activeOBs[size] = ob;
+      // --- TYPE 1: Classic single-candle OB (bar i = opposite candle) ---
+      double open_i  = iOpen(Symbol(), PERIOD_M5, i);
+      double close_i = iClose(Symbol(), PERIOD_M5, i);
+      double high_i  = iHigh(Symbol(), PERIOD_M5, i);
+      double low_i   = iLow(Symbol(), PERIOD_M5, i);
+
+      if(bullImpulse && close_i < open_i && close_imp > high_i) {
+         AddOB(high_i, low_i, i, true);
+      }
+      if(bearImpulse && close_i > open_i && close_imp < low_i) {
+         AddOB(high_i, low_i, i, false);
+      }
+
+      // --- TYPE 2: Multi-candle OB (2-3 small candles before impulse) ---
+      // Look for a cluster of small candles that form a base before the impulse
+      if(i + 2 < g_obLookback) {
+         double baseHigh = high_i;
+         double baseLow  = low_i;
+         int baseStart = i;
+
+         // Extend base by 1-2 more candles if they're small (consolidation)
+         for(int k = 1; k <= 2 && (i + k) < g_obLookback; k++) {
+            double range_k = iHigh(Symbol(), PERIOD_M5, i + k) - iLow(Symbol(), PERIOD_M5, i + k);
+            // Small candle = less than half the impulse range
+            if(range_k < impRange * 0.5) {
+               baseHigh = MathMax(baseHigh, iHigh(Symbol(), PERIOD_M5, i + k));
+               baseLow  = MathMin(baseLow, iLow(Symbol(), PERIOD_M5, i + k));
+               baseStart = i + k;
+            } else {
+               break;
+            }
+         }
+
+         // Only add if base is wider than single candle (actually found extra bars)
+         if(baseStart > i) {
+            if(bullImpulse && close_imp > baseHigh) {
+               AddOB(baseHigh, baseLow, baseStart, true);
+            }
+            if(bearImpulse && close_imp < baseLow) {
+               AddOB(baseHigh, baseLow, baseStart, false);
             }
          }
       }
 
-      // Bearish OB: bullish candle + strong bearish impulse breaking below
-      if(close_i > open_i && close_imp < open_imp) {
-         if(close_imp < low_i) {
-            OrderBlock ob;
-            ob.top = high_i;
-            ob.bottom = low_i;
-            ob.barIndex = i;
-            ob.isBullish = false;
-            ob.isValid = true;
-            ob.time = iTime(Symbol(), PERIOD_M5, i);
+      // --- TYPE 3: Body-to-wick OB (impulse body passes OB body, not necessarily high/low) ---
+      double body_i_top = MathMax(open_i, close_i);
+      double body_i_bot = MathMin(open_i, close_i);
+      double body_imp_top = MathMax(open_imp, close_imp);
+      double body_imp_bot = MathMin(open_imp, close_imp);
 
-            if(!IsOBMitigated(ob, i)) {
-               int size = ArraySize(g_activeOBs);
-               ArrayResize(g_activeOBs, size + 1);
-               g_activeOBs[size] = ob;
-            }
-         }
+      // Bullish: bearish OB candle, impulse body passes above OB body top
+      if(bullImpulse && close_i < open_i && body_imp_bot > body_i_top) {
+         AddOB(body_i_top, low_i, i, true);
       }
+      // Bearish: bullish OB candle, impulse body passes below OB body bottom
+      if(bearImpulse && close_i > open_i && body_imp_top < body_i_bot) {
+         AddOB(high_i, body_i_bot, i, false);
+      }
+   }
+}
+
+//+------------------------------------------------------------------+
+//| ADD ORDER BLOCK (with duplicate & mitigation check)               |
+//+------------------------------------------------------------------+
+void AddOB(double top, double bottom, int barIdx, bool isBull) {
+   if(top <= bottom) return;
+
+   // Skip if zone is too thin (< 1 pip)
+   if((top - bottom) / g_pipValue < 1.0) return;
+
+   // Skip duplicates (overlapping with existing OB)
+   for(int j = 0; j < ArraySize(g_activeOBs); j++) {
+      if(g_activeOBs[j].isBullish == isBull) {
+         double overlap = MathMin(top, g_activeOBs[j].top) - MathMax(bottom, g_activeOBs[j].bottom);
+         double zone = top - bottom;
+         if(overlap > zone * 0.5) return;  // >50% overlap = duplicate
+      }
+   }
+
+   OrderBlock ob;
+   ob.top = top;
+   ob.bottom = bottom;
+   ob.barIndex = barIdx;
+   ob.isBullish = isBull;
+   ob.isValid = true;
+   ob.time = iTime(Symbol(), PERIOD_M5, barIdx);
+
+   if(!IsOBMitigated(ob, barIdx)) {
+      int size = ArraySize(g_activeOBs);
+      ArrayResize(g_activeOBs, size + 1);
+      g_activeOBs[size] = ob;
    }
 }
 
@@ -516,13 +566,11 @@ void DetectOrderBlocks() {
 //| CHECK IF ORDER BLOCK HAS BEEN MITIGATED                          |
 //+------------------------------------------------------------------+
 bool IsOBMitigated(OrderBlock &ob, int obBarIndex) {
-   double midPoint = (ob.top + ob.bottom) / 2.0;
    for(int i = obBarIndex - 2; i >= 1; i--) {
       if(ob.isBullish) {
-         // Only mitigated if close goes through the midpoint of the OB
-         if(iClose(Symbol(), PERIOD_M5, i) < midPoint) return true;
+         if(iClose(Symbol(), PERIOD_M5, i) < ob.bottom) return true;
       } else {
-         if(iClose(Symbol(), PERIOD_M5, i) > midPoint) return true;
+         if(iClose(Symbol(), PERIOD_M5, i) > ob.top) return true;
       }
    }
    return false;
