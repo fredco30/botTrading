@@ -29,26 +29,26 @@ input int    StructureLookback  = 20;      // Bars to look back for swing H/L
 input int    SwingStrength      = 2;       // Bars on each side for swing point
 input bool   UseEMA_Bias        = true;    // Use EMA as fallback bias filter
 input int    EMA_Period         = 50;      // EMA period for bias (M15)
-input bool   UseHTF_Filter      = true;    // Filter entries against H4 EMA trend
-input int    HTF_EMA_Period     = 50;      // H4 EMA period for trend filter
+input bool   UseHTF_Filter      = true;    // Filter entries against H1 EMA trend
+input int    HTF_EMA_Period     = 50;      // H1 EMA period for trend filter
 
 // --- Order Block Detection (M5) ---
-input int    OB_Lookback        = 30;      // Bars to scan for OB
+input int    OB_Lookback        = 50;      // Bars to scan for OB
 input double OB_MinBodyRatio    = 0.3;     // Min body/range ratio for impulse candle
 input int    OB_MinImpulsePips  = 5;       // Min impulse move (pips)
 input bool   RequireConfluence  = false;   // Require OB+FVG or OB+Sweep (false=OB alone OK)
 
 // --- FVG Detection (M5) ---
-input int    FVG_Lookback       = 20;      // Bars to scan for FVG
+input int    FVG_Lookback       = 30;      // Bars to scan for FVG
 input double FVG_MinSizePips    = 1.5;     // Min FVG size (pips)
 
 // --- Liquidity Sweep ---
-input int    LiqSweep_Lookback  = 30;      // Bars to scan for liq levels
+input int    LiqSweep_Lookback  = 40;      // Bars to scan for liq levels
 input double LiqSweep_MinPips   = 2.0;     // Min sweep beyond level (pips)
 
 // --- Entry Quality ---
-input int    OB_MaxAgeBars      = 50;      // Max OB age in M5 bars (0=no limit)
-input bool   RequirePullback    = true;    // Price must retrace into OB (not gap in)
+input int    OB_MaxAgeBars      = 80;      // Max OB age in M5 bars (0=no limit)
+input bool   RequirePullback    = false;   // Price must retrace into OB (not gap in)
 
 // --- Session Filter ---
 input int    LondonStartHour    = 8;       // London session start (server time)
@@ -127,6 +127,12 @@ int        g_digits;
 // Track tickets that already had TP1 partial close
 int        g_tp1Tickets[];
 int        g_tp1Count = 0;
+
+// Cooldown & daily loss tracking
+datetime   g_lastTradeClose = 0;
+int        g_prevTradeCount = 0;
+int        g_dailySLCount = 0;
+datetime   g_currentDay = 0;
 
 // Runtime values (may be overridden by Nasdaq/Gold preset)
 double     g_maxSpreadPips;
@@ -218,6 +224,28 @@ void OnTick() {
    // --- Manage open trades on EVERY tick (TP1/trailing must react fast) ---
    ManageOpenTrades();
 
+   // --- Reset daily SL counter on new day ---
+   datetime today = TimeCurrent() - TimeCurrent() % 86400;
+   if(today != g_currentDay) {
+      g_dailySLCount = 0;
+      g_currentDay = today;
+   }
+
+   // --- Detect trade close for cooldown + daily SL tracking ---
+   int currentTradeCount = CountOpenTrades();
+   if(currentTradeCount < g_prevTradeCount) {
+      g_lastTradeClose = TimeCurrent();
+      for(int i = OrdersHistoryTotal() - 1; i >= 0; i--) {
+         if(!OrderSelect(i, SELECT_BY_POS, MODE_HISTORY)) continue;
+         if(OrderSymbol() != Symbol() || OrderMagicNumber() != MagicNumber) continue;
+         if(OrderCloseTime() >= TimeCurrent() - 60) {
+            if(OrderProfit() < 0) g_dailySLCount++;
+            break;
+         }
+      }
+   }
+   g_prevTradeCount = currentTradeCount;
+
    // --- New bar check (M5) — everything below runs once per bar ---
    datetime currentBarTime = iTime(Symbol(), PERIOD_M5, 0);
    if(currentBarTime == g_lastBarTime) return;
@@ -236,6 +264,10 @@ void OnTick() {
       if(IsTesting()) PrintOnce("FILTER_NEWS", "Blocked by news filter at " + TimeToString(TimeCurrent()));
       return;
    }
+   // Daily loss limit: max 2 SL per day
+   if(g_dailySLCount >= 2) return;
+   // Cooldown: wait 2 hours after last trade close
+   if(g_lastTradeClose > 0 && TimeCurrent() - g_lastTradeClose < 120 * 60) return;
    if(CountOpenTrades() >= MaxOpenTrades) return;
 
    // Reload news file daily
@@ -630,8 +662,8 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
 
    // H4 trend filter: block counter-trend entries
    if(UseHTF_Filter) {
-      double h4Ema  = iMA(Symbol(), PERIOD_H4, HTF_EMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
-      double h4Close = iClose(Symbol(), PERIOD_H4, 0);
+      double h4Ema  = iMA(Symbol(), PERIOD_H1, HTF_EMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
+      double h4Close = iClose(Symbol(), PERIOD_H1, 0);
       // Don't buy if H4 is below EMA (bearish trend)
       if(g_currentBias == BIAS_BULLISH && h4Close < h4Ema) return;
       // Don't sell if H4 is above EMA (bullish trend)
