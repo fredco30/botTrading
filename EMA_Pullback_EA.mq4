@@ -15,9 +15,7 @@
 input double RiskPercent        = 1.0;     // Risk % per trade
 input double MaxSpreadPips      = 3.0;     // Max spread allowed (pips)
 input int    MagicNumber        = 20250407;// Magic number
-input double TP1_RR             = 2.0;     // TP1 partial close at X * Risk
-input double TP1_ClosePercent   = 50.0;    // % of lots to close at TP1
-input double TrailBuffer_Pips   = 2.0;     // Trailing SL buffer from EMA (pips)
+input double MinRR              = 2.5;     // Minimum Risk:Reward ratio
 input double MinSL_Pips         = 10.0;    // Minimum SL distance (pips)
 input double MaxSL_Pips         = 30.0;    // Maximum SL distance (pips)
 
@@ -39,6 +37,7 @@ input int    NYStartHour        = 13;      // New York session start
 input int    NYEndHour          = 17;      // New York session end
 
 // --- Trade Management ---
+input bool   UseBreakeven       = true;    // Move SL to BE after 1R
 input int    MaxTradesPerDay    = 2;       // Max trades per day
 
 //+------------------------------------------------------------------+
@@ -47,7 +46,6 @@ input int    MaxTradesPerDay    = 2;       // Max trades per day
 double     g_pipValue;
 int        g_digits;
 datetime   g_lastBarTime = 0;
-bool       g_tp1Fired    = false;
 datetime   g_currentDay  = 0;
 int        g_dailyTrades = 0;
 
@@ -214,7 +212,9 @@ void CheckEntry() {
       double slDist = (ask - sl) / g_pipValue;
       if(slDist < MinSL_Pips || slDist > MaxSL_Pips) return;
 
-      ExecuteTrade(OP_BUY, ask, sl, 0, "EMA Pullback Buy");
+      double tp = ask + (ask - sl) * MinRR;
+
+      ExecuteTrade(OP_BUY, ask, sl, tp, "EMA Pullback Buy");
    }
 
    // ============ BEARISH PULLBACK ============
@@ -243,7 +243,9 @@ void CheckEntry() {
       double slDist = (sl - bid) / g_pipValue;
       if(slDist < MinSL_Pips || slDist > MaxSL_Pips) return;
 
-      ExecuteTrade(OP_SELL, bid, sl, 0, "EMA Pullback Sell");
+      double tp = bid - (sl - bid) * MinRR;
+
+      ExecuteTrade(OP_SELL, bid, sl, tp, "EMA Pullback Sell");
    }
 }
 
@@ -315,146 +317,45 @@ double CalculateLotSize(double slDistance) {
 }
 
 //+------------------------------------------------------------------+
-//| MANAGE OPEN TRADES (TP1 partial close + EMA trailing)            |
+//| MANAGE OPEN TRADES (Breakeven)                                   |
 //+------------------------------------------------------------------+
 void ManageOpenTrades() {
-   // Reset TP1 flag if no trades open
-   if(CountOpenTrades() == 0) {
-      g_tp1Fired = false;
-      return;
-   }
-
-   double minDist = MarketInfo(Symbol(), MODE_STOPLEVEL) * Point;
-
    for(int i = OrdersTotal() - 1; i >= 0; i--) {
       if(!OrderSelect(i, SELECT_BY_POS, MODE_TRADES)) continue;
       if(OrderSymbol() != Symbol() || OrderMagicNumber() != MagicNumber) continue;
 
       double openPrice = OrderOpenPrice();
       double currentSL = OrderStopLoss();
-      string comment   = OrderComment();
-      double riskDist  = GetInitialRisk(comment, MathAbs(openPrice - currentSL));
+
+      // Get initial risk from comment
+      string comment = OrderComment();
+      double riskDist = GetInitialRisk(comment, MathAbs(openPrice - currentSL));
       if(riskDist <= 0) continue;
 
-      bool isRemainder = g_tp1Fired || (StringFind(comment, "from #") >= 0);
-
-      // ===================== BUY =====================
       if(OrderType() == OP_BUY) {
          double currentPrice = MarketInfo(Symbol(), MODE_BID);
          double profit = currentPrice - openPrice;
 
-         // --- Phase 1: TP1 partial close at TP1_RR ---
-         if(!isRemainder && profit >= TP1_RR * riskDist && currentSL < openPrice) {
-            double closeLots = CalcPartialLots(OrderLots());
-            if(closeLots >= MarketInfo(Symbol(), MODE_MINLOT)) {
-               if(OrderClose(OrderTicket(), closeLots, currentPrice, 3, clrYellow)) {
-                  g_tp1Fired = true;
-                  Print("TP1 hit: closed ", closeLots, " lots at +",
-                        DoubleToStr(profit / g_pipValue, 1), " pips");
-                  SetBreakevenOnRemaining(OP_BUY, openPrice);
-                  return; // Order list changed
-               }
-               else Print("TP1 close failed: ", GetLastError());
-            }
-         }
-
-         // --- Set BE on remainder if not yet done ---
-         if(isRemainder && currentSL < openPrice) {
-            double beSL = NormalizeDouble(openPrice + 1 * g_pipValue, g_digits);
-            if(!OrderModify(OrderTicket(), openPrice, beSL, OrderTakeProfit(), 0, clrYellow))
+         // Breakeven at 1R
+         if(UseBreakeven && profit >= riskDist && currentSL < openPrice) {
+            double beSL = openPrice + 1 * g_pipValue;
+            if(!OrderModify(OrderTicket(), openPrice, NormalizeDouble(beSL, g_digits),
+                           OrderTakeProfit(), 0, clrYellow))
                Print("BE modify failed: ", GetLastError());
          }
-
-         // --- Phase 2: Trailing EMA20 M15 ---
-         if(currentSL >= openPrice) {
-            double ema20 = iMA(Symbol(), PERIOD_M15, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 1);
-            double newSL = NormalizeDouble(ema20 - TrailBuffer_Pips * g_pipValue, g_digits);
-            if(newSL > currentSL + 0.5 * g_pipValue && currentPrice - newSL > minDist) {
-               if(!OrderModify(OrderTicket(), openPrice, newSL, OrderTakeProfit(), 0, clrAqua))
-                  Print("Trail SL failed: ", GetLastError());
-               else
-                  Print("Trail SL → ", newSL, " (EMA20=", DoubleToStr(ema20, g_digits), ")");
-            }
-         }
       }
-
-      // ===================== SELL =====================
       else if(OrderType() == OP_SELL) {
          double currentPrice = MarketInfo(Symbol(), MODE_ASK);
          double profit = openPrice - currentPrice;
 
-         // --- Phase 1: TP1 partial close at TP1_RR ---
-         if(!isRemainder && profit >= TP1_RR * riskDist && currentSL > openPrice) {
-            double closeLots = CalcPartialLots(OrderLots());
-            if(closeLots >= MarketInfo(Symbol(), MODE_MINLOT)) {
-               if(OrderClose(OrderTicket(), closeLots, currentPrice, 3, clrYellow)) {
-                  g_tp1Fired = true;
-                  Print("TP1 hit: closed ", closeLots, " lots at +",
-                        DoubleToStr(profit / g_pipValue, 1), " pips");
-                  SetBreakevenOnRemaining(OP_SELL, openPrice);
-                  return;
-               }
-               else Print("TP1 close failed: ", GetLastError());
-            }
-         }
-
-         // --- Set BE on remainder if not yet done ---
-         if(isRemainder && currentSL > openPrice) {
-            double beSL = NormalizeDouble(openPrice - 1 * g_pipValue, g_digits);
-            if(!OrderModify(OrderTicket(), openPrice, beSL, OrderTakeProfit(), 0, clrYellow))
+         // Breakeven at 1R
+         if(UseBreakeven && profit >= riskDist && currentSL > openPrice) {
+            double beSL = openPrice - 1 * g_pipValue;
+            if(!OrderModify(OrderTicket(), openPrice, NormalizeDouble(beSL, g_digits),
+                           OrderTakeProfit(), 0, clrYellow))
                Print("BE modify failed: ", GetLastError());
          }
-
-         // --- Phase 2: Trailing EMA20 M15 ---
-         if(currentSL > 0 && currentSL <= openPrice) {
-            double ema20 = iMA(Symbol(), PERIOD_M15, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 1);
-            double newSL = NormalizeDouble(ema20 + TrailBuffer_Pips * g_pipValue, g_digits);
-            if(newSL < currentSL - 0.5 * g_pipValue && newSL - currentPrice > minDist) {
-               if(!OrderModify(OrderTicket(), openPrice, newSL, OrderTakeProfit(), 0, clrAqua))
-                  Print("Trail SL failed: ", GetLastError());
-               else
-                  Print("Trail SL → ", newSL, " (EMA20=", DoubleToStr(ema20, g_digits), ")");
-            }
-         }
       }
-   }
-}
-
-//+------------------------------------------------------------------+
-//| CALC PARTIAL LOTS for TP1                                        |
-//+------------------------------------------------------------------+
-double CalcPartialLots(double totalLots) {
-   double closeLots = totalLots * TP1_ClosePercent / 100.0;
-   double lotStep = MarketInfo(Symbol(), MODE_LOTSTEP);
-   closeLots = MathFloor(closeLots / lotStep) * lotStep;
-   closeLots = NormalizeDouble(closeLots, 2);
-   // If can't split, close everything
-   if(closeLots < MarketInfo(Symbol(), MODE_MINLOT))
-      closeLots = totalLots;
-   return closeLots;
-}
-
-//+------------------------------------------------------------------+
-//| SET BREAKEVEN on remaining position after partial close           |
-//+------------------------------------------------------------------+
-void SetBreakevenOnRemaining(int type, double openPrice) {
-   for(int j = OrdersTotal() - 1; j >= 0; j--) {
-      if(!OrderSelect(j, SELECT_BY_POS, MODE_TRADES)) continue;
-      if(OrderSymbol() != Symbol() || OrderMagicNumber() != MagicNumber) continue;
-      if(OrderType() != type) continue;
-
-      double beSL;
-      if(type == OP_BUY)
-         beSL = openPrice + 1 * g_pipValue;
-      else
-         beSL = openPrice - 1 * g_pipValue;
-
-      beSL = NormalizeDouble(beSL, g_digits);
-      if(!OrderModify(OrderTicket(), OrderOpenPrice(), beSL, OrderTakeProfit(), 0, clrYellow))
-         Print("BE after TP1 failed: ", GetLastError());
-      else
-         Print("BE set on remaining position at ", beSL);
-      break;
    }
 }
 
