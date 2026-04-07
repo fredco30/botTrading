@@ -811,9 +811,10 @@ void ManageOpenTrades() {
                   Print("TP1 partial close #", ticket, " | ", closeLots, " lots @ ", currentPrice);
                   // Update comment on remaining position
                   if(OrderSelect(ticket, SELECT_BY_TICKET)) {
-                     OrderModify(ticket, openPrice,
-                                 openPrice + 1 * g_pipValue,
-                                 OrderTakeProfit(), 0, clrYellow);
+                     if(!OrderModify(ticket, openPrice,
+                                     openPrice + 1 * g_pipValue,
+                                     OrderTakeProfit(), 0, clrYellow))
+                        Print("OrderModify failed #", ticket, " error=", GetLastError());
                   }
                }
             }
@@ -846,9 +847,10 @@ void ManageOpenTrades() {
                if(OrderClose(ticket, closeLots, currentPrice, 3, clrOrange)) {
                   Print("TP1 partial close #", ticket, " | ", closeLots, " lots @ ", currentPrice);
                   if(OrderSelect(ticket, SELECT_BY_TICKET)) {
-                     OrderModify(ticket, openPrice,
-                                 openPrice - 1 * g_pipValue,
-                                 OrderTakeProfit(), 0, clrYellow);
+                     if(!OrderModify(ticket, openPrice,
+                                     openPrice - 1 * g_pipValue,
+                                     OrderTakeProfit(), 0, clrYellow))
+                        Print("OrderModify failed #", ticket, " error=", GetLastError());
                   }
                }
             }
