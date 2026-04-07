@@ -26,6 +26,9 @@ input int    TrendBars          = 5;       // H1 EMA must slope for X bars
 // --- Entry (M15) ---
 input int    EntryEMA_Period    = 20;      // M15 EMA period for pullback
 input int    SL_SwingBars       = 3;       // Bars to look back for SL swing
+input int    RSI_Period         = 14;      // RSI period for overbought/oversold filter
+input int    RSI_OB             = 70;      // RSI overbought level (don't buy above)
+input int    RSI_OS             = 30;      // RSI oversold level (don't sell below)
 
 // --- Session Filter ---
 input int    LondonStartHour    = 8;       // London session start (server time)
@@ -173,8 +176,12 @@ void CheckEntry() {
    double bid = MarketInfo(Symbol(), MODE_BID);
    double ask = MarketInfo(Symbol(), MODE_ASK);
 
+   // RSI filter
+   double rsi = iRSI(Symbol(), PERIOD_M15, RSI_Period, PRICE_CLOSE, 1);
+
    // ============ BULLISH PULLBACK ============
    if(trend == 1) {
+      if(rsi > RSI_OB) return;  // Don't buy when overbought
       // Bar 2 must have dipped to or below EMA20 (pullback)
       double ema20_bar2 = iMA(Symbol(), PERIOD_M15, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 2);
       if(low2 > ema20_bar2) return;  // No pullback to EMA
@@ -183,8 +190,6 @@ void CheckEntry() {
       if(close1 <= ema20) return;
       // Bar 1 must be bullish
       if(close1 <= open1) return;
-      // Bar 1 must close above bar 2 high (momentum confirmation)
-      if(close1 <= high2) return;
 
       // Calculate SL: lowest low of last SL_SwingBars bars
       double sl = low1;
@@ -204,6 +209,7 @@ void CheckEntry() {
 
    // ============ BEARISH PULLBACK ============
    if(trend == -1) {
+      if(rsi < RSI_OS) return;  // Don't sell when oversold
       // Bar 2 must have spiked to or above EMA20 (pullback)
       double ema20_bar2 = iMA(Symbol(), PERIOD_M15, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 2);
       if(high2 < ema20_bar2) return;  // No pullback to EMA
@@ -212,8 +218,6 @@ void CheckEntry() {
       if(close1 >= ema20) return;
       // Bar 1 must be bearish
       if(close1 >= open1) return;
-      // Bar 1 must close below bar 2 low (momentum confirmation)
-      if(close1 >= low2) return;
 
       // Calculate SL: highest high of last SL_SwingBars bars
       double sl = high1;
