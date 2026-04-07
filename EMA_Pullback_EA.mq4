@@ -183,6 +183,8 @@ void CheckEntry() {
       if(close1 <= ema20) return;
       // Bar 1 must be bullish
       if(close1 <= open1) return;
+      // Bar 1 must close above bar 2 high (momentum confirmation)
+      if(close1 <= high2) return;
 
       // Calculate SL: lowest low of last SL_SwingBars bars
       double sl = low1;
@@ -210,6 +212,8 @@ void CheckEntry() {
       if(close1 >= ema20) return;
       // Bar 1 must be bearish
       if(close1 >= open1) return;
+      // Bar 1 must close below bar 2 low (momentum confirmation)
+      if(close1 >= low2) return;
 
       // Calculate SL: highest high of last SL_SwingBars bars
       double sl = high1;
