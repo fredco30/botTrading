@@ -26,7 +26,7 @@ input double MinSL_Pips         = 10.0;    // Minimum SL distance (pips)
 
 // --- Structure Detection (M15) ---
 input int    StructureLookback  = 20;      // Bars to look back for swing H/L
-input int    SwingStrength      = 3;       // Bars on each side for swing point
+input int    SwingStrength      = 2;       // Bars on each side for swing point
 input bool   UseEMA_Bias        = true;    // Use EMA as fallback bias filter
 input int    EMA_Period         = 50;      // EMA period for bias (M15)
 input bool   UseHTF_Filter      = true;    // Filter entries against H4 EMA trend
@@ -52,7 +52,7 @@ input bool   RequirePullback    = true;    // Price must retrace into OB (not ga
 
 // --- Session Filter ---
 input int    LondonStartHour    = 8;       // London session start (server time)
-input int    LondonEndHour      = 12;      // London session end
+input int    LondonEndHour      = 13;      // London session end (covers overlap)
 input int    NYStartHour        = 13;      // New York session start
 input int    NYEndHour          = 17;      // New York session end
 
@@ -123,6 +123,10 @@ datetime   g_lastBarTime = 0;
 datetime   g_lastNewsLoad = 0;
 double     g_pipValue;
 int        g_digits;
+
+// Track tickets that already had TP1 partial close
+int        g_tp1Tickets[];
+int        g_tp1Count = 0;
 
 // Runtime values (may be overridden by Nasdaq/Gold preset)
 double     g_maxSpreadPips;
@@ -211,7 +215,10 @@ void OnDeinit(const int reason) {
 //| Expert tick function                                              |
 //+------------------------------------------------------------------+
 void OnTick() {
-   // --- New bar check (M5) ---
+   // --- Manage open trades on EVERY tick (TP1/trailing must react fast) ---
+   ManageOpenTrades();
+
+   // --- New bar check (M5) — everything below runs once per bar ---
    datetime currentBarTime = iTime(Symbol(), PERIOD_M5, 0);
    if(currentBarTime == g_lastBarTime) return;
    g_lastBarTime = currentBarTime;
@@ -252,9 +259,6 @@ void OnTick() {
 
    // --- Step 5: Entry Logic ---
    CheckEntry(liqSweepBull, liqSweepBear);
-
-   // --- Step 6: Trade Management ---
-   ManageOpenTrades();
 }
 
 //+------------------------------------------------------------------+
@@ -634,8 +638,12 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
       if(g_currentBias == BIAS_BEARISH && h4Close > h4Ema) return;
    }
 
+   // --- Candle confirmation check ---
+   bool bullConfirm = HasCandleConfirmation(true);
+   bool bearConfirm = HasCandleConfirmation(false);
+
    // --- BULLISH ENTRY ---
-   if(g_currentBias == BIAS_BULLISH) {
+   if(g_currentBias == BIAS_BULLISH && bullConfirm) {
       for(int i = 0; i < ArraySize(g_activeOBs); i++) {
          if(!g_activeOBs[i].isBullish || !g_activeOBs[i].isValid) continue;
 
@@ -676,7 +684,7 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
    }
 
    // --- BEARISH ENTRY ---
-   if(g_currentBias == BIAS_BEARISH) {
+   if(g_currentBias == BIAS_BEARISH && bearConfirm) {
       for(int i = 0; i < ArraySize(g_activeOBs); i++) {
          if(g_activeOBs[i].isBullish || !g_activeOBs[i].isValid) continue;
 
@@ -714,6 +722,47 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
          }
       }
    }
+}
+
+//+------------------------------------------------------------------+
+//| CANDLE CONFIRMATION - Rejection pattern on last closed M5 bar    |
+//+------------------------------------------------------------------+
+bool HasCandleConfirmation(bool bullish) {
+   double open1  = iOpen(Symbol(), PERIOD_M5, 1);
+   double close1 = iClose(Symbol(), PERIOD_M5, 1);
+   double high1  = iHigh(Symbol(), PERIOD_M5, 1);
+   double low1   = iLow(Symbol(), PERIOD_M5, 1);
+   double range1 = high1 - low1;
+   if(range1 == 0) return false;
+
+   double body1  = MathAbs(close1 - open1);
+   double upperWick = high1 - MathMax(open1, close1);
+   double lowerWick = MathMin(open1, close1) - low1;
+
+   if(bullish) {
+      // Pin bar: long lower wick
+      if(lowerWick > range1 * 0.6 && body1 < range1 * 0.35) return true;
+      // Bullish engulfing
+      double open2 = iOpen(Symbol(), PERIOD_M5, 2);
+      double close2 = iClose(Symbol(), PERIOD_M5, 2);
+      if(close1 > open1 && close2 < open2 && close1 > open2 && open1 < close2) return true;
+      // Bullish rejection: close up, lower wick > body
+      if(close1 > open1 && lowerWick > body1 && upperWick < body1) return true;
+      // Hammer: close near high
+      if(close1 > open1 && (high1 - close1) < range1 * 0.15 && lowerWick > range1 * 0.4) return true;
+   } else {
+      // Pin bar: long upper wick
+      if(upperWick > range1 * 0.6 && body1 < range1 * 0.35) return true;
+      // Bearish engulfing
+      double open2 = iOpen(Symbol(), PERIOD_M5, 2);
+      double close2 = iClose(Symbol(), PERIOD_M5, 2);
+      if(close1 < open1 && close2 > open2 && open1 > close2 && close1 < open2) return true;
+      // Bearish rejection: close down, upper wick > body
+      if(close1 < open1 && upperWick > body1 && lowerWick < body1) return true;
+      // Shooting star: close near low
+      if(close1 < open1 && (close1 - low1) < range1 * 0.15 && upperWick > range1 * 0.4) return true;
+   }
+   return false;
 }
 
 //+------------------------------------------------------------------+
@@ -886,8 +935,12 @@ void ExecuteTrade(int type, double price, double sl, double tp, string comment) 
    sl    = NormalizeDouble(sl, g_digits);
    tp    = NormalizeDouble(tp, g_digits);
 
+   // Store initial risk distance in comment for later use
+   double initialRisk = MathAbs(price - sl);
+   string fullComment = comment + "|R=" + DoubleToStr(initialRisk, g_digits);
+
    int ticket = OrderSend(Symbol(), type, lotSize, price, 3, sl, tp,
-                           comment, MagicNumber, 0,
+                           fullComment, MagicNumber, 0,
                            type == OP_BUY ? clrGreen : clrRed);
 
    if(ticket < 0) {
@@ -934,6 +987,33 @@ double CalculateLotSize(double slDistance) {
 }
 
 //+------------------------------------------------------------------+
+//| CHECK IF TICKET ALREADY HAD TP1 PARTIAL CLOSE                    |
+//+------------------------------------------------------------------+
+bool HasTP1Fired(int ticket) {
+   for(int i = 0; i < g_tp1Count; i++) {
+      if(g_tp1Tickets[i] == ticket) return true;
+   }
+   return false;
+}
+
+void MarkTP1Fired(int ticket) {
+   g_tp1Count++;
+   ArrayResize(g_tp1Tickets, g_tp1Count);
+   g_tp1Tickets[g_tp1Count - 1] = ticket;
+}
+
+//+------------------------------------------------------------------+
+//| GET INITIAL RISK from order comment (stored as "|R=0.00123")     |
+//+------------------------------------------------------------------+
+double GetInitialRisk(string comment, double fallback) {
+   int pos = StringFind(comment, "|R=");
+   if(pos < 0) return fallback;
+   string rStr = StringSubstr(comment, pos + 3);
+   double r = StringToDouble(rStr);
+   return (r > 0) ? r : fallback;
+}
+
+//+------------------------------------------------------------------+
 //| MANAGE OPEN TRADES (Partial Close + BE + Trailing)               |
 //+------------------------------------------------------------------+
 void ManageOpenTrades() {
@@ -943,41 +1023,45 @@ void ManageOpenTrades() {
 
       double openPrice = OrderOpenPrice();
       double currentSL = OrderStopLoss();
-      double riskDist  = MathAbs(openPrice - currentSL);
       double lots      = OrderLots();
       int    ticket    = OrderTicket();
       string comment   = OrderComment();
+
+      // Use initial risk from comment (not current SL which may have moved)
+      double riskDist = GetInitialRisk(comment, MathAbs(openPrice - currentSL));
+      if(riskDist <= 0) continue;
+
+      bool tp1Done = HasTP1Fired(ticket);
 
       if(OrderType() == OP_BUY) {
          double currentPrice = MarketInfo(Symbol(), MODE_BID);
          double profit = currentPrice - openPrice;
 
-         // Partial close at TP1 (1.5R) — close 50%, move SL to BE
-         if(UsePartialClose && profit >= riskDist * 1.5
-            && StringFind(comment, "[TP1]") < 0) {
-            double closeLots = NormalizeDouble(lots * TP1_Percent / 100.0,
-                                               2);
+         // TP1: Partial close 50% at 1.5R, move SL to breakeven
+         if(UsePartialClose && !tp1Done && profit >= riskDist * 1.5) {
+            double closeLots = NormalizeDouble(lots * TP1_Percent / 100.0, 2);
             double minLot = MarketInfo(Symbol(), MODE_MINLOT);
             if(closeLots >= minLot && (lots - closeLots) >= minLot) {
                if(OrderClose(ticket, closeLots, currentPrice, 3, clrOrange)) {
-                  Print("TP1 partial close #", ticket, " | ", closeLots, " lots @ ", currentPrice);
-                  // Update comment on remaining position
+                  MarkTP1Fired(ticket);
+                  Print("TP1 hit #", ticket, " | Closed ", closeLots, " lots @ ", currentPrice,
+                        " | Profit: ", DoubleToStr(closeLots * profit / Point * MarketInfo(Symbol(), MODE_TICKVALUE) * Point, 2));
+                  // Move SL to breakeven + 1 pip
                   if(OrderSelect(ticket, SELECT_BY_TICKET)) {
-                     if(!OrderModify(ticket, openPrice,
-                                     openPrice + 1 * g_pipValue,
-                                     OrderTakeProfit(), 0, clrYellow))
-                        Print("OrderModify failed #", ticket, " error=", GetLastError());
+                     double beSL = openPrice + 1 * g_pipValue;
+                     if(!OrderModify(ticket, openPrice, beSL, OrderTakeProfit(), 0, clrYellow))
+                        Print("OrderModify BE failed #", ticket, " error=", GetLastError());
                   }
                }
             }
          }
 
-         // Breakeven at 1R
-         if(UseBreakeven && profit >= riskDist && currentSL < openPrice) {
+         // Breakeven at 1R (if TP1 not used)
+         if(UseBreakeven && !tp1Done && profit >= riskDist && currentSL < openPrice) {
             ModifySL(ticket, openPrice + 1 * g_pipValue);
          }
 
-         // Trailing after TrailingRMultiple — trail at 30% of risk behind price
+         // Trailing stop
          if(UseTrailingStop && profit >= riskDist * TrailingRMultiple) {
             double trailDist = riskDist * 0.3;
             double trailSL = currentPrice - trailDist;
@@ -990,29 +1074,30 @@ void ManageOpenTrades() {
          double currentPrice = MarketInfo(Symbol(), MODE_ASK);
          double profit = openPrice - currentPrice;
 
-         // Partial close at TP1
-         if(UsePartialClose && profit >= riskDist * 1.5
-            && StringFind(comment, "[TP1]") < 0) {
-            double closeLots = NormalizeDouble(lots * TP1_Percent / 100.0,
-                                               2);
+         // TP1: Partial close 50% at 1.5R, move SL to breakeven
+         if(UsePartialClose && !tp1Done && profit >= riskDist * 1.5) {
+            double closeLots = NormalizeDouble(lots * TP1_Percent / 100.0, 2);
             double minLot = MarketInfo(Symbol(), MODE_MINLOT);
             if(closeLots >= minLot && (lots - closeLots) >= minLot) {
                if(OrderClose(ticket, closeLots, currentPrice, 3, clrOrange)) {
-                  Print("TP1 partial close #", ticket, " | ", closeLots, " lots @ ", currentPrice);
+                  MarkTP1Fired(ticket);
+                  Print("TP1 hit #", ticket, " | Closed ", closeLots, " lots @ ", currentPrice);
+                  // Move SL to breakeven - 1 pip
                   if(OrderSelect(ticket, SELECT_BY_TICKET)) {
-                     if(!OrderModify(ticket, openPrice,
-                                     openPrice - 1 * g_pipValue,
-                                     OrderTakeProfit(), 0, clrYellow))
-                        Print("OrderModify failed #", ticket, " error=", GetLastError());
+                     double beSL = openPrice - 1 * g_pipValue;
+                     if(!OrderModify(ticket, openPrice, beSL, OrderTakeProfit(), 0, clrYellow))
+                        Print("OrderModify BE failed #", ticket, " error=", GetLastError());
                   }
                }
             }
          }
 
-         if(UseBreakeven && profit >= riskDist && currentSL > openPrice) {
+         // Breakeven at 1R (if TP1 not used)
+         if(UseBreakeven && !tp1Done && profit >= riskDist && currentSL > openPrice) {
             ModifySL(ticket, openPrice - 1 * g_pipValue);
          }
 
+         // Trailing stop
          if(UseTrailingStop && profit >= riskDist * TrailingRMultiple) {
             double trailDist = riskDist * 0.3;
             double trailSL = currentPrice + trailDist;
