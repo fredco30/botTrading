@@ -208,9 +208,18 @@ void OnTick() {
    g_lastBarTime = currentBarTime;
 
    // --- Pre-checks ---
-   if(!IsSessionActive()) return;
-   if(SpreadTooWide()) return;
-   if(UseNewsFilter && IsNewsTime()) return;
+   if(!IsSessionActive()) {
+      if(IsTesting()) PrintOnce("FILTER_SESSION", "Blocked by session filter | Hour=" + IntegerToString(TimeHour(TimeCurrent())));
+      return;
+   }
+   if(SpreadTooWide()) {
+      if(IsTesting()) PrintOnce("FILTER_SPREAD", "Blocked by spread filter | Spread=" + DoubleToString(MarketInfo(Symbol(), MODE_SPREAD) * Point / g_pipValue, 1));
+      return;
+   }
+   if(UseNewsFilter && IsNewsTime()) {
+      if(IsTesting()) PrintOnce("FILTER_NEWS", "Blocked by news filter at " + TimeToString(TimeCurrent()));
+      return;
+   }
    if(CountOpenTrades() >= MaxOpenTrades) return;
 
    // Reload news file daily
@@ -218,6 +227,9 @@ void OnTick() {
 
    // --- Step 1: M15 Structure Analysis (BOS detection) ---
    AnalyzeStructure();
+   if(IsTesting() && g_currentBias == BIAS_NONE) {
+      PrintOnce("FILTER_BIAS", "No bias detected (BIAS_NONE) at " + TimeToString(TimeCurrent()));
+   }
 
    // --- Step 2: M5 Order Block Detection ---
    DetectOrderBlocks();
@@ -244,6 +256,17 @@ bool IsSessionActive() {
    if(hour >= LondonStartHour && hour < LondonEndHour) return true;
    if(hour >= NYStartHour && hour < NYEndHour) return true;
    return false;
+}
+
+//+------------------------------------------------------------------+
+//| DEBUG: Print a message only once per key (avoids log spam)        |
+//+------------------------------------------------------------------+
+datetime g_lastDebugDay = 0;
+void PrintOnce(string key, string message) {
+   datetime today = TimeCurrent() - TimeCurrent() % 86400;
+   if(today == g_lastDebugDay) return;
+   g_lastDebugDay = today;
+   Print("[DEBUG] ", message);
 }
 
 //+------------------------------------------------------------------+
