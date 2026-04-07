@@ -638,12 +638,8 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
       if(g_currentBias == BIAS_BEARISH && h4Close > h4Ema) return;
    }
 
-   // --- Candle confirmation check ---
-   bool bullConfirm = HasCandleConfirmation(true);
-   bool bearConfirm = HasCandleConfirmation(false);
-
    // --- BULLISH ENTRY ---
-   if(g_currentBias == BIAS_BULLISH && bullConfirm) {
+   if(g_currentBias == BIAS_BULLISH) {
       for(int i = 0; i < ArraySize(g_activeOBs); i++) {
          if(!g_activeOBs[i].isBullish || !g_activeOBs[i].isValid) continue;
 
@@ -684,7 +680,7 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
    }
 
    // --- BEARISH ENTRY ---
-   if(g_currentBias == BIAS_BEARISH && bearConfirm) {
+   if(g_currentBias == BIAS_BEARISH) {
       for(int i = 0; i < ArraySize(g_activeOBs); i++) {
          if(g_activeOBs[i].isBullish || !g_activeOBs[i].isValid) continue;
 
@@ -1032,6 +1028,9 @@ void ManageOpenTrades() {
       if(riskDist <= 0) continue;
 
       bool tp1Done = HasTP1Fired(ticket);
+      // If SL is already near breakeven, TP1 already fired on parent ticket
+      if(!tp1Done && MathAbs(currentSL - openPrice) < 2 * g_pipValue && currentSL != 0)
+         tp1Done = true;
 
       if(OrderType() == OP_BUY) {
          double currentPrice = MarketInfo(Symbol(), MODE_BID);
