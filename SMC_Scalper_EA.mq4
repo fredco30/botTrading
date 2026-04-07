@@ -720,22 +720,22 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
       if(g_currentBias == BIAS_BEARISH && h1Close > h1Ema) return;
    }
 
+   // --- Check for bullish/bearish confirmation on last closed bar ---
+   bool bullConfirm = HasCandleConfirmation(true);
+   bool bearConfirm = HasCandleConfirmation(false);
+
    // --- BULLISH ENTRY ---
-   if(g_currentBias == BIAS_BULLISH) {
+   if(g_currentBias == BIAS_BULLISH && bullConfirm) {
       for(int i = 0; i < ArraySize(g_activeOBs); i++) {
          if(!g_activeOBs[i].isBullish || !g_activeOBs[i].isValid) continue;
 
          // Skip stale OBs
          if(OB_MaxAgeBars > 0 && g_activeOBs[i].barIndex > OB_MaxAgeBars) continue;
 
-         // Price in OB zone (with buffer)
-         double bufferDist = g_obEntryBuffer * g_pipValue;
-         if(bid <= g_activeOBs[i].top + bufferDist && bid >= g_activeOBs[i].bottom - bufferDist) {
-            // Pullback check: previous bar close was above OB (price came down into it)
-            if(RequirePullback) {
-               double prevClose = iClose(Symbol(), PERIOD_M5, 1);
-               if(prevClose < g_activeOBs[i].top) continue;
-            }
+         // Last closed bar touched or was inside the OB zone
+         double prevLow = iLow(Symbol(), PERIOD_M5, 1);
+         double prevHigh = iHigh(Symbol(), PERIOD_M5, 1);
+         if(prevLow > g_activeOBs[i].top || prevHigh < g_activeOBs[i].bottom) continue;
 
             bool hasFVG = HasFVGConfluence(g_activeOBs[i], true);
             bool hasConfluence = hasFVG || liqSweepBull;
@@ -758,25 +758,21 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
                   return;
                }
             }
-         }
       }
    }
 
    // --- BEARISH ENTRY ---
-   if(g_currentBias == BIAS_BEARISH) {
+   if(g_currentBias == BIAS_BEARISH && bearConfirm) {
       for(int i = 0; i < ArraySize(g_activeOBs); i++) {
          if(g_activeOBs[i].isBullish || !g_activeOBs[i].isValid) continue;
 
          // Skip stale OBs
          if(OB_MaxAgeBars > 0 && g_activeOBs[i].barIndex > OB_MaxAgeBars) continue;
 
-         double bufferDist = g_obEntryBuffer * g_pipValue;
-         if(ask >= g_activeOBs[i].bottom - bufferDist && ask <= g_activeOBs[i].top + bufferDist) {
-            // Pullback check: previous bar close was below OB (price came up into it)
-            if(RequirePullback) {
-               double prevClose = iClose(Symbol(), PERIOD_M5, 1);
-               if(prevClose > g_activeOBs[i].bottom) continue;
-            }
+         // Last closed bar touched or was inside the OB zone
+         double prevLow = iLow(Symbol(), PERIOD_M5, 1);
+         double prevHigh = iHigh(Symbol(), PERIOD_M5, 1);
+         if(prevLow > g_activeOBs[i].top || prevHigh < g_activeOBs[i].bottom) continue;
 
             bool hasFVG = HasFVGConfluence(g_activeOBs[i], false);
             bool hasConfluence = hasFVG || liqSweepBear;
@@ -799,9 +795,66 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
                   return;
                }
             }
-         }
       }
    }
+}
+
+//+------------------------------------------------------------------+
+//| CANDLE CONFIRMATION - Rejection pattern on last closed M5 bar    |
+//| Checks for: pin bar, engulfing, or rejection wick > 60% of range |
+//+------------------------------------------------------------------+
+bool HasCandleConfirmation(bool bullish) {
+   double open1  = iOpen(Symbol(), PERIOD_M5, 1);
+   double close1 = iClose(Symbol(), PERIOD_M5, 1);
+   double high1  = iHigh(Symbol(), PERIOD_M5, 1);
+   double low1   = iLow(Symbol(), PERIOD_M5, 1);
+   double range1 = high1 - low1;
+   if(range1 == 0) return false;
+
+   double body1  = MathAbs(close1 - open1);
+   double upperWick = high1 - MathMax(open1, close1);
+   double lowerWick = MathMin(open1, close1) - low1;
+
+   if(bullish) {
+      // --- Bullish confirmation: close > open AND rejection from below ---
+
+      // 1. Bullish pin bar: long lower wick (>60% of range), small body
+      if(lowerWick > range1 * 0.6 && body1 < range1 * 0.35) return true;
+
+      // 2. Bullish engulfing: current bar bullish, body covers previous bar
+      double open2  = iOpen(Symbol(), PERIOD_M5, 2);
+      double close2 = iClose(Symbol(), PERIOD_M5, 2);
+      if(close1 > open1 && close2 < open2) {
+         if(close1 > open2 && open1 < close2) return true;
+      }
+
+      // 3. Bullish rejection: close bullish with lower wick > body
+      if(close1 > open1 && lowerWick > body1 && upperWick < body1) return true;
+
+      // 4. Hammer-like: close near high, lower wick significant
+      if(close1 > open1 && (high1 - close1) < range1 * 0.15 && lowerWick > range1 * 0.4) return true;
+   }
+   else {
+      // --- Bearish confirmation: close < open AND rejection from above ---
+
+      // 1. Bearish pin bar: long upper wick (>60% of range), small body
+      if(upperWick > range1 * 0.6 && body1 < range1 * 0.35) return true;
+
+      // 2. Bearish engulfing: current bar bearish, body covers previous bar
+      double open2  = iOpen(Symbol(), PERIOD_M5, 2);
+      double close2 = iClose(Symbol(), PERIOD_M5, 2);
+      if(close1 < open1 && close2 > open2) {
+         if(open1 > close2 && close1 < open2) return true;
+      }
+
+      // 3. Bearish rejection: close bearish with upper wick > body
+      if(close1 < open1 && upperWick > body1 && lowerWick < body1) return true;
+
+      // 4. Shooting star-like: close near low, upper wick significant
+      if(close1 < open1 && (close1 - low1) < range1 * 0.15 && upperWick > range1 * 0.4) return true;
+   }
+
+   return false;
 }
 
 //+------------------------------------------------------------------+
