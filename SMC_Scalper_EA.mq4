@@ -987,6 +987,8 @@ void ManageOpenTrades() {
       if(riskDist <= 0) continue;
 
       bool tp1Done = HasTP1Fired(ticket);
+      // Also check if SL is already at breakeven (means TP1 already fired on parent ticket)
+      if(!tp1Done && MathAbs(currentSL - openPrice) < 2 * g_pipValue) tp1Done = true;
 
       if(OrderType() == OP_BUY) {
          double currentPrice = MarketInfo(Symbol(), MODE_BID);
