@@ -21,6 +21,8 @@ input double MaxSpreadPips      = 3.0;     // Max spread allowed (pips)
 input int    MagicNumber        = 20240407;// Magic number
 input int    MaxOpenTrades      = 1;       // Max simultaneous trades
 input double MinRR              = 2.0;     // Minimum Risk:Reward ratio
+input double SL_BufferPips      = 5.0;     // SL buffer beyond OB (pips)
+input double MinSL_Pips         = 10.0;    // Minimum SL distance (pips)
 
 // --- Structure Detection (M15) ---
 input int    StructureLookback  = 20;      // Bars to look back for swing H/L
@@ -113,7 +115,7 @@ datetime   g_lastNewsLoad = 0;
 double     g_pipValue;
 int        g_digits;
 
-// Runtime values (may be overridden by Nasdaq preset)
+// Runtime values (may be overridden by Nasdaq/Gold preset)
 double     g_maxSpreadPips;
 int        g_obMinImpulsePips;
 double     g_fvgMinSizePips;
@@ -121,6 +123,8 @@ double     g_liqSweepMinPips;
 int        g_obLookback;
 int        g_structureLookback;
 int        g_swingStrength;
+double     g_slBufferPips;
+double     g_minSLPips;
 
 //+------------------------------------------------------------------+
 //| Expert initialization                                             |
@@ -140,32 +144,37 @@ int OnInit() {
    g_obLookback        = OB_Lookback;
    g_structureLookback = StructureLookback;
    g_swingStrength     = SwingStrength;
+   g_slBufferPips      = SL_BufferPips;
+   g_minSLPips         = MinSL_Pips;
 
    // Nasdaq preset: wider spread, bigger impulse/FVG thresholds (points not pips)
    if(UseNasdaqPreset) {
-      // Nasdaq uses 1 point = 1 pip (no 10x factor), force pipValue = Point
       g_pipValue          = Point;
-      g_maxSpreadPips     = 50.0;    // ~50 pts spread allowed
-      g_obMinImpulsePips  = 80;      // ~80 pts min impulse for OB
-      g_fvgMinSizePips    = 30.0;    // ~30 pts min FVG gap
-      g_liqSweepMinPips   = 20.0;    // ~20 pts min sweep
-      g_obLookback        = 40;      // wider lookback for indices volatility
-      g_structureLookback = 30;      // wider structure lookback
-      g_swingStrength     = 4;       // stronger swing filter
-      Print(">>> Nasdaq preset ACTIVE — thresholds adjusted for index volatility");
+      g_maxSpreadPips     = 50.0;
+      g_obMinImpulsePips  = 80;
+      g_fvgMinSizePips    = 30.0;
+      g_liqSweepMinPips   = 20.0;
+      g_obLookback        = 40;
+      g_structureLookback = 30;
+      g_swingStrength     = 4;
+      g_slBufferPips      = 30.0;   // 30 pts buffer for Nasdaq
+      g_minSLPips         = 50.0;   // 50 pts min SL for Nasdaq
+      Print(">>> Nasdaq preset ACTIVE");
    }
 
-   // Gold preset: XAUUSD has 2 decimals, wider spreads, big impulse moves
+   // Gold preset: XAUUSD
    if(UseGoldPreset) {
-      g_pipValue          = 0.01;    // 1 pip = $0.01 on gold (2-decimal broker)
-      g_maxSpreadPips     = 40.0;    // ~40 pips spread allowed
-      g_obMinImpulsePips  = 50;      // ~$0.50 min impulse for OB
-      g_fvgMinSizePips    = 20.0;    // ~$0.20 min FVG gap
-      g_liqSweepMinPips   = 15.0;    // ~$0.15 min sweep
-      g_obLookback        = 40;      // wider lookback for gold volatility
-      g_structureLookback = 25;      // wider structure lookback
-      g_swingStrength     = 4;       // stronger swing filter
-      Print(">>> Gold preset ACTIVE — thresholds adjusted for XAUUSD");
+      g_pipValue          = 0.01;
+      g_maxSpreadPips     = 40.0;
+      g_obMinImpulsePips  = 50;
+      g_fvgMinSizePips    = 20.0;
+      g_liqSweepMinPips   = 15.0;
+      g_obLookback        = 40;
+      g_structureLookback = 25;
+      g_swingStrength     = 4;
+      g_slBufferPips      = 30.0;   // 30 pips buffer for Gold
+      g_minSLPips         = 40.0;   // 40 pips min SL for Gold
+      Print(">>> Gold preset ACTIVE");
    }
 
    if(UseNasdaqPreset && UseGoldPreset) {
@@ -574,7 +583,11 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
 
             // Minimum confluence: OB + (FVG or liq sweep)
             if(hasFVG || liqSweepBull) {
-               double sl = g_activeOBs[i].bottom - 2 * g_pipValue;
+               double sl = g_activeOBs[i].bottom - g_slBufferPips * g_pipValue;
+               // Enforce minimum SL distance
+               double slDist = (ask - sl) / g_pipValue;
+               if(slDist < g_minSLPips)
+                  sl = ask - g_minSLPips * g_pipValue;
                double tp1 = 0, tp2 = 0;
                FindTPLevels(true, ask, sl, tp1, tp2);
 
@@ -600,7 +613,11 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
             bool hasFVG = HasFVGConfluence(g_activeOBs[i], false);
 
             if(hasFVG || liqSweepBear) {
-               double sl = g_activeOBs[i].top + 2 * g_pipValue;
+               double sl = g_activeOBs[i].top + g_slBufferPips * g_pipValue;
+               // Enforce minimum SL distance
+               double slDist = (sl - bid) / g_pipValue;
+               if(slDist < g_minSLPips)
+                  sl = bid + g_minSLPips * g_pipValue;
                double tp1 = 0, tp2 = 0;
                FindTPLevels(false, bid, sl, tp1, tp2);
 
