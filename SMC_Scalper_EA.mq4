@@ -11,6 +11,16 @@
 //+------------------------------------------------------------------+
 //| INPUTS                                                            |
 //+------------------------------------------------------------------+
+// --- Preset Selection ---
+enum PRESET_MODE {
+   PRESET_CUSTOM    = 0,  // Custom (use manual params below)
+   PRESET_EURUSD    = 1,  // Forex Majors (EURUSD/GBPUSD/USDJPY)
+   PRESET_XAUUSD    = 2,  // Gold (XAUUSD)
+   PRESET_NAS100    = 3,  // Nasdaq 100 (NAS100/USTEC)
+   PRESET_US30      = 4   // Dow Jones (US30/DJ30)
+};
+input PRESET_MODE Preset       = PRESET_CUSTOM; // Instrument Preset (overrides params below)
+
 // --- Risk Management ---
 input double RiskPercent        = 1.0;     // Risk % per trade
 input double MaxSpreadPips      = 3.0;     // Max spread allowed (pips)
@@ -40,6 +50,8 @@ input int    LondonStartHour    = 8;       // London session start (server time)
 input int    LondonEndHour      = 12;      // London session end
 input int    NYStartHour        = 13;      // New York session start
 input int    NYEndHour          = 17;      // New York session end
+input bool   UseLondonSession   = true;    // Trade London session
+input bool   UseNYSession       = true;    // Trade New York session
 
 // --- Trade Management ---
 input bool   UseBreakeven       = true;    // Move SL to BE after 1R
@@ -109,6 +121,25 @@ datetime   g_lastNewsLoad = 0;
 double     g_pipValue;
 int        g_digits;
 
+// --- Runtime params (overridden by preset if active) ---
+double  r_MaxSpreadPips;
+int     r_OB_MinImpulsePips;
+double  r_FVG_MinSizePips;
+double  r_LiqSweep_MinPips;
+int     r_LondonStartHour;
+int     r_LondonEndHour;
+int     r_NYStartHour;
+int     r_NYEndHour;
+bool    r_UseLondonSession;
+bool    r_UseNYSession;
+int     r_NewsMinutesBefore;
+int     r_NewsMinutesAfter;
+double  r_MinRR;
+int     r_StructureLookback;
+int     r_SwingStrength;
+int     r_OB_Lookback;
+int     r_LiqSweep_Lookback;
+
 //+------------------------------------------------------------------+
 //| Expert initialization                                             |
 //+------------------------------------------------------------------+
@@ -119,13 +150,139 @@ int OnInit() {
    else
       g_pipValue = Point;
 
+   // Apply preset or use manual params
+   ApplyPreset();
+
    if(UseNewsFilter) LoadNewsCalendar();
 
+   string presetName = "Custom";
+   if(Preset == PRESET_EURUSD) presetName = "Forex Majors";
+   if(Preset == PRESET_XAUUSD) presetName = "Gold";
+   if(Preset == PRESET_NAS100) presetName = "Nasdaq 100";
+   if(Preset == PRESET_US30)   presetName = "Dow Jones";
+
    Print("SMC Scalper EA initialized | Symbol: ", Symbol(),
+         " | Preset: ", presetName,
          " | Pip value: ", g_pipValue,
          " | Risk: ", RiskPercent, "%",
-         " | News filter: ", UseNewsFilter ? "ON" : "OFF");
+         " | News filter: ", UseNewsFilter ? "ON" : "OFF",
+         " | Sessions: ", r_UseLondonSession ? "LON " : "",
+         r_UseNYSession ? "NY" : "");
    return INIT_SUCCEEDED;
+}
+
+//+------------------------------------------------------------------+
+//| APPLY PRESET - Override runtime params based on instrument       |
+//+------------------------------------------------------------------+
+void ApplyPreset() {
+   // Default: copy all inputs to runtime vars
+   r_MaxSpreadPips     = MaxSpreadPips;
+   r_OB_MinImpulsePips = OB_MinImpulsePips;
+   r_FVG_MinSizePips   = FVG_MinSizePips;
+   r_LiqSweep_MinPips  = LiqSweep_MinPips;
+   r_LondonStartHour   = LondonStartHour;
+   r_LondonEndHour     = LondonEndHour;
+   r_NYStartHour       = NYStartHour;
+   r_NYEndHour         = NYEndHour;
+   r_UseLondonSession  = UseLondonSession;
+   r_UseNYSession      = UseNYSession;
+   r_NewsMinutesBefore = NewsMinutesBefore;
+   r_NewsMinutesAfter  = NewsMinutesAfter;
+   r_MinRR             = MinRR;
+   r_StructureLookback = StructureLookback;
+   r_SwingStrength     = SwingStrength;
+   r_OB_Lookback       = OB_Lookback;
+   r_LiqSweep_Lookback = LiqSweep_Lookback;
+
+   if(Preset == PRESET_CUSTOM) return; // Use manual params as-is
+
+   // --- FOREX MAJORS (EURUSD, GBPUSD, USDJPY, etc.) ---
+   if(Preset == PRESET_EURUSD) {
+      r_MaxSpreadPips     = 3.0;
+      r_OB_MinImpulsePips = 10;
+      r_FVG_MinSizePips   = 3.0;
+      r_LiqSweep_MinPips  = 2.0;
+      r_LondonStartHour   = 8;
+      r_LondonEndHour     = 12;
+      r_NYStartHour       = 13;
+      r_NYEndHour         = 17;
+      r_UseLondonSession  = true;
+      r_UseNYSession      = true;
+      r_NewsMinutesBefore = 15;
+      r_NewsMinutesAfter  = 15;
+      r_MinRR             = 2.0;
+      r_StructureLookback = 20;
+      r_SwingStrength     = 3;
+      r_OB_Lookback       = 30;
+      r_LiqSweep_Lookback = 30;
+      Print("Preset FOREX MAJORS applied");
+   }
+
+   // --- GOLD (XAUUSD) ---
+   if(Preset == PRESET_XAUUSD) {
+      r_MaxSpreadPips     = 5.0;
+      r_OB_MinImpulsePips = 25;
+      r_FVG_MinSizePips   = 8.0;
+      r_LiqSweep_MinPips  = 5.0;
+      r_LondonStartHour   = 8;
+      r_LondonEndHour     = 12;
+      r_NYStartHour       = 13;
+      r_NYEndHour         = 18;
+      r_UseLondonSession  = true;
+      r_UseNYSession      = true;
+      r_NewsMinutesBefore = 20;
+      r_NewsMinutesAfter  = 20;
+      r_MinRR             = 2.0;
+      r_StructureLookback = 25;
+      r_SwingStrength     = 3;
+      r_OB_Lookback       = 35;
+      r_LiqSweep_Lookback = 35;
+      Print("Preset GOLD (XAUUSD) applied");
+   }
+
+   // --- NASDAQ 100 (NAS100/USTEC) ---
+   if(Preset == PRESET_NAS100) {
+      r_MaxSpreadPips     = 8.0;
+      r_OB_MinImpulsePips = 50;
+      r_FVG_MinSizePips   = 20.0;
+      r_LiqSweep_MinPips  = 12.0;
+      r_LondonStartHour   = 0;   // Not used
+      r_LondonEndHour     = 0;   // Not used
+      r_NYStartHour       = 15;  // US pre-market + session
+      r_NYEndHour         = 21;  // Extended session
+      r_UseLondonSession  = false; // No London for indices
+      r_UseNYSession      = true;
+      r_NewsMinutesBefore = 30;  // More buffer for indices
+      r_NewsMinutesAfter  = 30;
+      r_MinRR             = 2.5; // Higher RR for volatile instrument
+      r_StructureLookback = 25;
+      r_SwingStrength     = 4;   // Stronger swings to filter noise
+      r_OB_Lookback       = 40;  // Wider scan for larger OBs
+      r_LiqSweep_Lookback = 40;
+      Print("Preset NASDAQ 100 applied");
+   }
+
+   // --- DOW JONES (US30/DJ30) ---
+   if(Preset == PRESET_US30) {
+      r_MaxSpreadPips     = 6.0;
+      r_OB_MinImpulsePips = 40;
+      r_FVG_MinSizePips   = 15.0;
+      r_LiqSweep_MinPips  = 10.0;
+      r_LondonStartHour   = 0;
+      r_LondonEndHour     = 0;
+      r_NYStartHour       = 15;
+      r_NYEndHour         = 21;
+      r_UseLondonSession  = false;
+      r_UseNYSession      = true;
+      r_NewsMinutesBefore = 30;
+      r_NewsMinutesAfter  = 30;
+      r_MinRR             = 2.5;
+      r_StructureLookback = 25;
+      r_SwingStrength     = 4;
+      r_OB_Lookback       = 40;
+      r_LiqSweep_Lookback = 40;
+      Print("Preset DOW JONES (US30) applied");
+   }
 }
 
 //+------------------------------------------------------------------+
@@ -178,8 +335,10 @@ void OnTick() {
 //+------------------------------------------------------------------+
 bool IsSessionActive() {
    int hour = TimeHour(TimeCurrent());
-   if(hour >= LondonStartHour && hour < LondonEndHour) return true;
-   if(hour >= NYStartHour && hour < NYEndHour) return true;
+   // London session
+   if(r_UseLondonSession && hour >= r_LondonStartHour && hour < r_LondonEndHour) return true;
+   // New York session
+   if(r_UseNYSession && hour >= r_NYStartHour && hour < r_NYEndHour) return true;
    return false;
 }
 
@@ -188,7 +347,7 @@ bool IsSessionActive() {
 //+------------------------------------------------------------------+
 bool SpreadTooWide() {
    double spread = MarketInfo(Symbol(), MODE_SPREAD) * Point / g_pipValue;
-   return (spread > MaxSpreadPips);
+   return (spread > r_MaxSpreadPips);
 }
 
 //+------------------------------------------------------------------+
@@ -212,7 +371,7 @@ void AnalyzeStructure() {
    SwingPoint swingHighs[];
    SwingPoint swingLows[];
 
-   FindSwingPoints(PERIOD_M15, StructureLookback, SwingStrength, swingHighs, swingLows);
+   FindSwingPoints(PERIOD_M15, r_StructureLookback, r_SwingStrength, swingHighs, swingLows);
 
    if(ArraySize(swingHighs) < 2 || ArraySize(swingLows) < 2) {
       g_currentBias = BIAS_NONE;
@@ -301,7 +460,7 @@ void FindSwingPoints(int tf, int lookback, int strength,
 void DetectOrderBlocks() {
    ArrayResize(g_activeOBs, 0);
 
-   for(int i = 2; i < OB_Lookback; i++) {
+   for(int i = 2; i < r_OB_Lookback; i++) {
       double open_i  = iOpen(Symbol(), PERIOD_M5, i);
       double close_i = iClose(Symbol(), PERIOD_M5, i);
       double high_i  = iHigh(Symbol(), PERIOD_M5, i);
@@ -318,7 +477,7 @@ void DetectOrderBlocks() {
 
       double impMovePips = impRange / g_pipValue;
 
-      if(impMovePips < OB_MinImpulsePips) continue;
+      if(impMovePips < r_OB_MinImpulsePips) continue;
       if(impBody / impRange < OB_MinBodyRatio) continue;
 
       // Bullish OB: bearish candle + strong bullish impulse breaking above
@@ -390,7 +549,7 @@ void DetectFVGs() {
       // Bullish FVG: gap up
       if(low_next > high_prev) {
          double gapSize = (low_next - high_prev) / g_pipValue;
-         if(gapSize >= FVG_MinSizePips) {
+         if(gapSize >= r_FVG_MinSizePips) {
             if(!IsFVGFilled(high_prev, low_next, true, i - 2)) {
                FVGZone fvg;
                fvg.top = low_next;
@@ -408,7 +567,7 @@ void DetectFVGs() {
       // Bearish FVG: gap down
       if(high_next < low_prev) {
          double gapSize = (low_prev - high_next) / g_pipValue;
-         if(gapSize >= FVG_MinSizePips) {
+         if(gapSize >= r_FVG_MinSizePips) {
             if(!IsFVGFilled(high_next, low_prev, false, i - 2)) {
                FVGZone fvg;
                fvg.top = low_prev;
@@ -448,9 +607,9 @@ bool DetectLiquiditySweep(bool checkBullish) {
 
    if(checkBullish) {
       // Sweep of lows = bullish signal
-      for(int i = 5; i < LiqSweep_Lookback; i++) {
+      for(int i = 5; i < r_LiqSweep_Lookback; i++) {
          double low_i = iLow(Symbol(), PERIOD_M5, i);
-         for(int j = i + 1; j < LiqSweep_Lookback; j++) {
+         for(int j = i + 1; j < r_LiqSweep_Lookback; j++) {
             double low_j = iLow(Symbol(), PERIOD_M5, j);
             if(MathAbs(low_i - low_j) / g_pipValue <= tolerance) {
                liqLevel = MathMin(low_i, low_j);
@@ -465,7 +624,7 @@ bool DetectLiquiditySweep(bool checkBullish) {
       for(int i = 1; i <= 3; i++) {
          double low_i   = iLow(Symbol(), PERIOD_M5, i);
          double close_i = iClose(Symbol(), PERIOD_M5, i);
-         if(low_i < liqLevel - LiqSweep_MinPips * g_pipValue &&
+         if(low_i < liqLevel - r_LiqSweep_MinPips * g_pipValue &&
             close_i > liqLevel) {
             return true;
          }
@@ -473,9 +632,9 @@ bool DetectLiquiditySweep(bool checkBullish) {
    }
    else {
       // Sweep of highs = bearish signal
-      for(int i = 5; i < LiqSweep_Lookback; i++) {
+      for(int i = 5; i < r_LiqSweep_Lookback; i++) {
          double high_i = iHigh(Symbol(), PERIOD_M5, i);
-         for(int j = i + 1; j < LiqSweep_Lookback; j++) {
+         for(int j = i + 1; j < r_LiqSweep_Lookback; j++) {
             double high_j = iHigh(Symbol(), PERIOD_M5, j);
             if(MathAbs(high_i - high_j) / g_pipValue <= tolerance) {
                liqLevel = MathMax(high_i, high_j);
@@ -490,7 +649,7 @@ bool DetectLiquiditySweep(bool checkBullish) {
       for(int i = 1; i <= 3; i++) {
          double high_i  = iHigh(Symbol(), PERIOD_M5, i);
          double close_i = iClose(Symbol(), PERIOD_M5, i);
-         if(high_i > liqLevel + LiqSweep_MinPips * g_pipValue &&
+         if(high_i > liqLevel + r_LiqSweep_MinPips * g_pipValue &&
             close_i < liqLevel) {
             return true;
          }
@@ -525,7 +684,7 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
                FindTPLevels(true, ask, sl, tp1, tp2);
 
                double rr = (tp2 - ask) / (ask - sl);
-               if(rr >= MinRR) {
+               if(rr >= r_MinRR) {
                   ExecuteTrade(OP_BUY, ask, sl, tp2,
                               "SMC Buy|OB" + (hasFVG ? "+FVG" : "") +
                               (liqSweepBull ? "+Sweep" : ""));
@@ -551,7 +710,7 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
                FindTPLevels(false, bid, sl, tp1, tp2);
 
                double rr = (bid - tp2) / (sl - bid);
-               if(rr >= MinRR) {
+               if(rr >= r_MinRR) {
                   ExecuteTrade(OP_SELL, bid, sl, tp2,
                               "SMC Sell|OB" + (hasFVG ? "+FVG" : "") +
                               (liqSweepBear ? "+Sweep" : ""));
@@ -695,7 +854,7 @@ void FindTPLevels(bool forBuy, double entry, double sl,
       if(tp1 == 0 && rr >= 1.5) {
          tp1 = targets[i];
       }
-      else if(tp1 != 0 && tp2 == 0 && rr >= MinRR) {
+      else if(tp1 != 0 && tp2 == 0 && rr >= r_MinRR) {
          tp2 = targets[i];
          break;
       }
@@ -706,7 +865,7 @@ void FindTPLevels(bool forBuy, double entry, double sl,
       tp1 = forBuy ? entry + slDist * 1.5 : entry - slDist * 1.5;
    }
    if(tp2 == 0) {
-      tp2 = forBuy ? entry + slDist * MinRR : entry - slDist * MinRR;
+      tp2 = forBuy ? entry + slDist * r_MinRR : entry - slDist * r_MinRR;
    }
 }
 
@@ -995,7 +1154,7 @@ void LoadRecurringNews() {
 //+------------------------------------------------------------------+
 void AddRecurringEvent(datetime eventTime, string currency, string title) {
    // Don't add if already past + buffer
-   if(eventTime < TimeCurrent() - NewsMinutesAfter * 60) return;
+   if(eventTime < TimeCurrent() - r_NewsMinutesAfter * 60) return;
 
    int size = ArraySize(g_newsEvents);
    ArrayResize(g_newsEvents, size + 1);
@@ -1016,8 +1175,8 @@ bool IsNewsTime() {
       // Check if the news currency affects our symbol
       if(StringFind(sym, g_newsEvents[i].currency) < 0) continue;
 
-      datetime newsStart = g_newsEvents[i].time - NewsMinutesBefore * 60;
-      datetime newsEnd   = g_newsEvents[i].time + NewsMinutesAfter * 60;
+      datetime newsStart = g_newsEvents[i].time - r_NewsMinutesBefore * 60;
+      datetime newsEnd   = g_newsEvents[i].time + r_NewsMinutesAfter * 60;
 
       if(now >= newsStart && now <= newsEnd) {
          Print("NEWS FILTER: Blocking trade | ", g_newsEvents[i].title,
