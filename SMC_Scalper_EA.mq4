@@ -26,33 +26,33 @@ input double MinSL_Pips         = 10.0;    // Minimum SL distance (pips)
 
 // --- Structure Detection (M15) ---
 input int    StructureLookback  = 20;      // Bars to look back for swing H/L
-input int    SwingStrength      = 2;       // Bars on each side for swing point
+input int    SwingStrength      = 3;       // Bars on each side for swing point
 input bool   UseEMA_Bias        = true;    // Use EMA as fallback bias filter
 input int    EMA_Period         = 50;      // EMA period for bias (M15)
-input bool   UseHTF_Filter      = true;    // Filter entries against H1 EMA trend
-input int    HTF_EMA_Period     = 50;      // H1 EMA period for trend filter
+input bool   UseHTF_Filter      = true;    // Filter entries against H4 EMA trend
+input int    HTF_EMA_Period     = 50;      // H4 EMA period for trend filter
 
 // --- Order Block Detection (M5) ---
-input int    OB_Lookback        = 50;      // Bars to scan for OB
+input int    OB_Lookback        = 30;      // Bars to scan for OB
 input double OB_MinBodyRatio    = 0.3;     // Min body/range ratio for impulse candle
 input int    OB_MinImpulsePips  = 5;       // Min impulse move (pips)
 input bool   RequireConfluence  = false;   // Require OB+FVG or OB+Sweep (false=OB alone OK)
 
 // --- FVG Detection (M5) ---
-input int    FVG_Lookback       = 30;      // Bars to scan for FVG
+input int    FVG_Lookback       = 20;      // Bars to scan for FVG
 input double FVG_MinSizePips    = 1.5;     // Min FVG size (pips)
 
 // --- Liquidity Sweep ---
-input int    LiqSweep_Lookback  = 40;      // Bars to scan for liq levels
+input int    LiqSweep_Lookback  = 30;      // Bars to scan for liq levels
 input double LiqSweep_MinPips   = 2.0;     // Min sweep beyond level (pips)
 
 // --- Entry Quality ---
-input int    OB_MaxAgeBars      = 80;      // Max OB age in M5 bars (0=no limit)
-input bool   RequirePullback    = false;   // Price must retrace into OB (not gap in)
+input int    OB_MaxAgeBars      = 50;      // Max OB age in M5 bars (0=no limit)
+input bool   RequirePullback    = true;    // Price must retrace into OB (not gap in)
 
 // --- Session Filter ---
 input int    LondonStartHour    = 8;       // London session start (server time)
-input int    LondonEndHour      = 13;      // London session end (covers overlap)
+input int    LondonEndHour      = 12;      // London session end
 input int    NYStartHour        = 13;      // New York session start
 input int    NYEndHour          = 17;      // New York session end
 
@@ -68,6 +68,14 @@ input bool   UseNewsFilter      = true;    // Enable news filter
 input int    NewsMinutesBefore  = 15;      // Stop trading X min before news
 input int    NewsMinutesAfter   = 15;      // Resume trading X min after news
 input string NewsFile           = "news_calendar.csv"; // News file in MQL4/Files/
+
+// --- Kill Zone + FVG Strategy ---
+input bool   UseKZFVG           = true;    // Enable Kill Zone + FVG strategy
+input int    KZ_MagicNumber     = 20240408;// Magic number for KZ+FVG trades
+input double KZ_RiskPercent     = 1.0;     // Risk % per KZ+FVG trade
+input double KZ_MinFVG_Pips     = 3.0;     // Min FVG size (pips) during kill zone
+input double KZ_MinRR           = 2.0;     // Min RR for KZ+FVG entries
+input int    KZ_MaxAgeBars      = 24;      // Max FVG age in M5 bars (2 hours)
 
 //+------------------------------------------------------------------+
 //| ENUMS & STRUCTS                                                   |
@@ -108,6 +116,15 @@ struct NewsEvent {
    string   title;
 };
 
+struct KZ_FVG {
+   double   top;
+   double   bottom;
+   bool     isBullish;
+   bool     isValid;
+   datetime createdTime;
+   int      barIndex;
+};
+
 //+------------------------------------------------------------------+
 //| GLOBALS                                                           |
 //+------------------------------------------------------------------+
@@ -124,15 +141,10 @@ datetime   g_lastNewsLoad = 0;
 double     g_pipValue;
 int        g_digits;
 
-// Track tickets that already had TP1 partial close
-int        g_tp1Tickets[];
-int        g_tp1Count = 0;
-
-// Cooldown & daily loss tracking
-datetime   g_lastTradeClose = 0;
-int        g_prevTradeCount = 0;
-int        g_dailySLCount = 0;
-datetime   g_currentDay = 0;
+// Kill Zone + FVG globals
+KZ_FVG     g_kzFVGs[];
+bool       g_kzScanned = false;  // Already scanned this kill zone
+datetime   g_lastKZScan = 0;     // Last kill zone scan time
 
 // Runtime values (may be overridden by Nasdaq/Gold preset)
 double     g_maxSpreadPips;
@@ -221,32 +233,7 @@ void OnDeinit(const int reason) {
 //| Expert tick function                                              |
 //+------------------------------------------------------------------+
 void OnTick() {
-   // --- Manage open trades on EVERY tick (TP1/trailing must react fast) ---
-   ManageOpenTrades();
-
-   // --- Reset daily SL counter on new day ---
-   datetime today = TimeCurrent() - TimeCurrent() % 86400;
-   if(today != g_currentDay) {
-      g_dailySLCount = 0;
-      g_currentDay = today;
-   }
-
-   // --- Detect trade close for cooldown + daily SL tracking ---
-   int currentTradeCount = CountOpenTrades();
-   if(currentTradeCount < g_prevTradeCount) {
-      g_lastTradeClose = TimeCurrent();
-      for(int i = OrdersHistoryTotal() - 1; i >= 0; i--) {
-         if(!OrderSelect(i, SELECT_BY_POS, MODE_HISTORY)) continue;
-         if(OrderSymbol() != Symbol() || OrderMagicNumber() != MagicNumber) continue;
-         if(OrderCloseTime() >= TimeCurrent() - 60) {
-            if(OrderProfit() < 0) g_dailySLCount++;
-            break;
-         }
-      }
-   }
-   g_prevTradeCount = currentTradeCount;
-
-   // --- New bar check (M5) — everything below runs once per bar ---
+   // --- New bar check (M5) ---
    datetime currentBarTime = iTime(Symbol(), PERIOD_M5, 0);
    if(currentBarTime == g_lastBarTime) return;
    g_lastBarTime = currentBarTime;
@@ -264,10 +251,6 @@ void OnTick() {
       if(IsTesting()) PrintOnce("FILTER_NEWS", "Blocked by news filter at " + TimeToString(TimeCurrent()));
       return;
    }
-   // Daily loss limit: max 2 SL per day
-   if(g_dailySLCount >= 2) return;
-   // Cooldown: wait 2 hours after last trade close
-   if(g_lastTradeClose > 0 && TimeCurrent() - g_lastTradeClose < 120 * 60) return;
    if(CountOpenTrades() >= MaxOpenTrades) return;
 
    // Reload news file daily
@@ -291,6 +274,30 @@ void OnTick() {
 
    // --- Step 5: Entry Logic ---
    CheckEntry(liqSweepBull, liqSweepBear);
+
+   // --- Step 6: Trade Management ---
+   ManageOpenTrades();
+
+   // --- Step 7: Kill Zone + FVG Strategy (independent) ---
+   if(UseKZFVG) {
+      // Scan for FVGs at the end of kill zone (bar at minute 30)
+      if(IsKillZone()) {
+         int minute = TimeMinute(TimeCurrent());
+         datetime today = TimeCurrent() - TimeCurrent() % 86400;
+         int hour = TimeHour(TimeCurrent());
+         datetime kzID = today + hour * 3600;  // Unique per kill zone
+
+         if(minute >= 25 && g_lastKZScan != kzID) {
+            ScanKillZoneFVGs();
+            g_lastKZScan = kzID;
+         }
+      }
+
+      // Check for FVG fill entries (after kill zone)
+      if(!IsKillZone()) {
+         CheckKZFVGEntry();
+      }
+   }
 }
 
 //+------------------------------------------------------------------+
@@ -662,8 +669,8 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
 
    // H4 trend filter: block counter-trend entries
    if(UseHTF_Filter) {
-      double h4Ema  = iMA(Symbol(), PERIOD_H1, HTF_EMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
-      double h4Close = iClose(Symbol(), PERIOD_H1, 0);
+      double h4Ema  = iMA(Symbol(), PERIOD_H4, HTF_EMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
+      double h4Close = iClose(Symbol(), PERIOD_H4, 0);
       // Don't buy if H4 is below EMA (bearish trend)
       if(g_currentBias == BIAS_BULLISH && h4Close < h4Ema) return;
       // Don't sell if H4 is above EMA (bullish trend)
@@ -750,47 +757,6 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
          }
       }
    }
-}
-
-//+------------------------------------------------------------------+
-//| CANDLE CONFIRMATION - Rejection pattern on last closed M5 bar    |
-//+------------------------------------------------------------------+
-bool HasCandleConfirmation(bool bullish) {
-   double open1  = iOpen(Symbol(), PERIOD_M5, 1);
-   double close1 = iClose(Symbol(), PERIOD_M5, 1);
-   double high1  = iHigh(Symbol(), PERIOD_M5, 1);
-   double low1   = iLow(Symbol(), PERIOD_M5, 1);
-   double range1 = high1 - low1;
-   if(range1 == 0) return false;
-
-   double body1  = MathAbs(close1 - open1);
-   double upperWick = high1 - MathMax(open1, close1);
-   double lowerWick = MathMin(open1, close1) - low1;
-
-   if(bullish) {
-      // Pin bar: long lower wick
-      if(lowerWick > range1 * 0.6 && body1 < range1 * 0.35) return true;
-      // Bullish engulfing
-      double open2 = iOpen(Symbol(), PERIOD_M5, 2);
-      double close2 = iClose(Symbol(), PERIOD_M5, 2);
-      if(close1 > open1 && close2 < open2 && close1 > open2 && open1 < close2) return true;
-      // Bullish rejection: close up, lower wick > body
-      if(close1 > open1 && lowerWick > body1 && upperWick < body1) return true;
-      // Hammer: close near high
-      if(close1 > open1 && (high1 - close1) < range1 * 0.15 && lowerWick > range1 * 0.4) return true;
-   } else {
-      // Pin bar: long upper wick
-      if(upperWick > range1 * 0.6 && body1 < range1 * 0.35) return true;
-      // Bearish engulfing
-      double open2 = iOpen(Symbol(), PERIOD_M5, 2);
-      double close2 = iClose(Symbol(), PERIOD_M5, 2);
-      if(close1 < open1 && close2 > open2 && open1 > close2 && close1 < open2) return true;
-      // Bearish rejection: close down, upper wick > body
-      if(close1 < open1 && upperWick > body1 && lowerWick < body1) return true;
-      // Shooting star: close near low
-      if(close1 < open1 && (close1 - low1) < range1 * 0.15 && upperWick > range1 * 0.4) return true;
-   }
-   return false;
 }
 
 //+------------------------------------------------------------------+
@@ -963,12 +929,8 @@ void ExecuteTrade(int type, double price, double sl, double tp, string comment) 
    sl    = NormalizeDouble(sl, g_digits);
    tp    = NormalizeDouble(tp, g_digits);
 
-   // Store initial risk distance in comment for later use
-   double initialRisk = MathAbs(price - sl);
-   string fullComment = comment + "|R=" + DoubleToStr(initialRisk, g_digits);
-
    int ticket = OrderSend(Symbol(), type, lotSize, price, 3, sl, tp,
-                           fullComment, MagicNumber, 0,
+                           comment, MagicNumber, 0,
                            type == OP_BUY ? clrGreen : clrRed);
 
    if(ticket < 0) {
@@ -1015,33 +977,6 @@ double CalculateLotSize(double slDistance) {
 }
 
 //+------------------------------------------------------------------+
-//| CHECK IF TICKET ALREADY HAD TP1 PARTIAL CLOSE                    |
-//+------------------------------------------------------------------+
-bool HasTP1Fired(int ticket) {
-   for(int i = 0; i < g_tp1Count; i++) {
-      if(g_tp1Tickets[i] == ticket) return true;
-   }
-   return false;
-}
-
-void MarkTP1Fired(int ticket) {
-   g_tp1Count++;
-   ArrayResize(g_tp1Tickets, g_tp1Count);
-   g_tp1Tickets[g_tp1Count - 1] = ticket;
-}
-
-//+------------------------------------------------------------------+
-//| GET INITIAL RISK from order comment (stored as "|R=0.00123")     |
-//+------------------------------------------------------------------+
-double GetInitialRisk(string comment, double fallback) {
-   int pos = StringFind(comment, "|R=");
-   if(pos < 0) return fallback;
-   string rStr = StringSubstr(comment, pos + 3);
-   double r = StringToDouble(rStr);
-   return (r > 0) ? r : fallback;
-}
-
-//+------------------------------------------------------------------+
 //| MANAGE OPEN TRADES (Partial Close + BE + Trailing)               |
 //+------------------------------------------------------------------+
 void ManageOpenTrades() {
@@ -1051,53 +986,41 @@ void ManageOpenTrades() {
 
       double openPrice = OrderOpenPrice();
       double currentSL = OrderStopLoss();
+      double riskDist  = MathAbs(openPrice - currentSL);
       double lots      = OrderLots();
       int    ticket    = OrderTicket();
       string comment   = OrderComment();
-
-      // Use initial risk from comment (not current SL which may have moved)
-      double riskDist = GetInitialRisk(comment, MathAbs(openPrice - currentSL));
-      if(riskDist <= 0) continue;
-
-      bool tp1Done = HasTP1Fired(ticket);
 
       if(OrderType() == OP_BUY) {
          double currentPrice = MarketInfo(Symbol(), MODE_BID);
          double profit = currentPrice - openPrice;
 
-         // TP1: Partial close 50% at 1.5R, move SL to breakeven
-         if(UsePartialClose && !tp1Done && profit >= riskDist * 1.5) {
-            double closeLots = NormalizeDouble(lots * TP1_Percent / 100.0, 2);
+         // Partial close at TP1 (1.5R) — close 50%, move SL to BE
+         if(UsePartialClose && profit >= riskDist * 1.5
+            && StringFind(comment, "[TP1]") < 0) {
+            double closeLots = NormalizeDouble(lots * TP1_Percent / 100.0,
+                                               2);
             double minLot = MarketInfo(Symbol(), MODE_MINLOT);
             if(closeLots >= minLot && (lots - closeLots) >= minLot) {
                if(OrderClose(ticket, closeLots, currentPrice, 3, clrOrange)) {
-                  MarkTP1Fired(ticket);
-                  Print("TP1 hit #", ticket, " | Closed ", closeLots, " lots @ ", currentPrice);
-                  // Move SL to breakeven + 1 pip on remaining position
-                  // After OrderClose, MT4 creates a new ticket for the remainder
-                  // Find and mark it to prevent cascade
-                  for(int k = OrdersTotal() - 1; k >= 0; k--) {
-                     if(!OrderSelect(k, SELECT_BY_POS, MODE_TRADES)) continue;
-                     if(OrderSymbol() == Symbol() && OrderMagicNumber() == MagicNumber
-                        && OrderOpenPrice() == openPrice && OrderTicket() != ticket) {
-                        int newTicket = OrderTicket();
-                        MarkTP1Fired(newTicket);
-                        double beSL = openPrice + 1 * g_pipValue;
-                        if(!OrderModify(newTicket, openPrice, beSL, OrderTakeProfit(), 0, clrYellow))
-                           Print("OrderModify BE failed #", newTicket, " error=", GetLastError());
-                        break;
-                     }
+                  Print("TP1 partial close #", ticket, " | ", closeLots, " lots @ ", currentPrice);
+                  // Update comment on remaining position
+                  if(OrderSelect(ticket, SELECT_BY_TICKET)) {
+                     if(!OrderModify(ticket, openPrice,
+                                     openPrice + 1 * g_pipValue,
+                                     OrderTakeProfit(), 0, clrYellow))
+                        Print("OrderModify failed #", ticket, " error=", GetLastError());
                   }
                }
             }
          }
 
-         // Breakeven at 1R (only if TP1 partial close is disabled)
-         if(UseBreakeven && !UsePartialClose && profit >= riskDist && currentSL < openPrice) {
+         // Breakeven at 1R
+         if(UseBreakeven && profit >= riskDist && currentSL < openPrice) {
             ModifySL(ticket, openPrice + 1 * g_pipValue);
          }
 
-         // Trailing stop
+         // Trailing after TrailingRMultiple — trail at 30% of risk behind price
          if(UseTrailingStop && profit >= riskDist * TrailingRMultiple) {
             double trailDist = riskDist * 0.3;
             double trailSL = currentPrice - trailDist;
@@ -1110,37 +1033,29 @@ void ManageOpenTrades() {
          double currentPrice = MarketInfo(Symbol(), MODE_ASK);
          double profit = openPrice - currentPrice;
 
-         // TP1: Partial close 50% at 1.5R, move SL to breakeven
-         if(UsePartialClose && !tp1Done && profit >= riskDist * 1.5) {
-            double closeLots = NormalizeDouble(lots * TP1_Percent / 100.0, 2);
+         // Partial close at TP1
+         if(UsePartialClose && profit >= riskDist * 1.5
+            && StringFind(comment, "[TP1]") < 0) {
+            double closeLots = NormalizeDouble(lots * TP1_Percent / 100.0,
+                                               2);
             double minLot = MarketInfo(Symbol(), MODE_MINLOT);
             if(closeLots >= minLot && (lots - closeLots) >= minLot) {
                if(OrderClose(ticket, closeLots, currentPrice, 3, clrOrange)) {
-                  MarkTP1Fired(ticket);
-                  Print("TP1 hit #", ticket, " | Closed ", closeLots, " lots @ ", currentPrice);
-                  // Find the new ticket (remainder) and mark + move SL to BE
-                  for(int k = OrdersTotal() - 1; k >= 0; k--) {
-                     if(!OrderSelect(k, SELECT_BY_POS, MODE_TRADES)) continue;
-                     if(OrderSymbol() == Symbol() && OrderMagicNumber() == MagicNumber
-                        && OrderOpenPrice() == openPrice && OrderTicket() != ticket) {
-                        int newTicket = OrderTicket();
-                        MarkTP1Fired(newTicket);
-                        double beSL = openPrice - 1 * g_pipValue;
-                        if(!OrderModify(newTicket, openPrice, beSL, OrderTakeProfit(), 0, clrYellow))
-                           Print("OrderModify BE failed #", newTicket, " error=", GetLastError());
-                        break;
-                     }
+                  Print("TP1 partial close #", ticket, " | ", closeLots, " lots @ ", currentPrice);
+                  if(OrderSelect(ticket, SELECT_BY_TICKET)) {
+                     if(!OrderModify(ticket, openPrice,
+                                     openPrice - 1 * g_pipValue,
+                                     OrderTakeProfit(), 0, clrYellow))
+                        Print("OrderModify failed #", ticket, " error=", GetLastError());
                   }
                }
             }
          }
 
-         // Breakeven at 1R (only if TP1 partial close is disabled)
-         if(UseBreakeven && !UsePartialClose && profit >= riskDist && currentSL > openPrice) {
+         if(UseBreakeven && profit >= riskDist && currentSL > openPrice) {
             ModifySL(ticket, openPrice - 1 * g_pipValue);
          }
 
-         // Trailing stop
          if(UseTrailingStop && profit >= riskDist * TrailingRMultiple) {
             double trailDist = riskDist * 0.3;
             double trailSL = currentPrice + trailDist;
@@ -1171,6 +1086,167 @@ void ModifySL(int ticket, double newSL) {
 
 //+------------------------------------------------------------------+
 //| NEWS FILTER - Load CSV Calendar                                  |
+//+------------------------------------------------------------------+
+//| KILL ZONE + FVG STRATEGY                                          |
+//+------------------------------------------------------------------+
+
+// Check if we are in a kill zone (first 30 min of London or NY)
+bool IsKillZone() {
+   int hour = TimeHour(TimeCurrent());
+   int minute = TimeMinute(TimeCurrent());
+   // London open: 8:00-8:30
+   if(hour == LondonStartHour && minute < 30) return true;
+   // NY open: 13:00-13:30 (or NYStartHour)
+   if(hour == NYStartHour && minute < 30) return true;
+   return false;
+}
+
+// Scan for FVGs created during current kill zone
+void ScanKillZoneFVGs() {
+   ArrayResize(g_kzFVGs, 0);
+
+   // Scan the last 6 bars (30 min of M5)
+   for(int i = 1; i <= 6; i++) {
+      if(i + 1 >= Bars) continue;
+      double high_prev = iHigh(Symbol(), PERIOD_M5, i + 1);
+      double low_prev  = iLow(Symbol(), PERIOD_M5, i + 1);
+      double high_next = iHigh(Symbol(), PERIOD_M5, i - 1);
+      double low_next  = iLow(Symbol(), PERIOD_M5, i - 1);
+
+      // Bullish FVG: gap up
+      if(low_next > high_prev) {
+         double gapSize = (low_next - high_prev) / g_pipValue;
+         if(gapSize >= KZ_MinFVG_Pips) {
+            int sz = ArraySize(g_kzFVGs);
+            ArrayResize(g_kzFVGs, sz + 1);
+            g_kzFVGs[sz].top = low_next;
+            g_kzFVGs[sz].bottom = high_prev;
+            g_kzFVGs[sz].isBullish = true;
+            g_kzFVGs[sz].isValid = true;
+            g_kzFVGs[sz].createdTime = iTime(Symbol(), PERIOD_M5, i);
+            g_kzFVGs[sz].barIndex = i;
+         }
+      }
+
+      // Bearish FVG: gap down
+      if(high_next < low_prev) {
+         double gapSize = (low_prev - high_next) / g_pipValue;
+         if(gapSize >= KZ_MinFVG_Pips) {
+            int sz = ArraySize(g_kzFVGs);
+            ArrayResize(g_kzFVGs, sz + 1);
+            g_kzFVGs[sz].top = low_prev;
+            g_kzFVGs[sz].bottom = high_next;
+            g_kzFVGs[sz].isBullish = false;
+            g_kzFVGs[sz].isValid = true;
+            g_kzFVGs[sz].createdTime = iTime(Symbol(), PERIOD_M5, i);
+            g_kzFVGs[sz].barIndex = i;
+         }
+      }
+   }
+   if(ArraySize(g_kzFVGs) > 0)
+      Print("KZ scan: found ", ArraySize(g_kzFVGs), " FVGs during kill zone");
+}
+
+// Count open KZ trades
+int CountKZTrades() {
+   int count = 0;
+   for(int i = OrdersTotal() - 1; i >= 0; i--) {
+      if(OrderSelect(i, SELECT_BY_POS, MODE_TRADES)) {
+         if(OrderSymbol() == Symbol() && OrderMagicNumber() == KZ_MagicNumber)
+            count++;
+      }
+   }
+   return count;
+}
+
+// Check for FVG fill entries (price returns to fill the gap)
+void CheckKZFVGEntry() {
+   if(!UseKZFVG) return;
+   if(CountKZTrades() >= 1) return;  // Max 1 KZ trade at a time
+   if(SpreadTooWide()) return;
+
+   double bid = MarketInfo(Symbol(), MODE_BID);
+   double ask = MarketInfo(Symbol(), MODE_ASK);
+
+   for(int i = 0; i < ArraySize(g_kzFVGs); i++) {
+      if(!g_kzFVGs[i].isValid) continue;
+
+      // Expire old FVGs
+      int barAge = iBarShift(Symbol(), PERIOD_M5, g_kzFVGs[i].createdTime);
+      if(barAge > KZ_MaxAgeBars) {
+         g_kzFVGs[i].isValid = false;
+         continue;
+      }
+
+      double fvgMid = (g_kzFVGs[i].top + g_kzFVGs[i].bottom) / 2.0;
+
+      // Bullish FVG fill: price comes down INTO the FVG → buy
+      if(g_kzFVGs[i].isBullish) {
+         if(bid <= g_kzFVGs[i].top && bid >= g_kzFVGs[i].bottom) {
+            double sl = g_kzFVGs[i].bottom - g_slBufferPips * g_pipValue;
+            double slDist = ask - sl;
+            if(slDist / g_pipValue < g_minSLPips)
+               sl = ask - g_minSLPips * g_pipValue;
+
+            double tp = ask + MathAbs(ask - sl) * KZ_MinRR;
+            double rr = (tp - ask) / (ask - sl);
+
+            if(rr >= KZ_MinRR) {
+               double lotSize = CalculateLotSize(MathAbs(ask - sl));
+               if(lotSize > 0) {
+                  sl = NormalizeDouble(sl, g_digits);
+                  tp = NormalizeDouble(tp, g_digits);
+                  int ticket = OrderSend(Symbol(), OP_BUY, lotSize,
+                     NormalizeDouble(ask, g_digits), 3, sl, tp,
+                     "KZ+FVG Buy", KZ_MagicNumber, 0, clrDodgerBlue);
+                  if(ticket > 0) {
+                     Print("KZ+FVG Buy #", ticket, " | Entry: ", ask,
+                           " | SL: ", sl, " | TP: ", tp, " | RR: ", DoubleToStr(rr, 1));
+                     g_kzFVGs[i].isValid = false;
+                  } else {
+                     Print("KZ+FVG Buy failed: ", GetLastError());
+                  }
+               }
+               return;
+            }
+         }
+      }
+
+      // Bearish FVG fill: price comes up INTO the FVG → sell
+      if(!g_kzFVGs[i].isBullish) {
+         if(ask >= g_kzFVGs[i].bottom && ask <= g_kzFVGs[i].top) {
+            double sl = g_kzFVGs[i].top + g_slBufferPips * g_pipValue;
+            double slDist = sl - bid;
+            if(slDist / g_pipValue < g_minSLPips)
+               sl = bid + g_minSLPips * g_pipValue;
+
+            double tp = bid - MathAbs(sl - bid) * KZ_MinRR;
+            double rr = (bid - tp) / (sl - bid);
+
+            if(rr >= KZ_MinRR) {
+               double lotSize = CalculateLotSize(MathAbs(sl - bid));
+               if(lotSize > 0) {
+                  sl = NormalizeDouble(sl, g_digits);
+                  tp = NormalizeDouble(tp, g_digits);
+                  int ticket = OrderSend(Symbol(), OP_SELL, lotSize,
+                     NormalizeDouble(bid, g_digits), 3, sl, tp,
+                     "KZ+FVG Sell", KZ_MagicNumber, 0, clrOrangeRed);
+                  if(ticket > 0) {
+                     Print("KZ+FVG Sell #", ticket, " | Entry: ", bid,
+                           " | SL: ", sl, " | TP: ", tp, " | RR: ", DoubleToStr(rr, 1));
+                     g_kzFVGs[i].isValid = false;
+                  } else {
+                     Print("KZ+FVG Sell failed: ", GetLastError());
+                  }
+               }
+               return;
+            }
+         }
+      }
+   }
+}
+
+//+------------------------------------------------------------------+
 //| Format: YYYY.MM.DD,HH:MM,CURRENCY,IMPACT,TITLE                  |
 //| Example: 2024.04.05,14:30,USD,HIGH,Non-Farm Payrolls             |
 //+------------------------------------------------------------------+
