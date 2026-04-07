@@ -22,32 +22,32 @@ input int    MagicNumber        = 20240407;// Magic number
 input int    MaxOpenTrades      = 1;       // Max simultaneous trades
 input double MinRR              = 2.5;     // Minimum Risk:Reward ratio
 input double SL_BufferPips      = 5.0;     // SL buffer beyond OB (pips)
-input double MinSL_Pips         = 10.0;    // Minimum SL distance (pips)
+input double MinSL_Pips         = 15.0;    // Minimum SL distance (pips)
 
-// --- Structure Detection (M15) ---
-input int    StructureLookback  = 20;      // Bars to look back for swing H/L
+// --- Structure Detection (H1) ---
+input int    StructureLookback  = 20;      // H1 bars to look back for swing H/L
 input int    SwingStrength      = 3;       // Bars on each side for swing point
 input bool   UseEMA_Bias        = true;    // Use EMA as fallback bias filter
-input int    EMA_Period         = 50;      // EMA period for bias (M15)
+input int    EMA_Period         = 50;      // EMA period for bias (H1)
 input bool   UseHTF_Filter      = true;    // Filter entries against H4 EMA trend
 input int    HTF_EMA_Period     = 50;      // H4 EMA period for trend filter
 
-// --- Order Block Detection (M5) ---
-input int    OB_Lookback        = 30;      // Bars to scan for OB
+// --- Order Block Detection (M15) ---
+input int    OB_Lookback        = 30;      // M15 bars to scan for OB
 input double OB_MinBodyRatio    = 0.3;     // Min body/range ratio for impulse candle
-input int    OB_MinImpulsePips  = 5;       // Min impulse move (pips)
+input int    OB_MinImpulsePips  = 8;       // Min impulse move (pips)
 input bool   RequireConfluence  = false;   // Require OB+FVG or OB+Sweep (false=OB alone OK)
 
-// --- FVG Detection (M5) ---
-input int    FVG_Lookback       = 20;      // Bars to scan for FVG
-input double FVG_MinSizePips    = 1.5;     // Min FVG size (pips)
+// --- FVG Detection (M15) ---
+input int    FVG_Lookback       = 20;      // M15 bars to scan for FVG
+input double FVG_MinSizePips    = 3.0;     // Min FVG size (pips)
 
 // --- Liquidity Sweep ---
-input int    LiqSweep_Lookback  = 30;      // Bars to scan for liq levels
-input double LiqSweep_MinPips   = 2.0;     // Min sweep beyond level (pips)
+input int    LiqSweep_Lookback  = 30;      // M15 bars to scan for liq levels
+input double LiqSweep_MinPips   = 3.0;     // Min sweep beyond level (pips)
 
 // --- Entry Quality ---
-input int    OB_MaxAgeBars      = 50;      // Max OB age in M5 bars (0=no limit)
+input int    OB_MaxAgeBars      = 30;      // Max OB age in M15 bars (0=no limit)
 input bool   RequirePullback    = true;    // Price must retrace into OB (not gap in)
 
 // --- Session Filter ---
@@ -212,7 +212,7 @@ void OnDeinit(const int reason) {
 //+------------------------------------------------------------------+
 void OnTick() {
    // --- New bar check (M5) ---
-   datetime currentBarTime = iTime(Symbol(), PERIOD_M5, 0);
+   datetime currentBarTime = iTime(Symbol(), PERIOD_M15, 0);
    if(currentBarTime == g_lastBarTime) return;
    g_lastBarTime = currentBarTime;
 
@@ -307,7 +307,7 @@ void AnalyzeStructure() {
    SwingPoint swingHighs[];
    SwingPoint swingLows[];
 
-   FindSwingPoints(PERIOD_M15, g_structureLookback, g_swingStrength, swingHighs, swingLows);
+   FindSwingPoints(PERIOD_H1, g_structureLookback, g_swingStrength, swingHighs, swingLows);
 
    BIAS_DIRECTION swingBias = BIAS_NONE;
 
@@ -317,7 +317,7 @@ void AnalyzeStructure() {
       g_lastSwingLow  = swingLows[0];
       g_prevSwingLow  = swingLows[1];
 
-      double currentClose = iClose(Symbol(), PERIOD_M15, 0);
+      double currentClose = iClose(Symbol(), PERIOD_H1, 0);
 
       // Strong BOS: price breaks swing + structure confirms
       if(currentClose > g_lastSwingHigh.price &&
@@ -350,9 +350,9 @@ void AnalyzeStructure() {
 
    // EMA fallback: if swings give no clear direction, use EMA slope
    if(swingBias == BIAS_NONE && UseEMA_Bias) {
-      double ema0 = iMA(Symbol(), PERIOD_M15, EMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
-      double ema1 = iMA(Symbol(), PERIOD_M15, EMA_Period, 0, MODE_EMA, PRICE_CLOSE, 1);
-      double currentClose = iClose(Symbol(), PERIOD_M15, 0);
+      double ema0 = iMA(Symbol(), PERIOD_H1, EMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
+      double ema1 = iMA(Symbol(), PERIOD_H1, EMA_Period, 0, MODE_EMA, PRICE_CLOSE, 1);
+      double currentClose = iClose(Symbol(), PERIOD_H1, 0);
 
       if(currentClose > ema0 && ema0 > ema1)
          swingBias = BIAS_BULLISH;
@@ -417,15 +417,15 @@ void DetectOrderBlocks() {
    ArrayResize(g_activeOBs, 0);
 
    for(int i = 2; i < g_obLookback; i++) {
-      double open_i  = iOpen(Symbol(), PERIOD_M5, i);
-      double close_i = iClose(Symbol(), PERIOD_M5, i);
-      double high_i  = iHigh(Symbol(), PERIOD_M5, i);
-      double low_i   = iLow(Symbol(), PERIOD_M5, i);
+      double open_i  = iOpen(Symbol(), PERIOD_M15, i);
+      double close_i = iClose(Symbol(), PERIOD_M15, i);
+      double high_i  = iHigh(Symbol(), PERIOD_M15, i);
+      double low_i   = iLow(Symbol(), PERIOD_M15, i);
 
-      double open_imp  = iOpen(Symbol(), PERIOD_M5, i - 1);
-      double close_imp = iClose(Symbol(), PERIOD_M5, i - 1);
-      double high_imp  = iHigh(Symbol(), PERIOD_M5, i - 1);
-      double low_imp   = iLow(Symbol(), PERIOD_M5, i - 1);
+      double open_imp  = iOpen(Symbol(), PERIOD_M15, i - 1);
+      double close_imp = iClose(Symbol(), PERIOD_M15, i - 1);
+      double high_imp  = iHigh(Symbol(), PERIOD_M15, i - 1);
+      double low_imp   = iLow(Symbol(), PERIOD_M15, i - 1);
 
       double impBody  = MathAbs(close_imp - open_imp);
       double impRange = high_imp - low_imp;
@@ -445,7 +445,7 @@ void DetectOrderBlocks() {
             ob.barIndex = i;
             ob.isBullish = true;
             ob.isValid = true;
-            ob.time = iTime(Symbol(), PERIOD_M5, i);
+            ob.time = iTime(Symbol(), PERIOD_M15, i);
 
             if(!IsOBMitigated(ob, i)) {
                int size = ArraySize(g_activeOBs);
@@ -464,7 +464,7 @@ void DetectOrderBlocks() {
             ob.barIndex = i;
             ob.isBullish = false;
             ob.isValid = true;
-            ob.time = iTime(Symbol(), PERIOD_M5, i);
+            ob.time = iTime(Symbol(), PERIOD_M15, i);
 
             if(!IsOBMitigated(ob, i)) {
                int size = ArraySize(g_activeOBs);
@@ -482,9 +482,9 @@ void DetectOrderBlocks() {
 bool IsOBMitigated(OrderBlock &ob, int obBarIndex) {
    for(int i = obBarIndex - 2; i >= 1; i--) {
       if(ob.isBullish) {
-         if(iClose(Symbol(), PERIOD_M5, i) < ob.bottom) return true;
+         if(iClose(Symbol(), PERIOD_M15, i) < ob.bottom) return true;
       } else {
-         if(iClose(Symbol(), PERIOD_M5, i) > ob.top) return true;
+         if(iClose(Symbol(), PERIOD_M15, i) > ob.top) return true;
       }
    }
    return false;
@@ -497,10 +497,10 @@ void DetectFVGs() {
    ArrayResize(g_activeFVGs, 0);
 
    for(int i = 2; i < FVG_Lookback; i++) {
-      double high_prev = iHigh(Symbol(), PERIOD_M5, i);
-      double low_prev  = iLow(Symbol(), PERIOD_M5, i);
-      double high_next = iHigh(Symbol(), PERIOD_M5, i - 2);
-      double low_next  = iLow(Symbol(), PERIOD_M5, i - 2);
+      double high_prev = iHigh(Symbol(), PERIOD_M15, i);
+      double low_prev  = iLow(Symbol(), PERIOD_M15, i);
+      double high_next = iHigh(Symbol(), PERIOD_M15, i - 2);
+      double low_next  = iLow(Symbol(), PERIOD_M15, i - 2);
 
       // Bullish FVG: gap up
       if(low_next > high_prev) {
@@ -546,9 +546,9 @@ void DetectFVGs() {
 bool IsFVGFilled(double bottom, double top, bool isBullish, int fromBar) {
    for(int i = fromBar - 1; i >= 1; i--) {
       if(isBullish) {
-         if(iLow(Symbol(), PERIOD_M5, i) <= bottom) return true;
+         if(iLow(Symbol(), PERIOD_M15, i) <= bottom) return true;
       } else {
-         if(iHigh(Symbol(), PERIOD_M5, i) >= top) return true;
+         if(iHigh(Symbol(), PERIOD_M15, i) >= top) return true;
       }
    }
    return false;
@@ -564,9 +564,9 @@ bool DetectLiquiditySweep(bool checkBullish) {
    if(checkBullish) {
       // Sweep of lows = bullish signal
       for(int i = 5; i < LiqSweep_Lookback; i++) {
-         double low_i = iLow(Symbol(), PERIOD_M5, i);
+         double low_i = iLow(Symbol(), PERIOD_M15, i);
          for(int j = i + 1; j < LiqSweep_Lookback; j++) {
-            double low_j = iLow(Symbol(), PERIOD_M5, j);
+            double low_j = iLow(Symbol(), PERIOD_M15, j);
             if(MathAbs(low_i - low_j) / g_pipValue <= tolerance) {
                liqLevel = MathMin(low_i, low_j);
                break;
@@ -578,8 +578,8 @@ bool DetectLiquiditySweep(bool checkBullish) {
       if(liqLevel == 0) return false;
 
       for(int i = 1; i <= 3; i++) {
-         double low_i   = iLow(Symbol(), PERIOD_M5, i);
-         double close_i = iClose(Symbol(), PERIOD_M5, i);
+         double low_i   = iLow(Symbol(), PERIOD_M15, i);
+         double close_i = iClose(Symbol(), PERIOD_M15, i);
          if(low_i < liqLevel - g_liqSweepMinPips * g_pipValue &&
             close_i > liqLevel) {
             return true;
@@ -589,9 +589,9 @@ bool DetectLiquiditySweep(bool checkBullish) {
    else {
       // Sweep of highs = bearish signal
       for(int i = 5; i < LiqSweep_Lookback; i++) {
-         double high_i = iHigh(Symbol(), PERIOD_M5, i);
+         double high_i = iHigh(Symbol(), PERIOD_M15, i);
          for(int j = i + 1; j < LiqSweep_Lookback; j++) {
-            double high_j = iHigh(Symbol(), PERIOD_M5, j);
+            double high_j = iHigh(Symbol(), PERIOD_M15, j);
             if(MathAbs(high_i - high_j) / g_pipValue <= tolerance) {
                liqLevel = MathMax(high_i, high_j);
                break;
@@ -603,8 +603,8 @@ bool DetectLiquiditySweep(bool checkBullish) {
       if(liqLevel == 0) return false;
 
       for(int i = 1; i <= 3; i++) {
-         double high_i  = iHigh(Symbol(), PERIOD_M5, i);
-         double close_i = iClose(Symbol(), PERIOD_M5, i);
+         double high_i  = iHigh(Symbol(), PERIOD_M15, i);
+         double close_i = iClose(Symbol(), PERIOD_M15, i);
          if(high_i > liqLevel + g_liqSweepMinPips * g_pipValue &&
             close_i < liqLevel) {
             return true;
@@ -646,7 +646,7 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
          if(bid <= g_activeOBs[i].top && bid >= g_activeOBs[i].bottom) {
             // Pullback check: previous bar close was above OB (price came down into it)
             if(RequirePullback) {
-               double prevClose = iClose(Symbol(), PERIOD_M5, 1);
+               double prevClose = iClose(Symbol(), PERIOD_M15, 1);
                if(prevClose < g_activeOBs[i].top) continue;
             }
 
@@ -686,7 +686,7 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
          if(ask >= g_activeOBs[i].bottom && ask <= g_activeOBs[i].top) {
             // Pullback check: previous bar close was below OB (price came up into it)
             if(RequirePullback) {
-               double prevClose = iClose(Symbol(), PERIOD_M5, 1);
+               double prevClose = iClose(Symbol(), PERIOD_M15, 1);
                if(prevClose > g_activeOBs[i].bottom) continue;
             }
 
@@ -794,10 +794,10 @@ void FindTPLevels(bool forBuy, double entry, double sl,
    for(int i = 5; i < 60; i++) {
       if(forBuy) {
          bool isSwingHigh = true;
-         double high = iHigh(Symbol(), PERIOD_M5, i);
+         double high = iHigh(Symbol(), PERIOD_M15, i);
          for(int j = 1; j <= 2; j++) {
-            if(iHigh(Symbol(), PERIOD_M5, i - j) >= high ||
-               iHigh(Symbol(), PERIOD_M5, i + j) >= high) {
+            if(iHigh(Symbol(), PERIOD_M15, i - j) >= high ||
+               iHigh(Symbol(), PERIOD_M15, i + j) >= high) {
                isSwingHigh = false;
                break;
             }
@@ -810,10 +810,10 @@ void FindTPLevels(bool forBuy, double entry, double sl,
       }
       else {
          bool isSwingLow = true;
-         double low = iLow(Symbol(), PERIOD_M5, i);
+         double low = iLow(Symbol(), PERIOD_M15, i);
          for(int j = 1; j <= 2; j++) {
-            if(iLow(Symbol(), PERIOD_M5, i - j) <= low ||
-               iLow(Symbol(), PERIOD_M5, i + j) <= low) {
+            if(iLow(Symbol(), PERIOD_M15, i - j) <= low ||
+               iLow(Symbol(), PERIOD_M15, i + j) <= low) {
                isSwingLow = false;
                break;
             }
