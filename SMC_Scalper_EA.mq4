@@ -26,7 +26,7 @@ input double MinSL_Pips         = 10.0;    // Minimum SL distance (pips)
 
 // --- Structure Detection (M15) ---
 input int    StructureLookback  = 20;      // Bars to look back for swing H/L
-input int    SwingStrength      = 3;       // Bars on each side for swing point
+input int    SwingStrength      = 2;       // Bars on each side for swing point
 input bool   UseEMA_Bias        = true;    // Use EMA as fallback bias filter
 input int    EMA_Period         = 50;      // EMA period for bias (M15)
 input bool   UseHTF_Filter      = true;    // Filter entries against H4 EMA trend
@@ -48,11 +48,12 @@ input double LiqSweep_MinPips   = 2.0;     // Min sweep beyond level (pips)
 
 // --- Entry Quality ---
 input int    OB_MaxAgeBars      = 50;      // Max OB age in M5 bars (0=no limit)
-input bool   RequirePullback    = true;    // Price must retrace into OB (not gap in)
+input bool   RequirePullback    = false;   // Price must retrace into OB (not gap in)
+input double OB_EntryBuffer     = 3.0;     // Buffer pips around OB zone for entry
 
 // --- Session Filter ---
 input int    LondonStartHour    = 8;       // London session start (server time)
-input int    LondonEndHour      = 12;      // London session end
+input int    LondonEndHour      = 13;      // London session end (covers overlap)
 input int    NYStartHour        = 13;      // New York session start
 input int    NYEndHour          = 17;      // New York session end
 
@@ -134,6 +135,9 @@ int        g_structureLookback;
 int        g_swingStrength;
 double     g_slBufferPips;
 double     g_minSLPips;
+double     g_obEntryBuffer;
+datetime   g_lastTradeClose = 0;  // Cooldown tracking
+int        g_prevTradeCount = 0;  // Track open trade count changes
 
 //+------------------------------------------------------------------+
 //| Expert initialization                                             |
@@ -155,6 +159,7 @@ int OnInit() {
    g_swingStrength     = SwingStrength;
    g_slBufferPips      = SL_BufferPips;
    g_minSLPips         = MinSL_Pips;
+   g_obEntryBuffer     = OB_EntryBuffer;
 
    // Nasdaq preset: wider spread, bigger impulse/FVG thresholds (points not pips)
    if(UseNasdaqPreset) {
@@ -168,6 +173,7 @@ int OnInit() {
       g_swingStrength     = 4;
       g_slBufferPips      = 30.0;   // 30 pts buffer for Nasdaq
       g_minSLPips         = 50.0;   // 50 pts min SL for Nasdaq
+      g_obEntryBuffer     = 20.0;   // 20 pts buffer for Nasdaq
       Print(">>> Nasdaq preset ACTIVE");
    }
 
@@ -183,6 +189,7 @@ int OnInit() {
       g_swingStrength     = 4;
       g_slBufferPips      = 30.0;   // 30 pips buffer for Gold
       g_minSLPips         = 40.0;   // 40 pips min SL for Gold
+      g_obEntryBuffer     = 15.0;   // 15 pips buffer for Gold
       Print(">>> Gold preset ACTIVE");
    }
 
@@ -211,6 +218,12 @@ void OnDeinit(const int reason) {
 //| Expert tick function                                              |
 //+------------------------------------------------------------------+
 void OnTick() {
+   // --- Detect trade close for cooldown ---
+   int currentTradeCount = CountOpenTrades();
+   if(currentTradeCount < g_prevTradeCount)
+      g_lastTradeClose = TimeCurrent();
+   g_prevTradeCount = currentTradeCount;
+
    // --- New bar check (M5) ---
    datetime currentBarTime = iTime(Symbol(), PERIOD_M5, 0);
    if(currentBarTime == g_lastBarTime) return;
@@ -229,6 +242,8 @@ void OnTick() {
       if(IsTesting()) PrintOnce("FILTER_NEWS", "Blocked by news filter at " + TimeToString(TimeCurrent()));
       return;
    }
+   // Cooldown: wait 4 M5 bars (20 min) after last trade close
+   if(g_lastTradeClose > 0 && TimeCurrent() - g_lastTradeClose < 20 * 60) return;
    if(CountOpenTrades() >= MaxOpenTrades) return;
 
    // Reload news file daily
@@ -480,11 +495,13 @@ void DetectOrderBlocks() {
 //| CHECK IF ORDER BLOCK HAS BEEN MITIGATED                          |
 //+------------------------------------------------------------------+
 bool IsOBMitigated(OrderBlock &ob, int obBarIndex) {
+   double midPoint = (ob.top + ob.bottom) / 2.0;
    for(int i = obBarIndex - 2; i >= 1; i--) {
       if(ob.isBullish) {
-         if(iClose(Symbol(), PERIOD_M5, i) < ob.bottom) return true;
+         // Only mitigated if close goes through the midpoint of the OB
+         if(iClose(Symbol(), PERIOD_M5, i) < midPoint) return true;
       } else {
-         if(iClose(Symbol(), PERIOD_M5, i) > ob.top) return true;
+         if(iClose(Symbol(), PERIOD_M5, i) > midPoint) return true;
       }
    }
    return false;
@@ -642,8 +659,9 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
          // Skip stale OBs
          if(OB_MaxAgeBars > 0 && g_activeOBs[i].barIndex > OB_MaxAgeBars) continue;
 
-         // Price in OB zone
-         if(bid <= g_activeOBs[i].top && bid >= g_activeOBs[i].bottom) {
+         // Price in OB zone (with buffer)
+         double bufferDist = g_obEntryBuffer * g_pipValue;
+         if(bid <= g_activeOBs[i].top + bufferDist && bid >= g_activeOBs[i].bottom - bufferDist) {
             // Pullback check: previous bar close was above OB (price came down into it)
             if(RequirePullback) {
                double prevClose = iClose(Symbol(), PERIOD_M5, 1);
@@ -683,7 +701,8 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
          // Skip stale OBs
          if(OB_MaxAgeBars > 0 && g_activeOBs[i].barIndex > OB_MaxAgeBars) continue;
 
-         if(ask >= g_activeOBs[i].bottom && ask <= g_activeOBs[i].top) {
+         double bufferDist = g_obEntryBuffer * g_pipValue;
+         if(ask >= g_activeOBs[i].bottom - bufferDist && ask <= g_activeOBs[i].top + bufferDist) {
             // Pullback check: previous bar close was below OB (price came up into it)
             if(RequirePullback) {
                double prevClose = iClose(Symbol(), PERIOD_M5, 1);
