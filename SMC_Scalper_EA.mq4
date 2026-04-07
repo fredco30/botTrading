@@ -20,7 +20,9 @@ input double RiskPercent        = 1.0;     // Risk % per trade
 input double MaxSpreadPips      = 3.0;     // Max spread allowed (pips)
 input int    MagicNumber        = 20240407;// Magic number
 input int    MaxOpenTrades      = 1;       // Max simultaneous trades
-input double MinRR              = 2.5;     // Minimum Risk:Reward ratio
+input double MinRR              = 3.0;     // Minimum Risk:Reward ratio
+input bool   UseLimitOrders     = true;    // Use limit orders at OB edge (not market)
+input int    LimitExpireBars    = 12;      // Cancel pending order after X M5 bars (1h)
 input double SL_BufferPips      = 5.0;     // SL buffer beyond OB (pips)
 input double MinSL_Pips         = 10.0;    // Minimum SL distance (pips)
 
@@ -728,8 +730,6 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
    if(g_currentBias == BIAS_BULLISH && bullConfirm) {
       for(int i = 0; i < ArraySize(g_activeOBs); i++) {
          if(!g_activeOBs[i].isBullish || !g_activeOBs[i].isValid) continue;
-
-         // Skip stale OBs
          if(OB_MaxAgeBars > 0 && g_activeOBs[i].barIndex > OB_MaxAgeBars) continue;
 
          // Last closed bar touched or was inside the OB zone
@@ -737,27 +737,40 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
          double prevHigh = iHigh(Symbol(), PERIOD_M5, 1);
          if(prevLow > g_activeOBs[i].top || prevHigh < g_activeOBs[i].bottom) continue;
 
-            bool hasFVG = HasFVGConfluence(g_activeOBs[i], true);
-            bool hasConfluence = hasFVG || liqSweepBull;
+         bool hasFVG = HasFVGConfluence(g_activeOBs[i], true);
+         if(!hasFVG && !liqSweepBull && RequireConfluence) continue;
 
-            if(hasConfluence || !RequireConfluence) {
-               double sl = g_activeOBs[i].bottom - g_slBufferPips * g_pipValue;
-               double slDist = (ask - sl) / g_pipValue;
-               if(slDist < g_minSLPips)
-                  sl = ask - g_minSLPips * g_pipValue;
-               double tp1 = 0, tp2 = 0;
-               FindTPLevels(true, ask, sl, tp1, tp2);
+         double entryPrice, sl;
+         int orderType;
 
-               double rr = (tp2 - ask) / (ask - sl);
-               if(rr >= MinRR) {
-                  string label = "SMC Buy|OB";
-                  if(hasFVG) label = label + "+FVG";
-                  if(liqSweepBull) label = label + "+Sweep";
-                  ExecuteTrade(OP_BUY, ask, sl, tp2, label);
-                  g_activeOBs[i].isValid = false;
-                  return;
-               }
-            }
+         if(UseLimitOrders) {
+            // Limit order at bottom of OB zone — best possible entry
+            entryPrice = NormalizeDouble(g_activeOBs[i].bottom + 1 * g_pipValue, g_digits);
+            // Only place if price is above entry (limit buy = below current price)
+            if(ask <= entryPrice) entryPrice = ask;  // fallback to market if already there
+            orderType = (entryPrice < ask) ? OP_BUYLIMIT : OP_BUY;
+         } else {
+            entryPrice = ask;
+            orderType = OP_BUY;
+         }
+
+         sl = g_activeOBs[i].bottom - g_slBufferPips * g_pipValue;
+         double slDist = (entryPrice - sl) / g_pipValue;
+         if(slDist < g_minSLPips)
+            sl = entryPrice - g_minSLPips * g_pipValue;
+
+         double tp1 = 0, tp2 = 0;
+         FindTPLevels(true, entryPrice, sl, tp1, tp2);
+
+         double rr = (tp2 - entryPrice) / (entryPrice - sl);
+         if(rr >= MinRR) {
+            string label = "SMC Buy|OB";
+            if(hasFVG) label = label + "+FVG";
+            if(liqSweepBull) label = label + "+Sweep";
+            ExecuteTrade(orderType, entryPrice, sl, tp2, label);
+            g_activeOBs[i].isValid = false;
+            return;
+         }
       }
    }
 
@@ -765,36 +778,46 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
    if(g_currentBias == BIAS_BEARISH && bearConfirm) {
       for(int i = 0; i < ArraySize(g_activeOBs); i++) {
          if(g_activeOBs[i].isBullish || !g_activeOBs[i].isValid) continue;
-
-         // Skip stale OBs
          if(OB_MaxAgeBars > 0 && g_activeOBs[i].barIndex > OB_MaxAgeBars) continue;
 
-         // Last closed bar touched or was inside the OB zone
          double prevLow = iLow(Symbol(), PERIOD_M5, 1);
          double prevHigh = iHigh(Symbol(), PERIOD_M5, 1);
          if(prevLow > g_activeOBs[i].top || prevHigh < g_activeOBs[i].bottom) continue;
 
-            bool hasFVG = HasFVGConfluence(g_activeOBs[i], false);
-            bool hasConfluence = hasFVG || liqSweepBear;
+         bool hasFVG = HasFVGConfluence(g_activeOBs[i], false);
+         if(!hasFVG && !liqSweepBear && RequireConfluence) continue;
 
-            if(hasConfluence || !RequireConfluence) {
-               double sl = g_activeOBs[i].top + g_slBufferPips * g_pipValue;
-               double slDist = (sl - bid) / g_pipValue;
-               if(slDist < g_minSLPips)
-                  sl = bid + g_minSLPips * g_pipValue;
-               double tp1 = 0, tp2 = 0;
-               FindTPLevels(false, bid, sl, tp1, tp2);
+         double entryPrice, sl;
+         int orderType;
 
-               double rr = (bid - tp2) / (sl - bid);
-               if(rr >= MinRR) {
-                  string label = "SMC Sell|OB";
-                  if(hasFVG) label = label + "+FVG";
-                  if(liqSweepBear) label = label + "+Sweep";
-                  ExecuteTrade(OP_SELL, bid, sl, tp2, label);
-                  g_activeOBs[i].isValid = false;
-                  return;
-               }
-            }
+         if(UseLimitOrders) {
+            // Limit order at top of OB zone — best possible entry
+            entryPrice = NormalizeDouble(g_activeOBs[i].top - 1 * g_pipValue, g_digits);
+            // Only place if price is below entry (limit sell = above current price)
+            if(bid >= entryPrice) entryPrice = bid;  // fallback to market
+            orderType = (entryPrice > bid) ? OP_SELLLIMIT : OP_SELL;
+         } else {
+            entryPrice = bid;
+            orderType = OP_SELL;
+         }
+
+         sl = g_activeOBs[i].top + g_slBufferPips * g_pipValue;
+         double slDist = (sl - entryPrice) / g_pipValue;
+         if(slDist < g_minSLPips)
+            sl = entryPrice + g_minSLPips * g_pipValue;
+
+         double tp1 = 0, tp2 = 0;
+         FindTPLevels(false, entryPrice, sl, tp1, tp2);
+
+         double rr = (entryPrice - tp2) / (sl - entryPrice);
+         if(rr >= MinRR) {
+            string label = "SMC Sell|OB";
+            if(hasFVG) label = label + "+FVG";
+            if(liqSweepBear) label = label + "+Sweep";
+            ExecuteTrade(orderType, entryPrice, sl, tp2, label);
+            g_activeOBs[i].isValid = false;
+            return;
+         }
       }
    }
 }
@@ -1027,9 +1050,14 @@ void ExecuteTrade(int type, double price, double sl, double tp, string comment) 
    sl    = NormalizeDouble(sl, g_digits);
    tp    = NormalizeDouble(tp, g_digits);
 
+   // Set expiration for pending orders (LimitExpireBars * 5 minutes)
+   datetime expiry = 0;
+   if(type == OP_BUYLIMIT || type == OP_SELLLIMIT)
+      expiry = TimeCurrent() + LimitExpireBars * 5 * 60;
+
+   color clr = (type == OP_BUY || type == OP_BUYLIMIT) ? clrGreen : clrRed;
    int ticket = OrderSend(Symbol(), type, lotSize, price, 3, sl, tp,
-                           comment, MagicNumber, 0,
-                           type == OP_BUY ? clrGreen : clrRed);
+                           comment, MagicNumber, expiry, clr);
 
    if(ticket < 0) {
       Print("OrderSend failed: ", GetLastError(),
