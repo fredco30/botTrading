@@ -29,9 +29,6 @@ input int    SL_SwingBars       = 3;       // Bars to look back for SL swing
 input int    RSI_Period         = 14;      // RSI period for overbought/oversold filter
 input int    RSI_OB             = 70;      // RSI overbought level (don't buy above)
 input int    RSI_OS             = 30;      // RSI oversold level (don't sell below)
-input int    ATR_Period          = 14;      // ATR period for SL adjustment
-input double ATR_SL_Min         = 1.0;     // Min SL in ATR multiples
-input double ATR_SL_Max         = 2.0;     // Max SL in ATR multiples
 
 // --- Session Filter ---
 input int    LondonStartHour    = 8;       // London session start (server time)
@@ -202,14 +199,8 @@ void CheckEntry() {
       }
       sl = sl - 2 * g_pipValue;  // Buffer
 
-      // ATR hybrid: ensure SL is between 1-2 ATR
-      double atr = iATR(Symbol(), PERIOD_M15, ATR_Period, 1);
-      double slDist = ask - sl;
-      if(slDist < atr * ATR_SL_Min) sl = ask - atr * ATR_SL_Min;  // Widen if too tight
-      if(slDist > atr * ATR_SL_Max) return;  // Skip if too wide (volatile)
-
-      double slDistPips = (ask - sl) / g_pipValue;
-      if(slDistPips < MinSL_Pips || slDistPips > MaxSL_Pips) return;
+      double slDist = (ask - sl) / g_pipValue;
+      if(slDist < MinSL_Pips || slDist > MaxSL_Pips) return;
 
       double tp = ask + (ask - sl) * MinRR;
 
@@ -236,14 +227,8 @@ void CheckEntry() {
       }
       sl = sl + 2 * g_pipValue;  // Buffer
 
-      // ATR hybrid: ensure SL is between 1-2 ATR
-      double atr = iATR(Symbol(), PERIOD_M15, ATR_Period, 1);
-      double slDist = sl - bid;
-      if(slDist < atr * ATR_SL_Min) sl = bid + atr * ATR_SL_Min;  // Widen if too tight
-      if(slDist > atr * ATR_SL_Max) return;  // Skip if too wide (volatile)
-
-      double slDistPips = (sl - bid) / g_pipValue;
-      if(slDistPips < MinSL_Pips || slDistPips > MaxSL_Pips) return;
+      double slDist = (sl - bid) / g_pipValue;
+      if(slDist < MinSL_Pips || slDist > MaxSL_Pips) return;
 
       double tp = bid - (sl - bid) * MinRR;
 
