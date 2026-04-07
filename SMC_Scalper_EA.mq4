@@ -124,10 +124,6 @@ datetime   g_lastNewsLoad = 0;
 double     g_pipValue;
 int        g_digits;
 
-// Track tickets that already had TP1 partial close
-int        g_tp1Tickets[];
-int        g_tp1Count = 0;
-
 // Runtime values (may be overridden by Nasdaq/Gold preset)
 double     g_maxSpreadPips;
 int        g_obMinImpulsePips;
@@ -215,10 +211,7 @@ void OnDeinit(const int reason) {
 //| Expert tick function                                              |
 //+------------------------------------------------------------------+
 void OnTick() {
-   // --- Manage open trades on EVERY tick (TP1/trailing must react fast) ---
-   ManageOpenTrades();
-
-   // --- New bar check (M5) — everything below runs once per bar ---
+   // --- New bar check (M5) ---
    datetime currentBarTime = iTime(Symbol(), PERIOD_M5, 0);
    if(currentBarTime == g_lastBarTime) return;
    g_lastBarTime = currentBarTime;
@@ -259,6 +252,9 @@ void OnTick() {
 
    // --- Step 5: Entry Logic ---
    CheckEntry(liqSweepBull, liqSweepBear);
+
+   // --- Step 6: Trade Management ---
+   ManageOpenTrades();
 }
 
 //+------------------------------------------------------------------+
@@ -890,12 +886,8 @@ void ExecuteTrade(int type, double price, double sl, double tp, string comment) 
    sl    = NormalizeDouble(sl, g_digits);
    tp    = NormalizeDouble(tp, g_digits);
 
-   // Store initial risk distance in comment for later use
-   double initialRisk = MathAbs(price - sl);
-   string fullComment = comment + "|R=" + DoubleToStr(initialRisk, g_digits);
-
    int ticket = OrderSend(Symbol(), type, lotSize, price, 3, sl, tp,
-                           fullComment, MagicNumber, 0,
+                           comment, MagicNumber, 0,
                            type == OP_BUY ? clrGreen : clrRed);
 
    if(ticket < 0) {
@@ -942,33 +934,6 @@ double CalculateLotSize(double slDistance) {
 }
 
 //+------------------------------------------------------------------+
-//| CHECK IF TICKET ALREADY HAD TP1 PARTIAL CLOSE                    |
-//+------------------------------------------------------------------+
-bool HasTP1Fired(int ticket) {
-   for(int i = 0; i < g_tp1Count; i++) {
-      if(g_tp1Tickets[i] == ticket) return true;
-   }
-   return false;
-}
-
-void MarkTP1Fired(int ticket) {
-   g_tp1Count++;
-   ArrayResize(g_tp1Tickets, g_tp1Count);
-   g_tp1Tickets[g_tp1Count - 1] = ticket;
-}
-
-//+------------------------------------------------------------------+
-//| GET INITIAL RISK from order comment (stored as "|R=0.00123")     |
-//+------------------------------------------------------------------+
-double GetInitialRisk(string comment, double fallback) {
-   int pos = StringFind(comment, "|R=");
-   if(pos < 0) return fallback;
-   string rStr = StringSubstr(comment, pos + 3);
-   double r = StringToDouble(rStr);
-   return (r > 0) ? r : fallback;
-}
-
-//+------------------------------------------------------------------+
 //| MANAGE OPEN TRADES (Partial Close + BE + Trailing)               |
 //+------------------------------------------------------------------+
 void ManageOpenTrades() {
@@ -978,47 +943,41 @@ void ManageOpenTrades() {
 
       double openPrice = OrderOpenPrice();
       double currentSL = OrderStopLoss();
+      double riskDist  = MathAbs(openPrice - currentSL);
       double lots      = OrderLots();
       int    ticket    = OrderTicket();
       string comment   = OrderComment();
-
-      // Use initial risk from comment (not current SL which may have moved)
-      double riskDist = GetInitialRisk(comment, MathAbs(openPrice - currentSL));
-      if(riskDist <= 0) continue;
-
-      bool tp1Done = HasTP1Fired(ticket);
-      // Also check if SL is already at breakeven (means TP1 already fired on parent ticket)
-      if(!tp1Done && MathAbs(currentSL - openPrice) < 2 * g_pipValue) tp1Done = true;
 
       if(OrderType() == OP_BUY) {
          double currentPrice = MarketInfo(Symbol(), MODE_BID);
          double profit = currentPrice - openPrice;
 
-         // TP1: Partial close 50% at 1.5R, move SL to breakeven
-         if(UsePartialClose && !tp1Done && profit >= riskDist * 1.5) {
-            double closeLots = NormalizeDouble(lots * TP1_Percent / 100.0, 2);
+         // Partial close at TP1 (1.5R) — close 50%, move SL to BE
+         if(UsePartialClose && profit >= riskDist * 1.5
+            && StringFind(comment, "[TP1]") < 0) {
+            double closeLots = NormalizeDouble(lots * TP1_Percent / 100.0,
+                                               2);
             double minLot = MarketInfo(Symbol(), MODE_MINLOT);
             if(closeLots >= minLot && (lots - closeLots) >= minLot) {
                if(OrderClose(ticket, closeLots, currentPrice, 3, clrOrange)) {
-                  MarkTP1Fired(ticket);
-                  Print("TP1 hit #", ticket, " | Closed ", closeLots, " lots @ ", currentPrice,
-                        " | Profit: ", DoubleToStr(closeLots * profit / Point * MarketInfo(Symbol(), MODE_TICKVALUE) * Point, 2));
-                  // Move SL to breakeven + 1 pip
+                  Print("TP1 partial close #", ticket, " | ", closeLots, " lots @ ", currentPrice);
+                  // Update comment on remaining position
                   if(OrderSelect(ticket, SELECT_BY_TICKET)) {
-                     double beSL = openPrice + 1 * g_pipValue;
-                     if(!OrderModify(ticket, openPrice, beSL, OrderTakeProfit(), 0, clrYellow))
-                        Print("OrderModify BE failed #", ticket, " error=", GetLastError());
+                     if(!OrderModify(ticket, openPrice,
+                                     openPrice + 1 * g_pipValue,
+                                     OrderTakeProfit(), 0, clrYellow))
+                        Print("OrderModify failed #", ticket, " error=", GetLastError());
                   }
                }
             }
          }
 
-         // Breakeven at 1R (if TP1 not used)
-         if(UseBreakeven && !tp1Done && profit >= riskDist && currentSL < openPrice) {
+         // Breakeven at 1R
+         if(UseBreakeven && profit >= riskDist && currentSL < openPrice) {
             ModifySL(ticket, openPrice + 1 * g_pipValue);
          }
 
-         // Trailing stop
+         // Trailing after TrailingRMultiple — trail at 30% of risk behind price
          if(UseTrailingStop && profit >= riskDist * TrailingRMultiple) {
             double trailDist = riskDist * 0.3;
             double trailSL = currentPrice - trailDist;
@@ -1031,30 +990,29 @@ void ManageOpenTrades() {
          double currentPrice = MarketInfo(Symbol(), MODE_ASK);
          double profit = openPrice - currentPrice;
 
-         // TP1: Partial close 50% at 1.5R, move SL to breakeven
-         if(UsePartialClose && !tp1Done && profit >= riskDist * 1.5) {
-            double closeLots = NormalizeDouble(lots * TP1_Percent / 100.0, 2);
+         // Partial close at TP1
+         if(UsePartialClose && profit >= riskDist * 1.5
+            && StringFind(comment, "[TP1]") < 0) {
+            double closeLots = NormalizeDouble(lots * TP1_Percent / 100.0,
+                                               2);
             double minLot = MarketInfo(Symbol(), MODE_MINLOT);
             if(closeLots >= minLot && (lots - closeLots) >= minLot) {
                if(OrderClose(ticket, closeLots, currentPrice, 3, clrOrange)) {
-                  MarkTP1Fired(ticket);
-                  Print("TP1 hit #", ticket, " | Closed ", closeLots, " lots @ ", currentPrice);
-                  // Move SL to breakeven - 1 pip
+                  Print("TP1 partial close #", ticket, " | ", closeLots, " lots @ ", currentPrice);
                   if(OrderSelect(ticket, SELECT_BY_TICKET)) {
-                     double beSL = openPrice - 1 * g_pipValue;
-                     if(!OrderModify(ticket, openPrice, beSL, OrderTakeProfit(), 0, clrYellow))
-                        Print("OrderModify BE failed #", ticket, " error=", GetLastError());
+                     if(!OrderModify(ticket, openPrice,
+                                     openPrice - 1 * g_pipValue,
+                                     OrderTakeProfit(), 0, clrYellow))
+                        Print("OrderModify failed #", ticket, " error=", GetLastError());
                   }
                }
             }
          }
 
-         // Breakeven at 1R (if TP1 not used)
-         if(UseBreakeven && !tp1Done && profit >= riskDist && currentSL > openPrice) {
+         if(UseBreakeven && profit >= riskDist && currentSL > openPrice) {
             ModifySL(ticket, openPrice - 1 * g_pipValue);
          }
 
-         // Trailing stop
          if(UseTrailingStop && profit >= riskDist * TrailingRMultiple) {
             double trailDist = riskDist * 0.3;
             double trailSL = currentPrice + trailDist;
