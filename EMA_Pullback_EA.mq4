@@ -186,13 +186,9 @@ void CheckEntry() {
    // RSI filter
    double rsi = iRSI(Symbol(), PERIOD_M15, RSI_Period, PRICE_CLOSE, 1);
 
-   // M15 EMA alignment filter (premium setup)
-   double ema50_m15 = iMA(Symbol(), PERIOD_M15, 50, 0, MODE_EMA, PRICE_CLOSE, 0);
-
    // ============ BULLISH PULLBACK ============
    if(trend == 1) {
-      if(rsi > RSI_OB) return;
-      if(ema20 <= ema50_m15) return;  // EMA20 must be above EMA50 on M15
+      if(rsi > RSI_OB) return;  // Don't buy when overbought
       // Bar 2 must have dipped to or below EMA20 (pullback)
       double ema20_bar2 = iMA(Symbol(), PERIOD_M15, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 2);
       if(low2 > ema20_bar2) return;  // No pullback to EMA
@@ -223,7 +219,6 @@ void CheckEntry() {
 
    // ============ BEARISH PULLBACK ============
    if(trend == -1) {
-      if(ema20 >= ema50_m15) return;  // EMA20 must be below EMA50 on M15
       if(rsi < RSI_OS) return;  // Don't sell when oversold
       // Bar 2 must have spiked to or above EMA20 (pullback)
       double ema20_bar2 = iMA(Symbol(), PERIOD_M15, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 2);
