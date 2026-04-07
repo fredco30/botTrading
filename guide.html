@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Complet - SMC Scalper EA pour MetaTrader 4</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #2d3436;
+            background: #f8f9fa;
+        }
+
+        /* Navigation laterale */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: #1e272e;
+            color: #fff;
+            overflow-y: auto;
+            padding: 20px 0;
+            z-index: 100;
+        }
+
+        .sidebar h2 {
+            padding: 0 20px 15px;
+            font-size: 16px;
+            color: #f39c12;
+            border-bottom: 1px solid #34495e;
+            margin-bottom: 10px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 8px 20px;
+            color: #bdc3c7;
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #34495e;
+            color: #f39c12;
+            padding-left: 25px;
+        }
+
+        .sidebar .section-title {
+            color: #95a5a6;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 15px 20px 5px;
+        }
+
+        /* Contenu principal */
+        .main-content {
+            margin-left: 280px;
+            padding: 40px 60px;
+            max-width: 1000px;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #1e272e;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #636e72;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #2d3436;
+            margin: 50px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #f39c12;
+        }
+
+        h3 {
+            font-size: 20px;
+            color: #2d3436;
+            margin: 30px 0 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        /* Boites d'info */
+        .info-box {
+            background: #dfe6e9;
+            border-left: 5px solid #0984e3;
+            padding: 20px 25px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box.warning {
+            background: #ffeaa7;
+            border-left-color: #fdcb6e;
+        }
+
+        .info-box.success {
+            background: #55efc4;
+            border-left-color: #00b894;
+        }
+
+        .info-box.danger {
+            background: #fab1a0;
+            border-left-color: #e17055;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 15px;
+        }
+
+        /* Etapes numerotees */
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin: 25px 0;
+            padding: 20px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            background: #f39c12;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content h4 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #2d3436;
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: #2d3436;
+            color: #dfe6e9;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 15px 0;
+            line-height: 1.6;
+        }
+
+        .code-block .comment {
+            color: #636e72;
+        }
+
+        .code-block .keyword {
+            color: #f39c12;
+        }
+
+        .code-block .string {
+            color: #55efc4;
+        }
+
+        code {
+            background: #dfe6e9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            font-size: 14px;
+            color: #e17055;
+        }
+
+        /* Images placeholder */
+        .screenshot {
+            background: #dfe6e9;
+            border: 2px dashed #b2bec3;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            color: #636e72;
+            font-style: italic;
+        }
+
+        /* Tableau */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        th {
+            background: #1e272e;
+            color: #fff;
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #dfe6e9;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* Liste a puces custom */
+        ul, ol {
+            margin: 10px 0 20px 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        /* Analogie / metaphore */
+        .analogy {
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+            color: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            font-size: 16px;
+        }
+
+        .analogy strong {
+            font-size: 18px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* FAQ */
+        .faq-item {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .faq-item h4 {
+            color: #0984e3;
+            margin-bottom: 10px;
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li {
+            padding: 8px 0 8px 35px;
+            position: relative;
+        }
+
+        .checklist li::before {
+            content: "\2610";
+            position: absolute;
+            left: 5px;
+            font-size: 20px;
+            color: #f39c12;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+        }
+
+        /* Separateur de section */
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(to right, #f39c12, transparent);
+            margin: 40px 0;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 0 3px;
+        }
+        .badge.easy { background: #55efc4; color: #00b894; }
+        .badge.medium { background: #ffeaa7; color: #e17055; }
+        .badge.hard { background: #fab1a0; color: #d63031; }
+    </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+    <h2>SMC Scalper EA - Guide</h2>
+
+    <div class="section-title">Bases</div>
+    <a href="#intro">Introduction</a>
+    <a href="#cest-quoi">C'est quoi un bot de trading ?</a>
+    <a href="#mt4">C'est quoi MetaTrader 4 ?</a>
+    <a href="#vocabulaire">Vocabulaire de base</a>
+
+    <div class="section-title">Installation</div>
+    <a href="#install-mt4">Installer MetaTrader 4</a>
+    <a href="#compte-demo">Creer un compte demo</a>
+    <a href="#install-ea">Installer le bot (EA)</a>
+    <a href="#install-news">Installer le fichier news</a>
+
+    <div class="section-title">Comprendre la strategie</div>
+    <a href="#smc">C'est quoi le SMC ?</a>
+    <a href="#bos">Break of Structure (BOS)</a>
+    <a href="#ob">Order Blocks (OB)</a>
+    <a href="#fvg">Fair Value Gaps (FVG)</a>
+    <a href="#liquidity">Liquidity Sweep</a>
+    <a href="#comment-ca-marche">Comment le bot decide</a>
+
+    <div class="section-title">Configuration</div>
+    <a href="#parametres">Tous les parametres</a>
+    <a href="#configurer-news">Configurer le filtre news</a>
+    <a href="#config-risk">Configurer le risque</a>
+
+    <div class="section-title">Utilisation</div>
+    <a href="#lancer-bot">Lancer le bot</a>
+    <a href="#backtest">Faire un backtest</a>
+    <a href="#lire-resultats">Lire les resultats</a>
+    <a href="#demo-live">Passer en demo live</a>
+
+    <div class="section-title">Aide</div>
+    <a href="#erreurs">Erreurs courantes</a>
+    <a href="#faq">FAQ</a>
+    <a href="#glossaire">Glossaire</a>
+</nav>
+
+<!-- CONTENU PRINCIPAL -->
+<div class="main-content">
+
+    <h1>Guide Complet : SMC Scalper EA</h1>
+    <p class="subtitle">Un guide pas-a-pas pour installer et utiliser ton bot de trading sur MetaTrader 4, meme si tu n'y connais absolument rien.</p>
+
+    <!-- ============================================ -->
+    <!-- PARTIE 1 : LES BASES                         -->
+    <!-- ============================================ -->
+
+    <h2 id="intro">Bienvenue !</h2>
+    <p>Ce guide va t'accompagner de A a Z pour comprendre et utiliser le <strong>SMC Scalper EA</strong>, un robot de trading automatique qui fonctionne sur MetaTrader 4.</p>
+    <p>Pas besoin de connaitre quoi que ce soit en trading ou en programmation. On va tout expliquer comme si c'etait la premiere fois que tu entends ces mots.</p>
+
+    <div class="info-box">
+        <strong>Ce que tu vas apprendre :</strong>
+        Ce qu'est un bot de trading et comment il fonctionne, comment installer MetaTrader 4, comment installer et configurer le bot, comment le tester sans risquer d'argent reel, et comment comprendre ce qu'il fait.
+    </div>
+
+    <!-- C'est quoi un bot -->
+    <h2 id="cest-quoi">C'est quoi un bot de trading ?</h2>
+
+    <div class="analogy">
+        <strong>Imagine un robot-cuisinier</strong>
+        Tu lui donnes une recette precise : "Quand la temperature du four atteint 180 degres ET que la pate a repose 2 heures, enfourne pendant 25 minutes." Le robot suit cette recette a la lettre, sans emotion, sans fatigue, 24h/24. Un bot de trading, c'est exactement ca, mais pour acheter et vendre sur les marches financiers.
+    </div>
+
+    <p>Un <strong>bot de trading</strong> (aussi appele <strong>EA</strong> pour Expert Advisor sur MetaTrader) est un programme informatique qui :</p>
+    <ul>
+        <li>Regarde les prix du marche en temps reel</li>
+        <li>Applique des regles precises que tu as definies a l'avance</li>
+        <li>Achete ou vend automatiquement quand les conditions sont remplies</li>
+        <li>Gere le risque (combien tu risques par trade)</li>
+        <li>Ferme les positions au bon moment</li>
+    </ul>
+
+    <div class="info-box warning">
+        <strong>Attention - Avertissement important</strong>
+        Un bot ne garantit PAS de gagner de l'argent. Le trading comporte des risques de perte. Commence TOUJOURS par un compte demo (argent fictif) avant de risquer de l'argent reel. Ne trade jamais avec de l'argent dont tu as besoin pour vivre.
+    </div>
+
+    <!-- C'est quoi MT4 -->
+    <h2 id="mt4">C'est quoi MetaTrader 4 ?</h2>
+
+    <p><strong>MetaTrader 4</strong> (ou MT4) est une application gratuite utilisee par des millions de traders dans le monde. C'est comme un "terrain de jeu" ou tu peux :</p>
+    <ul>
+        <li><strong>Voir les graphiques</strong> des prix en temps reel (comme les courbes de temperature sur une meteo)</li>
+        <li><strong>Passer des ordres</strong> manuellement (acheter/vendre toi-meme)</li>
+        <li><strong>Lancer des robots</strong> (EA) qui tradent a ta place</li>
+        <li><strong>Tester des strategies</strong> sur les donnees du passe (backtest)</li>
+    </ul>
+
+    <div class="analogy">
+        <strong>Pense a MT4 comme a un tableau de bord de voiture</strong>
+        Le tableau de bord te montre la vitesse, le niveau d'essence, la temperature... MT4 te montre le prix actuel, l'historique, tes trades en cours. Et le bot, c'est comme le pilote automatique : il conduit a ta place en suivant les regles.
+    </div>
+
+    <!-- Vocabulaire de base -->
+    <h2 id="vocabulaire">Vocabulaire de base</h2>
+
+    <p>Avant d'aller plus loin, voici les mots que tu vas croiser partout. Pas de panique, c'est simple :</p>
+
+    <table>
+        <tr>
+            <th>Mot</th>
+            <th>Explication simple</th>
+            <th>Exemple</th>
+        </tr>
+        <tr>
+            <td><strong>Paire</strong></td>
+            <td>Deux monnaies comparees l'une a l'autre</td>
+            <td>EUR/USD = Euro contre Dollar americain</td>
+        </tr>
+        <tr>
+            <td><strong>Bougie (Candle)</strong></td>
+            <td>Un petit rectangle sur le graphique qui montre le prix pendant une periode</td>
+            <td>Une bougie M5 = le prix pendant 5 minutes</td>
+        </tr>
+        <tr>
+            <td><strong>Timeframe (TF)</strong></td>
+            <td>La duree que represente chaque bougie</td>
+            <td>M5 = 5 minutes, M15 = 15 minutes, H1 = 1 heure</td>
+        </tr>
+        <tr>
+            <td><strong>Buy (Achat)</strong></td>
+            <td>Tu paries que le prix va MONTER</td>
+            <td>Tu achetes EUR/USD a 1.1000, tu esperes qu'il monte a 1.1050</td>
+        </tr>
+        <tr>
+            <td><strong>Sell (Vente)</strong></td>
+            <td>Tu paries que le prix va DESCENDRE</td>
+            <td>Tu vends EUR/USD a 1.1000, tu esperes qu'il descende a 1.0950</td>
+        </tr>
+        <tr>
+            <td><strong>Stop Loss (SL)</strong></td>
+            <td>Le prix ou le bot ferme le trade si ca va mal, pour limiter ta perte</td>
+            <td>SL = "filet de securite"</td>
+        </tr>
+        <tr>
+            <td><strong>Take Profit (TP)</strong></td>
+            <td>Le prix ou le bot ferme le trade si ca va bien, pour prendre ton gain</td>
+            <td>TP = "objectif de gain"</td>
+        </tr>
+        <tr>
+            <td><strong>Pip</strong></td>
+            <td>La plus petite unite de mouvement de prix (comme les centimes pour l'euro)</td>
+            <td>EUR/USD passe de 1.1000 a 1.1001 = 1 pip</td>
+        </tr>
+        <tr>
+            <td><strong>Lot</strong></td>
+            <td>La "taille" de ton trade (combien d'argent tu mets en jeu)</td>
+            <td>0.01 lot = petit trade, 1.0 lot = gros trade</td>
+        </tr>
+        <tr>
+            <td><strong>Spread</strong></td>
+            <td>La petite commission du courtier (la difference entre prix d'achat et de vente)</td>
+            <td>Si spread = 2 pips, tu "paies" 2 pips a chaque trade</td>
+        </tr>
+        <tr>
+            <td><strong>Broker (Courtier)</strong></td>
+            <td>L'entreprise qui te donne acces au marche (comme une banque pour le trading)</td>
+            <td>XM, IC Markets, Exness, etc.</td>
+        </tr>
+        <tr>
+            <td><strong>EA (Expert Advisor)</strong></td>
+            <td>Le nom officiel d'un bot de trading sur MetaTrader</td>
+            <td>Notre SMC Scalper EA !</td>
+        </tr>
+    </table>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================================ -->
+    <!-- PARTIE 2 : INSTALLATION                      -->
+    <!-- ============================================ -->
+
+    <h2 id="install-mt4">Installer MetaTrader 4 <span class="badge easy">Facile</span></h2>
+
+    <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+            <h4>Choisir un broker</h4>
+            <p>Tu as besoin d'un <strong>broker</strong> (courtier) pour utiliser MT4. C'est gratuit de s'inscrire. Voici quelques options populaires :</p>
+            <ul>
+                <li><strong>XM</strong> - Bon pour les debutants, compte demo facile</li>
+                <li><strong>IC Markets</strong> - Spreads bas, bon pour le scalping</li>
+                <li><strong>Exness</strong> - Simple a utiliser</li>
+            </ul>
+            <p>Va sur le site du broker de ton choix et clique sur "Ouvrir un compte" ou "S'inscrire".</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+            <h4>Telecharger MetaTrader 4</h4>
+            <p>Sur le site de ton broker, cherche le bouton <strong>"Telecharger MT4"</strong> ou <strong>"Plateformes"</strong>. Telecharge la version pour <strong>Windows</strong>.</p>
+            <p>Le fichier s'appelle generalement <code>mt4setup.exe</code>.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+            <h4>Installer MT4</h4>
+            <p>Double-clique sur le fichier telecharge. Clique "Suivant" a chaque etape. L'installation prend environ 1 minute.</p>
+            <p>A la fin, MT4 s'ouvre automatiquement.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+            <h4>Se connecter</h4>
+            <p>Quand MT4 s'ouvre, une fenetre te demande de te connecter. Entre les identifiants que le broker t'a envoyes par email :</p>
+            <ul>
+                <li><strong>Login</strong> : ton numero de compte (ex: 12345678)</li>
+                <li><strong>Mot de passe</strong> : celui recu par email</li>
+                <li><strong>Serveur</strong> : selectionne celui indique dans l'email</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="info-box success">
+        <strong>Bravo !</strong>
+        Si tu vois des graphiques avec des bougies qui bougent, c'est que MT4 est installe et connecte. Tu es pret pour la suite !
+    </div>
+
+    <!-- Compte demo -->
+    <h2 id="compte-demo">Creer un compte demo (argent fictif) <span class="badge easy">Facile</span></h2>
+
+    <div class="analogy">
+        <strong>Le compte demo, c'est comme un jeu video</strong>
+        Tu joues avec de l'argent fictif (par exemple 10 000$ virtuels). Ca te permet d'apprendre et de tester le bot sans risquer un seul centime. C'est EXACTEMENT comme le marche reel, mais sans risque.
+    </div>
+
+    <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+            <h4>Ouvrir un compte demo</h4>
+            <p>Dans MT4, va dans le menu <strong>Fichier</strong> puis <strong>"Ouvrir un compte"</strong>.</p>
+            <p>Selectionne ton serveur broker puis clique "Suivant".</p>
+            <p>Choisis <strong>"Nouveau compte de demonstration"</strong> et clique "Suivant".</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+            <h4>Configurer le compte</h4>
+            <p>Remplis les champs (nom, email, etc.) et choisis :</p>
+            <ul>
+                <li><strong>Type de compte</strong> : Standard</li>
+                <li><strong>Devise</strong> : USD</li>
+                <li><strong>Depot</strong> : 10000 (c'est de l'argent fictif, mets ce que tu veux)</li>
+                <li><strong>Levier</strong> : 1:100 (c'est bien pour commencer)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+            <h4>Note tes identifiants</h4>
+            <p>MT4 va t'afficher un <strong>Login</strong> et un <strong>Mot de passe</strong>. <strong>Note-les quelque part !</strong> Tu en auras besoin pour te reconnecter.</p>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <strong>Astuce</strong>
+        En bas a droite de MT4, tu devrais voir des barres vertes ou un chiffre (comme "12 ms"). Ca veut dire que ta connexion au serveur fonctionne. Si tu vois "Pas de connexion" ou "Compte invalide", verifie tes identifiants.
+    </div>
+
+    <!-- Installer l'EA -->
+    <h2 id="install-ea">Installer le bot (EA) sur MT4 <span class="badge medium">Moyen</span></h2>
+
+    <p>C'est la partie la plus importante. On va mettre notre robot dans MT4 pour qu'il puisse fonctionner.</p>
+
+    <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+            <h4>Trouver le dossier MT4</h4>
+            <p>Dans MT4, clique sur le menu <strong>Fichier</strong> puis <strong>"Ouvrir le dossier des donnees"</strong>.</p>
+            <p>Une fenetre de l'explorateur Windows s'ouvre. C'est ici que MT4 stocke tous ses fichiers.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+            <h4>Copier le fichier du bot</h4>
+            <p>Dans l'explorateur, ouvre les dossiers : <code>MQL4</code> puis <code>Experts</code></p>
+            <p>Le chemin complet ressemble a : <code>...\MQL4\Experts\</code></p>
+            <p>Copie le fichier <code>SMC_Scalper_EA.mq4</code> dans ce dossier <code>Experts</code>.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+            <h4>Compiler le bot</h4>
+            <p>Dans MT4, appuie sur la touche <strong>F4</strong> (ou menu Outils > MetaEditor). Ca ouvre l'editeur de code.</p>
+            <p>Dans MetaEditor :</p>
+            <ol>
+                <li>Va dans <strong>Fichier > Ouvrir</strong></li>
+                <li>Trouve <code>SMC_Scalper_EA.mq4</code> dans le dossier Experts</li>
+                <li>Ouvre-le</li>
+                <li>Appuie sur <strong>F7</strong> (ou clique le bouton "Compiler")</li>
+            </ol>
+            <p>En bas de l'ecran, tu dois voir : <strong>"0 error(s), 0 warning(s)"</strong></p>
+        </div>
+    </div>
+
+    <div class="info-box danger">
+        <strong>Si tu vois des erreurs</strong>
+        Si la compilation affiche des erreurs (errors), verifie que tu as bien copie le fichier <code>.mq4</code> en entier et que tu utilises MetaTrader 4 (pas MT5). Si le probleme persiste, recopie le fichier depuis le depot GitHub.
+    </div>
+
+    <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+            <h4>Verifier que le bot apparait dans MT4</h4>
+            <p>Retourne dans MT4 (Alt+Tab ou clique sur MT4 dans la barre des taches).</p>
+            <p>Dans le panneau de gauche, cherche <strong>"Expert Advisors"</strong> (ou "Conseillers Experts").</p>
+            <p>Tu devrais voir <strong>SMC_Scalper_EA</strong> dans la liste. Si tu ne le vois pas, fais un clic droit sur "Expert Advisors" et clique "Actualiser".</p>
+        </div>
+    </div>
+
+    <!-- Installer le fichier news -->
+    <h2 id="install-news">Installer le fichier news <span class="badge easy">Facile</span></h2>
+
+    <p>Le bot a besoin de savoir quand il y a des annonces economiques importantes pour eviter de trader a ces moments-la (les prix bougent de maniere imprevisible pendant les grosses annonces).</p>
+
+    <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+            <h4>Trouver le dossier Files</h4>
+            <p>Dans l'explorateur de donnees MT4 (menu Fichier > Ouvrir le dossier des donnees), ouvre le dossier <code>MQL4</code> puis <code>Files</code>.</p>
+            <p>Chemin : <code>...\MQL4\Files\</code></p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+            <h4>Copier le fichier news</h4>
+            <p>Copie le fichier <code>news_calendar.csv</code> dans ce dossier <code>Files</code>.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+            <h4>Mettre a jour le calendrier (chaque semaine)</h4>
+            <p>Le fichier news doit etre mis a jour regulierement. Ouvre-le avec le Bloc-notes ou Excel et ajoute les prochaines annonces importantes.</p>
+            <p>Le format est simple :</p>
+            <div class="code-block">
+<span class="comment">Date,Heure,Devise,Impact,Titre</span>
+2024.05.03,14:30,USD,HIGH,Non-Farm Payrolls
+2024.05.15,14:30,USD,HIGH,CPI
+2024.06.12,20:00,USD,HIGH,FOMC Statement
+            </div>
+            <p>Tu peux trouver ces dates sur <strong>ForexFactory.com</strong> (filtre sur "High Impact" avec l'icone rouge).</p>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <strong>Pas de panique si tu oublies</strong>
+        Meme sans le fichier CSV, le bot a un filet de securite integre : il connait deja les dates recurrentes des NFP, CPI, FOMC et ECB automatiquement.
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================================ -->
+    <!-- PARTIE 3 : COMPRENDRE LA STRATEGIE           -->
+    <!-- ============================================ -->
+
+    <h2 id="smc">C'est quoi le SMC (Smart Money Concepts) ?</h2>
+
+    <div class="analogy">
+        <strong>Imagine un marche de poissons</strong>
+        Les gros acheteurs (restaurants, supermarches) ont tellement d'argent qu'ils influencent les prix. Quand ils achetent massivement, le prix monte. Quand ils vendent, le prix baisse. Le SMC, c'est essayer de comprendre ce que font ces "gros poissons" du marche financier (banques, fonds d'investissement) pour trader dans le meme sens qu'eux.
+    </div>
+
+    <p>Le <strong>Smart Money Concepts</strong> est une methode de trading basee sur l'idee que :</p>
+    <ul>
+        <li>Les gros acteurs (banques, institutions) laissent des <strong>traces</strong> sur le graphique</li>
+        <li>En lisant ces traces, on peut deviner ou le prix va probablement aller</li>
+        <li>On utilise uniquement le <strong>prix</strong> (les bougies), pas d'indicateurs compliques</li>
+    </ul>
+
+    <p>Notre bot utilise 4 concepts cles du SMC :</p>
+
+    <!-- BOS -->
+    <h3 id="bos">1. Break of Structure (BOS) - La direction du marche</h3>
+
+    <div class="analogy">
+        <strong>Imagine une echelle</strong>
+        Si chaque barreau est plus haut que le precedent, tu montes (tendance haussiere). Si chaque barreau est plus bas, tu descends (tendance baissiere). Le BOS, c'est quand le prix "casse" un barreau pour confirmer la direction.
+    </div>
+
+    <p>Le prix fait des vagues : il monte, redescend un peu, remonte plus haut, redescend, etc.</p>
+    <ul>
+        <li><strong>Swing High</strong> = un sommet (le point le plus haut d'une vague)</li>
+        <li><strong>Swing Low</strong> = un creux (le point le plus bas d'une vague)</li>
+    </ul>
+
+    <p><strong>BOS Haussier</strong> : Le prix casse au-dessus du dernier sommet = "le marche monte, on cherche des achats"</p>
+    <p><strong>BOS Baissier</strong> : Le prix casse en-dessous du dernier creux = "le marche descend, on cherche des ventes"</p>
+
+    <div class="info-box">
+        <strong>Dans notre bot</strong>
+        Le BOS est detecte sur le timeframe <strong>M15</strong>. C'est le "patron" qui decide si on achete ou on vend. On ne trade JAMAIS contre la direction du BOS.
+    </div>
+
+    <!-- Order Blocks -->
+    <h3 id="ob">2. Order Blocks (OB) - Les zones d'entree</h3>
+
+    <div class="analogy">
+        <strong>Imagine un lance-pierre</strong>
+        Avant de propulser la pierre, tu dois tirer l'elastique en arriere. L'endroit ou tu tires en arriere, c'est l'Order Block. C'est la derniere bougie "opposee" avant un gros mouvement. Quand le prix revient dans cette zone, il y a de bonnes chances qu'il reparte dans la meme direction.
+    </div>
+
+    <p>Un <strong>Order Block</strong>, c'est :</p>
+    <ul>
+        <li>La derniere bougie <strong>rouge</strong> (baissiere) avant un gros mouvement <strong>haussier</strong> = <strong>OB haussier</strong> (zone d'achat)</li>
+        <li>La derniere bougie <strong>verte</strong> (haussiere) avant un gros mouvement <strong>baissier</strong> = <strong>OB baissier</strong> (zone de vente)</li>
+    </ul>
+
+    <div class="info-box">
+        <strong>Dans notre bot</strong>
+        Les OB sont detectes sur <strong>M5</strong>. Le bot attend que le prix REVIENNE dans la zone de l'OB pour entrer en position. Un OB est "mitigue" (utilise) quand le prix l'a deja traverse = on ne l'utilise plus.
+    </div>
+
+    <!-- FVG -->
+    <h3 id="fvg">3. Fair Value Gaps (FVG) - Les trous dans le prix</h3>
+
+    <div class="analogy">
+        <strong>Imagine un escalier avec une marche manquante</strong>
+        Quand le prix bouge tres vite, il "saute" des niveaux de prix et laisse un trou. Ce trou s'appelle un Fair Value Gap. Le prix a tendance a revenir combler ce trou avant de continuer son chemin.
+    </div>
+
+    <p>Un FVG apparait quand 3 bougies consecutives creent un espace vide :</p>
+    <ul>
+        <li>La bougie du milieu est tres grande</li>
+        <li>Il y a un "trou" entre le bas de la bougie 3 et le haut de la bougie 1</li>
+        <li>Ce trou = zone ou le prix n'a pas encore ete echange</li>
+    </ul>
+
+    <div class="info-box">
+        <strong>Dans notre bot</strong>
+        Les FVG servent de <strong>confluence</strong> (confirmation supplementaire). Si un OB ET un FVG se chevauchent, c'est un signal plus fort. Les FVG sont aussi utilises comme <strong>cibles de TP</strong> (la ou on prend nos profits).
+    </div>
+
+    <!-- Liquidity Sweep -->
+    <h3 id="liquidity">4. Liquidity Sweep - Le piege</h3>
+
+    <div class="analogy">
+        <strong>Imagine un piege a souris</strong>
+        Les gros acteurs du marche "poussent" le prix au-dela d'un niveau important pour declencher les stop loss des autres traders (leur voler leur argent), puis le prix revient brusquement dans l'autre sens. C'est un liquidity sweep : un faux mouvement suivi d'un vrai retournement.
+    </div>
+
+    <p>Concretement :</p>
+    <ul>
+        <li>Le prix depasse un niveau ou beaucoup de traders ont place leur stop loss</li>
+        <li>Ces stops sont declenches (les traders perdent)</li>
+        <li>Le prix revient immediatement dans l'autre direction</li>
+        <li>= signal que les "gros" ont fini de pieger les "petits" et que le vrai mouvement commence</li>
+    </ul>
+
+    <div class="info-box">
+        <strong>Dans notre bot</strong>
+        Le bot detecte les "equal highs" et "equal lows" (niveaux ou le prix a touche 2 fois le meme prix = liquidite). Quand le prix depasse ce niveau puis revient, c'est un liquidity sweep = signal d'entree.
+    </div>
+
+    <!-- Comment le bot decide -->
+    <h2 id="comment-ca-marche">Comment le bot decide de prendre un trade</h2>
+
+    <p>Voici les etapes que le bot suit a chaque nouvelle bougie M5 :</p>
+
+    <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+            <h4>Verification des filtres</h4>
+            <p>Est-on dans une session active (Londres ou New York) ? Le spread est-il acceptable ? Y a-t-il une annonce economique proche ? Si un filtre bloque = pas de trade.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+            <h4>Lire la direction sur M15 (BOS)</h4>
+            <p>Le bot regarde le graphique M15 pour determiner la tendance. Il ne prendra QUE des achats si la tendance est haussiere, et QUE des ventes si elle est baissiere.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+            <h4>Chercher un Order Block M5</h4>
+            <p>Le bot scanne les 30 dernieres bougies M5 pour trouver des OB non mitiges dans le bon sens (OB haussier si tendance haussiere).</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+            <h4>Le prix est-il dans l'OB ?</h4>
+            <p>Si le prix actuel est dans la zone d'un OB, le bot passe a l'etape suivante. Sinon, il attend.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+            <h4>Verifier la confluence</h4>
+            <p>Le bot verifie s'il y a un FVG qui chevauche l'OB OU un liquidity sweep recent. Il faut <strong>au minimum un des deux</strong> pour valider le signal.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">6</div>
+        <div class="step-content">
+            <h4>Verifier le Risk:Reward</h4>
+            <p>Le bot calcule ou mettre le SL (sous l'OB) et le TP (prochain OB oppose, FVG, ou swing). Si le ratio gain/risque est au moins 2:1, il entre. Sinon, il attend un meilleur setup.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">7</div>
+        <div class="step-content">
+            <h4>Gestion du trade</h4>
+            <p>Une fois en position, le bot :</p>
+            <ul>
+                <li>Ferme 50% a TP1 (1.5R de gain) et deplace le SL au prix d'entree (= zero risque)</li>
+                <li>Laisse les 50% restants courir jusqu'a TP2 (2R ou plus)</li>
+                <li>Active le trailing stop si configure (suit le prix pour verrouiller les gains)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================================ -->
+    <!-- PARTIE 4 : CONFIGURATION                     -->
+    <!-- ============================================ -->
+
+    <h2 id="parametres">Tous les parametres du bot</h2>
+
+    <p>Quand tu attaches le bot a un graphique, une fenetre s'ouvre avec tous les parametres. Voici ce que chacun fait :</p>
+
+    <h3>Risk Management (Gestion du risque)</h3>
+    <table>
+        <tr><th>Parametre</th><th>Defaut</th><th>Explication</th></tr>
+        <tr>
+            <td><code>RiskPercent</code></td>
+            <td>1.0</td>
+            <td>Le pourcentage de ton capital que tu risques par trade. Avec 10 000$ et 1%, tu risques 100$ max par trade.</td>
+        </tr>
+        <tr>
+            <td><code>MaxSpreadPips</code></td>
+            <td>3.0</td>
+            <td>Si le spread depasse cette valeur, le bot ne trade pas (le "cout" serait trop eleve).</td>
+        </tr>
+        <tr>
+            <td><code>MagicNumber</code></td>
+            <td>20240407</td>
+            <td>Un numero unique pour identifier les trades de CE bot. Ne le change que si tu as plusieurs bots sur le meme compte.</td>
+        </tr>
+        <tr>
+            <td><code>MaxOpenTrades</code></td>
+            <td>1</td>
+            <td>Nombre maximum de trades ouverts en meme temps. 1 = le plus prudent.</td>
+        </tr>
+        <tr>
+            <td><code>MinRR</code></td>
+            <td>2.0</td>
+            <td>Ratio Risk:Reward minimum. 2.0 = le bot n'entre que si le gain potentiel est au moins 2x la perte potentielle.</td>
+        </tr>
+    </table>
+
+    <h3>Detection de structure (M15)</h3>
+    <table>
+        <tr><th>Parametre</th><th>Defaut</th><th>Explication</th></tr>
+        <tr>
+            <td><code>StructureLookback</code></td>
+            <td>20</td>
+            <td>Combien de bougies M15 le bot regarde en arriere pour trouver les sommets et creux.</td>
+        </tr>
+        <tr>
+            <td><code>SwingStrength</code></td>
+            <td>3</td>
+            <td>Combien de bougies de chaque cote d'un sommet/creux pour le considerer comme valide. Plus c'est haut, moins il y a de points mais ils sont plus fiables.</td>
+        </tr>
+    </table>
+
+    <h3>Order Blocks (M5)</h3>
+    <table>
+        <tr><th>Parametre</th><th>Defaut</th><th>Explication</th></tr>
+        <tr>
+            <td><code>OB_Lookback</code></td>
+            <td>30</td>
+            <td>Combien de bougies M5 le bot scanne pour chercher des Order Blocks.</td>
+        </tr>
+        <tr>
+            <td><code>OB_MinBodyRatio</code></td>
+            <td>0.5</td>
+            <td>La bougie d'impulsion doit avoir un "corps" d'au moins 50% de sa taille totale (sinon c'est un mouvement faible).</td>
+        </tr>
+        <tr>
+            <td><code>OB_MinImpulsePips</code></td>
+            <td>10</td>
+            <td>Le mouvement apres l'OB doit faire au moins 10 pips (pour filtrer les faux signaux).</td>
+        </tr>
+    </table>
+
+    <h3>Fair Value Gaps (M5)</h3>
+    <table>
+        <tr><th>Parametre</th><th>Defaut</th><th>Explication</th></tr>
+        <tr>
+            <td><code>FVG_Lookback</code></td>
+            <td>20</td>
+            <td>Combien de bougies le bot scanne pour les FVG.</td>
+        </tr>
+        <tr>
+            <td><code>FVG_MinSizePips</code></td>
+            <td>3.0</td>
+            <td>Taille minimum du gap en pips. Trop petit = bruit de marche.</td>
+        </tr>
+    </table>
+
+    <h3>Liquidity Sweep</h3>
+    <table>
+        <tr><th>Parametre</th><th>Defaut</th><th>Explication</th></tr>
+        <tr>
+            <td><code>LiqSweep_Lookback</code></td>
+            <td>30</td>
+            <td>Combien de bougies le bot regarde pour trouver des niveaux de liquidite.</td>
+        </tr>
+        <tr>
+            <td><code>LiqSweep_MinPips</code></td>
+            <td>2.0</td>
+            <td>Le prix doit depasser le niveau de liquidite d'au moins 2 pips pour confirmer le sweep.</td>
+        </tr>
+    </table>
+
+    <h3>Sessions</h3>
+    <table>
+        <tr><th>Parametre</th><th>Defaut</th><th>Explication</th></tr>
+        <tr>
+            <td><code>LondonStartHour</code></td>
+            <td>8</td>
+            <td>Heure de debut de la session de Londres (heure du serveur MT4).</td>
+        </tr>
+        <tr>
+            <td><code>LondonEndHour</code></td>
+            <td>12</td>
+            <td>Heure de fin de la session de Londres.</td>
+        </tr>
+        <tr>
+            <td><code>NYStartHour</code></td>
+            <td>13</td>
+            <td>Heure de debut de la session de New York.</td>
+        </tr>
+        <tr>
+            <td><code>NYEndHour</code></td>
+            <td>17</td>
+            <td>Heure de fin de la session de New York.</td>
+        </tr>
+    </table>
+
+    <div class="info-box warning">
+        <strong>Important : Heures du serveur</strong>
+        Les heures sont celles du SERVEUR de ton broker, pas les tiennes ! Si ton broker est en GMT+2 et que tu es en France (GMT+1), il y a 1h de decalage. Verifie l'heure affichee dans MT4 en haut du graphique pour ajuster.
+    </div>
+
+    <h3>Trade Management</h3>
+    <table>
+        <tr><th>Parametre</th><th>Defaut</th><th>Explication</th></tr>
+        <tr>
+            <td><code>UseBreakeven</code></td>
+            <td>true</td>
+            <td>Quand le trade est en gain de 1R, le SL est deplace au prix d'entree (= plus de risque de perte).</td>
+        </tr>
+        <tr>
+            <td><code>UseTrailingStop</code></td>
+            <td>false</td>
+            <td>Desactive par defaut. Si active, le SL "suit" le prix pour verrouiller les gains progressivement.</td>
+        </tr>
+        <tr>
+            <td><code>TrailingRMultiple</code></td>
+            <td>1.5</td>
+            <td>Le trailing stop commence quand le gain atteint 1.5x le risque initial.</td>
+        </tr>
+        <tr>
+            <td><code>UsePartialClose</code></td>
+            <td>true</td>
+            <td>Ferme une partie du trade a TP1 pour securiser des gains.</td>
+        </tr>
+        <tr>
+            <td><code>TP1_Percent</code></td>
+            <td>50.0</td>
+            <td>Pourcentage du trade ferme a TP1. 50 = la moitie.</td>
+        </tr>
+    </table>
+
+    <h3>News Filter</h3>
+    <table>
+        <tr><th>Parametre</th><th>Defaut</th><th>Explication</th></tr>
+        <tr>
+            <td><code>UseNewsFilter</code></td>
+            <td>true</td>
+            <td>Active le filtre des annonces economiques. Fortement recommande de laisser a true.</td>
+        </tr>
+        <tr>
+            <td><code>NewsMinutesBefore</code></td>
+            <td>15</td>
+            <td>Le bot arrete de prendre des trades 15 minutes AVANT une annonce importante.</td>
+        </tr>
+        <tr>
+            <td><code>NewsMinutesAfter</code></td>
+            <td>15</td>
+            <td>Le bot attend 15 minutes APRES une annonce avant de reprendre le trading.</td>
+        </tr>
+        <tr>
+            <td><code>NewsFile</code></td>
+            <td>news_calendar.csv</td>
+            <td>Nom du fichier CSV contenant les annonces. Doit etre dans le dossier MQL4/Files/.</td>
+        </tr>
+    </table>
+
+    <!-- Configurer le filtre news -->
+    <h2 id="configurer-news">Configurer le filtre news en detail <span class="badge easy">Facile</span></h2>
+
+    <h3>Ou trouver les dates des annonces ?</h3>
+
+    <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+            <h4>Aller sur ForexFactory</h4>
+            <p>Ouvre ton navigateur et va sur <strong>forexfactory.com/calendar</strong></p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+            <h4>Filtrer les annonces importantes</h4>
+            <p>Clique sur l'icone de filtre (en haut a droite du calendrier). Coche uniquement les evenements avec le <strong>dossier rouge</strong> (High Impact). Decoche tout le reste.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+            <h4>Reporter dans le fichier CSV</h4>
+            <p>Pour chaque annonce de la semaine, ajoute une ligne dans <code>news_calendar.csv</code> :</p>
+            <div class="code-block">
+<span class="comment"># Format : Date,Heure,Devise,Impact,Nom</span>
+2024.05.03,14:30,USD,HIGH,Non-Farm Payrolls
+2024.05.15,14:30,USD,HIGH,CPI
+2024.05.15,14:30,USD,HIGH,Core CPI
+2024.06.06,14:15,EUR,HIGH,ECB Rate Decision
+            </div>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <strong>Les annonces les plus importantes a ne JAMAIS manquer :</strong>
+        <ul>
+            <li><strong>NFP</strong> (Non-Farm Payrolls) - 1er vendredi du mois, 14:30</li>
+            <li><strong>CPI</strong> (Inflation) - vers le 13 du mois, 14:30</li>
+            <li><strong>FOMC</strong> (Decision de taux de la FED) - 8 fois par an, 20:00</li>
+            <li><strong>ECB</strong> (Decision de taux BCE) - toutes les 6 semaines, 14:15</li>
+        </ul>
+        <p>Meme si tu oublies de mettre a jour le CSV, le bot connait deja ces dates recurrentes et les bloquera automatiquement.</p>
+    </div>
+
+    <!-- Config risque -->
+    <h2 id="config-risk">Configurer le risque <span class="badge medium">Moyen</span></h2>
+
+    <div class="analogy">
+        <strong>Le risque, c'est comme la vitesse en voiture</strong>
+        Plus tu vas vite (plus tu risques par trade), plus les gains ET les pertes sont grands. Un debutant devrait rouler doucement (1% max). Un trader experimente peut monter a 2-3%.
+    </div>
+
+    <p>Le parametre le plus important est <code>RiskPercent</code>. Voici un guide :</p>
+
+    <table>
+        <tr><th>RiskPercent</th><th>Profil</th><th>Avec 10 000$</th></tr>
+        <tr>
+            <td><strong>0.5%</strong></td>
+            <td>Ultra prudent</td>
+            <td>Tu risques 50$ par trade</td>
+        </tr>
+        <tr>
+            <td><strong>1.0%</strong></td>
+            <td>Recommande pour debuter</td>
+            <td>Tu risques 100$ par trade</td>
+        </tr>
+        <tr>
+            <td><strong>2.0%</strong></td>
+            <td>Agressif</td>
+            <td>Tu risques 200$ par trade</td>
+        </tr>
+        <tr>
+            <td><strong>3.0%+</strong></td>
+            <td>Tres agressif (deconseille)</td>
+            <td>Tu risques 300$+ par trade</td>
+        </tr>
+    </table>
+
+    <div class="info-box danger">
+        <strong>Regle d'or</strong>
+        Ne risque JAMAIS plus de 2% par trade quand tu debutes. Avec 1%, meme 10 pertes consecutives ne te coutent que 10% de ton capital. Avec 5%, 10 pertes = la moitie de ton capital disparait.
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================================ -->
+    <!-- PARTIE 5 : UTILISATION                       -->
+    <!-- ============================================ -->
+
+    <h2 id="lancer-bot">Lancer le bot sur un graphique <span class="badge medium">Moyen</span></h2>
+
+    <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+            <h4>Ouvrir le bon graphique</h4>
+            <p>Dans MT4, fais un clic droit sur la paire souhaitee (par exemple <strong>EURUSD</strong>) dans le panneau "Observation du marche" (a gauche) et clique <strong>"Graphique"</strong>.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+            <h4>Regler le timeframe sur M5</h4>
+            <p>En haut du graphique, clique sur <strong>M5</strong> dans la barre des timeframes. Le bot est concu pour tourner sur un graphique M5.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+            <h4>Activer le trading automatique</h4>
+            <p>En haut de MT4, il y a un bouton <strong>"AutoTrading"</strong> (ou "Expert Advisors"). Clique dessus pour qu'il soit <strong>VERT</strong>. Si c'est rouge, le bot ne pourra pas trader.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+            <h4>Glisser le bot sur le graphique</h4>
+            <p>Dans le panneau "Navigateur" (a gauche), ouvre <strong>Expert Advisors</strong>. Trouve <strong>SMC_Scalper_EA</strong> et <strong>glisse-le</strong> (drag & drop) sur le graphique.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+            <h4>Configurer les parametres</h4>
+            <p>Une fenetre apparait avec tous les parametres. Pour commencer, laisse tout par defaut. Assure-toi juste que :</p>
+            <ul>
+                <li>Onglet <strong>"Commun"</strong> : coche <strong>"Autoriser le trading en direct"</strong></li>
+                <li>Onglet <strong>"Commun"</strong> : coche <strong>"Autoriser l'import de DLL"</strong> (si demande)</li>
+                <li>Onglet <strong>"Parametres d'entree"</strong> : verifie que <code>RiskPercent</code> est a 1.0</li>
+            </ul>
+            <p>Clique <strong>OK</strong>.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">6</div>
+        <div class="step-content">
+            <h4>Verifier que le bot tourne</h4>
+            <p>En haut a droite du graphique, tu dois voir un <strong>smiley qui sourit</strong> et le nom "SMC_Scalper_EA". Si le smiley est triste ou absent :</p>
+            <ul>
+                <li>Verifie que AutoTrading est active (bouton vert en haut)</li>
+                <li>Verifie que "Autoriser le trading en direct" est coche</li>
+                <li>Regarde l'onglet "Experts" en bas de MT4 pour les messages d'erreur</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="info-box success">
+        <strong>Le bot tourne !</strong>
+        Tu devrais voir dans l'onglet "Experts" (en bas) un message comme : "SMC Scalper EA initialized | Symbol: EURUSD | Pip value: 0.0001 | Risk: 1.0%". Le bot analyse maintenant le marche a chaque nouvelle bougie M5.
+    </div>
+
+    <!-- Backtest -->
+    <h2 id="backtest">Faire un backtest (tester sur le passe) <span class="badge medium">Moyen</span></h2>
+
+    <div class="analogy">
+        <strong>Le backtest, c'est comme regarder le replay d'un match</strong>
+        Tu sais deja le resultat, mais tu veux voir comment ta strategie aurait joue. Ca te donne une idee de si le bot est bon ou pas, AVANT de risquer de l'argent.
+    </div>
+
+    <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+            <h4>Ouvrir le Strategy Tester</h4>
+            <p>Dans MT4, appuie sur <strong>Ctrl+R</strong> ou va dans le menu <strong>Affichage > Strategy Tester</strong>. Un panneau apparait en bas de l'ecran.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+            <h4>Configurer le test</h4>
+            <p>Dans le panneau Strategy Tester :</p>
+            <ul>
+                <li><strong>Expert Advisor</strong> : selectionne "SMC_Scalper_EA"</li>
+                <li><strong>Symbole</strong> : EURUSD (ou la paire de ton choix)</li>
+                <li><strong>Periode</strong> : M5</li>
+                <li><strong>Modele</strong> : "Chaque tick" (le plus precis mais le plus lent) ou "Prix d'ouverture uniquement" (rapide mais moins precis)</li>
+                <li><strong>Spread</strong> : "Actuel" ou mets 20 (= 2 pips, realiste)</li>
+                <li><strong>Date</strong> : Coche "Utiliser les dates", mets une periode de 3 mois minimum</li>
+                <li><strong>Depot initial</strong> : 10000</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+            <h4>Telecharger les donnees historiques</h4>
+            <p>AVANT de lancer le test, il faut telecharger les donnees du passe :</p>
+            <ol>
+                <li>Va dans le menu <strong>Outils > Centre d'historique</strong> (ou appuie sur F2)</li>
+                <li>Trouve ta paire (ex: EURUSD)</li>
+                <li>Clique sur <strong>M5</strong></li>
+                <li>Clique <strong>"Telecharger"</strong></li>
+                <li>Attends que le telechargement finisse</li>
+                <li>Fais pareil pour <strong>M15</strong> (le bot en a besoin pour le biais)</li>
+                <li>Ferme la fenetre</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+            <h4>Lancer le test</h4>
+            <p>Clique sur le bouton <strong>"Demarrer"</strong> en bas a droite du Strategy Tester. Le test commence ! Une barre de progression s'affiche. Attends qu'elle atteigne 100%.</p>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <strong>Astuce : Mode visuel</strong>
+        Coche la case <strong>"Mode visuel"</strong> pour voir le bot trader en temps reel sur le graphique du passe. C'est plus lent mais tres instructif pour comprendre quand et pourquoi il prend des trades. Tu peux accelerer/ralentir avec la barre de vitesse.
+    </div>
+
+    <!-- Lire les resultats -->
+    <h2 id="lire-resultats">Lire les resultats du backtest <span class="badge medium">Moyen</span></h2>
+
+    <p>Apres le test, plusieurs onglets apparaissent en bas. Voici comment les lire :</p>
+
+    <h3>Onglet "Resultats"</h3>
+    <p>Liste de tous les trades avec la date, le type (buy/sell), le prix d'entree, le SL, le TP, le profit. Utile pour voir chaque trade individuellement.</p>
+
+    <h3>Onglet "Graphique"</h3>
+    <p>La courbe de ton capital dans le temps. Ce que tu veux voir :</p>
+    <ul>
+        <li><strong>Une courbe qui monte</strong> = le bot gagne plus qu'il perd</li>
+        <li><strong>Une courbe qui descend</strong> = le bot perd de l'argent</li>
+        <li><strong>Des grosses chutes</strong> = le bot a des periodes de pertes (drawdown)</li>
+    </ul>
+
+    <h3>Onglet "Rapport"</h3>
+    <p>Le resume complet. Voici les chiffres importants :</p>
+
+    <table>
+        <tr><th>Chiffre</th><th>Ce que ca veut dire</th><th>Ce qui est "bien"</th></tr>
+        <tr>
+            <td><strong>Profit net total</strong></td>
+            <td>Combien le bot a gagne (ou perdu) au total</td>
+            <td>Positif = bon signe</td>
+        </tr>
+        <tr>
+            <td><strong>Facteur de profit</strong></td>
+            <td>Gains divises par les pertes</td>
+            <td>Au-dessus de 1.5 = correct, au-dessus de 2.0 = tres bien</td>
+        </tr>
+        <tr>
+            <td><strong>Drawdown maximal</strong></td>
+            <td>La plus grande perte temporaire (la pire periode)</td>
+            <td>En-dessous de 20% = acceptable, en-dessous de 10% = tres bien</td>
+        </tr>
+        <tr>
+            <td><strong>Total des trades</strong></td>
+            <td>Nombre de trades pendant la periode</td>
+            <td>Au moins 30-50 pour que les stats soient fiables</td>
+        </tr>
+        <tr>
+            <td><strong>% de trades gagnants</strong></td>
+            <td>Pourcentage de trades en profit</td>
+            <td>40-50% est normal si le RR est bon (2:1+)</td>
+        </tr>
+    </table>
+
+    <div class="info-box warning">
+        <strong>Un backtest positif ne garantit PAS le futur</strong>
+        Le passe n'est pas le futur. Un backtest sert a verifier que la logique du bot est coherente. Passe toujours par une phase de <strong>demo live</strong> (argent fictif, marche reel) pendant au moins 2-4 semaines avant de passer en reel.
+    </div>
+
+    <!-- Demo live -->
+    <h2 id="demo-live">Passer en demo live <span class="badge easy">Facile</span></h2>
+
+    <p>La demo live, c'est faire tourner le bot en temps reel sur un compte demo (argent fictif). C'est l'etape AVANT le reel.</p>
+
+    <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+            <h4>Connecte-toi a ton compte demo</h4>
+            <p>Utilise les identifiants de ton compte demo (ceux que tu as notes plus tot).</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+            <h4>Lance le bot comme explique plus haut</h4>
+            <p>Ouvre un graphique M5 sur ta paire, active AutoTrading, glisse le bot dessus.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+            <h4>Laisse tourner pendant 1-2 semaines minimum</h4>
+            <p>Le bot va trader tout seul. Verifie chaque jour l'onglet "Trading" (en bas de MT4) pour voir les trades en cours, et "Historique du compte" pour voir les trades fermes.</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+            <h4>Analyser les resultats</h4>
+            <p>Apres 1-2 semaines :</p>
+            <ul>
+                <li>Le bot est-il profitable ?</li>
+                <li>Le drawdown est-il acceptable ?</li>
+                <li>Les trades sont-ils logiques quand tu les regardes sur le graphique ?</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="info-box danger">
+        <strong>Quand passer en reel ?</strong>
+        UNIQUEMENT quand le bot est profitable sur au moins 2-4 semaines de demo live, avec un drawdown acceptable, et que tu comprends comment il fonctionne. Commence avec le plus petit capital possible et <code>RiskPercent = 0.5</code>.
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ============================================ -->
+    <!-- PARTIE 6 : AIDE                              -->
+    <!-- ============================================ -->
+
+    <h2 id="erreurs">Erreurs courantes et solutions</h2>
+
+    <div class="faq-item">
+        <h4>"Trade context is busy" dans les logs</h4>
+        <p>Le bot essaie de passer un ordre mais MT4 est occupe (un autre ordre est en cours). Ce n'est pas grave, le bot reessaiera a la prochaine bougie. Si ca arrive souvent, reduis le nombre de bots actifs.</p>
+    </div>
+
+    <div class="faq-item">
+        <h4>"OrderSend failed: 130" (Invalid stops)</h4>
+        <p>Le SL ou TP est trop proche du prix actuel. Ton broker a une distance minimum entre le prix et le SL/TP (le "stop level"). Solutions :</p>
+        <ul>
+            <li>Augmente <code>OB_MinImpulsePips</code> (des OB plus grands = SL plus eloigne)</li>
+            <li>Passe sur un broker avec des stop levels plus bas</li>
+        </ul>
+    </div>
+
+    <div class="faq-item">
+        <h4>"OrderSend failed: 134" (Not enough money)</h4>
+        <p>Pas assez d'argent sur ton compte pour ouvrir le trade. Solutions :</p>
+        <ul>
+            <li>Reduis <code>RiskPercent</code></li>
+            <li>Ajoute des fonds sur ton compte</li>
+        </ul>
+    </div>
+
+    <div class="faq-item">
+        <h4>Le smiley est triste (le bot ne fonctionne pas)</h4>
+        <ul>
+            <li>Verifie que le bouton "AutoTrading" est vert en haut</li>
+            <li>Verifie que "Autoriser le trading en direct" est coche dans les proprietes du bot</li>
+            <li>Clique droit sur le graphique > Expert Advisors > Proprietes > onglet Commun</li>
+        </ul>
+    </div>
+
+    <div class="faq-item">
+        <h4>"News file not found" dans les logs</h4>
+        <p>Le fichier <code>news_calendar.csv</code> n'est pas dans le bon dossier. Il doit etre dans <code>MQL4\Files\</code> (pas dans Experts). Ce n'est pas bloquant : le bot utilise les events recurrents integres comme filet de securite.</p>
+    </div>
+
+    <div class="faq-item">
+        <h4>Le bot ne prend aucun trade</h4>
+        <p>C'est normal ! Le bot est selectif. Verifie :</p>
+        <ul>
+            <li>Es-tu dans une session active (Londres 8-12h ou NY 13-17h heure serveur) ?</li>
+            <li>Le spread est-il en dessous de <code>MaxSpreadPips</code> ?</li>
+            <li>Y a-t-il une annonce economique en cours (filtre news) ?</li>
+            <li>Le marche est-il en range (pas de BOS clair) ?</li>
+        </ul>
+        <p>Un bot qui attend le bon moment, c'est un bon bot. Mieux vaut 0 trade qu'un mauvais trade.</p>
+    </div>
+
+    <div class="faq-item">
+        <h4>Le bot a perdu de l'argent</h4>
+        <p>C'est normal que certains trades soient perdants. Ce qui compte, c'est le resultat global sur une longue periode (50+ trades). Verifie que :</p>
+        <ul>
+            <li>Le <code>RiskPercent</code> est raisonnable (1-2%)</li>
+            <li>Le ratio gains/pertes est correct (facteur de profit > 1.5)</li>
+            <li>Les pertes ne depassent pas le drawdown acceptable</li>
+        </ul>
+    </div>
+
+    <!-- FAQ -->
+    <h2 id="faq">Questions frequentes (FAQ)</h2>
+
+    <div class="faq-item">
+        <h4>Sur quelles paires utiliser le bot ?</h4>
+        <p>Les paires les plus liquides avec des spreads bas :</p>
+        <ul>
+            <li><strong>EURUSD</strong> - La plus tradee au monde, spreads tres bas</li>
+            <li><strong>GBPUSD</strong> - Volatile, bons mouvements pendant Londres</li>
+            <li><strong>XAUUSD</strong> (Or) - Tres volatile, attention aux spreads plus eleves</li>
+            <li><strong>NAS100</strong> (Nasdaq) - Gros mouvements pendant New York</li>
+        </ul>
+        <p>Pour debuter, reste sur <strong>EURUSD</strong>. C'est la paire la plus previsible et la moins couteuse.</p>
+    </div>
+
+    <div class="faq-item">
+        <h4>Le bot peut-il tourner 24h/24 ?</h4>
+        <p>Techniquement oui, mais il ne prendra des trades QUE pendant les sessions Londres et New York (c'est le filtre de session). En dehors de ces heures, il reste actif mais ne fait rien. Ton ordinateur (ou VPS) doit rester allume.</p>
+    </div>
+
+    <div class="faq-item">
+        <h4>C'est quoi un VPS ?</h4>
+        <p>Un <strong>VPS</strong> (Virtual Private Server) est un ordinateur distant qui tourne 24h/24 dans un datacenter. Tu y installes MT4 et le bot. Comme ca, meme si tu eteins ton PC, le bot continue de tourner. C'est recommande si tu utilises le bot en reel. Prix : environ 5-15 euros/mois.</p>
+    </div>
+
+    <div class="faq-item">
+        <h4>Puis-je utiliser le bot sur MT5 ?</h4>
+        <p>Non. Ce bot est ecrit en <strong>MQL4</strong> qui est le langage de MT4. MT5 utilise MQL5, un langage different. Il faudrait reecrire le code pour MT5.</p>
+    </div>
+
+    <div class="faq-item">
+        <h4>Puis-je modifier les parametres pendant que le bot tourne ?</h4>
+        <p>Oui ! Clique droit sur le graphique > Expert Advisors > Proprietes. Modifie les parametres et clique OK. Le bot redemarre avec les nouveaux parametres. Attention : les trades deja ouverts ne seront pas affectes par le changement.</p>
+    </div>
+
+    <div class="faq-item">
+        <h4>Comment arreter le bot ?</h4>
+        <p>Clique droit sur le graphique > Expert Advisors > Supprimer. Ou bien desactive le bouton "AutoTrading" en haut. Attention : les trades deja ouverts resteront ouverts ! Ferme-les manuellement si necessaire.</p>
+    </div>
+
+    <!-- Glossaire -->
+    <h2 id="glossaire">Glossaire complet</h2>
+
+    <table>
+        <tr><th>Terme</th><th>Definition</th></tr>
+        <tr><td><strong>Ask</strong></td><td>Le prix auquel tu peux acheter (toujours legerement plus haut que le Bid)</td></tr>
+        <tr><td><strong>Backtest</strong></td><td>Tester une strategie sur des donnees historiques (le passe)</td></tr>
+        <tr><td><strong>Bid</strong></td><td>Le prix auquel tu peux vendre</td></tr>
+        <tr><td><strong>BOS</strong></td><td>Break of Structure - quand le prix casse un sommet ou un creux important</td></tr>
+        <tr><td><strong>Bougie/Candle</strong></td><td>Representation graphique du prix sur une periode donnee</td></tr>
+        <tr><td><strong>Breakeven (BE)</strong></td><td>Deplacer le SL au prix d'entree pour eliminer le risque</td></tr>
+        <tr><td><strong>Broker</strong></td><td>Intermediaire qui te donne acces aux marches financiers</td></tr>
+        <tr><td><strong>Confluence</strong></td><td>Quand plusieurs signaux pointent dans la meme direction (plus fiable)</td></tr>
+        <tr><td><strong>Drawdown</strong></td><td>La baisse maximale de ton capital depuis un sommet</td></tr>
+        <tr><td><strong>EA</strong></td><td>Expert Advisor - un robot de trading sur MetaTrader</td></tr>
+        <tr><td><strong>FVG</strong></td><td>Fair Value Gap - un "trou" dans le prix laisse par un mouvement rapide</td></tr>
+        <tr><td><strong>Levier</strong></td><td>Multiplicateur qui te permet de trader avec plus d'argent que tu n'en as</td></tr>
+        <tr><td><strong>Liquidite</strong></td><td>Zones ou beaucoup d'ordres stop sont accumules</td></tr>
+        <tr><td><strong>Lot</strong></td><td>Unite de mesure de la taille d'un trade</td></tr>
+        <tr><td><strong>Mitigation</strong></td><td>Quand le prix traverse un Order Block, celui-ci est "utilise" et n'est plus valide</td></tr>
+        <tr><td><strong>MQL4</strong></td><td>Le langage de programmation de MetaTrader 4</td></tr>
+        <tr><td><strong>OB</strong></td><td>Order Block - derniere bougie opposee avant un mouvement fort</td></tr>
+        <tr><td><strong>Pip</strong></td><td>Plus petite unite de variation du prix (0.0001 pour EUR/USD)</td></tr>
+        <tr><td><strong>RR (Risk:Reward)</strong></td><td>Ratio entre ce que tu risques et ce que tu peux gagner</td></tr>
+        <tr><td><strong>Scalping</strong></td><td>Style de trading avec des trades tres courts (quelques minutes a une heure)</td></tr>
+        <tr><td><strong>SL (Stop Loss)</strong></td><td>Ordre qui ferme automatiquement un trade perdant pour limiter la perte</td></tr>
+        <tr><td><strong>SMC</strong></td><td>Smart Money Concepts - methode d'analyse basee sur le comportement des institutions</td></tr>
+        <tr><td><strong>Spread</strong></td><td>Difference entre le prix d'achat (Ask) et de vente (Bid)</td></tr>
+        <tr><td><strong>Swing High/Low</strong></td><td>Sommet ou creux local sur le graphique</td></tr>
+        <tr><td><strong>Timeframe (TF)</strong></td><td>Periode representee par chaque bougie (M1, M5, M15, H1, etc.)</td></tr>
+        <tr><td><strong>TP (Take Profit)</strong></td><td>Ordre qui ferme automatiquement un trade gagnant pour prendre le gain</td></tr>
+        <tr><td><strong>Trailing Stop</strong></td><td>SL qui suit le prix pour verrouiller les gains progressivement</td></tr>
+        <tr><td><strong>VPS</strong></td><td>Serveur distant qui fait tourner MT4 24h/24</td></tr>
+    </table>
+
+    <div class="section-divider"></div>
+
+    <h2>Checklist de demarrage</h2>
+    <p>Coche chaque etape au fur et a mesure :</p>
+
+    <ul class="checklist">
+        <li>Installer MetaTrader 4 via un broker</li>
+        <li>Creer un compte demo</li>
+        <li>Copier <code>SMC_Scalper_EA.mq4</code> dans <code>MQL4/Experts/</code></li>
+        <li>Compiler le bot dans MetaEditor (0 erreurs)</li>
+        <li>Copier <code>news_calendar.csv</code> dans <code>MQL4/Files/</code></li>
+        <li>Ouvrir un graphique M5 sur EURUSD</li>
+        <li>Activer AutoTrading (bouton vert)</li>
+        <li>Glisser le bot sur le graphique</li>
+        <li>Verifier le smiley vert et le message d'initialisation</li>
+        <li>Lancer un backtest de 3 mois</li>
+        <li>Analyser les resultats (profit net, drawdown, facteur de profit)</li>
+        <li>Laisser tourner en demo live 2-4 semaines</li>
+        <li>Passer en reel uniquement si tout est positif</li>
+    </ul>
+
+    <div class="info-box success" style="margin-top: 40px;">
+        <strong>Tu es pret !</strong>
+        Tu as maintenant toutes les connaissances pour installer, configurer et utiliser le SMC Scalper EA. N'oublie pas : la patience est la cle. Un bon trader est un trader disciplin qui respecte ses regles.
+    </div>
+
+    <p style="text-align: center; color: #636e72; margin-top: 40px; font-size: 14px;">
+        SMC Scalper EA - Guide v1.0<br>
+        Derniere mise a jour : Avril 2026
+    </p>
+
+</div>
+
+</body>
+</html>
