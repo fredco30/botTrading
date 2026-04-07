@@ -21,21 +21,19 @@ input double MaxSpreadPips      = 3.0;     // Max spread allowed (pips)
 input int    MagicNumber        = 20240407;// Magic number
 input int    MaxOpenTrades      = 1;       // Max simultaneous trades
 input double MinRR              = 2.5;     // Minimum Risk:Reward ratio
-input bool   UseLimitOrders     = false;   // Use limit orders at OB edge (not market)
-input int    LimitExpireBars    = 12;      // Cancel pending order after X M5 bars (1h)
 input double SL_BufferPips      = 5.0;     // SL buffer beyond OB (pips)
 input double MinSL_Pips         = 10.0;    // Minimum SL distance (pips)
 
 // --- Structure Detection (M15) ---
 input int    StructureLookback  = 20;      // Bars to look back for swing H/L
-input int    SwingStrength      = 2;       // Bars on each side for swing point
+input int    SwingStrength      = 3;       // Bars on each side for swing point
 input bool   UseEMA_Bias        = true;    // Use EMA as fallback bias filter
 input int    EMA_Period         = 50;      // EMA period for bias (M15)
-input bool   UseHTF_Filter      = true;    // Filter entries against H1 EMA trend
-input int    HTF_EMA_Period     = 50;      // H1 EMA period for trend filter
+input bool   UseHTF_Filter      = true;    // Filter entries against H4 EMA trend
+input int    HTF_EMA_Period     = 50;      // H4 EMA period for trend filter
 
 // --- Order Block Detection (M5) ---
-input int    OB_Lookback        = 50;      // Bars to scan for OB
+input int    OB_Lookback        = 30;      // Bars to scan for OB
 input double OB_MinBodyRatio    = 0.3;     // Min body/range ratio for impulse candle
 input int    OB_MinImpulsePips  = 5;       // Min impulse move (pips)
 input bool   RequireConfluence  = false;   // Require OB+FVG or OB+Sweep (false=OB alone OK)
@@ -49,13 +47,12 @@ input int    LiqSweep_Lookback  = 30;      // Bars to scan for liq levels
 input double LiqSweep_MinPips   = 2.0;     // Min sweep beyond level (pips)
 
 // --- Entry Quality ---
-input int    OB_MaxAgeBars      = 80;      // Max OB age in M5 bars (0=no limit)
-input bool   RequirePullback    = false;   // Price must retrace into OB (not gap in)
-input double OB_EntryBuffer     = 0.0;     // Buffer pips around OB zone for entry (0=exact)
+input int    OB_MaxAgeBars      = 50;      // Max OB age in M5 bars (0=no limit)
+input bool   RequirePullback    = true;    // Price must retrace into OB (not gap in)
 
 // --- Session Filter ---
 input int    LondonStartHour    = 8;       // London session start (server time)
-input int    LondonEndHour      = 13;      // London session end (covers overlap)
+input int    LondonEndHour      = 12;      // London session end
 input int    NYStartHour        = 13;      // New York session start
 input int    NYEndHour          = 17;      // New York session end
 
@@ -137,11 +134,6 @@ int        g_structureLookback;
 int        g_swingStrength;
 double     g_slBufferPips;
 double     g_minSLPips;
-double     g_obEntryBuffer;
-datetime   g_lastTradeClose = 0;  // Cooldown tracking
-int        g_prevTradeCount = 0;  // Track open trade count changes
-int        g_dailySLCount = 0;    // SL count for current day
-datetime   g_currentDay = 0;      // Track day change
 
 //+------------------------------------------------------------------+
 //| Expert initialization                                             |
@@ -163,7 +155,6 @@ int OnInit() {
    g_swingStrength     = SwingStrength;
    g_slBufferPips      = SL_BufferPips;
    g_minSLPips         = MinSL_Pips;
-   g_obEntryBuffer     = OB_EntryBuffer;
 
    // Nasdaq preset: wider spread, bigger impulse/FVG thresholds (points not pips)
    if(UseNasdaqPreset) {
@@ -177,7 +168,6 @@ int OnInit() {
       g_swingStrength     = 4;
       g_slBufferPips      = 30.0;   // 30 pts buffer for Nasdaq
       g_minSLPips         = 50.0;   // 50 pts min SL for Nasdaq
-      g_obEntryBuffer     = 20.0;   // 20 pts buffer for Nasdaq
       Print(">>> Nasdaq preset ACTIVE");
    }
 
@@ -193,7 +183,6 @@ int OnInit() {
       g_swingStrength     = 4;
       g_slBufferPips      = 30.0;   // 30 pips buffer for Gold
       g_minSLPips         = 40.0;   // 40 pips min SL for Gold
-      g_obEntryBuffer     = 15.0;   // 15 pips buffer for Gold
       Print(">>> Gold preset ACTIVE");
    }
 
@@ -222,29 +211,6 @@ void OnDeinit(const int reason) {
 //| Expert tick function                                              |
 //+------------------------------------------------------------------+
 void OnTick() {
-   // --- Reset daily SL counter on new day ---
-   datetime today = TimeCurrent() - TimeCurrent() % 86400;
-   if(today != g_currentDay) {
-      g_dailySLCount = 0;
-      g_currentDay = today;
-   }
-
-   // --- Detect trade close for cooldown + daily SL tracking ---
-   int currentTradeCount = CountOpenTrades();
-   if(currentTradeCount < g_prevTradeCount) {
-      g_lastTradeClose = TimeCurrent();
-      // Check if last closed trade was a loss (SL hit)
-      for(int i = OrdersHistoryTotal() - 1; i >= 0; i--) {
-         if(!OrderSelect(i, SELECT_BY_POS, MODE_HISTORY)) continue;
-         if(OrderSymbol() != Symbol() || OrderMagicNumber() != MagicNumber) continue;
-         if(OrderCloseTime() >= TimeCurrent() - 60) {
-            if(OrderProfit() < 0) g_dailySLCount++;
-            break;
-         }
-      }
-   }
-   g_prevTradeCount = currentTradeCount;
-
    // --- New bar check (M5) ---
    datetime currentBarTime = iTime(Symbol(), PERIOD_M5, 0);
    if(currentBarTime == g_lastBarTime) return;
@@ -263,10 +229,6 @@ void OnTick() {
       if(IsTesting()) PrintOnce("FILTER_NEWS", "Blocked by news filter at " + TimeToString(TimeCurrent()));
       return;
    }
-   // Daily loss limit: max 2 SL per day
-   if(g_dailySLCount >= 2) return;
-   // Cooldown: wait 2 hours after last trade close
-   if(g_lastTradeClose > 0 && TimeCurrent() - g_lastTradeClose < 120 * 60) return;
    if(CountOpenTrades() >= MaxOpenTrades) return;
 
    // Reload news file daily
@@ -455,7 +417,11 @@ void DetectOrderBlocks() {
    ArrayResize(g_activeOBs, 0);
 
    for(int i = 2; i < g_obLookback; i++) {
-      // Check impulse candle (bar i-1)
+      double open_i  = iOpen(Symbol(), PERIOD_M5, i);
+      double close_i = iClose(Symbol(), PERIOD_M5, i);
+      double high_i  = iHigh(Symbol(), PERIOD_M5, i);
+      double low_i   = iLow(Symbol(), PERIOD_M5, i);
+
       double open_imp  = iOpen(Symbol(), PERIOD_M5, i - 1);
       double close_imp = iClose(Symbol(), PERIOD_M5, i - 1);
       double high_imp  = iHigh(Symbol(), PERIOD_M5, i - 1);
@@ -464,103 +430,49 @@ void DetectOrderBlocks() {
       double impBody  = MathAbs(close_imp - open_imp);
       double impRange = high_imp - low_imp;
       if(impRange == 0) continue;
-      if(impRange / g_pipValue < g_obMinImpulsePips) continue;
+
+      double impMovePips = impRange / g_pipValue;
+
+      if(impMovePips < g_obMinImpulsePips) continue;
       if(impBody / impRange < OB_MinBodyRatio) continue;
 
-      bool bullImpulse = (close_imp > open_imp);
-      bool bearImpulse = (close_imp < open_imp);
+      // Bullish OB: bearish candle + strong bullish impulse breaking above
+      if(close_i < open_i && close_imp > open_imp) {
+         if(close_imp > high_i) {
+            OrderBlock ob;
+            ob.top = high_i;
+            ob.bottom = low_i;
+            ob.barIndex = i;
+            ob.isBullish = true;
+            ob.isValid = true;
+            ob.time = iTime(Symbol(), PERIOD_M5, i);
 
-      // --- TYPE 1: Classic single-candle OB (bar i = opposite candle) ---
-      double open_i  = iOpen(Symbol(), PERIOD_M5, i);
-      double close_i = iClose(Symbol(), PERIOD_M5, i);
-      double high_i  = iHigh(Symbol(), PERIOD_M5, i);
-      double low_i   = iLow(Symbol(), PERIOD_M5, i);
-
-      if(bullImpulse && close_i < open_i && close_imp > high_i) {
-         AddOB(high_i, low_i, i, true);
-      }
-      if(bearImpulse && close_i > open_i && close_imp < low_i) {
-         AddOB(high_i, low_i, i, false);
-      }
-
-      // --- TYPE 2: Multi-candle OB (2-3 small candles before impulse) ---
-      // Look for a cluster of small candles that form a base before the impulse
-      if(i + 2 < g_obLookback) {
-         double baseHigh = high_i;
-         double baseLow  = low_i;
-         int baseStart = i;
-
-         // Extend base by 1-2 more candles if they're small (consolidation)
-         for(int k = 1; k <= 2 && (i + k) < g_obLookback; k++) {
-            double range_k = iHigh(Symbol(), PERIOD_M5, i + k) - iLow(Symbol(), PERIOD_M5, i + k);
-            // Small candle = less than half the impulse range
-            if(range_k < impRange * 0.5) {
-               baseHigh = MathMax(baseHigh, iHigh(Symbol(), PERIOD_M5, i + k));
-               baseLow  = MathMin(baseLow, iLow(Symbol(), PERIOD_M5, i + k));
-               baseStart = i + k;
-            } else {
-               break;
-            }
-         }
-
-         // Only add if base is wider than single candle (actually found extra bars)
-         if(baseStart > i) {
-            if(bullImpulse && close_imp > baseHigh) {
-               AddOB(baseHigh, baseLow, baseStart, true);
-            }
-            if(bearImpulse && close_imp < baseLow) {
-               AddOB(baseHigh, baseLow, baseStart, false);
+            if(!IsOBMitigated(ob, i)) {
+               int size = ArraySize(g_activeOBs);
+               ArrayResize(g_activeOBs, size + 1);
+               g_activeOBs[size] = ob;
             }
          }
       }
 
-      // --- TYPE 3: Body-to-wick OB (impulse body passes OB body, not necessarily high/low) ---
-      double body_i_top = MathMax(open_i, close_i);
-      double body_i_bot = MathMin(open_i, close_i);
-      double body_imp_top = MathMax(open_imp, close_imp);
-      double body_imp_bot = MathMin(open_imp, close_imp);
+      // Bearish OB: bullish candle + strong bearish impulse breaking below
+      if(close_i > open_i && close_imp < open_imp) {
+         if(close_imp < low_i) {
+            OrderBlock ob;
+            ob.top = high_i;
+            ob.bottom = low_i;
+            ob.barIndex = i;
+            ob.isBullish = false;
+            ob.isValid = true;
+            ob.time = iTime(Symbol(), PERIOD_M5, i);
 
-      // Bullish: bearish OB candle, impulse body passes above OB body top
-      if(bullImpulse && close_i < open_i && body_imp_bot > body_i_top) {
-         AddOB(body_i_top, low_i, i, true);
+            if(!IsOBMitigated(ob, i)) {
+               int size = ArraySize(g_activeOBs);
+               ArrayResize(g_activeOBs, size + 1);
+               g_activeOBs[size] = ob;
+            }
+         }
       }
-      // Bearish: bullish OB candle, impulse body passes below OB body bottom
-      if(bearImpulse && close_i > open_i && body_imp_top < body_i_bot) {
-         AddOB(high_i, body_i_bot, i, false);
-      }
-   }
-}
-
-//+------------------------------------------------------------------+
-//| ADD ORDER BLOCK (with duplicate & mitigation check)               |
-//+------------------------------------------------------------------+
-void AddOB(double top, double bottom, int barIdx, bool isBull) {
-   if(top <= bottom) return;
-
-   // Skip if zone is too thin (< 1 pip)
-   if((top - bottom) / g_pipValue < 1.0) return;
-
-   // Skip duplicates (overlapping with existing OB)
-   for(int j = 0; j < ArraySize(g_activeOBs); j++) {
-      if(g_activeOBs[j].isBullish == isBull) {
-         double overlap = MathMin(top, g_activeOBs[j].top) - MathMax(bottom, g_activeOBs[j].bottom);
-         double zone = top - bottom;
-         if(overlap > zone * 0.5) return;  // >50% overlap = duplicate
-      }
-   }
-
-   OrderBlock ob;
-   ob.top = top;
-   ob.bottom = bottom;
-   ob.barIndex = barIdx;
-   ob.isBullish = isBull;
-   ob.isValid = true;
-   ob.time = iTime(Symbol(), PERIOD_M5, barIdx);
-
-   if(!IsOBMitigated(ob, barIdx)) {
-      int size = ArraySize(g_activeOBs);
-      ArrayResize(g_activeOBs, size + 1);
-      g_activeOBs[size] = ob;
    }
 }
 
@@ -714,170 +626,94 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
 
    // H4 trend filter: block counter-trend entries
    if(UseHTF_Filter) {
-      double h1Ema  = iMA(Symbol(), PERIOD_H1, HTF_EMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
-      double h1Close = iClose(Symbol(), PERIOD_H1, 0);
-      // Don't buy if H1 is below EMA (bearish intraday)
-      if(g_currentBias == BIAS_BULLISH && h1Close < h1Ema) return;
-      // Don't sell if H1 is above EMA (bullish intraday)
-      if(g_currentBias == BIAS_BEARISH && h1Close > h1Ema) return;
+      double h4Ema  = iMA(Symbol(), PERIOD_H4, HTF_EMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
+      double h4Close = iClose(Symbol(), PERIOD_H4, 0);
+      // Don't buy if H4 is below EMA (bearish trend)
+      if(g_currentBias == BIAS_BULLISH && h4Close < h4Ema) return;
+      // Don't sell if H4 is above EMA (bullish trend)
+      if(g_currentBias == BIAS_BEARISH && h4Close > h4Ema) return;
    }
 
-   // --- Check for bullish/bearish confirmation on last closed bar ---
-   bool bullConfirm = HasCandleConfirmation(true);
-   bool bearConfirm = HasCandleConfirmation(false);
-
    // --- BULLISH ENTRY ---
-   if(g_currentBias == BIAS_BULLISH && bullConfirm) {
+   if(g_currentBias == BIAS_BULLISH) {
       for(int i = 0; i < ArraySize(g_activeOBs); i++) {
          if(!g_activeOBs[i].isBullish || !g_activeOBs[i].isValid) continue;
+
+         // Skip stale OBs
          if(OB_MaxAgeBars > 0 && g_activeOBs[i].barIndex > OB_MaxAgeBars) continue;
 
-         // Last closed bar touched or was inside the OB zone
-         double prevLow = iLow(Symbol(), PERIOD_M5, 1);
-         double prevHigh = iHigh(Symbol(), PERIOD_M5, 1);
-         if(prevLow > g_activeOBs[i].top || prevHigh < g_activeOBs[i].bottom) continue;
+         // Price in OB zone
+         if(bid <= g_activeOBs[i].top && bid >= g_activeOBs[i].bottom) {
+            // Pullback check: previous bar close was above OB (price came down into it)
+            if(RequirePullback) {
+               double prevClose = iClose(Symbol(), PERIOD_M5, 1);
+               if(prevClose < g_activeOBs[i].top) continue;
+            }
 
-         bool hasFVG = HasFVGConfluence(g_activeOBs[i], true);
-         if(!hasFVG && !liqSweepBull && RequireConfluence) continue;
+            bool hasFVG = HasFVGConfluence(g_activeOBs[i], true);
+            bool hasConfluence = hasFVG || liqSweepBull;
 
-         double entryPrice, sl;
-         int orderType;
+            if(hasConfluence || !RequireConfluence) {
+               double sl = g_activeOBs[i].bottom - g_slBufferPips * g_pipValue;
+               double slDist = (ask - sl) / g_pipValue;
+               if(slDist < g_minSLPips)
+                  sl = ask - g_minSLPips * g_pipValue;
+               double tp1 = 0, tp2 = 0;
+               FindTPLevels(true, ask, sl, tp1, tp2);
 
-         if(UseLimitOrders) {
-            // Limit order at bottom of OB zone — best possible entry
-            entryPrice = NormalizeDouble(g_activeOBs[i].bottom + 1 * g_pipValue, g_digits);
-            // Only place if price is above entry (limit buy = below current price)
-            if(ask <= entryPrice) entryPrice = ask;  // fallback to market if already there
-            orderType = (entryPrice < ask) ? OP_BUYLIMIT : OP_BUY;
-         } else {
-            entryPrice = ask;
-            orderType = OP_BUY;
-         }
-
-         sl = g_activeOBs[i].bottom - g_slBufferPips * g_pipValue;
-         double slDist = (entryPrice - sl) / g_pipValue;
-         if(slDist < g_minSLPips)
-            sl = entryPrice - g_minSLPips * g_pipValue;
-
-         double tp1 = 0, tp2 = 0;
-         FindTPLevels(true, entryPrice, sl, tp1, tp2);
-
-         double rr = (tp2 - entryPrice) / (entryPrice - sl);
-         if(rr >= MinRR) {
-            string label = "SMC Buy|OB";
-            if(hasFVG) label = label + "+FVG";
-            if(liqSweepBull) label = label + "+Sweep";
-            ExecuteTrade(orderType, entryPrice, sl, tp2, label);
-            g_activeOBs[i].isValid = false;
-            return;
+               double rr = (tp2 - ask) / (ask - sl);
+               if(rr >= MinRR) {
+                  string label = "SMC Buy|OB";
+                  if(hasFVG) label = label + "+FVG";
+                  if(liqSweepBull) label = label + "+Sweep";
+                  ExecuteTrade(OP_BUY, ask, sl, tp2, label);
+                  g_activeOBs[i].isValid = false;
+                  return;
+               }
+            }
          }
       }
    }
 
    // --- BEARISH ENTRY ---
-   if(g_currentBias == BIAS_BEARISH && bearConfirm) {
+   if(g_currentBias == BIAS_BEARISH) {
       for(int i = 0; i < ArraySize(g_activeOBs); i++) {
          if(g_activeOBs[i].isBullish || !g_activeOBs[i].isValid) continue;
+
+         // Skip stale OBs
          if(OB_MaxAgeBars > 0 && g_activeOBs[i].barIndex > OB_MaxAgeBars) continue;
 
-         double prevLow = iLow(Symbol(), PERIOD_M5, 1);
-         double prevHigh = iHigh(Symbol(), PERIOD_M5, 1);
-         if(prevLow > g_activeOBs[i].top || prevHigh < g_activeOBs[i].bottom) continue;
+         if(ask >= g_activeOBs[i].bottom && ask <= g_activeOBs[i].top) {
+            // Pullback check: previous bar close was below OB (price came up into it)
+            if(RequirePullback) {
+               double prevClose = iClose(Symbol(), PERIOD_M5, 1);
+               if(prevClose > g_activeOBs[i].bottom) continue;
+            }
 
-         bool hasFVG = HasFVGConfluence(g_activeOBs[i], false);
-         if(!hasFVG && !liqSweepBear && RequireConfluence) continue;
+            bool hasFVG = HasFVGConfluence(g_activeOBs[i], false);
+            bool hasConfluence = hasFVG || liqSweepBear;
 
-         double entryPrice, sl;
-         int orderType;
+            if(hasConfluence || !RequireConfluence) {
+               double sl = g_activeOBs[i].top + g_slBufferPips * g_pipValue;
+               double slDist = (sl - bid) / g_pipValue;
+               if(slDist < g_minSLPips)
+                  sl = bid + g_minSLPips * g_pipValue;
+               double tp1 = 0, tp2 = 0;
+               FindTPLevels(false, bid, sl, tp1, tp2);
 
-         if(UseLimitOrders) {
-            // Limit order at top of OB zone — best possible entry
-            entryPrice = NormalizeDouble(g_activeOBs[i].top - 1 * g_pipValue, g_digits);
-            // Only place if price is below entry (limit sell = above current price)
-            if(bid >= entryPrice) entryPrice = bid;  // fallback to market
-            orderType = (entryPrice > bid) ? OP_SELLLIMIT : OP_SELL;
-         } else {
-            entryPrice = bid;
-            orderType = OP_SELL;
-         }
-
-         sl = g_activeOBs[i].top + g_slBufferPips * g_pipValue;
-         double slDist = (sl - entryPrice) / g_pipValue;
-         if(slDist < g_minSLPips)
-            sl = entryPrice + g_minSLPips * g_pipValue;
-
-         double tp1 = 0, tp2 = 0;
-         FindTPLevels(false, entryPrice, sl, tp1, tp2);
-
-         double rr = (entryPrice - tp2) / (sl - entryPrice);
-         if(rr >= MinRR) {
-            string label = "SMC Sell|OB";
-            if(hasFVG) label = label + "+FVG";
-            if(liqSweepBear) label = label + "+Sweep";
-            ExecuteTrade(orderType, entryPrice, sl, tp2, label);
-            g_activeOBs[i].isValid = false;
-            return;
+               double rr = (bid - tp2) / (sl - bid);
+               if(rr >= MinRR) {
+                  string label = "SMC Sell|OB";
+                  if(hasFVG) label = label + "+FVG";
+                  if(liqSweepBear) label = label + "+Sweep";
+                  ExecuteTrade(OP_SELL, bid, sl, tp2, label);
+                  g_activeOBs[i].isValid = false;
+                  return;
+               }
+            }
          }
       }
    }
-}
-
-//+------------------------------------------------------------------+
-//| CANDLE CONFIRMATION - Rejection pattern on last closed M5 bar    |
-//| Checks for: pin bar, engulfing, or rejection wick > 60% of range |
-//+------------------------------------------------------------------+
-bool HasCandleConfirmation(bool bullish) {
-   double open1  = iOpen(Symbol(), PERIOD_M5, 1);
-   double close1 = iClose(Symbol(), PERIOD_M5, 1);
-   double high1  = iHigh(Symbol(), PERIOD_M5, 1);
-   double low1   = iLow(Symbol(), PERIOD_M5, 1);
-   double range1 = high1 - low1;
-   if(range1 == 0) return false;
-
-   double body1  = MathAbs(close1 - open1);
-   double upperWick = high1 - MathMax(open1, close1);
-   double lowerWick = MathMin(open1, close1) - low1;
-
-   if(bullish) {
-      // --- Bullish confirmation: close > open AND rejection from below ---
-
-      // 1. Bullish pin bar: long lower wick (>60% of range), small body
-      if(lowerWick > range1 * 0.6 && body1 < range1 * 0.35) return true;
-
-      // 2. Bullish engulfing: current bar bullish, body covers previous bar
-      double open2  = iOpen(Symbol(), PERIOD_M5, 2);
-      double close2 = iClose(Symbol(), PERIOD_M5, 2);
-      if(close1 > open1 && close2 < open2) {
-         if(close1 > open2 && open1 < close2) return true;
-      }
-
-      // 3. Bullish rejection: close bullish with lower wick > body
-      if(close1 > open1 && lowerWick > body1 && upperWick < body1) return true;
-
-      // 4. Hammer-like: close near high, lower wick significant
-      if(close1 > open1 && (high1 - close1) < range1 * 0.15 && lowerWick > range1 * 0.4) return true;
-   }
-   else {
-      // --- Bearish confirmation: close < open AND rejection from above ---
-
-      // 1. Bearish pin bar: long upper wick (>60% of range), small body
-      if(upperWick > range1 * 0.6 && body1 < range1 * 0.35) return true;
-
-      // 2. Bearish engulfing: current bar bearish, body covers previous bar
-      double open2  = iOpen(Symbol(), PERIOD_M5, 2);
-      double close2 = iClose(Symbol(), PERIOD_M5, 2);
-      if(close1 < open1 && close2 > open2) {
-         if(open1 > close2 && close1 < open2) return true;
-      }
-
-      // 3. Bearish rejection: close bearish with upper wick > body
-      if(close1 < open1 && upperWick > body1 && lowerWick < body1) return true;
-
-      // 4. Shooting star-like: close near low, upper wick significant
-      if(close1 < open1 && (close1 - low1) < range1 * 0.15 && upperWick > range1 * 0.4) return true;
-   }
-
-   return false;
 }
 
 //+------------------------------------------------------------------+
@@ -1050,14 +886,9 @@ void ExecuteTrade(int type, double price, double sl, double tp, string comment) 
    sl    = NormalizeDouble(sl, g_digits);
    tp    = NormalizeDouble(tp, g_digits);
 
-   // Set expiration for pending orders (LimitExpireBars * 5 minutes)
-   datetime expiry = 0;
-   if(type == OP_BUYLIMIT || type == OP_SELLLIMIT)
-      expiry = TimeCurrent() + LimitExpireBars * 5 * 60;
-
-   color clr = (type == OP_BUY || type == OP_BUYLIMIT) ? clrGreen : clrRed;
    int ticket = OrderSend(Symbol(), type, lotSize, price, 3, sl, tp,
-                           comment, MagicNumber, expiry, clr);
+                           comment, MagicNumber, 0,
+                           type == OP_BUY ? clrGreen : clrRed);
 
    if(ticket < 0) {
       Print("OrderSend failed: ", GetLastError(),
