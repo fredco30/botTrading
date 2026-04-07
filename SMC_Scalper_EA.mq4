@@ -69,14 +69,6 @@ input int    NewsMinutesBefore  = 15;      // Stop trading X min before news
 input int    NewsMinutesAfter   = 15;      // Resume trading X min after news
 input string NewsFile           = "news_calendar.csv"; // News file in MQL4/Files/
 
-// --- Kill Zone + FVG Strategy ---
-input bool   UseKZFVG           = true;    // Enable Kill Zone + FVG strategy
-input int    KZ_MagicNumber     = 20240408;// Magic number for KZ+FVG trades
-input double KZ_RiskPercent     = 1.0;     // Risk % per KZ+FVG trade
-input double KZ_MinFVG_Pips     = 3.0;     // Min FVG size (pips) during kill zone
-input double KZ_MinRR           = 2.0;     // Min RR for KZ+FVG entries
-input int    KZ_MaxAgeBars      = 24;      // Max FVG age in M5 bars (2 hours)
-
 //+------------------------------------------------------------------+
 //| ENUMS & STRUCTS                                                   |
 //+------------------------------------------------------------------+
@@ -116,15 +108,6 @@ struct NewsEvent {
    string   title;
 };
 
-struct KZ_FVG {
-   double   top;
-   double   bottom;
-   bool     isBullish;
-   bool     isValid;
-   datetime createdTime;
-   int      barIndex;
-};
-
 //+------------------------------------------------------------------+
 //| GLOBALS                                                           |
 //+------------------------------------------------------------------+
@@ -140,11 +123,6 @@ datetime   g_lastBarTime = 0;
 datetime   g_lastNewsLoad = 0;
 double     g_pipValue;
 int        g_digits;
-
-// Kill Zone + FVG globals
-KZ_FVG     g_kzFVGs[];
-bool       g_kzScanned = false;  // Already scanned this kill zone
-datetime   g_lastKZScan = 0;     // Last kill zone scan time
 
 // Runtime values (may be overridden by Nasdaq/Gold preset)
 double     g_maxSpreadPips;
@@ -277,27 +255,6 @@ void OnTick() {
 
    // --- Step 6: Trade Management ---
    ManageOpenTrades();
-
-   // --- Step 7: Kill Zone + FVG Strategy (independent) ---
-   if(UseKZFVG) {
-      // Scan for FVGs at the end of kill zone (bar at minute 30)
-      if(IsKillZone()) {
-         int minute = TimeMinute(TimeCurrent());
-         datetime today = TimeCurrent() - TimeCurrent() % 86400;
-         int hour = TimeHour(TimeCurrent());
-         datetime kzID = today + hour * 3600;  // Unique per kill zone
-
-         if(minute >= 25 && g_lastKZScan != kzID) {
-            ScanKillZoneFVGs();
-            g_lastKZScan = kzID;
-         }
-      }
-
-      // Check for FVG fill entries (after kill zone)
-      if(!IsKillZone()) {
-         CheckKZFVGEntry();
-      }
-   }
 }
 
 //+------------------------------------------------------------------+
@@ -1086,167 +1043,6 @@ void ModifySL(int ticket, double newSL) {
 
 //+------------------------------------------------------------------+
 //| NEWS FILTER - Load CSV Calendar                                  |
-//+------------------------------------------------------------------+
-//| KILL ZONE + FVG STRATEGY                                          |
-//+------------------------------------------------------------------+
-
-// Check if we are in a kill zone (first 30 min of London or NY)
-bool IsKillZone() {
-   int hour = TimeHour(TimeCurrent());
-   int minute = TimeMinute(TimeCurrent());
-   // London open: 8:00-8:30
-   if(hour == LondonStartHour && minute < 30) return true;
-   // NY open: 13:00-13:30 (or NYStartHour)
-   if(hour == NYStartHour && minute < 30) return true;
-   return false;
-}
-
-// Scan for FVGs created during current kill zone
-void ScanKillZoneFVGs() {
-   ArrayResize(g_kzFVGs, 0);
-
-   // Scan the last 6 bars (30 min of M5)
-   for(int i = 1; i <= 6; i++) {
-      if(i + 1 >= Bars) continue;
-      double high_prev = iHigh(Symbol(), PERIOD_M5, i + 1);
-      double low_prev  = iLow(Symbol(), PERIOD_M5, i + 1);
-      double high_next = iHigh(Symbol(), PERIOD_M5, i - 1);
-      double low_next  = iLow(Symbol(), PERIOD_M5, i - 1);
-
-      // Bullish FVG: gap up
-      if(low_next > high_prev) {
-         double gapSize = (low_next - high_prev) / g_pipValue;
-         if(gapSize >= KZ_MinFVG_Pips) {
-            int sz = ArraySize(g_kzFVGs);
-            ArrayResize(g_kzFVGs, sz + 1);
-            g_kzFVGs[sz].top = low_next;
-            g_kzFVGs[sz].bottom = high_prev;
-            g_kzFVGs[sz].isBullish = true;
-            g_kzFVGs[sz].isValid = true;
-            g_kzFVGs[sz].createdTime = iTime(Symbol(), PERIOD_M5, i);
-            g_kzFVGs[sz].barIndex = i;
-         }
-      }
-
-      // Bearish FVG: gap down
-      if(high_next < low_prev) {
-         double gapSize = (low_prev - high_next) / g_pipValue;
-         if(gapSize >= KZ_MinFVG_Pips) {
-            int sz = ArraySize(g_kzFVGs);
-            ArrayResize(g_kzFVGs, sz + 1);
-            g_kzFVGs[sz].top = low_prev;
-            g_kzFVGs[sz].bottom = high_next;
-            g_kzFVGs[sz].isBullish = false;
-            g_kzFVGs[sz].isValid = true;
-            g_kzFVGs[sz].createdTime = iTime(Symbol(), PERIOD_M5, i);
-            g_kzFVGs[sz].barIndex = i;
-         }
-      }
-   }
-   if(ArraySize(g_kzFVGs) > 0)
-      Print("KZ scan: found ", ArraySize(g_kzFVGs), " FVGs during kill zone");
-}
-
-// Count open KZ trades
-int CountKZTrades() {
-   int count = 0;
-   for(int i = OrdersTotal() - 1; i >= 0; i--) {
-      if(OrderSelect(i, SELECT_BY_POS, MODE_TRADES)) {
-         if(OrderSymbol() == Symbol() && OrderMagicNumber() == KZ_MagicNumber)
-            count++;
-      }
-   }
-   return count;
-}
-
-// Check for FVG fill entries (price returns to fill the gap)
-void CheckKZFVGEntry() {
-   if(!UseKZFVG) return;
-   if(CountKZTrades() >= 1) return;  // Max 1 KZ trade at a time
-   if(SpreadTooWide()) return;
-
-   double bid = MarketInfo(Symbol(), MODE_BID);
-   double ask = MarketInfo(Symbol(), MODE_ASK);
-
-   for(int i = 0; i < ArraySize(g_kzFVGs); i++) {
-      if(!g_kzFVGs[i].isValid) continue;
-
-      // Expire old FVGs
-      int barAge = iBarShift(Symbol(), PERIOD_M5, g_kzFVGs[i].createdTime);
-      if(barAge > KZ_MaxAgeBars) {
-         g_kzFVGs[i].isValid = false;
-         continue;
-      }
-
-      double fvgMid = (g_kzFVGs[i].top + g_kzFVGs[i].bottom) / 2.0;
-
-      // Bullish FVG fill: price comes down INTO the FVG → buy
-      if(g_kzFVGs[i].isBullish) {
-         if(bid <= g_kzFVGs[i].top && bid >= g_kzFVGs[i].bottom) {
-            double sl = g_kzFVGs[i].bottom - g_slBufferPips * g_pipValue;
-            double slDist = ask - sl;
-            if(slDist / g_pipValue < g_minSLPips)
-               sl = ask - g_minSLPips * g_pipValue;
-
-            double tp = ask + MathAbs(ask - sl) * KZ_MinRR;
-            double rr = (tp - ask) / (ask - sl);
-
-            if(rr >= KZ_MinRR) {
-               double lotSize = CalculateLotSize(MathAbs(ask - sl));
-               if(lotSize > 0) {
-                  sl = NormalizeDouble(sl, g_digits);
-                  tp = NormalizeDouble(tp, g_digits);
-                  int ticket = OrderSend(Symbol(), OP_BUY, lotSize,
-                     NormalizeDouble(ask, g_digits), 3, sl, tp,
-                     "KZ+FVG Buy", KZ_MagicNumber, 0, clrDodgerBlue);
-                  if(ticket > 0) {
-                     Print("KZ+FVG Buy #", ticket, " | Entry: ", ask,
-                           " | SL: ", sl, " | TP: ", tp, " | RR: ", DoubleToStr(rr, 1));
-                     g_kzFVGs[i].isValid = false;
-                  } else {
-                     Print("KZ+FVG Buy failed: ", GetLastError());
-                  }
-               }
-               return;
-            }
-         }
-      }
-
-      // Bearish FVG fill: price comes up INTO the FVG → sell
-      if(!g_kzFVGs[i].isBullish) {
-         if(ask >= g_kzFVGs[i].bottom && ask <= g_kzFVGs[i].top) {
-            double sl = g_kzFVGs[i].top + g_slBufferPips * g_pipValue;
-            double slDist = sl - bid;
-            if(slDist / g_pipValue < g_minSLPips)
-               sl = bid + g_minSLPips * g_pipValue;
-
-            double tp = bid - MathAbs(sl - bid) * KZ_MinRR;
-            double rr = (bid - tp) / (sl - bid);
-
-            if(rr >= KZ_MinRR) {
-               double lotSize = CalculateLotSize(MathAbs(sl - bid));
-               if(lotSize > 0) {
-                  sl = NormalizeDouble(sl, g_digits);
-                  tp = NormalizeDouble(tp, g_digits);
-                  int ticket = OrderSend(Symbol(), OP_SELL, lotSize,
-                     NormalizeDouble(bid, g_digits), 3, sl, tp,
-                     "KZ+FVG Sell", KZ_MagicNumber, 0, clrOrangeRed);
-                  if(ticket > 0) {
-                     Print("KZ+FVG Sell #", ticket, " | Entry: ", bid,
-                           " | SL: ", sl, " | TP: ", tp, " | RR: ", DoubleToStr(rr, 1));
-                     g_kzFVGs[i].isValid = false;
-                  } else {
-                     Print("KZ+FVG Sell failed: ", GetLastError());
-                  }
-               }
-               return;
-            }
-         }
-      }
-   }
-}
-
-//+------------------------------------------------------------------+
 //| Format: YYYY.MM.DD,HH:MM,CURRENCY,IMPACT,TITLE                  |
 //| Example: 2024.04.05,14:30,USD,HIGH,Non-Farm Payrolls             |
 //+------------------------------------------------------------------+
