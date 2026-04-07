@@ -11,6 +11,9 @@
 //+------------------------------------------------------------------+
 //| INPUTS                                                            |
 //+------------------------------------------------------------------+
+// --- Instrument Preset ---
+input bool   UseNasdaqPreset    = false;   // Use Nasdaq (NAS100/USTEC) preset
+
 // --- Risk Management ---
 input double RiskPercent        = 1.0;     // Risk % per trade
 input double MaxSpreadPips      = 3.0;     // Max spread allowed (pips)
@@ -109,6 +112,15 @@ datetime   g_lastNewsLoad = 0;
 double     g_pipValue;
 int        g_digits;
 
+// Runtime values (may be overridden by Nasdaq preset)
+double     g_maxSpreadPips;
+int        g_obMinImpulsePips;
+double     g_fvgMinSizePips;
+double     g_liqSweepMinPips;
+int        g_obLookback;
+int        g_structureLookback;
+int        g_swingStrength;
+
 //+------------------------------------------------------------------+
 //| Expert initialization                                             |
 //+------------------------------------------------------------------+
@@ -119,11 +131,35 @@ int OnInit() {
    else
       g_pipValue = Point;
 
+   // Default runtime values from inputs
+   g_maxSpreadPips     = MaxSpreadPips;
+   g_obMinImpulsePips  = OB_MinImpulsePips;
+   g_fvgMinSizePips    = FVG_MinSizePips;
+   g_liqSweepMinPips   = LiqSweep_MinPips;
+   g_obLookback        = OB_Lookback;
+   g_structureLookback = StructureLookback;
+   g_swingStrength     = SwingStrength;
+
+   // Nasdaq preset: wider spread, bigger impulse/FVG thresholds (points not pips)
+   if(UseNasdaqPreset) {
+      // Nasdaq uses 1 point = 1 pip (no 10x factor), force pipValue = Point
+      g_pipValue          = Point;
+      g_maxSpreadPips     = 50.0;    // ~50 pts spread allowed
+      g_obMinImpulsePips  = 80;      // ~80 pts min impulse for OB
+      g_fvgMinSizePips    = 30.0;    // ~30 pts min FVG gap
+      g_liqSweepMinPips   = 20.0;    // ~20 pts min sweep
+      g_obLookback        = 40;      // wider lookback for indices volatility
+      g_structureLookback = 30;      // wider structure lookback
+      g_swingStrength     = 4;       // stronger swing filter
+      Print(">>> Nasdaq preset ACTIVE — thresholds adjusted for index volatility");
+   }
+
    if(UseNewsFilter) LoadNewsCalendar();
 
    Print("SMC Scalper EA initialized | Symbol: ", Symbol(),
          " | Pip value: ", g_pipValue,
          " | Risk: ", RiskPercent, "%",
+         " | Nasdaq preset: ", UseNasdaqPreset ? "ON" : "OFF",
          " | News filter: ", UseNewsFilter ? "ON" : "OFF");
    return INIT_SUCCEEDED;
 }
@@ -188,7 +224,7 @@ bool IsSessionActive() {
 //+------------------------------------------------------------------+
 bool SpreadTooWide() {
    double spread = MarketInfo(Symbol(), MODE_SPREAD) * Point / g_pipValue;
-   return (spread > MaxSpreadPips);
+   return (spread > g_maxSpreadPips);
 }
 
 //+------------------------------------------------------------------+
@@ -212,7 +248,7 @@ void AnalyzeStructure() {
    SwingPoint swingHighs[];
    SwingPoint swingLows[];
 
-   FindSwingPoints(PERIOD_M15, StructureLookback, SwingStrength, swingHighs, swingLows);
+   FindSwingPoints(PERIOD_M15, g_structureLookback, g_swingStrength, swingHighs, swingLows);
 
    if(ArraySize(swingHighs) < 2 || ArraySize(swingLows) < 2) {
       g_currentBias = BIAS_NONE;
@@ -301,7 +337,7 @@ void FindSwingPoints(int tf, int lookback, int strength,
 void DetectOrderBlocks() {
    ArrayResize(g_activeOBs, 0);
 
-   for(int i = 2; i < OB_Lookback; i++) {
+   for(int i = 2; i < g_obLookback; i++) {
       double open_i  = iOpen(Symbol(), PERIOD_M5, i);
       double close_i = iClose(Symbol(), PERIOD_M5, i);
       double high_i  = iHigh(Symbol(), PERIOD_M5, i);
@@ -318,7 +354,7 @@ void DetectOrderBlocks() {
 
       double impMovePips = impRange / g_pipValue;
 
-      if(impMovePips < OB_MinImpulsePips) continue;
+      if(impMovePips < g_obMinImpulsePips) continue;
       if(impBody / impRange < OB_MinBodyRatio) continue;
 
       // Bullish OB: bearish candle + strong bullish impulse breaking above
@@ -390,7 +426,7 @@ void DetectFVGs() {
       // Bullish FVG: gap up
       if(low_next > high_prev) {
          double gapSize = (low_next - high_prev) / g_pipValue;
-         if(gapSize >= FVG_MinSizePips) {
+         if(gapSize >= g_fvgMinSizePips) {
             if(!IsFVGFilled(high_prev, low_next, true, i - 2)) {
                FVGZone fvg;
                fvg.top = low_next;
@@ -408,7 +444,7 @@ void DetectFVGs() {
       // Bearish FVG: gap down
       if(high_next < low_prev) {
          double gapSize = (low_prev - high_next) / g_pipValue;
-         if(gapSize >= FVG_MinSizePips) {
+         if(gapSize >= g_fvgMinSizePips) {
             if(!IsFVGFilled(high_next, low_prev, false, i - 2)) {
                FVGZone fvg;
                fvg.top = low_prev;
@@ -465,7 +501,7 @@ bool DetectLiquiditySweep(bool checkBullish) {
       for(int i = 1; i <= 3; i++) {
          double low_i   = iLow(Symbol(), PERIOD_M5, i);
          double close_i = iClose(Symbol(), PERIOD_M5, i);
-         if(low_i < liqLevel - LiqSweep_MinPips * g_pipValue &&
+         if(low_i < liqLevel - g_liqSweepMinPips * g_pipValue &&
             close_i > liqLevel) {
             return true;
          }
@@ -490,7 +526,7 @@ bool DetectLiquiditySweep(bool checkBullish) {
       for(int i = 1; i <= 3; i++) {
          double high_i  = iHigh(Symbol(), PERIOD_M5, i);
          double close_i = iClose(Symbol(), PERIOD_M5, i);
-         if(high_i > liqLevel + LiqSweep_MinPips * g_pipValue &&
+         if(high_i > liqLevel + g_liqSweepMinPips * g_pipValue &&
             close_i < liqLevel) {
             return true;
          }
