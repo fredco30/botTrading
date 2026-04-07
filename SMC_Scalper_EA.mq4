@@ -13,6 +13,7 @@
 //+------------------------------------------------------------------+
 // --- Instrument Preset ---
 input bool   UseNasdaqPreset    = false;   // Use Nasdaq (NAS100/USTEC) preset
+input bool   UseGoldPreset      = false;   // Use Gold (XAUUSD) preset
 
 // --- Risk Management ---
 input double RiskPercent        = 1.0;     // Risk % per trade
@@ -154,12 +155,29 @@ int OnInit() {
       Print(">>> Nasdaq preset ACTIVE — thresholds adjusted for index volatility");
    }
 
+   // Gold preset: XAUUSD has 2 decimals, wider spreads, big impulse moves
+   if(UseGoldPreset) {
+      g_pipValue          = 0.01;    // 1 pip = $0.01 on gold (2-decimal broker)
+      g_maxSpreadPips     = 40.0;    // ~40 pips spread allowed
+      g_obMinImpulsePips  = 50;      // ~$0.50 min impulse for OB
+      g_fvgMinSizePips    = 20.0;    // ~$0.20 min FVG gap
+      g_liqSweepMinPips   = 15.0;    // ~$0.15 min sweep
+      g_obLookback        = 40;      // wider lookback for gold volatility
+      g_structureLookback = 25;      // wider structure lookback
+      g_swingStrength     = 4;       // stronger swing filter
+      Print(">>> Gold preset ACTIVE — thresholds adjusted for XAUUSD");
+   }
+
+   if(UseNasdaqPreset && UseGoldPreset) {
+      Print("WARNING: Both Nasdaq and Gold presets are ON — Gold preset takes priority");
+   }
+
    if(UseNewsFilter) LoadNewsCalendar();
 
    Print("SMC Scalper EA initialized | Symbol: ", Symbol(),
          " | Pip value: ", g_pipValue,
          " | Risk: ", RiskPercent, "%",
-         " | Nasdaq preset: ", UseNasdaqPreset ? "ON" : "OFF",
+         " | Preset: ", UseNasdaqPreset ? "NASDAQ" : (UseGoldPreset ? "GOLD" : "FOREX"),
          " | News filter: ", UseNewsFilter ? "ON" : "OFF");
    return INIT_SUCCEEDED;
 }
