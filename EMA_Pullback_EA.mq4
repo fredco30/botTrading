@@ -37,8 +37,19 @@ input int    NYStartHour        = 13;      // New York session start
 input int    NYEndHour          = 17;      // New York session end
 
 // --- Trade Management ---
-input bool   UseBreakeven       = true;    // Move SL to BE after 1R
+input bool   UseBreakeven       = true;    // Move SL to BE
+input double BE_Trigger_R       = 1.5;     // Move SL to BE after X * R (1.5 = more room)
 input int    MaxTradesPerDay    = 2;       // Max trades per day
+
+// --- Volatility Filter (ATR) ---
+input bool   UseATRFilter       = true;    // Only trade when ATR > threshold
+input int    ATR_Period          = 14;      // ATR period on H1
+input double ATR_MinPips         = 6.0;    // Min ATR in pips to allow trading
+
+// --- Day/Hour Filters ---
+input bool   BlockFriday         = true;   // Do not trade on Friday
+input bool   BlockHour13         = true;   // Do not trade at 13:00 (NY open chaos)
+input string BlockedHours        = "13";   // Comma-separated hours to block (server time)
 
 //+------------------------------------------------------------------+
 //| GLOBALS                                                           |
@@ -62,7 +73,10 @@ int OnInit() {
    Print("EMA Pullback EA initialized | Symbol: ", Symbol(),
          " | Pip value: ", g_pipValue,
          " | H1 EMA: ", TrendEMA_Period,
-         " | M15 EMA: ", EntryEMA_Period);
+         " | M15 EMA: ", EntryEMA_Period,
+         " | ATR filter: ", UseATRFilter ? "ON (min " + DoubleToStr(ATR_MinPips, 1) + " pips)" : "OFF",
+         " | Friday: ", BlockFriday ? "BLOCKED" : "allowed",
+         " | BE trigger: ", DoubleToStr(BE_Trigger_R, 1), "R");
    return INIT_SUCCEEDED;
 }
 
@@ -95,6 +109,9 @@ void OnTick() {
    // --- Pre-checks ---
    if(!IsSessionActive()) return;
    if(SpreadTooWide()) return;
+   if(IsDayBlocked()) return;
+   if(IsHourBlocked()) return;
+   if(UseATRFilter && !IsVolatilityOK()) return;
    if(CountOpenTrades() >= 1) return;
    if(g_dailyTrades >= MaxTradesPerDay) return;
 
@@ -118,6 +135,51 @@ bool IsSessionActive() {
 bool SpreadTooWide() {
    double spread = MarketInfo(Symbol(), MODE_SPREAD) * Point / g_pipValue;
    return (spread > MaxSpreadPips);
+}
+
+//+------------------------------------------------------------------+
+//| DAY FILTER (block Friday)                                         |
+//+------------------------------------------------------------------+
+bool IsDayBlocked() {
+   int dow = TimeDayOfWeek(TimeCurrent());
+   if(BlockFriday && dow == 5) return true;
+   return false;
+}
+
+//+------------------------------------------------------------------+
+//| HOUR FILTER (block toxic hours)                                   |
+//+------------------------------------------------------------------+
+bool IsHourBlocked() {
+   int hour = TimeHour(TimeCurrent());
+
+   // Quick check for the main blocked hour
+   if(BlockHour13 && hour == 13) return true;
+
+   // Parse additional blocked hours from comma-separated string
+   if(StringLen(BlockedHours) > 0) {
+      string parts[];
+      int count = StringSplit(BlockedHours, ',', parts);
+      for(int i = 0; i < count; i++) {
+         StringReplace(parts[i], " ", "");
+         int blocked = (int)StringToInteger(parts[i]);
+         if(hour == blocked) return true;
+      }
+   }
+   return false;
+}
+
+//+------------------------------------------------------------------+
+//| VOLATILITY FILTER (ATR on H1)                                     |
+//+------------------------------------------------------------------+
+bool IsVolatilityOK() {
+   double atr = iATR(Symbol(), PERIOD_H1, ATR_Period, 0);
+   double atrPips = atr / g_pipValue;
+
+   if(atrPips < ATR_MinPips) {
+      // Silent filter — only print when we would have traded
+      return false;
+   }
+   return true;
 }
 
 //+------------------------------------------------------------------+
@@ -336,8 +398,8 @@ void ManageOpenTrades() {
          double currentPrice = MarketInfo(Symbol(), MODE_BID);
          double profit = currentPrice - openPrice;
 
-         // Breakeven at 1R
-         if(UseBreakeven && profit >= riskDist && currentSL < openPrice) {
+         // Breakeven at BE_Trigger_R (default 1.5R — gives trade more room)
+         if(UseBreakeven && profit >= riskDist * BE_Trigger_R && currentSL < openPrice) {
             double beSL = openPrice + 1 * g_pipValue;
             if(!OrderModify(OrderTicket(), openPrice, NormalizeDouble(beSL, g_digits),
                            OrderTakeProfit(), 0, clrYellow))
@@ -348,8 +410,8 @@ void ManageOpenTrades() {
          double currentPrice = MarketInfo(Symbol(), MODE_ASK);
          double profit = openPrice - currentPrice;
 
-         // Breakeven at 1R
-         if(UseBreakeven && profit >= riskDist && currentSL > openPrice) {
+         // Breakeven at BE_Trigger_R
+         if(UseBreakeven && profit >= riskDist * BE_Trigger_R && currentSL > openPrice) {
             double beSL = openPrice - 1 * g_pipValue;
             if(!OrderModify(OrderTicket(), openPrice, NormalizeDouble(beSL, g_digits),
                            OrderTakeProfit(), 0, clrYellow))
