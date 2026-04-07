@@ -20,7 +20,7 @@ input double RiskPercent        = 1.0;     // Risk % per trade
 input double MaxSpreadPips      = 3.0;     // Max spread allowed (pips)
 input int    MagicNumber        = 20240407;// Magic number
 input int    MaxOpenTrades      = 1;       // Max simultaneous trades
-input double MinRR              = 2.0;     // Minimum Risk:Reward ratio
+input double MinRR              = 2.5;     // Minimum Risk:Reward ratio
 input double SL_BufferPips      = 5.0;     // SL buffer beyond OB (pips)
 input double MinSL_Pips         = 10.0;    // Minimum SL distance (pips)
 
@@ -29,6 +29,8 @@ input int    StructureLookback  = 20;      // Bars to look back for swing H/L
 input int    SwingStrength      = 3;       // Bars on each side for swing point
 input bool   UseEMA_Bias        = true;    // Use EMA as fallback bias filter
 input int    EMA_Period         = 50;      // EMA period for bias (M15)
+input bool   UseHTF_Filter      = true;    // Filter entries against H4 EMA trend
+input int    HTF_EMA_Period     = 50;      // H4 EMA period for trend filter
 
 // --- Order Block Detection (M5) ---
 input int    OB_Lookback        = 30;      // Bars to scan for OB
@@ -56,8 +58,8 @@ input int    NYEndHour          = 17;      // New York session end
 
 // --- Trade Management ---
 input bool   UseBreakeven       = true;    // Move SL to BE after 1R
-input bool   UseTrailingStop    = false;   // Trail stop after 1.5R
-input double TrailingRMultiple  = 1.5;     // R-multiple to start trailing
+input bool   UseTrailingStop    = true;    // Trail stop after 1R
+input double TrailingRMultiple  = 1.0;     // R-multiple to start trailing
 input bool   UsePartialClose    = true;    // Close 50% at TP1
 input double TP1_Percent        = 50.0;    // % to close at TP1
 
@@ -622,6 +624,16 @@ void CheckEntry(bool liqSweepBull, bool liqSweepBear) {
    double bid = MarketInfo(Symbol(), MODE_BID);
    double ask = MarketInfo(Symbol(), MODE_ASK);
 
+   // H4 trend filter: block counter-trend entries
+   if(UseHTF_Filter) {
+      double h4Ema  = iMA(Symbol(), PERIOD_H4, HTF_EMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
+      double h4Close = iClose(Symbol(), PERIOD_H4, 0);
+      // Don't buy if H4 is below EMA (bearish trend)
+      if(g_currentBias == BIAS_BULLISH && h4Close < h4Ema) return;
+      // Don't sell if H4 is above EMA (bullish trend)
+      if(g_currentBias == BIAS_BEARISH && h4Close > h4Ema) return;
+   }
+
    // --- BULLISH ENTRY ---
    if(g_currentBias == BIAS_BULLISH) {
       for(int i = 0; i < ArraySize(g_activeOBs); i++) {
@@ -965,10 +977,11 @@ void ManageOpenTrades() {
             ModifySL(ticket, openPrice + 1 * g_pipValue);
          }
 
-         // Trailing after TrailingRMultiple
+         // Trailing after TrailingRMultiple — trail at 30% of risk behind price
          if(UseTrailingStop && profit >= riskDist * TrailingRMultiple) {
-            double trailSL = currentPrice - riskDist * 0.5;
-            if(trailSL > currentSL) {
+            double trailDist = riskDist * 0.3;
+            double trailSL = currentPrice - trailDist;
+            if(trailSL > currentSL && trailSL > openPrice) {
                ModifySL(ticket, trailSL);
             }
          }
@@ -1001,8 +1014,9 @@ void ManageOpenTrades() {
          }
 
          if(UseTrailingStop && profit >= riskDist * TrailingRMultiple) {
-            double trailSL = currentPrice + riskDist * 0.5;
-            if(trailSL < currentSL) {
+            double trailDist = riskDist * 0.3;
+            double trailSL = currentPrice + trailDist;
+            if(trailSL < currentSL && trailSL < openPrice) {
                ModifySL(ticket, trailSL);
             }
          }
