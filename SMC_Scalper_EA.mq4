@@ -215,7 +215,10 @@ void OnDeinit(const int reason) {
 //| Expert tick function                                              |
 //+------------------------------------------------------------------+
 void OnTick() {
-   // --- New bar check (M5) ---
+   // --- Manage open trades on EVERY tick (TP1/trailing must react fast) ---
+   ManageOpenTrades();
+
+   // --- New bar check (M5) — everything below runs once per bar ---
    datetime currentBarTime = iTime(Symbol(), PERIOD_M5, 0);
    if(currentBarTime == g_lastBarTime) return;
    g_lastBarTime = currentBarTime;
@@ -256,9 +259,6 @@ void OnTick() {
 
    // --- Step 5: Entry Logic ---
    CheckEntry(liqSweepBull, liqSweepBear);
-
-   // --- Step 6: Trade Management ---
-   ManageOpenTrades();
 }
 
 //+------------------------------------------------------------------+
