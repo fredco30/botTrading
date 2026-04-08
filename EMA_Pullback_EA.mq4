@@ -65,6 +65,8 @@ input double ATR_MaxPips         = 19.0;   // Max ATR in pips — 0 wins above 1
 // --- Pullback Quality Filter ---
 input bool   UseEMA50DistFilter  = true;   // Block entries too far from EMA50
 input double MaxEMA50DistPips    = 30.0;   // Max distance from H1 EMA50 (winners avg 23, losers avg 35)
+input bool   UsePullbackSizeFilter = true; // Reject pullbacks with candles too large vs trend
+input double PB_MaxRatio         = 0.70;   // Max ratio: pullback candle size / trend candle size
 
 // --- Day/Hour Filters ---
 input bool   BlockFriday         = true;   // Do not trade on Friday
@@ -91,6 +93,7 @@ double  r_MaxSL_Pips;
 double  r_ATR_MinPips;
 double  r_ATR_MaxPips;
 double  r_MaxEMA50DistPips;
+double  r_PB_MaxRatio;
 double  r_BE_Trigger_R;
 int     r_LondonStartHour;
 int     r_LondonEndHour;
@@ -151,6 +154,7 @@ void ApplyPreset() {
    r_ATR_MinPips       = ATR_MinPips;
    r_ATR_MaxPips       = ATR_MaxPips;
    r_MaxEMA50DistPips  = MaxEMA50DistPips;
+   r_PB_MaxRatio       = PB_MaxRatio;
    r_BE_Trigger_R      = BE_Trigger_R;
    r_LondonStartHour   = LondonStartHour;
    r_LondonEndHour     = LondonEndHour;
@@ -398,6 +402,61 @@ bool IsEMA50DistanceOK() {
 }
 
 //+------------------------------------------------------------------+
+//| PULLBACK SIZE FILTER                                              |
+//| Compares pullback candle sizes vs trend candle sizes              |
+//| Real pullback = small candles (low conviction retracement)        |
+//| Retournement  = large candles (aggressive selling/buying)         |
+//+------------------------------------------------------------------+
+bool IsPullbackHealthy(int direction) {
+   if(!UsePullbackSizeFilter) return true;
+
+   // Measure pullback candles: bars 1-2 (the retracement toward EMA)
+   double pullbackSize = 0;
+   int pbCount = 0;
+   for(int i = 1; i <= 3; i++) {
+      double h = iHigh(Symbol(), r_EntryTF, i);
+      double l = iLow(Symbol(), r_EntryTF, i);
+      double range = h - l;
+      if(range > 0) {
+         pullbackSize += range;
+         pbCount++;
+      }
+   }
+   if(pbCount == 0) return true;
+   double avgPullback = pullbackSize / pbCount;
+
+   // Measure trend candles: bars 4-8 (the impulsive move before pullback)
+   double trendSize = 0;
+   int trCount = 0;
+   for(int i = 4; i <= 8; i++) {
+      double h = iHigh(Symbol(), r_EntryTF, i);
+      double l = iLow(Symbol(), r_EntryTF, i);
+      double c = iClose(Symbol(), r_EntryTF, i);
+      double o = iOpen(Symbol(), r_EntryTF, i);
+      double range = h - l;
+
+      // Only count candles in the trend direction
+      if(direction == 1 && c > o) {     // Bullish trend candles
+         trendSize += range;
+         trCount++;
+      }
+      else if(direction == -1 && c < o) { // Bearish trend candles
+         trendSize += range;
+         trCount++;
+      }
+   }
+   if(trCount == 0) return true;
+   double avgTrend = trendSize / trCount;
+
+   // If pullback candles are too large relative to trend = retournement
+   if(avgTrend > 0 && avgPullback / avgTrend > r_PB_MaxRatio) {
+      return false; // Pullback too aggressive = likely reversal
+   }
+
+   return true;
+}
+
+//+------------------------------------------------------------------+
 //| COUNT OPEN TRADES                                                 |
 //+------------------------------------------------------------------+
 int CountOpenTrades() {
@@ -437,6 +496,9 @@ int GetTrendDirection() {
 void CheckEntry() {
    int trend = GetTrendDirection();
    if(trend == 0) return;
+
+   // Pullback quality: reject if pullback candles are too large vs trend
+   if(!IsPullbackHealthy(trend)) return;
 
    double ema20 = iMA(Symbol(), r_EntryTF, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
 
