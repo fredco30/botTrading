@@ -27,6 +27,13 @@ enum TF_MODE {
 };
 input TF_MODE TimeframeMode     = TF_H1_M15;    // Timeframe combination
 
+// --- Market Regime ---
+enum MARKET_REGIME {
+   REGIME_TRENDING  = 0,
+   REGIME_RANGING   = 1,
+   REGIME_VOLATILE  = 2   // No clear trend + high ADX = choppy
+};
+
 // --- Risk Management ---
 input double RiskPercent        = 1.0;     // Risk % per trade
 input double MaxSpreadPips      = 3.0;     // Max spread allowed (pips)
@@ -79,6 +86,21 @@ input bool   BlockToxicCombos    = true;   // Block worst hour+day combos from a
 input bool   ReduceThursdayRisk  = true;   // Halve risk on Thursday (weakest day PF=1.08)
 input double ThursdayRiskMult    = 0.5;    // Thursday risk multiplier (0.5 = half risk)
 
+// --- Range Module ---
+input bool   UseRangeModule      = true;       // Enable range trading module
+input int    ADX_Period          = 14;          // ADX period on trend TF
+input double ADX_RangeThreshold  = 22.0;       // ADX below this = ranging market
+input int    Range_Lookback      = 30;          // Trend TF bars to scan for range boundaries
+input double Range_MinWidth      = 30.0;        // Min range width (pips)
+input double Range_MaxWidth      = 80.0;        // Max range width (pips)
+input double Range_EntryZone     = 10.0;        // Distance from boundary to trigger entry (pips)
+input int    Range_RSI_Period    = 14;          // RSI period for range entries (entry TF)
+input int    Range_RSI_OB        = 65;          // Overbought for range sells
+input int    Range_RSI_OS        = 35;          // Oversold for range buys
+input double Range_MinRR         = 1.5;         // Min Risk:Reward for range trades
+input double Range_SL_Buffer     = 5.0;         // SL buffer beyond range boundary (pips)
+input int    Range_MaxTradesDay  = 2;           // Max range trades per day
+
 //+------------------------------------------------------------------+
 //| GLOBALS                                                           |
 //+------------------------------------------------------------------+
@@ -86,7 +108,8 @@ double     g_pipValue;
 int        g_digits;
 datetime   g_lastBarTime = 0;
 datetime   g_currentDay  = 0;
-int        g_dailyTrades = 0;
+int        g_dailyTrades_PB  = 0;   // Daily counter: pullback module
+int        g_dailyTrades_RNG = 0;   // Daily counter: range module
 
 // --- Runtime params (overridden by preset) ---
 double  r_MaxSpreadPips;
@@ -116,6 +139,18 @@ int     r_SL_SwingBars;
 int     r_TrendTF;      // PERIOD_H1 or PERIOD_H4
 int     r_EntryTF;      // PERIOD_M15 or PERIOD_M30
 
+// --- Range module runtime params ---
+double  r_ADX_RangeThreshold;
+int     r_Range_Lookback;
+double  r_Range_MinWidth;
+double  r_Range_MaxWidth;
+double  r_Range_EntryZone;
+int     r_Range_RSI_OB;
+int     r_Range_RSI_OS;
+double  r_Range_MinRR;
+double  r_Range_SL_Buffer;
+int     r_Range_MaxTradesDay;
+
 //+------------------------------------------------------------------+
 //| Expert initialization                                             |
 //+------------------------------------------------------------------+
@@ -142,7 +177,8 @@ int OnInit() {
          " | EMA50 dist max: ", UseEMA50DistFilter ? DoubleToStr(r_MaxEMA50DistPips, 0) + " pips" : "OFF",
          " | Friday: ", r_BlockFriday ? "BLOCKED" : "allowed",
          " | Spread max: ", DoubleToStr(r_MaxSpreadPips, 1),
-         " | BE trigger: ", DoubleToStr(r_BE_Trigger_R, 1), "R");
+         " | BE trigger: ", DoubleToStr(r_BE_Trigger_R, 1), "R",
+         " | Range module: ", UseRangeModule ? "ON (ADX<" + DoubleToStr(r_ADX_RangeThreshold, 0) + ")" : "OFF");
    return INIT_SUCCEEDED;
 }
 
@@ -171,6 +207,18 @@ void ApplyPreset() {
    r_ReduceThursdayRisk = ReduceThursdayRisk;
    r_ThursdayRiskMult  = ThursdayRiskMult;
    r_MaxTradesPerDay   = MaxTradesPerDay;
+
+   // Range module defaults
+   r_ADX_RangeThreshold = ADX_RangeThreshold;
+   r_Range_Lookback     = Range_Lookback;
+   r_Range_MinWidth     = Range_MinWidth;
+   r_Range_MaxWidth     = Range_MaxWidth;
+   r_Range_EntryZone    = Range_EntryZone;
+   r_Range_RSI_OB       = Range_RSI_OB;
+   r_Range_RSI_OS       = Range_RSI_OS;
+   r_Range_MinRR        = Range_MinRR;
+   r_Range_SL_Buffer    = Range_SL_Buffer;
+   r_Range_MaxTradesDay = Range_MaxTradesDay;
    r_TrendBars         = TrendBars;
    r_SL_SwingBars      = SL_SwingBars;
    r_TrendTF           = PERIOD_H1;
@@ -311,25 +359,40 @@ void OnTick() {
    if(currentBarTime == g_lastBarTime) return;
    g_lastBarTime = currentBarTime;
 
-   // --- Reset daily counter ---
+   // --- Reset daily counters ---
    datetime today = TimeCurrent() - TimeCurrent() % 86400;
    if(today != g_currentDay) {
-      g_dailyTrades = 0;
+      g_dailyTrades_PB  = 0;
+      g_dailyTrades_RNG = 0;
       g_currentDay = today;
    }
 
-   // --- Pre-checks ---
+   // --- Shared pre-filters ---
    if(!IsSessionActive()) return;
    if(SpreadTooWide()) return;
    if(IsDayBlocked()) return;
    if(IsHourBlocked()) return;
    if(UseATRFilter && !IsVolatilityOK()) return;
-   if(!IsEMA50DistanceOK()) return;
-   if(CountOpenTrades() >= 1) return;
-   if(g_dailyTrades >= r_MaxTradesPerDay) return;
 
-   // --- Check for entry ---
-   CheckEntry();
+   // --- Market regime detection ---
+   MARKET_REGIME regime = GetMarketRegime();
+
+   // --- Pullback module (trending markets) ---
+   if(regime == REGIME_TRENDING) {
+      if(IsEMA50DistanceOK()
+         && CountModuleTrades("PB_") < 1
+         && g_dailyTrades_PB < r_MaxTradesPerDay) {
+         CheckEntry();
+      }
+   }
+
+   // --- Range module (ranging markets) ---
+   if(UseRangeModule && regime == REGIME_RANGING) {
+      if(CountModuleTrades("RNG_") < 1
+         && g_dailyTrades_RNG < r_Range_MaxTradesDay) {
+         CheckRangeEntry();
+      }
+   }
 }
 
 //+------------------------------------------------------------------+
@@ -442,6 +505,111 @@ bool IsEMA50DistanceOK() {
    if(distPips > r_MaxEMA50DistPips) return false;
 
    return true;
+}
+
+//+------------------------------------------------------------------+
+//| GET MARKET REGIME — Trending, Ranging, or Volatile                |
+//+------------------------------------------------------------------+
+MARKET_REGIME GetMarketRegime() {
+   // Use closed bar (bar 1) to avoid ADX oscillation on forming bar
+   double adx = iADX(Symbol(), r_TrendTF, ADX_Period, PRICE_CLOSE, MODE_MAIN, 1);
+   int trendDir = GetTrendDirection();
+
+   // Low ADX = ranging market
+   if(adx < r_ADX_RangeThreshold)
+      return REGIME_RANGING;
+
+   // High ADX with clear trend
+   if(trendDir != 0)
+      return REGIME_TRENDING;
+
+   // High ADX but no clear direction = choppy/volatile
+   return REGIME_VOLATILE;
+}
+
+//+------------------------------------------------------------------+
+//| FIND RANGE — Scan trend TF bars for range boundaries             |
+//| Returns true if valid range found                                 |
+//+------------------------------------------------------------------+
+bool FindRange(double &rangeHigh, double &rangeLow) {
+   rangeHigh = -999999;
+   rangeLow  =  999999;
+
+   for(int i = 1; i <= r_Range_Lookback; i++) {
+      double h = iHigh(Symbol(), r_TrendTF, i);
+      double l = iLow(Symbol(), r_TrendTF, i);
+      if(h > rangeHigh) rangeHigh = h;
+      if(l < rangeLow)  rangeLow  = l;
+   }
+
+   double widthPips = (rangeHigh - rangeLow) / g_pipValue;
+
+   if(widthPips < r_Range_MinWidth) return false;  // Too narrow
+   if(widthPips > r_Range_MaxWidth) return false;  // Too wide (likely trending)
+
+   return true;
+}
+
+//+------------------------------------------------------------------+
+//| CHECK RANGE ENTRY — Buy at support, Sell at resistance            |
+//+------------------------------------------------------------------+
+void CheckRangeEntry() {
+   double rangeHigh, rangeLow;
+   if(!FindRange(rangeHigh, rangeLow)) return;
+
+   double bid = MarketInfo(Symbol(), MODE_BID);
+   double ask = MarketInfo(Symbol(), MODE_ASK);
+   double mid = (bid + ask) / 2.0;
+
+   double distToSupport    = (mid - rangeLow) / g_pipValue;
+   double distToResistance = (rangeHigh - mid) / g_pipValue;
+
+   // RSI on entry timeframe
+   double rsi = iRSI(Symbol(), r_EntryTF, Range_RSI_Period, PRICE_CLOSE, 1);
+
+   // Last closed candle on entry TF
+   double open1  = iOpen(Symbol(), r_EntryTF, 1);
+   double close1 = iClose(Symbol(), r_EntryTF, 1);
+   double low1   = iLow(Symbol(), r_EntryTF, 1);
+   double high1  = iHigh(Symbol(), r_EntryTF, 1);
+
+   // ============ RANGE BUY (at support) ============
+   if(distToSupport <= r_Range_EntryZone && distToSupport >= 0) {
+      if(rsi > r_Range_RSI_OS) return;           // Must be oversold
+      if(close1 <= open1) return;                  // Must be bullish candle
+      double lowDist = (low1 - rangeLow) / g_pipValue;
+      if(lowDist > r_Range_EntryZone) return;      // Candle low must be near support
+
+      double sl = rangeLow - r_Range_SL_Buffer * g_pipValue;
+      double slDist = ask - sl;
+      double slPips = slDist / g_pipValue;
+      if(slPips < r_MinSL_Pips || slPips > r_MaxSL_Pips * 1.5) return;
+
+      double tp = rangeHigh;   // TP at resistance
+      double tpDist = tp - ask;
+      if(slDist > 0 && tpDist / slDist < r_Range_MinRR) return;
+
+      ExecuteTrade(OP_BUY, ask, sl, tp, "RNG_Buy");
+   }
+
+   // ============ RANGE SELL (at resistance) ============
+   if(distToResistance <= r_Range_EntryZone && distToResistance >= 0) {
+      if(rsi < r_Range_RSI_OB) return;            // Must be overbought
+      if(close1 >= open1) return;                   // Must be bearish candle
+      double highDist = (rangeHigh - high1) / g_pipValue;
+      if(highDist > r_Range_EntryZone) return;      // Candle high must be near resistance
+
+      double sl = rangeHigh + r_Range_SL_Buffer * g_pipValue;
+      double slDist = sl - bid;
+      double slPips = slDist / g_pipValue;
+      if(slPips < r_MinSL_Pips || slPips > r_MaxSL_Pips * 1.5) return;
+
+      double tp = rangeLow;    // TP at support
+      double tpDist = bid - tp;
+      if(slDist > 0 && tpDist / slDist < r_Range_MinRR) return;
+
+      ExecuteTrade(OP_SELL, bid, sl, tp, "RNG_Sell");
+   }
 }
 
 //+------------------------------------------------------------------+
@@ -564,18 +732,23 @@ bool IsStructureIntact(int direction) {
 }
 
 //+------------------------------------------------------------------+
-//| COUNT OPEN TRADES                                                 |
+//| COUNT MODULE TRADES (by comment prefix)                           |
+//| prefix="" = all trades, "PB_" = pullback, "RNG_" = range         |
 //+------------------------------------------------------------------+
-int CountOpenTrades() {
+int CountModuleTrades(string prefix = "") {
    int count = 0;
    for(int i = OrdersTotal() - 1; i >= 0; i--) {
       if(OrderSelect(i, SELECT_BY_POS, MODE_TRADES)) {
-         if(OrderSymbol() == Symbol() && OrderMagicNumber() == MagicNumber)
-            count++;
+         if(OrderSymbol() == Symbol() && OrderMagicNumber() == MagicNumber) {
+            if(prefix == "" || StringFind(OrderComment(), prefix) == 0)
+               count++;
+         }
       }
    }
    return count;
 }
+
+int CountOpenTrades() { return CountModuleTrades(""); }
 
 //+------------------------------------------------------------------+
 //| GET H1 TREND DIRECTION                                            |
@@ -663,7 +836,7 @@ void CheckEntry() {
 
       double tp = ask + (ask - sl) * r_MinRR;
 
-      ExecuteTrade(OP_BUY, ask, sl, tp, "EMA Pullback Buy");
+      ExecuteTrade(OP_BUY, ask, sl, tp, "PB_Buy");
    }
 
    // ============ BEARISH PULLBACK ============
@@ -694,7 +867,7 @@ void CheckEntry() {
 
       double tp = bid - (sl - bid) * r_MinRR;
 
-      ExecuteTrade(OP_SELL, bid, sl, tp, "EMA Pullback Sell");
+      ExecuteTrade(OP_SELL, bid, sl, tp, "PB_Sell");
    }
 }
 
@@ -738,7 +911,12 @@ void ExecuteTrade(int type, double price, double sl, double tp, string comment) 
             " | Lots: ", lotSize);
    }
    else {
-      g_dailyTrades++;
+      // Increment the correct module counter
+      if(StringFind(comment, "PB_") == 0)
+         g_dailyTrades_PB++;
+      else if(StringFind(comment, "RNG_") == 0)
+         g_dailyTrades_RNG++;
+
       Print("Trade opened #", ticket,
             " | ", comment,
             " | Lots: ", lotSize,
