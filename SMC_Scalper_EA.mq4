@@ -56,6 +56,11 @@ input int    LondonEndHour      = 12;      // London session end
 input int    NYStartHour        = 13;      // New York session start
 input int    NYEndHour          = 17;      // New York session end
 
+// --- Day/Hour Filters ---
+input bool   BlockFriday        = true;    // Block Friday (PF=0.62, -$2,665)
+input bool   BlockWednesday     = false;   // Block Wednesday (PF=0.74, -$2,579) — optional
+input string SMC_BlockedHours   = "9,10,16"; // Hours to block: 09h(-$1,701), 10h(-$1,545), 16h(-$1,596)
+
 // --- Trade Management ---
 input bool   UseBreakeven       = true;    // Move SL to BE after 1R
 input bool   UseTrailingStop    = true;    // Trail stop after 1R
@@ -196,6 +201,9 @@ int OnInit() {
          " | Pip value: ", g_pipValue,
          " | Risk: ", RiskPercent, "%",
          " | Preset: ", UseNasdaqPreset ? "NASDAQ" : (UseGoldPreset ? "GOLD" : "FOREX"),
+         " | Friday: ", BlockFriday ? "BLOCKED" : "allowed",
+         " | Wednesday: ", BlockWednesday ? "BLOCKED" : "allowed",
+         " | Blocked hours: ", SMC_BlockedHours,
          " | News filter: ", UseNewsFilter ? "ON" : "OFF");
    return INIT_SUCCEEDED;
 }
@@ -225,6 +233,8 @@ void OnTick() {
       if(IsTesting()) PrintOnce("FILTER_SPREAD", "Blocked by spread filter | Spread=" + DoubleToString(MarketInfo(Symbol(), MODE_SPREAD) * Point / g_pipValue, 1));
       return;
    }
+   if(IsSMCDayBlocked()) return;
+   if(IsSMCHourBlocked()) return;
    if(UseNewsFilter && IsNewsTime()) {
       if(IsTesting()) PrintOnce("FILTER_NEWS", "Blocked by news filter at " + TimeToString(TimeCurrent()));
       return;
@@ -264,6 +274,34 @@ bool IsSessionActive() {
    int hour = TimeHour(TimeCurrent());
    if(hour >= LondonStartHour && hour < LondonEndHour) return true;
    if(hour >= NYStartHour && hour < NYEndHour) return true;
+   return false;
+}
+
+//+------------------------------------------------------------------+
+//| DAY FILTER                                                        |
+//+------------------------------------------------------------------+
+bool IsSMCDayBlocked() {
+   int dow = TimeDayOfWeek(TimeCurrent());
+   if(BlockFriday && dow == 5) return true;
+   if(BlockWednesday && dow == 3) return true;
+   return false;
+}
+
+//+------------------------------------------------------------------+
+//| HOUR FILTER                                                       |
+//+------------------------------------------------------------------+
+bool IsSMCHourBlocked() {
+   int hour = TimeHour(TimeCurrent());
+
+   if(StringLen(SMC_BlockedHours) > 0) {
+      string parts[];
+      int count = StringSplit(SMC_BlockedHours, ',', parts);
+      for(int i = 0; i < count; i++) {
+         StringReplace(parts[i], " ", "");
+         int blocked = (int)StringToInteger(parts[i]);
+         if(hour == blocked) return true;
+      }
+   }
    return false;
 }
 
