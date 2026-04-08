@@ -18,6 +18,13 @@ enum INSTRUMENT_PRESET {
 };
 input INSTRUMENT_PRESET Preset  = PRESET_EURUSD; // Instrument preset
 
+// --- Timeframe Mode ---
+enum TF_MODE {
+   TF_H1_M15  = 0,      // H1 trend + M15 entry (default)
+   TF_H4_M30  = 1       // H4 trend + M30 entry (swing)
+};
+input TF_MODE TimeframeMode     = TF_H1_M15;    // Timeframe combination
+
 // --- Risk Management ---
 input double RiskPercent        = 1.0;     // Risk % per trade
 input double MaxSpreadPips      = 3.0;     // Max spread allowed (pips)
@@ -89,6 +96,8 @@ double  r_ThursdayRiskMult;
 int     r_MaxTradesPerDay;
 int     r_TrendBars;
 int     r_SL_SwingBars;
+int     r_TrendTF;      // PERIOD_H1 or PERIOD_H4
+int     r_EntryTF;      // PERIOD_M15 or PERIOD_M30
 
 //+------------------------------------------------------------------+
 //| Expert initialization                                             |
@@ -103,8 +112,10 @@ int OnInit() {
    ApplyPreset();
 
    string presetName = (Preset == PRESET_XAUUSD) ? "XAUUSD/Gold" : "EURUSD";
+   string tfMode = (TimeframeMode == TF_H4_M30) ? "H4+M30 (swing)" : "H1+M15 (intraday)";
    Print("EMA Pullback EA v3 initialized | Symbol: ", Symbol(),
          " | Preset: ", presetName,
+         " | TF: ", tfMode,
          " | Pip value: ", g_pipValue,
          " | SL range: ", DoubleToStr(r_MinSL_Pips, 0), "-", DoubleToStr(r_MaxSL_Pips, 0), " pips",
          " | ATR filter: ", UseATRFilter ? "ON (min " + DoubleToStr(r_ATR_MinPips, 1) + " pips)" : "OFF",
@@ -137,6 +148,20 @@ void ApplyPreset() {
    r_MaxTradesPerDay   = MaxTradesPerDay;
    r_TrendBars         = TrendBars;
    r_SL_SwingBars      = SL_SwingBars;
+   r_TrendTF           = PERIOD_H1;
+   r_EntryTF           = PERIOD_M15;
+
+   // --- Timeframe Mode ---
+   if(TimeframeMode == TF_H4_M30) {
+      r_TrendTF        = PERIOD_H4;
+      r_EntryTF        = PERIOD_M30;
+      r_MinSL_Pips     = 25.0;     // Wider SL for M30 entries
+      r_MaxSL_Pips     = 50.0;     // Wider range
+      r_ATR_MinPips    = 12.0;     // Higher ATR threshold for H4
+      r_MaxTradesPerDay = 1;       // Less frequent on higher TF
+      r_SL_SwingBars   = 4;        // Wider swing lookback
+      Print("Timeframe H4+M30 (swing mode) applied | SL: 25-50 pips | ATR min: 12");
+   }
 
    // --- XAUUSD / GOLD PRESET ---
    if(Preset == PRESET_XAUUSD) {
@@ -176,8 +201,8 @@ void OnTick() {
    // --- Manage open trades on every tick (breakeven) ---
    ManageOpenTrades();
 
-   // --- New bar check (M15) ---
-   datetime currentBarTime = iTime(Symbol(), PERIOD_M15, 0);
+   // --- New bar check (entry TF) ---
+   datetime currentBarTime = iTime(Symbol(), r_EntryTF, 0);
    if(currentBarTime == g_lastBarTime) return;
    g_lastBarTime = currentBarTime;
 
@@ -265,7 +290,7 @@ bool IsHourBlocked() {
 //| VOLATILITY FILTER (ATR on H1)                                     |
 //+------------------------------------------------------------------+
 bool IsVolatilityOK() {
-   double atr = iATR(Symbol(), PERIOD_H1, ATR_Period, 0);
+   double atr = iATR(Symbol(), r_TrendTF, ATR_Period, 0);
    double atrPips = atr / g_pipValue;
 
    if(atrPips < r_ATR_MinPips) {
@@ -294,16 +319,16 @@ int CountOpenTrades() {
 //| Returns: 1 = bullish, -1 = bearish, 0 = no trend                 |
 //+------------------------------------------------------------------+
 int GetTrendDirection() {
-   double ema_now  = iMA(Symbol(), PERIOD_H1, TrendEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
-   double ema_prev = iMA(Symbol(), PERIOD_H1, TrendEMA_Period, 0, MODE_EMA, PRICE_CLOSE, r_TrendBars);
-   double close_h1 = iClose(Symbol(), PERIOD_H1, 0);
+   double ema_now  = iMA(Symbol(), r_TrendTF, TrendEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
+   double ema_prev = iMA(Symbol(), r_TrendTF, TrendEMA_Period, 0, MODE_EMA, PRICE_CLOSE, r_TrendBars);
+   double close_tf = iClose(Symbol(), r_TrendTF, 0);
 
    // Bullish: price above EMA AND EMA rising
-   if(close_h1 > ema_now && ema_now > ema_prev)
+   if(close_tf > ema_now && ema_now > ema_prev)
       return 1;
 
    // Bearish: price below EMA AND EMA falling
-   if(close_h1 < ema_now && ema_now < ema_prev)
+   if(close_tf < ema_now && ema_now < ema_prev)
       return -1;
 
    return 0;
@@ -316,19 +341,19 @@ void CheckEntry() {
    int trend = GetTrendDirection();
    if(trend == 0) return;
 
-   double ema20 = iMA(Symbol(), PERIOD_M15, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
+   double ema20 = iMA(Symbol(), r_EntryTF, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
 
    // Last closed bar (bar 1)
-   double open1  = iOpen(Symbol(), PERIOD_M15, 1);
-   double close1 = iClose(Symbol(), PERIOD_M15, 1);
-   double high1  = iHigh(Symbol(), PERIOD_M15, 1);
-   double low1   = iLow(Symbol(), PERIOD_M15, 1);
+   double open1  = iOpen(Symbol(), r_EntryTF, 1);
+   double close1 = iClose(Symbol(), r_EntryTF, 1);
+   double high1  = iHigh(Symbol(), r_EntryTF, 1);
+   double low1   = iLow(Symbol(), r_EntryTF, 1);
 
    // Previous bar (bar 2) — must have touched/crossed EMA
-   double open2  = iOpen(Symbol(), PERIOD_M15, 2);
-   double close2 = iClose(Symbol(), PERIOD_M15, 2);
-   double low2   = iLow(Symbol(), PERIOD_M15, 2);
-   double high2  = iHigh(Symbol(), PERIOD_M15, 2);
+   double open2  = iOpen(Symbol(), r_EntryTF, 2);
+   double close2 = iClose(Symbol(), r_EntryTF, 2);
+   double low2   = iLow(Symbol(), r_EntryTF, 2);
+   double high2  = iHigh(Symbol(), r_EntryTF, 2);
 
    // Price action: body sizes
    double body1  = MathAbs(close1 - open1);
@@ -339,13 +364,13 @@ void CheckEntry() {
    double ask = MarketInfo(Symbol(), MODE_ASK);
 
    // RSI filter
-   double rsi = iRSI(Symbol(), PERIOD_M15, RSI_Period, PRICE_CLOSE, 1);
+   double rsi = iRSI(Symbol(), r_EntryTF, RSI_Period, PRICE_CLOSE, 1);
 
    // ============ BULLISH PULLBACK ============
    if(trend == 1) {
       if(rsi > RSI_OB) return;  // Don't buy when overbought
       // Bar 2 must have dipped to or below EMA20 (pullback)
-      double ema20_bar2 = iMA(Symbol(), PERIOD_M15, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 2);
+      double ema20_bar2 = iMA(Symbol(), r_EntryTF, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 2);
       if(low2 > ema20_bar2) return;  // No pullback to EMA
 
       // Bar 1 must close above EMA20 (rejection/bounce)
@@ -359,7 +384,7 @@ void CheckEntry() {
       // Calculate SL: lowest low of last r_SL_SwingBars bars
       double sl = low1;
       for(int i = 1; i <= r_SL_SwingBars; i++) {
-         double l = iLow(Symbol(), PERIOD_M15, i);
+         double l = iLow(Symbol(), r_EntryTF, i);
          if(l < sl) sl = l;
       }
       sl = sl - 2 * g_pipValue;  // Buffer
@@ -376,7 +401,7 @@ void CheckEntry() {
    if(trend == -1) {
       if(rsi < RSI_OS) return;  // Don't sell when oversold
       // Bar 2 must have spiked to or above EMA20 (pullback)
-      double ema20_bar2 = iMA(Symbol(), PERIOD_M15, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 2);
+      double ema20_bar2 = iMA(Symbol(), r_EntryTF, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 2);
       if(high2 < ema20_bar2) return;  // No pullback to EMA
 
       // Bar 1 must close below EMA20 (rejection)
@@ -390,7 +415,7 @@ void CheckEntry() {
       // Calculate SL: highest high of last r_SL_SwingBars bars
       double sl = high1;
       for(int i = 1; i <= r_SL_SwingBars; i++) {
-         double h = iHigh(Symbol(), PERIOD_M15, i);
+         double h = iHigh(Symbol(), r_EntryTF, i);
          if(h > sl) sl = h;
       }
       sl = sl + 2 * g_pipValue;  // Buffer
