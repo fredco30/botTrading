@@ -278,7 +278,7 @@ void ApplyPreset() {
       r_MaxTradesPerDay   = 2;
       r_TrendBars         = 5;
       r_SL_SwingBars      = 3;
-      r_PB_MaxRatio       = 0.90;      // Softer than 0.70 — only reject the worst reversals
+      r_PB_MaxRatio       = 1.0;       // Pullback size filter disabled (tested 0.70 and 0.90 — both kill trades)
 
       // Block 09h (-$2,034), 11h (-$1,777), 16h (PF=0.87)
       r_BlockedHoursCount = 3;
