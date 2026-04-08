@@ -14,7 +14,8 @@
 // --- Preset ---
 enum INSTRUMENT_PRESET {
    PRESET_EURUSD = 0,   // EURUSD (optimized, default)
-   PRESET_XAUUSD = 1    // XAUUSD / Gold
+   PRESET_GBPUSD = 1,   // GBPUSD (aggressive filter)
+   PRESET_XAUUSD = 2    // XAUUSD / Gold
 };
 input INSTRUMENT_PRESET Preset  = PRESET_EURUSD; // Instrument preset
 
@@ -97,7 +98,10 @@ int     r_NYStartHour;
 int     r_NYEndHour;
 bool    r_UseLondonSession;
 bool    r_BlockFriday;
+bool    r_BlockMonday;
 bool    r_BlockToxicCombos;
+int     r_BlockedHoursArr[10];
+int     r_BlockedHoursCount;
 bool    r_ReduceThursdayRisk;
 double  r_ThursdayRiskMult;
 int     r_MaxTradesPerDay;
@@ -118,7 +122,9 @@ int OnInit() {
 
    ApplyPreset();
 
-   string presetName = (Preset == PRESET_XAUUSD) ? "XAUUSD/Gold" : "EURUSD";
+   string presetName = "EURUSD";
+   if(Preset == PRESET_GBPUSD) presetName = "GBPUSD (aggressive)";
+   if(Preset == PRESET_XAUUSD) presetName = "XAUUSD/Gold";
    string tfMode = (TimeframeMode == TF_H4_M30) ? "H4+M30 (swing)" : "H1+M15 (intraday)";
    Print("EMA Pullback EA v3 initialized | Symbol: ", Symbol(),
          " | Preset: ", presetName,
@@ -152,6 +158,7 @@ void ApplyPreset() {
    r_NYEndHour         = NYEndHour;
    r_UseLondonSession  = true;
    r_BlockFriday       = BlockFriday;
+   r_BlockMonday       = false;
    r_BlockToxicCombos  = BlockToxicCombos;
    r_ReduceThursdayRisk = ReduceThursdayRisk;
    r_ThursdayRiskMult  = ThursdayRiskMult;
@@ -160,6 +167,8 @@ void ApplyPreset() {
    r_SL_SwingBars      = SL_SwingBars;
    r_TrendTF           = PERIOD_H1;
    r_EntryTF           = PERIOD_M15;
+   r_BlockedHoursCount = 0;
+   ArrayInitialize(r_BlockedHoursArr, -1);
 
    // --- Timeframe Mode ---
    if(TimeframeMode == TF_H4_M30) {
@@ -191,6 +200,7 @@ void ApplyPreset() {
       r_NYEndHour         = 18;        // Gold stays active longer in NY
       r_UseLondonSession  = true;
       r_BlockFriday       = true;      // Gold is erratic on Fridays too
+      r_BlockMonday       = false;
       r_BlockToxicCombos  = false;     // EURUSD-specific, don't apply to gold
       r_ReduceThursdayRisk = false;    // Not validated for gold
       r_ThursdayRiskMult  = 1.0;
@@ -198,6 +208,40 @@ void ApplyPreset() {
       r_TrendBars         = 5;
       r_SL_SwingBars      = 4;         // Wider swing lookback for gold volatility
       Print("Preset XAUUSD/Gold applied | SL: 50-120 pips | ATR min: 20 | Spread max: 8");
+   }
+
+   // --- GBPUSD PRESET (aggressive filter, validated on 732 trades) ---
+   if(Preset == PRESET_GBPUSD) {
+      r_MaxSpreadPips     = 4.0;       // GBPUSD spread slightly wider than EURUSD
+      r_MinSL_Pips        = 20.0;      // Below 20 pips = destroyed (PF<0.5)
+      r_MaxSL_Pips        = 25.0;      // Keep tight
+      r_ATR_MinPips       = 9.0;       // Same min as EURUSD
+      r_ATR_MaxPips       = 22.0;      // GBPUSD sweet spot 18-22 pips
+      r_MaxEMA50DistPips  = 50.0;      // GBPUSD moves further than EURUSD
+      r_MinRR             = 2.5;       // Keep same
+      r_BE_Trigger_R      = 1.5;       // Same BE logic
+      r_LondonStartHour   = 9;         // Skip 08h (PF=0.58, -$1,923)
+      r_LondonEndHour     = 12;
+      r_NYStartHour       = 14;        // Skip 13h (already blocked) and avoid 15h start
+      r_NYEndHour         = 17;
+      r_UseLondonSession  = true;
+      r_BlockFriday       = true;      // Friday PF=0.62, -$2,628
+      r_BlockMonday       = true;      // Monday PF=0.71, -$2,258
+      r_BlockToxicCombos  = true;      // Use GBPUSD-specific combos
+      r_ReduceThursdayRisk = false;    // Not validated on GBPUSD
+      r_ThursdayRiskMult  = 1.0;
+      r_MaxTradesPerDay   = 2;
+      r_TrendBars         = 5;
+      r_SL_SwingBars      = 3;
+
+      // Block 08h and 15h specifically
+      r_BlockedHoursCount = 2;
+      r_BlockedHoursArr[0] = 8;        // 08h: PF=0.58, -$1,923
+      r_BlockedHoursArr[1] = 15;       // 15h: PF=0.61, -$1,873
+
+      Print("Preset GBPUSD (aggressive) applied",
+            " | SL: 20-25 pips | ATR: 9-22 | EMA50 dist: <50",
+            " | Block: Fri+Mon+08h+15h+combos");
    }
 }
 
@@ -265,6 +309,7 @@ bool SpreadTooWide() {
 bool IsDayBlocked() {
    int dow = TimeDayOfWeek(TimeCurrent());
    if(r_BlockFriday && dow == 5) return true;
+   if(r_BlockMonday && dow == 1) return true;
    return false;
 }
 
@@ -273,9 +318,15 @@ bool IsDayBlocked() {
 //+------------------------------------------------------------------+
 bool IsHourBlocked() {
    int hour = TimeHour(TimeCurrent());
+   int dow  = TimeDayOfWeek(TimeCurrent());
 
    // Quick check for the main blocked hour
    if(BlockHour13 && hour == 13) return true;
+
+   // Check preset-specific blocked hours array
+   for(int i = 0; i < r_BlockedHoursCount; i++) {
+      if(hour == r_BlockedHoursArr[i]) return true;
+   }
 
    // Parse additional blocked hours from comma-separated string
    if(StringLen(BlockedHours) > 0) {
@@ -288,14 +339,27 @@ bool IsHourBlocked() {
       }
    }
 
-   // Block toxic hour+day combos identified in v2 analysis
-   // 14h/Tue=-954$, 11h/Mon=-448$, 14h/Thu=-331$, 16h/Mon=-329$
+   // Block toxic hour+day combos
    if(r_BlockToxicCombos) {
-      int dow = TimeDayOfWeek(TimeCurrent());
-      if(hour == 14 && dow == 2) return true;  // 14h Tuesday
-      if(hour == 11 && dow == 1) return true;  // 11h Monday
-      if(hour == 14 && dow == 4) return true;  // 14h Thursday
-      if(hour == 16 && dow == 1) return true;  // 16h Monday
+      if(Preset == PRESET_EURUSD) {
+         // EURUSD combos: 14h/Tue, 11h/Mon, 14h/Thu, 16h/Mon
+         if(hour == 14 && dow == 2) return true;
+         if(hour == 11 && dow == 1) return true;
+         if(hour == 14 && dow == 4) return true;
+         if(hour == 16 && dow == 1) return true;
+      }
+      if(Preset == PRESET_GBPUSD) {
+         // GBPUSD worst combos from analysis (732 trades)
+         if(hour ==  9 && dow == 2) return true;  // 09h/Tue
+         if(hour == 10 && dow == 4) return true;  // 10h/Thu
+         if(hour == 11 && dow == 2) return true;  // 11h/Tue
+         if(hour == 11 && dow == 3) return true;  // 11h/Wed
+         if(hour == 14 && dow == 2) return true;  // 14h/Tue
+         if(hour == 14 && dow == 4) return true;  // 14h/Thu
+         if(hour == 16 && dow == 2) return true;  // 16h/Tue
+         if(hour == 16 && dow == 3) return true;  // 16h/Wed
+         if(hour == 16 && dow == 4) return true;  // 16h/Thu
+      }
    }
 
    return false;
