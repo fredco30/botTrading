@@ -16,8 +16,8 @@ input double RiskPercent        = 1.0;     // Risk % per trade
 input double MaxSpreadPips      = 3.0;     // Max spread allowed (pips)
 input int    MagicNumber        = 20250407;// Magic number
 input double MinRR              = 2.5;     // Minimum Risk:Reward ratio
-input double MinSL_Pips         = 10.0;    // Minimum SL distance (pips)
-input double MaxSL_Pips         = 30.0;    // Maximum SL distance (pips)
+input double MinSL_Pips         = 15.0;    // Minimum SL distance (pips) — was 10, raised to filter weak setups
+input double MaxSL_Pips         = 25.0;    // Maximum SL distance (pips) — was 30, tightened (25-30 bucket PF=0.98)
 
 // --- Trend Filter (H1) ---
 input int    TrendEMA_Period    = 50;      // H1 EMA period for trend direction
@@ -44,12 +44,15 @@ input int    MaxTradesPerDay    = 2;       // Max trades per day
 // --- Volatility Filter (ATR) ---
 input bool   UseATRFilter       = true;    // Only trade when ATR > threshold
 input int    ATR_Period          = 14;      // ATR period on H1
-input double ATR_MinPips         = 6.0;    // Min ATR in pips to allow trading
+input double ATR_MinPips         = 9.0;    // Min ATR in pips to allow trading — was 6, raised per analysis
 
 // --- Day/Hour Filters ---
 input bool   BlockFriday         = true;   // Do not trade on Friday
 input bool   BlockHour13         = true;   // Do not trade at 13:00 (NY open chaos)
 input string BlockedHours        = "13";   // Comma-separated hours to block (server time)
+input bool   BlockToxicCombos    = true;   // Block worst hour+day combos from analysis
+input bool   ReduceThursdayRisk  = true;   // Halve risk on Thursday (weakest day PF=1.08)
+input double ThursdayRiskMult    = 0.5;    // Thursday risk multiplier (0.5 = half risk)
 
 //+------------------------------------------------------------------+
 //| GLOBALS                                                           |
@@ -70,12 +73,15 @@ int OnInit() {
    else
       g_pipValue = Point;
 
-   Print("EMA Pullback EA initialized | Symbol: ", Symbol(),
+   Print("EMA Pullback EA v3 initialized | Symbol: ", Symbol(),
          " | Pip value: ", g_pipValue,
          " | H1 EMA: ", TrendEMA_Period,
          " | M15 EMA: ", EntryEMA_Period,
+         " | SL range: ", DoubleToStr(MinSL_Pips, 0), "-", DoubleToStr(MaxSL_Pips, 0), " pips",
          " | ATR filter: ", UseATRFilter ? "ON (min " + DoubleToStr(ATR_MinPips, 1) + " pips)" : "OFF",
          " | Friday: ", BlockFriday ? "BLOCKED" : "allowed",
+         " | Toxic combos: ", BlockToxicCombos ? "BLOCKED" : "allowed",
+         " | Thursday risk: ", ReduceThursdayRisk ? DoubleToStr(ThursdayRiskMult * 100, 0) + "%" : "100%",
          " | BE trigger: ", DoubleToStr(BE_Trigger_R, 1), "R");
    return INIT_SUCCEEDED;
 }
@@ -165,6 +171,17 @@ bool IsHourBlocked() {
          if(hour == blocked) return true;
       }
    }
+
+   // Block toxic hour+day combos identified in v2 analysis
+   // 14h/Tue=-954$, 11h/Mon=-448$, 14h/Thu=-331$, 16h/Mon=-329$
+   if(BlockToxicCombos) {
+      int dow = TimeDayOfWeek(TimeCurrent());
+      if(hour == 14 && dow == 2) return true;  // 14h Tuesday
+      if(hour == 11 && dow == 1) return true;  // 11h Monday
+      if(hour == 14 && dow == 4) return true;  // 14h Thursday
+      if(hour == 16 && dow == 1) return true;  // 16h Monday
+   }
+
    return false;
 }
 
@@ -316,7 +333,15 @@ void CheckEntry() {
 //+------------------------------------------------------------------+
 void ExecuteTrade(int type, double price, double sl, double tp, string comment) {
    double slDist = MathAbs(price - sl);
-   double lotSize = CalculateLotSize(slDist);
+
+   // Reduce risk on Thursday (weakest day PF=1.08)
+   double riskMult = 1.0;
+   if(ReduceThursdayRisk && TimeDayOfWeek(TimeCurrent()) == 4) {
+      riskMult = ThursdayRiskMult;
+      comment = comment + "|THU_REDUCED";
+   }
+
+   double lotSize = CalculateLotSize(slDist, riskMult);
 
    if(lotSize <= 0) {
       Print("Lot size invalid: ", lotSize);
@@ -356,10 +381,10 @@ void ExecuteTrade(int type, double price, double sl, double tp, string comment) 
 //+------------------------------------------------------------------+
 //| CALCULATE LOT SIZE (Risk-based)                                  |
 //+------------------------------------------------------------------+
-double CalculateLotSize(double slDistance) {
+double CalculateLotSize(double slDistance, double riskMultiplier = 1.0) {
    if(slDistance <= 0) return 0;
 
-   double riskMoney = AccountBalance() * RiskPercent / 100.0;
+   double riskMoney = AccountBalance() * RiskPercent / 100.0 * riskMultiplier;
    double tickValue = MarketInfo(Symbol(), MODE_TICKVALUE);
    double tickSize  = MarketInfo(Symbol(), MODE_TICKSIZE);
 
