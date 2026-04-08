@@ -123,7 +123,7 @@ int OnInit() {
    ApplyPreset();
 
    string presetName = "EURUSD";
-   if(Preset == PRESET_GBPUSD) presetName = "GBPUSD (aggressive)";
+   if(Preset == PRESET_GBPUSD) presetName = "GBPUSD (balanced)";
    if(Preset == PRESET_XAUUSD) presetName = "XAUUSD/Gold";
    string tfMode = (TimeframeMode == TF_H4_M30) ? "H4+M30 (swing)" : "H1+M15 (intraday)";
    Print("EMA Pullback EA v3 initialized | Symbol: ", Symbol(),
@@ -210,38 +210,37 @@ void ApplyPreset() {
       Print("Preset XAUUSD/Gold applied | SL: 50-120 pips | ATR min: 20 | Spread max: 8");
    }
 
-   // --- GBPUSD PRESET (aggressive filter, validated on 732 trades) ---
+   // --- GBPUSD PRESET (balanced — enough trades + solid edge) ---
    if(Preset == PRESET_GBPUSD) {
       r_MaxSpreadPips     = 4.0;       // GBPUSD spread slightly wider than EURUSD
-      r_MinSL_Pips        = 20.0;      // Below 20 pips = destroyed (PF<0.5)
+      r_MinSL_Pips        = 15.0;      // Was 20 (too strict), 15 = good balance
       r_MaxSL_Pips        = 25.0;      // Keep tight
       r_ATR_MinPips       = 9.0;       // Same min as EURUSD
-      r_ATR_MaxPips       = 22.0;      // GBPUSD sweet spot 18-22 pips
+      r_ATR_MaxPips       = 25.0;      // Was 22 (too tight), widened to 25
       r_MaxEMA50DistPips  = 50.0;      // GBPUSD moves further than EURUSD
       r_MinRR             = 2.5;       // Keep same
       r_BE_Trigger_R      = 1.5;       // Same BE logic
-      r_LondonStartHour   = 9;         // Skip 08h (PF=0.58, -$1,923)
+      r_LondonStartHour   = 8;         // Keep full London (08h back in)
       r_LondonEndHour     = 12;
-      r_NYStartHour       = 14;        // Skip 13h (already blocked) and avoid 15h start
+      r_NYStartHour       = 14;        // Skip 13h (already blocked)
       r_NYEndHour         = 17;
       r_UseLondonSession  = true;
-      r_BlockFriday       = true;      // Friday PF=0.62, -$2,628
-      r_BlockMonday       = true;      // Monday PF=0.71, -$2,258
-      r_BlockToxicCombos  = true;      // Use GBPUSD-specific combos
-      r_ReduceThursdayRisk = false;    // Not validated on GBPUSD
+      r_BlockFriday       = true;      // Friday PF=0.62, -$2,628 (proven)
+      r_BlockMonday       = false;     // Monday back in (was too aggressive)
+      r_BlockToxicCombos  = false;     // Removed (overfitting risk with 9 combos)
+      r_ReduceThursdayRisk = false;
       r_ThursdayRiskMult  = 1.0;
       r_MaxTradesPerDay   = 2;
       r_TrendBars         = 5;
       r_SL_SwingBars      = 3;
 
-      // Block 08h and 15h specifically
-      r_BlockedHoursCount = 2;
-      r_BlockedHoursArr[0] = 8;        // 08h: PF=0.58, -$1,923
-      r_BlockedHoursArr[1] = 15;       // 15h: PF=0.61, -$1,873
+      // Block only 15h (worst hour, PF=0.61, -$1,873)
+      r_BlockedHoursCount = 1;
+      r_BlockedHoursArr[0] = 15;
 
-      Print("Preset GBPUSD (aggressive) applied",
-            " | SL: 20-25 pips | ATR: 9-22 | EMA50 dist: <50",
-            " | Block: Fri+Mon+08h+15h+combos");
+      Print("Preset GBPUSD (balanced) applied",
+            " | SL: 15-25 pips | ATR: 9-25 | EMA50 dist: <50",
+            " | Block: Fri+15h");
    }
 }
 
