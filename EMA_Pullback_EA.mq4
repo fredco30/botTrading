@@ -67,6 +67,8 @@ input bool   UseEMA50DistFilter  = true;   // Block entries too far from EMA50
 input double MaxEMA50DistPips    = 30.0;   // Max distance from H1 EMA50 (winners avg 23, losers avg 35)
 input bool   UsePullbackSizeFilter = false; // Reject pullbacks with candles too large vs trend (OFF by default — tested, hurts performance)
 input double PB_MaxRatio         = 0.70;   // Max ratio: pullback candle size / trend candle size
+input bool   UseStructureFilter  = true;   // Reject if last swing H/L is broken (pullback vs reversal)
+input int    StructureSwingBars  = 5;      // Bars on each side to identify swing point
 
 // --- Day/Hour Filters ---
 input bool   BlockFriday         = true;   // Do not trade on Friday
@@ -460,6 +462,70 @@ bool IsPullbackHealthy(int direction) {
 }
 
 //+------------------------------------------------------------------+
+//| STRUCTURE FILTER — Check if last swing H/L is intact             |
+//| Buy: last swing low must NOT be broken (structure still bullish)  |
+//| Sell: last swing high must NOT be broken (structure still bearish)|
+//+------------------------------------------------------------------+
+bool IsStructureIntact(int direction) {
+   if(!UseStructureFilter) return true;
+
+   int lookback = 30; // Scan last 30 bars for swing points
+
+   if(direction == 1) {
+      // BULLISH: find last swing low, check it's not broken
+      for(int i = StructureSwingBars + 1; i < lookback; i++) {
+         double low_i = iLow(Symbol(), r_EntryTF, i);
+         bool isSwingLow = true;
+
+         for(int j = 1; j <= StructureSwingBars; j++) {
+            if(iLow(Symbol(), r_EntryTF, i - j) < low_i ||
+               iLow(Symbol(), r_EntryTF, i + j) < low_i) {
+               isSwingLow = false;
+               break;
+            }
+         }
+
+         if(isSwingLow) {
+            // Found swing low — check if any recent bar closed below it
+            for(int k = 1; k < i; k++) {
+               if(iClose(Symbol(), r_EntryTF, k) < low_i) {
+                  return false; // Structure broken — swing low violated
+               }
+            }
+            return true; // Swing low intact — safe to buy
+         }
+      }
+   }
+   else if(direction == -1) {
+      // BEARISH: find last swing high, check it's not broken
+      for(int i = StructureSwingBars + 1; i < lookback; i++) {
+         double high_i = iHigh(Symbol(), r_EntryTF, i);
+         bool isSwingHigh = true;
+
+         for(int j = 1; j <= StructureSwingBars; j++) {
+            if(iHigh(Symbol(), r_EntryTF, i - j) > high_i ||
+               iHigh(Symbol(), r_EntryTF, i + j) > high_i) {
+               isSwingHigh = false;
+               break;
+            }
+         }
+
+         if(isSwingHigh) {
+            // Found swing high — check if any recent bar closed above it
+            for(int k = 1; k < i; k++) {
+               if(iClose(Symbol(), r_EntryTF, k) > high_i) {
+                  return false; // Structure broken — swing high violated
+               }
+            }
+            return true; // Swing high intact — safe to sell
+         }
+      }
+   }
+
+   return true; // No swing found, allow trade
+}
+
+//+------------------------------------------------------------------+
 //| COUNT OPEN TRADES                                                 |
 //+------------------------------------------------------------------+
 int CountOpenTrades() {
@@ -502,6 +568,9 @@ void CheckEntry() {
 
    // Pullback quality: reject if pullback candles are too large vs trend
    if(!IsPullbackHealthy(trend)) return;
+
+   // Structure check: reject if last swing H/L has been broken
+   if(!IsStructureIntact(trend)) return;
 
    double ema20 = iMA(Symbol(), r_EntryTF, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
 
