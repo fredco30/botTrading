@@ -210,37 +210,38 @@ void ApplyPreset() {
       Print("Preset XAUUSD/Gold applied | SL: 50-120 pips | ATR min: 20 | Spread max: 8");
    }
 
-   // --- GBPUSD PRESET (balanced — enough trades + solid edge) ---
+   // --- GBPUSD PRESET (data-driven from V3 analysis of 340 trades) ---
    if(Preset == PRESET_GBPUSD) {
-      r_MaxSpreadPips     = 4.0;       // GBPUSD spread slightly wider than EURUSD
-      r_MinSL_Pips        = 15.0;      // Was 20 (too strict), 15 = good balance
-      r_MaxSL_Pips        = 25.0;      // Keep tight
-      r_ATR_MinPips       = 9.0;       // Same min as EURUSD
-      r_ATR_MaxPips       = 25.0;      // Was 22 (too tight), widened to 25
-      r_MaxEMA50DistPips  = 50.0;      // GBPUSD moves further than EURUSD
-      r_MinRR             = 2.5;       // Keep same
-      r_BE_Trigger_R      = 1.5;       // Same BE logic
-      r_LondonStartHour   = 8;         // Keep full London (08h back in)
+      r_MaxSpreadPips     = 4.0;       // GBPUSD spread slightly wider
+      r_MinSL_Pips        = 20.0;      // 15-20 bucket = -$4,267. 20-25 = +$2,800
+      r_MaxSL_Pips        = 25.0;      // Only profitable SL bucket
+      r_ATR_MinPips       = 9.0;       // Same as EURUSD
+      r_ATR_MaxPips       = 25.0;      // Wide enough
+      r_MaxEMA50DistPips  = 50.0;      // GBPUSD moves further
+      r_MinRR             = 2.5;
+      r_BE_Trigger_R      = 1.5;
+      r_LondonStartHour   = 9;         // Skip 08h (-$534) — start at 09h
       r_LondonEndHour     = 12;
-      r_NYStartHour       = 14;        // Skip 13h (already blocked)
+      r_NYStartHour       = 14;        // Skip 13h
       r_NYEndHour         = 17;
       r_UseLondonSession  = true;
-      r_BlockFriday       = true;      // Friday PF=0.62, -$2,628 (proven)
-      r_BlockMonday       = false;     // Monday back in (was too aggressive)
-      r_BlockToxicCombos  = false;     // Removed (overfitting risk with 9 combos)
+      r_BlockFriday       = true;      // Friday = 0 trades (proven)
+      r_BlockMonday       = true;      // Monday = -$1,901 (proven in V3 too)
+      r_BlockToxicCombos  = false;     // Not needed with day/hour blocks
       r_ReduceThursdayRisk = false;
       r_ThursdayRiskMult  = 1.0;
       r_MaxTradesPerDay   = 2;
       r_TrendBars         = 5;
       r_SL_SwingBars      = 3;
 
-      // Block only 15h (worst hour, PF=0.61, -$1,873)
-      r_BlockedHoursCount = 1;
-      r_BlockedHoursArr[0] = 15;
+      // Block 10h (-$2,048 worst hour) and 15h (-$1,873)
+      r_BlockedHoursCount = 2;
+      r_BlockedHoursArr[0] = 10;       // 10h: -$2,048 in V3
+      r_BlockedHoursArr[1] = 15;       // 15h: -$1,873 in brut
 
-      Print("Preset GBPUSD (balanced) applied",
-            " | SL: 15-25 pips | ATR: 9-25 | EMA50 dist: <50",
-            " | Block: Fri+15h");
+      Print("Preset GBPUSD (V4) applied",
+            " | SL: 20-25 pips | ATR: 9-25 | EMA50 dist: <50",
+            " | Block: Fri+Mon+10h+15h");
    }
 }
 
