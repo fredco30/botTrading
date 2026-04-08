@@ -243,6 +243,9 @@ void ApplyPreset() {
       r_BlockedHoursArr[0] = 10;       // 10h: -$2,048 in V3
       r_BlockedHoursArr[1] = 15;       // 15h: -$1,873 in brut
 
+      // Pullback size filter too aggressive on GBP (8 trades in 3yr at 0.70)
+      r_PB_MaxRatio       = 1.0;       // Effectively disabled for GBPUSD
+
       Print("Preset GBPUSD (V4) applied",
             " | SL: 20-25 pips | ATR: 9-25 | EMA50 dist: <50",
             " | Block: Fri+Mon+10h+15h");
