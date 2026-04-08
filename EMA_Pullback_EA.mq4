@@ -14,8 +14,9 @@
 // --- Preset ---
 enum INSTRUMENT_PRESET {
    PRESET_EURUSD = 0,   // EURUSD (optimized, default)
-   PRESET_GBPUSD = 1,   // GBPUSD (aggressive filter)
-   PRESET_XAUUSD = 2    // XAUUSD / Gold
+   PRESET_GBPUSD = 1,   // GBPUSD (balanced filter)
+   PRESET_USDJPY = 2,   // USDJPY (hour+SL filter)
+   PRESET_XAUUSD = 3    // XAUUSD / Gold
 };
 input INSTRUMENT_PRESET Preset  = PRESET_EURUSD; // Instrument preset
 
@@ -129,6 +130,7 @@ int OnInit() {
 
    string presetName = "EURUSD";
    if(Preset == PRESET_GBPUSD) presetName = "GBPUSD (balanced)";
+   if(Preset == PRESET_USDJPY) presetName = "USDJPY";
    if(Preset == PRESET_XAUUSD) presetName = "XAUUSD/Gold";
    string tfMode = (TimeframeMode == TF_H4_M30) ? "H4+M30 (swing)" : "H1+M15 (intraday)";
    Print("EMA Pullback EA v3 initialized | Symbol: ", Symbol(),
@@ -251,6 +253,42 @@ void ApplyPreset() {
       Print("Preset GBPUSD (V4) applied",
             " | SL: 20-25 pips | ATR: 9-25 | EMA50 dist: <50",
             " | Block: Fri+Mon+10h+15h");
+   }
+
+   // --- USDJPY PRESET (validated on 349 trades, optimized to 81) ---
+   if(Preset == PRESET_USDJPY) {
+      r_MaxSpreadPips     = 3.0;       // USDJPY has tight spreads
+      r_MinSL_Pips        = 17.0;      // Below 17 = weak setups on JPY
+      r_MaxSL_Pips        = 25.0;      // Keep tight
+      r_ATR_MinPips       = 0.0;       // ATR filter disabled (no clear sweet spot on JPY)
+      r_ATR_MaxPips       = 0.0;       // 0 = disabled
+      r_MaxEMA50DistPips  = 75.0;      // JPY moves further from EMA50
+      r_MinRR             = 2.5;
+      r_BE_Trigger_R      = 1.5;
+      r_LondonStartHour   = 8;         // London open
+      r_LondonEndHour     = 12;
+      r_NYStartHour       = 14;        // Skip 13h
+      r_NYEndHour         = 17;
+      r_UseLondonSession  = true;
+      r_BlockFriday       = true;      // Friday PF=0.97, marginal
+      r_BlockMonday       = true;      // Monday PF=0.76, -$930
+      r_BlockToxicCombos  = false;     // Not needed with hour blocks
+      r_ReduceThursdayRisk = false;
+      r_ThursdayRiskMult  = 1.0;
+      r_MaxTradesPerDay   = 2;
+      r_TrendBars         = 5;
+      r_SL_SwingBars      = 3;
+      r_PB_MaxRatio       = 1.0;       // Pullback size filter disabled
+
+      // Block 09h (-$2,034), 11h (-$1,777), 16h (PF=0.87)
+      r_BlockedHoursCount = 3;
+      r_BlockedHoursArr[0] = 9;
+      r_BlockedHoursArr[1] = 11;
+      r_BlockedHoursArr[2] = 16;
+
+      Print("Preset USDJPY applied",
+            " | SL: 17-25 pips | ATR: OFF | EMA50 dist: <75",
+            " | Block: Fri+Mon+09h+11h+16h");
    }
 }
 
