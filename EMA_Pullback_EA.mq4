@@ -14,7 +14,9 @@
 // --- Preset ---
 enum INSTRUMENT_PRESET {
    PRESET_EURUSD = 0,   // EURUSD (optimized, default)
-   PRESET_XAUUSD = 1    // XAUUSD / Gold
+   PRESET_GBPUSD = 1,   // GBPUSD (balanced filter)
+   PRESET_USDJPY = 2,   // USDJPY (hour+SL filter)
+   PRESET_XAUUSD = 3    // XAUUSD / Gold
 };
 input INSTRUMENT_PRESET Preset  = PRESET_EURUSD; // Instrument preset
 
@@ -64,6 +66,10 @@ input double ATR_MaxPips         = 19.0;   // Max ATR in pips — 0 wins above 1
 // --- Pullback Quality Filter ---
 input bool   UseEMA50DistFilter  = true;   // Block entries too far from EMA50
 input double MaxEMA50DistPips    = 30.0;   // Max distance from H1 EMA50 (winners avg 23, losers avg 35)
+input bool   UsePullbackSizeFilter = false; // Reject pullbacks with candles too large vs trend (OFF by default — tested, hurts performance)
+input double PB_MaxRatio         = 0.70;   // Max ratio: pullback candle size / trend candle size
+input bool   UseStructureFilter  = false;  // Reject if last swing H/L is broken (OFF — tested, too aggressive)
+input int    StructureSwingBars  = 5;      // Bars on each side to identify swing point
 
 // --- Day/Hour Filters ---
 input bool   BlockFriday         = true;   // Do not trade on Friday
@@ -90,6 +96,7 @@ double  r_MaxSL_Pips;
 double  r_ATR_MinPips;
 double  r_ATR_MaxPips;
 double  r_MaxEMA50DistPips;
+double  r_PB_MaxRatio;
 double  r_BE_Trigger_R;
 int     r_LondonStartHour;
 int     r_LondonEndHour;
@@ -97,7 +104,10 @@ int     r_NYStartHour;
 int     r_NYEndHour;
 bool    r_UseLondonSession;
 bool    r_BlockFriday;
+bool    r_BlockMonday;
 bool    r_BlockToxicCombos;
+int     r_BlockedHoursArr[10];
+int     r_BlockedHoursCount;
 bool    r_ReduceThursdayRisk;
 double  r_ThursdayRiskMult;
 int     r_MaxTradesPerDay;
@@ -118,7 +128,10 @@ int OnInit() {
 
    ApplyPreset();
 
-   string presetName = (Preset == PRESET_XAUUSD) ? "XAUUSD/Gold" : "EURUSD";
+   string presetName = "EURUSD";
+   if(Preset == PRESET_GBPUSD) presetName = "GBPUSD (balanced)";
+   if(Preset == PRESET_USDJPY) presetName = "USDJPY";
+   if(Preset == PRESET_XAUUSD) presetName = "XAUUSD/Gold";
    string tfMode = (TimeframeMode == TF_H4_M30) ? "H4+M30 (swing)" : "H1+M15 (intraday)";
    Print("EMA Pullback EA v3 initialized | Symbol: ", Symbol(),
          " | Preset: ", presetName,
@@ -145,6 +158,7 @@ void ApplyPreset() {
    r_ATR_MinPips       = ATR_MinPips;
    r_ATR_MaxPips       = ATR_MaxPips;
    r_MaxEMA50DistPips  = MaxEMA50DistPips;
+   r_PB_MaxRatio       = PB_MaxRatio;
    r_BE_Trigger_R      = BE_Trigger_R;
    r_LondonStartHour   = LondonStartHour;
    r_LondonEndHour     = LondonEndHour;
@@ -152,6 +166,7 @@ void ApplyPreset() {
    r_NYEndHour         = NYEndHour;
    r_UseLondonSession  = true;
    r_BlockFriday       = BlockFriday;
+   r_BlockMonday       = false;
    r_BlockToxicCombos  = BlockToxicCombos;
    r_ReduceThursdayRisk = ReduceThursdayRisk;
    r_ThursdayRiskMult  = ThursdayRiskMult;
@@ -160,6 +175,8 @@ void ApplyPreset() {
    r_SL_SwingBars      = SL_SwingBars;
    r_TrendTF           = PERIOD_H1;
    r_EntryTF           = PERIOD_M15;
+   r_BlockedHoursCount = 0;
+   ArrayInitialize(r_BlockedHoursArr, -1);
 
    // --- Timeframe Mode ---
    if(TimeframeMode == TF_H4_M30) {
@@ -191,6 +208,7 @@ void ApplyPreset() {
       r_NYEndHour         = 18;        // Gold stays active longer in NY
       r_UseLondonSession  = true;
       r_BlockFriday       = true;      // Gold is erratic on Fridays too
+      r_BlockMonday       = false;
       r_BlockToxicCombos  = false;     // EURUSD-specific, don't apply to gold
       r_ReduceThursdayRisk = false;    // Not validated for gold
       r_ThursdayRiskMult  = 1.0;
@@ -198,6 +216,79 @@ void ApplyPreset() {
       r_TrendBars         = 5;
       r_SL_SwingBars      = 4;         // Wider swing lookback for gold volatility
       Print("Preset XAUUSD/Gold applied | SL: 50-120 pips | ATR min: 20 | Spread max: 8");
+   }
+
+   // --- GBPUSD PRESET (data-driven from V3 analysis of 340 trades) ---
+   if(Preset == PRESET_GBPUSD) {
+      r_MaxSpreadPips     = 4.0;       // GBPUSD spread slightly wider
+      r_MinSL_Pips        = 20.0;      // 15-20 bucket = -$4,267. 20-25 = +$2,800
+      r_MaxSL_Pips        = 25.0;      // Only profitable SL bucket
+      r_ATR_MinPips       = 9.0;       // Same as EURUSD
+      r_ATR_MaxPips       = 25.0;      // Wide enough
+      r_MaxEMA50DistPips  = 50.0;      // GBPUSD moves further
+      r_MinRR             = 2.5;
+      r_BE_Trigger_R      = 1.5;
+      r_LondonStartHour   = 9;         // Skip 08h (-$534) — start at 09h
+      r_LondonEndHour     = 12;
+      r_NYStartHour       = 14;        // Skip 13h
+      r_NYEndHour         = 17;
+      r_UseLondonSession  = true;
+      r_BlockFriday       = true;      // Friday = 0 trades (proven)
+      r_BlockMonday       = true;      // Monday = -$1,901 (proven in V3 too)
+      r_BlockToxicCombos  = false;     // Not needed with day/hour blocks
+      r_ReduceThursdayRisk = false;
+      r_ThursdayRiskMult  = 1.0;
+      r_MaxTradesPerDay   = 2;
+      r_TrendBars         = 5;
+      r_SL_SwingBars      = 3;
+
+      // Block 10h (-$2,048 worst hour) and 15h (-$1,873)
+      r_BlockedHoursCount = 2;
+      r_BlockedHoursArr[0] = 10;       // 10h: -$2,048 in V3
+      r_BlockedHoursArr[1] = 15;       // 15h: -$1,873 in brut
+
+      // Pullback size filter too aggressive on GBP (8 trades in 3yr at 0.70)
+      r_PB_MaxRatio       = 1.0;       // Effectively disabled for GBPUSD
+
+      Print("Preset GBPUSD (V4) applied",
+            " | SL: 20-25 pips | ATR: 9-25 | EMA50 dist: <50",
+            " | Block: Fri+Mon+10h+15h");
+   }
+
+   // --- USDJPY PRESET (validated on 349 trades, optimized to 81) ---
+   if(Preset == PRESET_USDJPY) {
+      r_MaxSpreadPips     = 3.0;       // USDJPY has tight spreads
+      r_MinSL_Pips        = 17.0;      // Below 17 = weak setups on JPY
+      r_MaxSL_Pips        = 25.0;      // Keep tight
+      r_ATR_MinPips       = 0.0;       // ATR filter disabled (no clear sweet spot on JPY)
+      r_ATR_MaxPips       = 0.0;       // 0 = disabled
+      r_MaxEMA50DistPips  = 75.0;      // JPY moves further from EMA50
+      r_MinRR             = 2.5;
+      r_BE_Trigger_R      = 1.5;
+      r_LondonStartHour   = 8;         // London open
+      r_LondonEndHour     = 12;
+      r_NYStartHour       = 14;        // Skip 13h
+      r_NYEndHour         = 17;
+      r_UseLondonSession  = true;
+      r_BlockFriday       = true;      // Friday PF=0.97, marginal
+      r_BlockMonday       = true;      // Monday PF=0.76, -$930
+      r_BlockToxicCombos  = false;     // Not needed with hour blocks
+      r_ReduceThursdayRisk = false;
+      r_ThursdayRiskMult  = 1.0;
+      r_MaxTradesPerDay   = 2;
+      r_TrendBars         = 5;
+      r_SL_SwingBars      = 3;
+      r_PB_MaxRatio       = 1.0;       // Pullback size filter disabled (tested 0.70 and 0.90 — both kill trades)
+
+      // Block 09h (-$2,034), 11h (-$1,777), 16h (PF=0.87)
+      r_BlockedHoursCount = 3;
+      r_BlockedHoursArr[0] = 9;
+      r_BlockedHoursArr[1] = 11;
+      r_BlockedHoursArr[2] = 16;
+
+      Print("Preset USDJPY applied",
+            " | SL: 17-25 pips | ATR: OFF | EMA50 dist: <75",
+            " | Block: Fri+Mon+09h+11h+16h");
    }
 }
 
@@ -265,6 +356,7 @@ bool SpreadTooWide() {
 bool IsDayBlocked() {
    int dow = TimeDayOfWeek(TimeCurrent());
    if(r_BlockFriday && dow == 5) return true;
+   if(r_BlockMonday && dow == 1) return true;
    return false;
 }
 
@@ -273,9 +365,15 @@ bool IsDayBlocked() {
 //+------------------------------------------------------------------+
 bool IsHourBlocked() {
    int hour = TimeHour(TimeCurrent());
+   int dow  = TimeDayOfWeek(TimeCurrent());
 
    // Quick check for the main blocked hour
    if(BlockHour13 && hour == 13) return true;
+
+   // Check preset-specific blocked hours array
+   for(int i = 0; i < r_BlockedHoursCount; i++) {
+      if(hour == r_BlockedHoursArr[i]) return true;
+   }
 
    // Parse additional blocked hours from comma-separated string
    if(StringLen(BlockedHours) > 0) {
@@ -288,14 +386,27 @@ bool IsHourBlocked() {
       }
    }
 
-   // Block toxic hour+day combos identified in v2 analysis
-   // 14h/Tue=-954$, 11h/Mon=-448$, 14h/Thu=-331$, 16h/Mon=-329$
+   // Block toxic hour+day combos
    if(r_BlockToxicCombos) {
-      int dow = TimeDayOfWeek(TimeCurrent());
-      if(hour == 14 && dow == 2) return true;  // 14h Tuesday
-      if(hour == 11 && dow == 1) return true;  // 11h Monday
-      if(hour == 14 && dow == 4) return true;  // 14h Thursday
-      if(hour == 16 && dow == 1) return true;  // 16h Monday
+      if(Preset == PRESET_EURUSD) {
+         // EURUSD combos: 14h/Tue, 11h/Mon, 14h/Thu, 16h/Mon
+         if(hour == 14 && dow == 2) return true;
+         if(hour == 11 && dow == 1) return true;
+         if(hour == 14 && dow == 4) return true;
+         if(hour == 16 && dow == 1) return true;
+      }
+      if(Preset == PRESET_GBPUSD) {
+         // GBPUSD worst combos from analysis (732 trades)
+         if(hour ==  9 && dow == 2) return true;  // 09h/Tue
+         if(hour == 10 && dow == 4) return true;  // 10h/Thu
+         if(hour == 11 && dow == 2) return true;  // 11h/Tue
+         if(hour == 11 && dow == 3) return true;  // 11h/Wed
+         if(hour == 14 && dow == 2) return true;  // 14h/Tue
+         if(hour == 14 && dow == 4) return true;  // 14h/Thu
+         if(hour == 16 && dow == 2) return true;  // 16h/Tue
+         if(hour == 16 && dow == 3) return true;  // 16h/Wed
+         if(hour == 16 && dow == 4) return true;  // 16h/Thu
+      }
    }
 
    return false;
@@ -331,6 +442,125 @@ bool IsEMA50DistanceOK() {
    if(distPips > r_MaxEMA50DistPips) return false;
 
    return true;
+}
+
+//+------------------------------------------------------------------+
+//| PULLBACK SIZE FILTER                                              |
+//| Compares pullback candle sizes vs trend candle sizes              |
+//| Real pullback = small candles (low conviction retracement)        |
+//| Retournement  = large candles (aggressive selling/buying)         |
+//+------------------------------------------------------------------+
+bool IsPullbackHealthy(int direction) {
+   if(r_PB_MaxRatio >= 1.0) return true;  // 1.0 = disabled
+
+   // Measure pullback candles: bars 1-2 (the retracement toward EMA)
+   double pullbackSize = 0;
+   int pbCount = 0;
+   for(int i = 1; i <= 3; i++) {
+      double h = iHigh(Symbol(), r_EntryTF, i);
+      double l = iLow(Symbol(), r_EntryTF, i);
+      double range = h - l;
+      if(range > 0) {
+         pullbackSize += range;
+         pbCount++;
+      }
+   }
+   if(pbCount == 0) return true;
+   double avgPullback = pullbackSize / pbCount;
+
+   // Measure trend candles: bars 4-8 (the impulsive move before pullback)
+   double trendSize = 0;
+   int trCount = 0;
+   for(int i = 4; i <= 8; i++) {
+      double h = iHigh(Symbol(), r_EntryTF, i);
+      double l = iLow(Symbol(), r_EntryTF, i);
+      double c = iClose(Symbol(), r_EntryTF, i);
+      double o = iOpen(Symbol(), r_EntryTF, i);
+      double range = h - l;
+
+      // Only count candles in the trend direction
+      if(direction == 1 && c > o) {     // Bullish trend candles
+         trendSize += range;
+         trCount++;
+      }
+      else if(direction == -1 && c < o) { // Bearish trend candles
+         trendSize += range;
+         trCount++;
+      }
+   }
+   if(trCount == 0) return true;
+   double avgTrend = trendSize / trCount;
+
+   // If pullback candles are too large relative to trend = retournement
+   if(avgTrend > 0 && avgPullback / avgTrend > r_PB_MaxRatio) {
+      return false; // Pullback too aggressive = likely reversal
+   }
+
+   return true;
+}
+
+//+------------------------------------------------------------------+
+//| STRUCTURE FILTER — Check if last swing H/L is intact             |
+//| Buy: last swing low must NOT be broken (structure still bullish)  |
+//| Sell: last swing high must NOT be broken (structure still bearish)|
+//+------------------------------------------------------------------+
+bool IsStructureIntact(int direction) {
+   if(!UseStructureFilter) return true;
+
+   int lookback = 30; // Scan last 30 bars for swing points
+
+   if(direction == 1) {
+      // BULLISH: find last swing low, check it's not broken
+      for(int i = StructureSwingBars + 1; i < lookback; i++) {
+         double low_i = iLow(Symbol(), r_EntryTF, i);
+         bool isSwingLow = true;
+
+         for(int j = 1; j <= StructureSwingBars; j++) {
+            if(iLow(Symbol(), r_EntryTF, i - j) < low_i ||
+               iLow(Symbol(), r_EntryTF, i + j) < low_i) {
+               isSwingLow = false;
+               break;
+            }
+         }
+
+         if(isSwingLow) {
+            // Found swing low — check if any recent bar closed below it
+            for(int k = 1; k < i; k++) {
+               if(iClose(Symbol(), r_EntryTF, k) < low_i) {
+                  return false; // Structure broken — swing low violated
+               }
+            }
+            return true; // Swing low intact — safe to buy
+         }
+      }
+   }
+   else if(direction == -1) {
+      // BEARISH: find last swing high, check it's not broken
+      for(int i = StructureSwingBars + 1; i < lookback; i++) {
+         double high_i = iHigh(Symbol(), r_EntryTF, i);
+         bool isSwingHigh = true;
+
+         for(int j = 1; j <= StructureSwingBars; j++) {
+            if(iHigh(Symbol(), r_EntryTF, i - j) > high_i ||
+               iHigh(Symbol(), r_EntryTF, i + j) > high_i) {
+               isSwingHigh = false;
+               break;
+            }
+         }
+
+         if(isSwingHigh) {
+            // Found swing high — check if any recent bar closed above it
+            for(int k = 1; k < i; k++) {
+               if(iClose(Symbol(), r_EntryTF, k) > high_i) {
+                  return false; // Structure broken — swing high violated
+               }
+            }
+            return true; // Swing high intact — safe to sell
+         }
+      }
+   }
+
+   return true; // No swing found, allow trade
 }
 
 //+------------------------------------------------------------------+
@@ -373,6 +603,12 @@ int GetTrendDirection() {
 void CheckEntry() {
    int trend = GetTrendDirection();
    if(trend == 0) return;
+
+   // Pullback quality: reject if pullback candles are too large vs trend
+   if(!IsPullbackHealthy(trend)) return;
+
+   // Structure check: reject if last swing H/L has been broken
+   if(!IsStructureIntact(trend)) return;
 
    double ema20 = iMA(Symbol(), r_EntryTF, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
 
