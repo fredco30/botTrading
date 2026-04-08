@@ -65,7 +65,7 @@ input double ATR_MaxPips         = 19.0;   // Max ATR in pips — 0 wins above 1
 // --- Pullback Quality Filter ---
 input bool   UseEMA50DistFilter  = true;   // Block entries too far from EMA50
 input double MaxEMA50DistPips    = 30.0;   // Max distance from H1 EMA50 (winners avg 23, losers avg 35)
-input bool   UsePullbackSizeFilter = true; // Reject pullbacks with candles too large vs trend
+input bool   UsePullbackSizeFilter = false; // Reject pullbacks with candles too large vs trend (OFF by default — tested, hurts performance)
 input double PB_MaxRatio         = 0.70;   // Max ratio: pullback candle size / trend candle size
 
 // --- Day/Hour Filters ---
