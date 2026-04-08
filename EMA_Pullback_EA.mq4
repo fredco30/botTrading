@@ -278,7 +278,7 @@ void ApplyPreset() {
       r_MaxTradesPerDay   = 2;
       r_TrendBars         = 5;
       r_SL_SwingBars      = 3;
-      r_PB_MaxRatio       = 1.0;       // Pullback size filter disabled
+      r_PB_MaxRatio       = 0.90;      // Softer than 0.70 — only reject the worst reversals
 
       // Block 09h (-$2,034), 11h (-$1,777), 16h (PF=0.87)
       r_BlockedHoursCount = 3;
@@ -451,7 +451,7 @@ bool IsEMA50DistanceOK() {
 //| Retournement  = large candles (aggressive selling/buying)         |
 //+------------------------------------------------------------------+
 bool IsPullbackHealthy(int direction) {
-   if(!UsePullbackSizeFilter) return true;
+   if(r_PB_MaxRatio >= 1.0) return true;  // 1.0 = disabled
 
    // Measure pullback candles: bars 1-2 (the retracement toward EMA)
    double pullbackSize = 0;
