@@ -58,7 +58,12 @@ input int    MaxTradesPerDay    = 2;       // Max trades per day
 // --- Volatility Filter (ATR) ---
 input bool   UseATRFilter       = true;    // Only trade when ATR > threshold
 input int    ATR_Period          = 14;      // ATR period on H1
-input double ATR_MinPips         = 9.0;    // Min ATR in pips to allow trading — was 6, raised per analysis
+input double ATR_MinPips         = 9.0;    // Min ATR in pips — was 6, raised per analysis
+input double ATR_MaxPips         = 19.0;   // Max ATR in pips — 0 wins above 19 in 2025-2026
+
+// --- Pullback Quality Filter ---
+input bool   UseEMA50DistFilter  = true;   // Block entries too far from EMA50
+input double MaxEMA50DistPips    = 30.0;   // Max distance from H1 EMA50 (winners avg 23, losers avg 35)
 
 // --- Day/Hour Filters ---
 input bool   BlockFriday         = true;   // Do not trade on Friday
@@ -83,6 +88,8 @@ double  r_MinRR;
 double  r_MinSL_Pips;
 double  r_MaxSL_Pips;
 double  r_ATR_MinPips;
+double  r_ATR_MaxPips;
+double  r_MaxEMA50DistPips;
 double  r_BE_Trigger_R;
 int     r_LondonStartHour;
 int     r_LondonEndHour;
@@ -118,7 +125,8 @@ int OnInit() {
          " | TF: ", tfMode,
          " | Pip value: ", g_pipValue,
          " | SL range: ", DoubleToStr(r_MinSL_Pips, 0), "-", DoubleToStr(r_MaxSL_Pips, 0), " pips",
-         " | ATR filter: ", UseATRFilter ? "ON (min " + DoubleToStr(r_ATR_MinPips, 1) + " pips)" : "OFF",
+         " | ATR: ", UseATRFilter ? DoubleToStr(r_ATR_MinPips, 0) + "-" + DoubleToStr(r_ATR_MaxPips, 0) + " pips" : "OFF",
+         " | EMA50 dist max: ", UseEMA50DistFilter ? DoubleToStr(r_MaxEMA50DistPips, 0) + " pips" : "OFF",
          " | Friday: ", r_BlockFriday ? "BLOCKED" : "allowed",
          " | Spread max: ", DoubleToStr(r_MaxSpreadPips, 1),
          " | BE trigger: ", DoubleToStr(r_BE_Trigger_R, 1), "R");
@@ -135,6 +143,8 @@ void ApplyPreset() {
    r_MinSL_Pips        = MinSL_Pips;
    r_MaxSL_Pips        = MaxSL_Pips;
    r_ATR_MinPips       = ATR_MinPips;
+   r_ATR_MaxPips       = ATR_MaxPips;
+   r_MaxEMA50DistPips  = MaxEMA50DistPips;
    r_BE_Trigger_R      = BE_Trigger_R;
    r_LondonStartHour   = LondonStartHour;
    r_LondonEndHour     = LondonEndHour;
@@ -158,6 +168,8 @@ void ApplyPreset() {
       r_MinSL_Pips     = 25.0;     // Wider SL for M30 entries
       r_MaxSL_Pips     = 50.0;     // Wider range
       r_ATR_MinPips    = 12.0;     // Higher ATR threshold for H4
+      r_ATR_MaxPips    = 30.0;     // H4 ATR can be wider
+      r_MaxEMA50DistPips = 50.0;   // H4 price moves further from EMA50
       r_MaxTradesPerDay = 1;       // Less frequent on higher TF
       r_SL_SwingBars   = 4;        // Wider swing lookback
       Print("Timeframe H4+M30 (swing mode) applied | SL: 25-50 pips | ATR min: 12");
@@ -169,6 +181,8 @@ void ApplyPreset() {
       r_MinSL_Pips        = 50.0;      // Gold moves ~5x more than EURUSD
       r_MaxSL_Pips        = 120.0;     // Wider range for gold
       r_ATR_MinPips       = 20.0;      // Gold ATR is much larger
+      r_ATR_MaxPips       = 80.0;      // Gold can have high ATR normally
+      r_MaxEMA50DistPips  = 150.0;     // Gold moves further from EMA50
       r_MinRR             = 2.5;       // Keep same RR
       r_BE_Trigger_R      = 1.5;       // Same BE logic
       r_LondonStartHour   = 8;         // Gold active during London
@@ -219,6 +233,7 @@ void OnTick() {
    if(IsDayBlocked()) return;
    if(IsHourBlocked()) return;
    if(UseATRFilter && !IsVolatilityOK()) return;
+   if(!IsEMA50DistanceOK()) return;
    if(CountOpenTrades() >= 1) return;
    if(g_dailyTrades >= r_MaxTradesPerDay) return;
 
@@ -293,10 +308,28 @@ bool IsVolatilityOK() {
    double atr = iATR(Symbol(), r_TrendTF, ATR_Period, 0);
    double atrPips = atr / g_pipValue;
 
-   if(atrPips < r_ATR_MinPips) {
-      // Silent filter — only print when we would have traded
-      return false;
-   }
+   // Too calm — no momentum for pullback
+   if(atrPips < r_ATR_MinPips) return false;
+
+   // Too volatile — pullbacks become retournements
+   if(r_ATR_MaxPips > 0 && atrPips > r_ATR_MaxPips) return false;
+
+   return true;
+}
+
+//+------------------------------------------------------------------+
+//| EMA50 DISTANCE FILTER — reject overextended entries              |
+//| Winners avg 23 pips from EMA50, Losers avg 35 pips              |
+//+------------------------------------------------------------------+
+bool IsEMA50DistanceOK() {
+   if(!UseEMA50DistFilter) return true;
+
+   double ema50 = iMA(Symbol(), r_TrendTF, TrendEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
+   double price = (MarketInfo(Symbol(), MODE_BID) + MarketInfo(Symbol(), MODE_ASK)) / 2.0;
+   double distPips = MathAbs(price - ema50) / g_pipValue;
+
+   if(distPips > r_MaxEMA50DistPips) return false;
+
    return true;
 }
 
