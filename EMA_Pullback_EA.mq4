@@ -374,24 +374,18 @@ void OnTick() {
    if(IsHourBlocked()) return;
    if(UseATRFilter && !IsVolatilityOK()) return;
 
-   // --- Market regime detection ---
-   MARKET_REGIME regime = GetMarketRegime();
-
-   // --- Pullback module ---
-   // Pullback uses its OWN trend detection (GetTrendDirection inside CheckEntry)
-   // It does NOT depend on ADX regime — it worked without ADX before
-   if(regime != REGIME_RANGING || !UseRangeModule) {
-      // Trade pullback when: trending, volatile, OR ranging with range module OFF
-      if(IsEMA50DistanceOK()
-         && CountModuleTrades("PB_") < 1
-         && g_dailyTrades_PB < r_MaxTradesPerDay) {
-         CheckEntry();
-      }
+   // --- Pullback module (ALWAYS active — uses its own trend filter) ---
+   if(CountOpenTrades() >= 1) return;  // Max 1 trade total (legacy safety)
+   if(IsEMA50DistanceOK()
+      && g_dailyTrades_PB < r_MaxTradesPerDay) {
+      CheckEntry();
    }
 
-   // --- Range module (only when ranging AND module enabled) ---
-   if(UseRangeModule && regime == REGIME_RANGING) {
-      if(CountModuleTrades("RNG_") < 1
+   // --- Range module (only when ADX says ranging) ---
+   if(UseRangeModule) {
+      MARKET_REGIME regime = GetMarketRegime();
+      if(regime == REGIME_RANGING
+         && CountModuleTrades("RNG_") < 1
          && g_dailyTrades_RNG < r_Range_MaxTradesDay) {
          CheckRangeEntry();
       }
