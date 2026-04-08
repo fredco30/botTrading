@@ -11,6 +11,13 @@
 //+------------------------------------------------------------------+
 //| INPUTS                                                            |
 //+------------------------------------------------------------------+
+// --- Preset ---
+enum INSTRUMENT_PRESET {
+   PRESET_EURUSD = 0,   // EURUSD (optimized, default)
+   PRESET_XAUUSD = 1    // XAUUSD / Gold
+};
+input INSTRUMENT_PRESET Preset  = PRESET_EURUSD; // Instrument preset
+
 // --- Risk Management ---
 input double RiskPercent        = 1.0;     // Risk % per trade
 input double MaxSpreadPips      = 3.0;     // Max spread allowed (pips)
@@ -63,6 +70,26 @@ datetime   g_lastBarTime = 0;
 datetime   g_currentDay  = 0;
 int        g_dailyTrades = 0;
 
+// --- Runtime params (overridden by preset) ---
+double  r_MaxSpreadPips;
+double  r_MinRR;
+double  r_MinSL_Pips;
+double  r_MaxSL_Pips;
+double  r_ATR_MinPips;
+double  r_BE_Trigger_R;
+int     r_LondonStartHour;
+int     r_LondonEndHour;
+int     r_NYStartHour;
+int     r_NYEndHour;
+bool    r_UseLondonSession;
+bool    r_BlockFriday;
+bool    r_BlockToxicCombos;
+bool    r_ReduceThursdayRisk;
+double  r_ThursdayRiskMult;
+int     r_MaxTradesPerDay;
+int     r_TrendBars;
+int     r_SL_SwingBars;
+
 //+------------------------------------------------------------------+
 //| Expert initialization                                             |
 //+------------------------------------------------------------------+
@@ -73,17 +100,66 @@ int OnInit() {
    else
       g_pipValue = Point;
 
+   ApplyPreset();
+
+   string presetName = (Preset == PRESET_XAUUSD) ? "XAUUSD/Gold" : "EURUSD";
    Print("EMA Pullback EA v3 initialized | Symbol: ", Symbol(),
+         " | Preset: ", presetName,
          " | Pip value: ", g_pipValue,
-         " | H1 EMA: ", TrendEMA_Period,
-         " | M15 EMA: ", EntryEMA_Period,
-         " | SL range: ", DoubleToStr(MinSL_Pips, 0), "-", DoubleToStr(MaxSL_Pips, 0), " pips",
-         " | ATR filter: ", UseATRFilter ? "ON (min " + DoubleToStr(ATR_MinPips, 1) + " pips)" : "OFF",
-         " | Friday: ", BlockFriday ? "BLOCKED" : "allowed",
-         " | Toxic combos: ", BlockToxicCombos ? "BLOCKED" : "allowed",
-         " | Thursday risk: ", ReduceThursdayRisk ? DoubleToStr(ThursdayRiskMult * 100, 0) + "%" : "100%",
-         " | BE trigger: ", DoubleToStr(BE_Trigger_R, 1), "R");
+         " | SL range: ", DoubleToStr(r_MinSL_Pips, 0), "-", DoubleToStr(r_MaxSL_Pips, 0), " pips",
+         " | ATR filter: ", UseATRFilter ? "ON (min " + DoubleToStr(r_ATR_MinPips, 1) + " pips)" : "OFF",
+         " | Friday: ", r_BlockFriday ? "BLOCKED" : "allowed",
+         " | Spread max: ", DoubleToStr(r_MaxSpreadPips, 1),
+         " | BE trigger: ", DoubleToStr(r_BE_Trigger_R, 1), "R");
    return INIT_SUCCEEDED;
+}
+
+//+------------------------------------------------------------------+
+//| APPLY PRESET                                                      |
+//+------------------------------------------------------------------+
+void ApplyPreset() {
+   // Default: copy inputs to runtime
+   r_MaxSpreadPips     = MaxSpreadPips;
+   r_MinRR             = MinRR;
+   r_MinSL_Pips        = MinSL_Pips;
+   r_MaxSL_Pips        = MaxSL_Pips;
+   r_ATR_MinPips       = ATR_MinPips;
+   r_BE_Trigger_R      = BE_Trigger_R;
+   r_LondonStartHour   = LondonStartHour;
+   r_LondonEndHour     = LondonEndHour;
+   r_NYStartHour       = NYStartHour;
+   r_NYEndHour         = NYEndHour;
+   r_UseLondonSession  = true;
+   r_BlockFriday       = BlockFriday;
+   r_BlockToxicCombos  = BlockToxicCombos;
+   r_ReduceThursdayRisk = ReduceThursdayRisk;
+   r_ThursdayRiskMult  = ThursdayRiskMult;
+   r_MaxTradesPerDay   = MaxTradesPerDay;
+   r_TrendBars         = TrendBars;
+   r_SL_SwingBars      = SL_SwingBars;
+
+   // --- XAUUSD / GOLD PRESET ---
+   if(Preset == PRESET_XAUUSD) {
+      r_MaxSpreadPips     = 8.0;       // Gold spread is wider
+      r_MinSL_Pips        = 50.0;      // Gold moves ~5x more than EURUSD
+      r_MaxSL_Pips        = 120.0;     // Wider range for gold
+      r_ATR_MinPips       = 20.0;      // Gold ATR is much larger
+      r_MinRR             = 2.5;       // Keep same RR
+      r_BE_Trigger_R      = 1.5;       // Same BE logic
+      r_LondonStartHour   = 8;         // Gold active during London
+      r_LondonEndHour     = 12;
+      r_NYStartHour       = 13;
+      r_NYEndHour         = 18;        // Gold stays active longer in NY
+      r_UseLondonSession  = true;
+      r_BlockFriday       = true;      // Gold is erratic on Fridays too
+      r_BlockToxicCombos  = false;     // EURUSD-specific, don't apply to gold
+      r_ReduceThursdayRisk = false;    // Not validated for gold
+      r_ThursdayRiskMult  = 1.0;
+      r_MaxTradesPerDay   = 2;
+      r_TrendBars         = 5;
+      r_SL_SwingBars      = 4;         // Wider swing lookback for gold volatility
+      Print("Preset XAUUSD/Gold applied | SL: 50-120 pips | ATR min: 20 | Spread max: 8");
+   }
 }
 
 //+------------------------------------------------------------------+
@@ -119,7 +195,7 @@ void OnTick() {
    if(IsHourBlocked()) return;
    if(UseATRFilter && !IsVolatilityOK()) return;
    if(CountOpenTrades() >= 1) return;
-   if(g_dailyTrades >= MaxTradesPerDay) return;
+   if(g_dailyTrades >= r_MaxTradesPerDay) return;
 
    // --- Check for entry ---
    CheckEntry();
@@ -130,8 +206,8 @@ void OnTick() {
 //+------------------------------------------------------------------+
 bool IsSessionActive() {
    int hour = TimeHour(TimeCurrent());
-   if(hour >= LondonStartHour && hour < LondonEndHour) return true;
-   if(hour >= NYStartHour && hour < NYEndHour) return true;
+   if(r_UseLondonSession && hour >= r_LondonStartHour && hour < r_LondonEndHour) return true;
+   if(hour >= r_NYStartHour && hour < r_NYEndHour) return true;
    return false;
 }
 
@@ -140,7 +216,7 @@ bool IsSessionActive() {
 //+------------------------------------------------------------------+
 bool SpreadTooWide() {
    double spread = MarketInfo(Symbol(), MODE_SPREAD) * Point / g_pipValue;
-   return (spread > MaxSpreadPips);
+   return (spread > r_MaxSpreadPips);
 }
 
 //+------------------------------------------------------------------+
@@ -148,7 +224,7 @@ bool SpreadTooWide() {
 //+------------------------------------------------------------------+
 bool IsDayBlocked() {
    int dow = TimeDayOfWeek(TimeCurrent());
-   if(BlockFriday && dow == 5) return true;
+   if(r_BlockFriday && dow == 5) return true;
    return false;
 }
 
@@ -174,7 +250,7 @@ bool IsHourBlocked() {
 
    // Block toxic hour+day combos identified in v2 analysis
    // 14h/Tue=-954$, 11h/Mon=-448$, 14h/Thu=-331$, 16h/Mon=-329$
-   if(BlockToxicCombos) {
+   if(r_BlockToxicCombos) {
       int dow = TimeDayOfWeek(TimeCurrent());
       if(hour == 14 && dow == 2) return true;  // 14h Tuesday
       if(hour == 11 && dow == 1) return true;  // 11h Monday
@@ -192,7 +268,7 @@ bool IsVolatilityOK() {
    double atr = iATR(Symbol(), PERIOD_H1, ATR_Period, 0);
    double atrPips = atr / g_pipValue;
 
-   if(atrPips < ATR_MinPips) {
+   if(atrPips < r_ATR_MinPips) {
       // Silent filter — only print when we would have traded
       return false;
    }
@@ -219,7 +295,7 @@ int CountOpenTrades() {
 //+------------------------------------------------------------------+
 int GetTrendDirection() {
    double ema_now  = iMA(Symbol(), PERIOD_H1, TrendEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
-   double ema_prev = iMA(Symbol(), PERIOD_H1, TrendEMA_Period, 0, MODE_EMA, PRICE_CLOSE, TrendBars);
+   double ema_prev = iMA(Symbol(), PERIOD_H1, TrendEMA_Period, 0, MODE_EMA, PRICE_CLOSE, r_TrendBars);
    double close_h1 = iClose(Symbol(), PERIOD_H1, 0);
 
    // Bullish: price above EMA AND EMA rising
@@ -280,18 +356,18 @@ void CheckEntry() {
       if(range1 > 0 && body1 / range1 < 0.6) return;
       if(body1 <= body2) return;
 
-      // Calculate SL: lowest low of last SL_SwingBars bars
+      // Calculate SL: lowest low of last r_SL_SwingBars bars
       double sl = low1;
-      for(int i = 1; i <= SL_SwingBars; i++) {
+      for(int i = 1; i <= r_SL_SwingBars; i++) {
          double l = iLow(Symbol(), PERIOD_M15, i);
          if(l < sl) sl = l;
       }
       sl = sl - 2 * g_pipValue;  // Buffer
 
       double slDist = (ask - sl) / g_pipValue;
-      if(slDist < MinSL_Pips || slDist > MaxSL_Pips) return;
+      if(slDist < r_MinSL_Pips || slDist > r_MaxSL_Pips) return;
 
-      double tp = ask + (ask - sl) * MinRR;
+      double tp = ask + (ask - sl) * r_MinRR;
 
       ExecuteTrade(OP_BUY, ask, sl, tp, "EMA Pullback Buy");
    }
@@ -311,18 +387,18 @@ void CheckEntry() {
       if(range1 > 0 && body1 / range1 < 0.6) return;
       if(body1 <= body2) return;
 
-      // Calculate SL: highest high of last SL_SwingBars bars
+      // Calculate SL: highest high of last r_SL_SwingBars bars
       double sl = high1;
-      for(int i = 1; i <= SL_SwingBars; i++) {
+      for(int i = 1; i <= r_SL_SwingBars; i++) {
          double h = iHigh(Symbol(), PERIOD_M15, i);
          if(h > sl) sl = h;
       }
       sl = sl + 2 * g_pipValue;  // Buffer
 
       double slDist = (sl - bid) / g_pipValue;
-      if(slDist < MinSL_Pips || slDist > MaxSL_Pips) return;
+      if(slDist < r_MinSL_Pips || slDist > r_MaxSL_Pips) return;
 
-      double tp = bid - (sl - bid) * MinRR;
+      double tp = bid - (sl - bid) * r_MinRR;
 
       ExecuteTrade(OP_SELL, bid, sl, tp, "EMA Pullback Sell");
    }
@@ -336,8 +412,8 @@ void ExecuteTrade(int type, double price, double sl, double tp, string comment) 
 
    // Reduce risk on Thursday (weakest day PF=1.08)
    double riskMult = 1.0;
-   if(ReduceThursdayRisk && TimeDayOfWeek(TimeCurrent()) == 4) {
-      riskMult = ThursdayRiskMult;
+   if(r_ReduceThursdayRisk && TimeDayOfWeek(TimeCurrent()) == 4) {
+      riskMult = r_ThursdayRiskMult;
       comment = comment + "|THU_REDUCED";
    }
 
@@ -424,7 +500,7 @@ void ManageOpenTrades() {
          double profit = currentPrice - openPrice;
 
          // Breakeven at BE_Trigger_R (default 1.5R — gives trade more room)
-         if(UseBreakeven && profit >= riskDist * BE_Trigger_R && currentSL < openPrice) {
+         if(UseBreakeven && profit >= riskDist * r_BE_Trigger_R && currentSL < openPrice) {
             double beSL = openPrice + 1 * g_pipValue;
             if(!OrderModify(OrderTicket(), openPrice, NormalizeDouble(beSL, g_digits),
                            OrderTakeProfit(), 0, clrYellow))
@@ -436,7 +512,7 @@ void ManageOpenTrades() {
          double profit = openPrice - currentPrice;
 
          // Breakeven at BE_Trigger_R
-         if(UseBreakeven && profit >= riskDist * BE_Trigger_R && currentSL > openPrice) {
+         if(UseBreakeven && profit >= riskDist * r_BE_Trigger_R && currentSL > openPrice) {
             double beSL = openPrice - 1 * g_pipValue;
             if(!OrderModify(OrderTicket(), openPrice, NormalizeDouble(beSL, g_digits),
                            OrderTakeProfit(), 0, clrYellow))
