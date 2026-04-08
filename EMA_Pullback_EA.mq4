@@ -67,7 +67,7 @@ input bool   UseEMA50DistFilter  = true;   // Block entries too far from EMA50
 input double MaxEMA50DistPips    = 30.0;   // Max distance from H1 EMA50 (winners avg 23, losers avg 35)
 input bool   UsePullbackSizeFilter = false; // Reject pullbacks with candles too large vs trend (OFF by default — tested, hurts performance)
 input double PB_MaxRatio         = 0.70;   // Max ratio: pullback candle size / trend candle size
-input bool   UseStructureFilter  = true;   // Reject if last swing H/L is broken (pullback vs reversal)
+input bool   UseStructureFilter  = false;  // Reject if last swing H/L is broken (OFF — tested, too aggressive)
 input int    StructureSwingBars  = 5;      // Bars on each side to identify swing point
 
 // --- Day/Hour Filters ---
