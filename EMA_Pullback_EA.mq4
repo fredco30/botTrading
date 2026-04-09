@@ -241,14 +241,14 @@ void ApplyPreset() {
       Print("Preset XAUUSD/Gold applied | SL: 50-120 pips | ATR min: 20 | Spread max: 8");
    }
 
-   // --- GBPUSD PRESET (data-driven from V3 analysis of 340 trades) ---
+   // --- GBPUSD PRESET V5.3 (data-driven from 63-trade V4 analysis) ---
    if(Preset == PRESET_GBPUSD) {
       r_MaxSpreadPips     = 4.0;       // GBPUSD spread slightly wider
       r_MinSL_Pips        = 20.0;      // 15-20 bucket = -$4,267. 20-25 = +$2,800
-      r_MaxSL_Pips        = 25.0;      // Only profitable SL bucket
+      r_MaxSL_Pips        = 23.0;      // V5: 24+ bucket PF=0.53, net -$427 (was 25)
       r_ATR_MinPips       = 9.0;       // Same as EURUSD
       r_ATR_MaxPips       = 25.0;      // Wide enough
-      r_MaxEMA50DistPips  = 50.0;      // GBPUSD moves further
+      r_MaxEMA50DistPips  = 40.0;      // V5: 45-60 bucket PF=0.77, 30-45 PF=0.89 (was 50)
       r_MinRR             = 2.5;
       r_BE_Trigger_R      = 1.5;
       r_LondonStartHour   = 9;         // Skip 08h (-$534) — start at 09h
@@ -265,17 +265,18 @@ void ApplyPreset() {
       r_TrendBars         = 5;
       r_SL_SwingBars      = 3;
 
-      // Block 10h (-$2,048 worst hour) and 15h (-$1,873)
-      r_BlockedHoursCount = 2;
+      // Block 10h (-$2,048 worst hour), 14h (V5: PF 0.81, -$173), 15h (-$1,873)
+      r_BlockedHoursCount = 3;
       r_BlockedHoursArr[0] = 10;       // 10h: -$2,048 in V3
-      r_BlockedHoursArr[1] = 15;       // 15h: -$1,873 in brut
+      r_BlockedHoursArr[1] = 14;       // 14h: V5 -$173, worst hour of the 4 kept
+      r_BlockedHoursArr[2] = 15;       // 15h: -$1,873 in brut
 
       // Pullback size filter too aggressive on GBP (8 trades in 3yr at 0.70)
       r_PB_MaxRatio       = 1.0;       // Effectively disabled for GBPUSD
 
-      Print("Preset GBPUSD (V4) applied",
-            " | SL: 20-25 pips | ATR: 9-25 | EMA50 dist: <50",
-            " | Block: Fri+Mon+10h+15h");
+      Print("Preset GBPUSD (V5.3) applied",
+            " | SL: 20-23 pips | ATR: 9-25 | EMA50 dist: <40",
+            " | Block: Fri+Mon+10h+14h+15h");
    }
 
    // --- USDJPY PRESET (validated on 349 trades, optimized to 81) ---
