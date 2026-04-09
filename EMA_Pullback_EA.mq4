@@ -66,8 +66,8 @@ input double ATR_MaxPips         = 19.0;   // Max ATR in pips — 0 wins above 1
 // --- Pullback Quality Filter ---
 input bool   UseEMA50DistFilter  = true;   // Block entries too far from EMA50
 input double MaxEMA50DistPips    = 30.0;   // Max distance from H1 EMA50 (winners avg 23, losers avg 35)
-input bool   UsePullbackSizeFilter = false; // Reject pullbacks with candles too large vs trend (OFF by default — tested, hurts performance)
-input double PB_MaxRatio         = 0.70;   // Max ratio: pullback candle size / trend candle size
+input bool   UsePullbackSizeFilter = false; // Master switch for pullback size filter (OFF — tested, hurts performance on all pairs)
+input double PB_MaxRatio         = 0.70;   // Max ratio: pullback candle size / trend candle size (only used if UsePullbackSizeFilter = true)
 input bool   UseStructureFilter  = false;  // Reject if last swing H/L is broken (OFF — tested, too aggressive)
 input int    StructureSwingBars  = 5;      // Bars on each side to identify swing point
 
@@ -133,16 +133,39 @@ int OnInit() {
    if(Preset == PRESET_USDJPY) presetName = "USDJPY";
    if(Preset == PRESET_XAUUSD) presetName = "XAUUSD/Gold";
    string tfMode = (TimeframeMode == TF_H4_M30) ? "H4+M30 (swing)" : "H1+M15 (intraday)";
-   Print("EMA Pullback EA v3 initialized | Symbol: ", Symbol(),
-         " | Preset: ", presetName,
-         " | TF: ", tfMode,
-         " | Pip value: ", g_pipValue,
-         " | SL range: ", DoubleToStr(r_MinSL_Pips, 0), "-", DoubleToStr(r_MaxSL_Pips, 0), " pips",
-         " | ATR: ", UseATRFilter ? DoubleToStr(r_ATR_MinPips, 0) + "-" + DoubleToStr(r_ATR_MaxPips, 0) + " pips" : "OFF",
-         " | EMA50 dist max: ", UseEMA50DistFilter ? DoubleToStr(r_MaxEMA50DistPips, 0) + " pips" : "OFF",
-         " | Friday: ", r_BlockFriday ? "BLOCKED" : "allowed",
-         " | Spread max: ", DoubleToStr(r_MaxSpreadPips, 1),
-         " | BE trigger: ", DoubleToStr(r_BE_Trigger_R, 1), "R");
+
+   // --- Effective config dump (reveals silent filters that don't match inputs) ---
+   string pbStatus = (!UsePullbackSizeFilter || r_PB_MaxRatio >= 1.0)
+                      ? "OFF"
+                      : "ON ratio=" + DoubleToStr(r_PB_MaxRatio, 2);
+   string structStatus = UseStructureFilter
+                          ? "ON swingBars=" + IntegerToString(StructureSwingBars)
+                          : "OFF";
+   string thuRisk = r_ReduceThursdayRisk
+                     ? "x" + DoubleToStr(r_ThursdayRiskMult, 2)
+                     : "x1.00";
+
+   Print("[EMA Pullback] init ------------------------------------------");
+   Print("[CFG] Symbol=", Symbol(), " | Preset=", presetName, " | TF=", tfMode, " | Pip=", g_pipValue);
+   Print("[CFG] Risk=", DoubleToStr(RiskPercent, 2), "% | SL=", DoubleToStr(r_MinSL_Pips, 0),
+         "-", DoubleToStr(r_MaxSL_Pips, 0), " | MinRR=", DoubleToStr(r_MinRR, 2),
+         " | MaxSpread=", DoubleToStr(r_MaxSpreadPips, 1));
+   Print("[CFG] ATR=", UseATRFilter ? DoubleToStr(r_ATR_MinPips, 0) + "-" + DoubleToStr(r_ATR_MaxPips, 0) : "OFF",
+         " | EMA50dist=", UseEMA50DistFilter ? "<" + DoubleToStr(r_MaxEMA50DistPips, 0) : "OFF",
+         " | PBsize=", pbStatus,
+         " | Structure=", structStatus);
+   Print("[CFG] Sessions: London ", r_LondonStartHour, "-", r_LondonEndHour,
+         " | NY ", r_NYStartHour, "-", r_NYEndHour,
+         " | BlockedHoursStr=\"", BlockedHours, "\"",
+         " | PresetHoursCount=", r_BlockedHoursCount);
+   Print("[CFG] Fri=", r_BlockFriday ? "BLOCK" : "ok",
+         " | Mon=", r_BlockMonday ? "BLOCK" : "ok",
+         " | Hour13=", BlockHour13 ? "BLOCK" : "ok",
+         " | ToxicCombos=", r_BlockToxicCombos ? "ON" : "OFF",
+         " | ThursdayRisk=", thuRisk,
+         " | BE=", DoubleToStr(r_BE_Trigger_R, 1), "R",
+         " | MaxTrades/day=", r_MaxTradesPerDay);
+   Print("[EMA Pullback] ready ------------------------------------------");
    return INIT_SUCCEEDED;
 }
 
@@ -451,7 +474,8 @@ bool IsEMA50DistanceOK() {
 //| Retournement  = large candles (aggressive selling/buying)         |
 //+------------------------------------------------------------------+
 bool IsPullbackHealthy(int direction) {
-   if(r_PB_MaxRatio >= 1.0) return true;  // 1.0 = disabled
+   if(!UsePullbackSizeFilter) return true;     // master switch (bool)
+   if(r_PB_MaxRatio >= 1.0) return true;       // ratio 1.0 also disables
 
    // Measure pullback candles: bars 1-2 (the retracement toward EMA)
    double pullbackSize = 0;
