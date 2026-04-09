@@ -1,11 +1,30 @@
 //+------------------------------------------------------------------+
-//|                                          EMA_Pullback_EA.mq4     |
-//|                    EMA Pullback Trend Following - MT4              |
+//|                                    EMA_Pullback_pyramid.mq4      |
+//|            EMA Pullback Trend Following + Anti-Martingale Pyramid |
 //|                    H1 Trend + M15 Pullback Entry                   |
+//|                                                                    |
+//|  Extension de EMA_Pullback_EA avec pyramid lot sizing sur wins.  |
+//|  Signal de base: EMA50 H1 trend + EMA20 M15 pullback + rejection. |
+//|                                                                    |
+//|  PYRAMID_MODE preset (input):                                     |
+//|    SAFE (defaut) : L0=1.0 L1=4.0 L2=2.5                          |
+//|      6y Backtest: +$34,575 / PF 1.89 / DD 26.3% / R-DD 1316      |
+//|      -> Tradeable en live, DD supportable psychologiquement      |
+//|                                                                    |
+//|    AGGRESSIVE    : L0=2.0 L1=7.0 L2=4.0                          |
+//|      6y Backtest: +$109,621 / PF 1.91 / DD 47.3% / R-DD 2317     |
+//|      -> Experimental. 14 mois de DD 42% au debut (2021).        |
+//|      -> NE PAS utiliser pour demarrage neuf en live.             |
+//|                                                                    |
+//|    CUSTOM        : utilise les inputs L0/L1/L2_LotMult           |
+//|      -> Pour experimentation fine                                 |
+//|                                                                    |
+//|  v1.00: initial pyramid implementation                            |
+//|  v1.10: pyramid mode preset (SAFE/AGGRESSIVE/CUSTOM)              |
 //+------------------------------------------------------------------+
-#property copyright "EMA Pullback EA"
+#property copyright "EMA Pullback Pyramid EA v1.10"
 #property link      ""
-#property version   "1.00"
+#property version   "1.10"
 #property strict
 
 //+------------------------------------------------------------------+
@@ -30,10 +49,28 @@ input TF_MODE TimeframeMode     = TF_H1_M15;    // Timeframe combination
 // --- Risk Management ---
 input double RiskPercent        = 1.0;     // Risk % per trade
 input double MaxSpreadPips      = 3.0;     // Max spread allowed (pips)
-input int    MagicNumber        = 20250407;// Magic number
+input int    MagicNumber        = 20260410;// Magic number (pyramid version)
 input double MinRR              = 2.5;     // Minimum Risk:Reward ratio
 input double MinSL_Pips         = 15.0;    // Minimum SL distance (pips) — was 10, raised to filter weak setups
 input double MaxSL_Pips         = 25.0;    // Maximum SL distance (pips) — was 30, tightened (25-30 bucket PF=0.98)
+
+// --- ANTI-MARTINGALE PYRAMID (on wins) ---
+// Preset mode pour demarrer rapidement avec des valeurs eprouvees.
+// SAFE        : L0=1.0 L1=4.0 L2=2.5 -> Net 6y +$34k / DD 26% / PF 1.89 (tradeable live)
+// AGGRESSIVE  : L0=2.0 L1=7.0 L2=4.0 -> Net 6y +$109k / DD 47% / PF 1.91 (experimental)
+// CUSTOM      : utilise les inputs L0/L1/L2_LotMult ci-dessous
+enum PYRAMID_MODE {
+   MODE_SAFE       = 0,   // SAFE: L0=1.0 L1=4.0 L2=2.5 (DD 26%, tradeable live)
+   MODE_AGGRESSIVE = 1,   // AGGRESSIVE: L0=2.0 L1=7.0 L2=4.0 (DD 47%, experimental)
+   MODE_CUSTOM     = 2    // CUSTOM: use L0/L1/L2_LotMult inputs
+};
+
+input bool         UsePyramid    = true;           // activer pyramid lot sizing sur wins
+input PYRAMID_MODE PyramidMode   = MODE_SAFE;      // preset mode (SAFE recommande pour live)
+input double       L0_LotMult    = 1.0;            // L0 multiplier (used only if MODE_CUSTOM)
+input double       L1_LotMult    = 4.0;            // L1 multiplier (used only if MODE_CUSTOM)
+input double       L2_LotMult    = 2.5;            // L2 multiplier (used only if MODE_CUSTOM)
+input int          MaxStreakLevel = 2;             // cap du streak (2 -> 3 niveaux: L0, L1, L2)
 
 // --- Trend Filter (H1) ---
 input int    TrendEMA_Period    = 50;      // H1 EMA period for trend direction
@@ -66,7 +103,7 @@ input double ATR_MaxPips         = 19.0;   // Max ATR in pips — 0 wins above 1
 // --- Pullback Quality Filter ---
 input bool   UseEMA50DistFilter  = true;   // Block entries too far from EMA50
 input double MaxEMA50DistPips    = 30.0;   // Max distance from H1 EMA50 (winners avg 23, losers avg 35)
-input bool   UsePullbackSizeFilter = false; // Master switch for pullback size filter (OFF — tested, hurts performance on all pairs)
+input bool   UsePullbackSizeFilter = false; // MASTER SWITCH (bool). OFF = filter ignored regardless of ratio
 input double PB_MaxRatio         = 0.70;   // Max ratio pullback/trend (only read if UsePullbackSizeFilter=true)
 input bool   UseStructureFilter  = false;  // Reject if last swing H/L is broken (OFF — tested, too aggressive)
 input int    StructureSwingBars  = 5;      // Bars on each side to identify swing point
@@ -87,6 +124,24 @@ int        g_digits;
 datetime   g_lastBarTime = 0;
 datetime   g_currentDay  = 0;
 int        g_dailyTrades = 0;
+
+// --- Pyramid state ---
+struct PyramidState {
+   int    streak;          // 0 = L0 (base), 1 = L1 (after 1 win), 2 = L2 (after 2 wins)
+   int    lastTicket;      // last ticket opened (to detect close)
+   bool   waitingForClose; // true if a trade is in flight
+};
+PyramidState g_pyr;
+
+// Pyramid counters
+int g_pyr_wins = 0;
+int g_pyr_losses = 0;
+int g_pyr_maxStreak = 0;
+
+// Pyramid runtime multipliers (applied by ApplyPyramidMode())
+double r_L0_LotMult = 1.0;
+double r_L1_LotMult = 4.0;
+double r_L2_LotMult = 2.5;
 
 // --- Runtime params (overridden by preset) ---
 double  r_MaxSpreadPips;
@@ -117,6 +172,32 @@ int     r_TrendTF;      // PERIOD_H1 or PERIOD_H4
 int     r_EntryTF;      // PERIOD_M15 or PERIOD_M30
 
 //+------------------------------------------------------------------+
+//| APPLY PYRAMID MODE                                                |
+//+------------------------------------------------------------------+
+// Configure les multiplicateurs L0/L1/L2 selon le mode choisi.
+// Backtests EURUSD H1 2020-2026:
+//   SAFE       : Net +$34,575 / DD 26.3% / PF 1.89 (tradeable live)
+//   AGGRESSIVE : Net +$109,621 / DD 47.3% / PF 1.91 (risque psychologique eleve)
+//   CUSTOM     : utilise les inputs L0/L1/L2_LotMult definis par l'utilisateur
+void ApplyPyramidMode() {
+   if(PyramidMode == MODE_SAFE) {
+      r_L0_LotMult = 1.0;
+      r_L1_LotMult = 4.0;
+      r_L2_LotMult = 2.5;
+   }
+   else if(PyramidMode == MODE_AGGRESSIVE) {
+      r_L0_LotMult = 2.0;
+      r_L1_LotMult = 7.0;
+      r_L2_LotMult = 4.0;
+   }
+   else {  // MODE_CUSTOM
+      r_L0_LotMult = L0_LotMult;
+      r_L1_LotMult = L1_LotMult;
+      r_L2_LotMult = L2_LotMult;
+   }
+}
+
+//+------------------------------------------------------------------+
 //| Expert initialization                                             |
 //+------------------------------------------------------------------+
 int OnInit() {
@@ -127,45 +208,37 @@ int OnInit() {
       g_pipValue = Point;
 
    ApplyPreset();
+   ApplyPyramidMode();
+
+   // Initialize pyramid state
+   g_pyr.streak = 0;
+   g_pyr.lastTicket = 0;
+   g_pyr.waitingForClose = false;
 
    string presetName = "EURUSD";
    if(Preset == PRESET_GBPUSD) presetName = "GBPUSD (balanced)";
    if(Preset == PRESET_USDJPY) presetName = "USDJPY";
    if(Preset == PRESET_XAUUSD) presetName = "XAUUSD/Gold";
    string tfMode = (TimeframeMode == TF_H4_M30) ? "H4+M30 (swing)" : "H1+M15 (intraday)";
-
-   // --- Effective config dump (reveals silent filters that don't match inputs) ---
-   string pbStatus = (!UsePullbackSizeFilter || r_PB_MaxRatio >= 1.0)
-                      ? "OFF"
-                      : "ON ratio=" + DoubleToStr(r_PB_MaxRatio, 2);
-   string structStatus = UseStructureFilter
-                          ? "ON swingBars=" + IntegerToString(StructureSwingBars)
-                          : "OFF";
-   string thuRisk = r_ReduceThursdayRisk
-                     ? "x" + DoubleToStr(r_ThursdayRiskMult, 2)
-                     : "x1.00";
-
-   Print("[EMA Pullback] init ------------------------------------------");
-   Print("[CFG] Symbol=", Symbol(), " | Preset=", presetName, " | TF=", tfMode, " | Pip=", g_pipValue);
-   Print("[CFG] Risk=", DoubleToStr(RiskPercent, 2), "% | SL=", DoubleToStr(r_MinSL_Pips, 0),
-         "-", DoubleToStr(r_MaxSL_Pips, 0), " | MinRR=", DoubleToStr(r_MinRR, 2),
-         " | MaxSpread=", DoubleToStr(r_MaxSpreadPips, 1));
-   Print("[CFG] ATR=", UseATRFilter ? DoubleToStr(r_ATR_MinPips, 0) + "-" + DoubleToStr(r_ATR_MaxPips, 0) : "OFF",
-         " | EMA50dist=", UseEMA50DistFilter ? "<" + DoubleToStr(r_MaxEMA50DistPips, 0) : "OFF",
-         " | PBsize=", pbStatus,
-         " | Structure=", structStatus);
-   Print("[CFG] Sessions: London ", r_LondonStartHour, "-", r_LondonEndHour,
-         " | NY ", r_NYStartHour, "-", r_NYEndHour,
-         " | BlockedHoursStr=\"", BlockedHours, "\"",
-         " | PresetHoursCount=", r_BlockedHoursCount);
-   Print("[CFG] Fri=", r_BlockFriday ? "BLOCK" : "ok",
-         " | Mon=", r_BlockMonday ? "BLOCK" : "ok",
-         " | Hour13=", BlockHour13 ? "BLOCK" : "ok",
-         " | ToxicCombos=", r_BlockToxicCombos ? "ON" : "OFF",
-         " | ThursdayRisk=", thuRisk,
-         " | BE=", DoubleToStr(r_BE_Trigger_R, 1), "R",
-         " | MaxTrades/day=", r_MaxTradesPerDay);
-   Print("[EMA Pullback] ready ------------------------------------------");
+   string pyrModeName = "SAFE";
+   if(PyramidMode == MODE_AGGRESSIVE) pyrModeName = "AGGRESSIVE";
+   else if(PyramidMode == MODE_CUSTOM) pyrModeName = "CUSTOM";
+   Print("EMA Pullback Pyramid EA initialized | Symbol: ", Symbol(),
+         " | Pyramid: ", UsePyramid ? "ON" : "OFF",
+         " | Mode: ", pyrModeName,
+         " | Lots L0:", DoubleToStr(r_L0_LotMult, 2),
+         " L1:", DoubleToStr(r_L1_LotMult, 2),
+         " L2:", DoubleToStr(r_L2_LotMult, 2));
+   Print("EMA Pullback EA v3 initialized | Symbol: ", Symbol(),
+         " | Preset: ", presetName,
+         " | TF: ", tfMode,
+         " | Pip value: ", g_pipValue,
+         " | SL range: ", DoubleToStr(r_MinSL_Pips, 0), "-", DoubleToStr(r_MaxSL_Pips, 0), " pips",
+         " | ATR: ", UseATRFilter ? DoubleToStr(r_ATR_MinPips, 0) + "-" + DoubleToStr(r_ATR_MaxPips, 0) + " pips" : "OFF",
+         " | EMA50 dist max: ", UseEMA50DistFilter ? DoubleToStr(r_MaxEMA50DistPips, 0) + " pips" : "OFF",
+         " | Friday: ", r_BlockFriday ? "BLOCKED" : "allowed",
+         " | Spread max: ", DoubleToStr(r_MaxSpreadPips, 1),
+         " | BE trigger: ", DoubleToStr(r_BE_Trigger_R, 1), "R");
    return INIT_SUCCEEDED;
 }
 
@@ -329,6 +402,9 @@ void OnTick() {
    // --- Manage open trades on every tick (breakeven) ---
    ManageOpenTrades();
 
+   // --- Pyramid: detect closed trade and update streak (tick level) ---
+   CheckPyramidClose();
+
    // --- New bar check (entry TF) ---
    datetime currentBarTime = iTime(Symbol(), r_EntryTF, 0);
    if(currentBarTime == g_lastBarTime) return;
@@ -474,10 +550,8 @@ bool IsEMA50DistanceOK() {
 //| Retournement  = large candles (aggressive selling/buying)         |
 //+------------------------------------------------------------------+
 bool IsPullbackHealthy(int direction) {
-   // BUG FIX: master switch (bool) — was dead code, now actually wired.
-   // Le filtre etait silencieusement actif sur EURUSD (r_PB_MaxRatio=0.70 default,
-   // jamais override dans ApplyPreset()) -> causait 8-20 trades au lieu de 124.
-   if(!UsePullbackSizeFilter) return true;  // master switch (bool)
+   // BUG FIX: master switch (bool) — was dead code, now actually wired
+   if(!UsePullbackSizeFilter) return true;  // filter OFF by default
    if(r_PB_MaxRatio >= 1.0) return true;    // ratio 1.0 also disables
 
    // Measure pullback candles: bars 1-2 (the retracement toward EMA)
@@ -726,6 +800,56 @@ void CheckEntry() {
 }
 
 //+------------------------------------------------------------------+
+//| CHECK PYRAMID CLOSE (tick level) -> update streak on WIN/LOSS     |
+//+------------------------------------------------------------------+
+void CheckPyramidClose() {
+   if(!UsePyramid) return;
+   if(!g_pyr.waitingForClose) return;
+   if(g_pyr.lastTicket <= 0) { g_pyr.waitingForClose = false; return; }
+
+   // Check if ticket still open
+   bool stillOpen = false;
+   for(int i = 0; i < OrdersTotal(); i++) {
+      if(OrderSelect(i, SELECT_BY_POS, MODE_TRADES))
+         if(OrderTicket() == g_pyr.lastTicket && OrderSymbol() == Symbol())
+            stillOpen = true;
+   }
+   if(stillOpen) return;
+
+   // Trade closed - find in history
+   for(int i = OrdersHistoryTotal() - 1; i >= 0; i--) {
+      if(!OrderSelect(i, SELECT_BY_POS, MODE_HISTORY)) continue;
+      if(OrderTicket() != g_pyr.lastTicket || OrderSymbol() != Symbol()) continue;
+
+      double pnl = OrderProfit() + OrderSwap() + OrderCommission();
+      g_pyr.waitingForClose = false;
+      g_pyr.lastTicket = 0;
+
+      if(pnl > 0) {
+         // WIN -> pyramid up (with cap)
+         int oldStreak = g_pyr.streak;
+         g_pyr_wins++;
+         g_pyr.streak++;
+         if(g_pyr.streak > MaxStreakLevel) g_pyr.streak = MaxStreakLevel;
+         if(g_pyr.streak > g_pyr_maxStreak) g_pyr_maxStreak = g_pyr.streak;
+         double nextMult = (g_pyr.streak == 0) ? r_L0_LotMult :
+                           (g_pyr.streak == 1) ? r_L1_LotMult : r_L2_LotMult;
+         Print("PYRAMID WIN pnl=", DoubleToStr(pnl, 2),
+               " | streak ", oldStreak, " -> ", g_pyr.streak,
+               " | next lot x", DoubleToStr(nextMult, 2));
+      } else {
+         // LOSS -> reset streak
+         int oldStreak = g_pyr.streak;
+         g_pyr_losses++;
+         g_pyr.streak = 0;
+         Print("PYRAMID LOSS pnl=", DoubleToStr(pnl, 2),
+               " | streak reset (was ", oldStreak, ")");
+      }
+      return;
+   }
+}
+
+//+------------------------------------------------------------------+
 //| EXECUTE TRADE                                                     |
 //+------------------------------------------------------------------+
 void ExecuteTrade(int type, double price, double sl, double tp, string comment) {
@@ -736,6 +860,16 @@ void ExecuteTrade(int type, double price, double sl, double tp, string comment) 
    if(r_ReduceThursdayRisk && TimeDayOfWeek(TimeCurrent()) == 4) {
       riskMult = r_ThursdayRiskMult;
       comment = comment + "|THU_REDUCED";
+   }
+
+   // Pyramid multiplier based on current streak level
+   double pyrMult = 1.0;
+   if(UsePyramid) {
+      if(g_pyr.streak == 0)      pyrMult = r_L0_LotMult;
+      else if(g_pyr.streak == 1) pyrMult = r_L1_LotMult;
+      else                       pyrMult = r_L2_LotMult;
+      riskMult *= pyrMult;
+      comment = comment + "|L" + IntegerToString(g_pyr.streak);
    }
 
    double lotSize = CalculateLotSize(slDist, riskMult);
@@ -766,8 +900,12 @@ void ExecuteTrade(int type, double price, double sl, double tp, string comment) 
    }
    else {
       g_dailyTrades++;
+      // Track ticket for pyramid close detection
+      g_pyr.lastTicket = ticket;
+      g_pyr.waitingForClose = true;
       Print("Trade opened #", ticket,
             " | ", comment,
+            " | L", g_pyr.streak,
             " | Lots: ", lotSize,
             " | SL: ", sl,
             " | TP: ", tp,
