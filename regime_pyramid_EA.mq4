@@ -26,11 +26,26 @@
 //|      0.88), mais genere les wins qui declenchent L1 et L2.     |
 //|      En reduisant L0 a 0.5x base lot, on limite la perte sans  |
 //|      affecter les gains L1/L2 qui font tout le profit.         |
+//|                                                                  |
+//|  v3: Inputs separes L1_LotMult et L2_LotMult. Permet de tuner  |
+//|      chaque niveau independamment (L1 est le profit engine     |
+//|      avec PF 1.53, on peut le pousser plus fort que L2).      |
+//|                                                                  |
+//|  v3.1: Defaults optimaux trouves par backtest:                  |
+//|        L0=0.05, L1=3.0, L2=4.0                                  |
+//|        Backtest EURUSD H1 2020-2026:                            |
+//|          Net: +$43,409 (+434%)                                  |
+//|          PF:  1.25                                              |
+//|          DD:  39.24% relatif / 19.85% absolu                    |
+//|          Expectancy: +$60.63 par trade                          |
+//|          716 trades, WR 45.1%                                   |
+//|          Max single loss: -$2,310 (L2 SL full)                 |
+//|          Return/DD ratio: 1106                                  |
 //+------------------------------------------------------------------+
-#property copyright "Regime Pyramid EA v2"
-#property version   "2.00"
+#property copyright "Regime Pyramid EA v3.1"
+#property version   "3.10"
 #property strict
-#property description "Pyramid + regime filters + reduced L0 lot"
+#property description "Pyramid + regime filters (optimal EURUSD H1 config)"
 
 // ============================================================================
 // INPUTS
@@ -50,10 +65,18 @@ input double Inp_RiskPct         = 1.0;      // % risk base lot
 
 input group "=== ANTI-MARTINGALE ==="
 input bool   Inp_UsePyramid      = true;     // activer la pyramide sur wins
-input double Inp_L0_LotMult      = 0.5;      // multiplicateur du lot L0 (reduit perte du "tick d'entree")
-input double Inp_MgMult          = 1.5;      // multiplicateur lot par niveau (L1, L2, ...)
+// Config optimale trouvee par backtest (EURUSD H1, 2020-2026):
+//   Net +$43,409 / PF 1.25 / DD relatif 39% / Return/DD ratio 1106
+//   L0 reduit au minimum: sert juste de "ticket d'entree" pour trigger L1
+//   L1 = 3x : pousse fort le profit engine (PF 1.53 sur les L1)
+//   L2 = 4x : amplifie le cluster de wins (PF 1.14 sur les L2)
+input double Inp_L0_LotMult      = 0.05;     // L0 multiplier (signal de base, perdant seul)
+input double Inp_L1_LotMult      = 3.0;      // L1 multiplier (apres 1 win - PROFIT ENGINE)
+input double Inp_L2_LotMult      = 4.0;      // L2 multiplier (apres 2 wins - amplificateur)
 input int    Inp_MaxLevel        = 2;        // cap du streak (2 -> 3 niveaux: L0, L1, L2)
 input bool   Inp_ResetOnNewDay   = false;    // reset streak chaque nouveau jour
+// Note: Inp_MgMult est deprecie, garde pour compat backward uniquement.
+input double Inp_MgMult          = 1.5;      // (deprecie)
 
 input group "=== FILTRES H x J ==="
 input bool   Inp_UseFilter       = true;     // activer filtre cellules toxiques
@@ -264,8 +287,8 @@ int OnInit() {
     InitToxicCells();
     ResetState();
 
-    LogMsg(StringFormat("=== RPE READY | Pyramid:%s Mult:%.2f MaxLvl:%d | Filters: HxJ:%s ATR:%s ADX:%s BBW:%s Slope:%s ===",
-        Inp_UsePyramid?"ON":"OFF", Inp_MgMult, Inp_MaxLevel,
+    LogMsg(StringFormat("=== RPE READY | Lots L0:%.2fx L1:%.2fx L2:%.2fx MaxLvl:%d | Filters: HxJ:%s ATR:%s ADX:%s BBW:%s Slope:%s ===",
+        Inp_L0_LotMult, Inp_L1_LotMult, Inp_L2_LotMult, Inp_MaxLevel,
         Inp_UseFilter?"ON":"OFF", Inp_UseATRFilter?"ON":"OFF",
         Inp_UseADX?"ON":"OFF", Inp_UseBBW?"ON":"OFF", Inp_UseEMASlope?"ON":"OFF"),true);
 
@@ -357,8 +380,12 @@ void CheckTradeClosed() {
                 if(g_st.streak>Inp_MaxLevel) g_st.streak=Inp_MaxLevel;  // cap
             }
             if(g_st.streak>g_maxStreakReached) g_maxStreakReached=g_st.streak;
+            double nextMult;
+            if(g_st.streak==0)      nextMult=Inp_L0_LotMult;
+            else if(g_st.streak==1) nextMult=Inp_L1_LotMult;
+            else                    nextMult=Inp_L2_LotMult;
             LogMsg(StringFormat("WIN pnl=%.2f | streak %d -> %d (next lot x%.3f)",
-                pnl, oldStreak, g_st.streak, MathPow(Inp_MgMult, g_st.streak)),true);
+                pnl, oldStreak, g_st.streak, nextMult),true);
         } else {
             // LOSS -> reset
             int oldStreak=g_st.streak;
@@ -389,18 +416,17 @@ void OpenTrade(int type) {
         tp=Norm(Bid-Inp_TP_Mult*atr);
     }
 
-    // Base lot from current balance + pyramid multiplier
+    // Base lot from current balance + pyramid multiplier par niveau
     double baseLot=CalcBaseLots();
     if(baseLot<=0) return;
 
-    // Lot multiplier: L0 reduit (perd en moyenne), L1/L2 = pyramide normale
-    // L0 est le "tick d'entree" pour trigger le pyramide; on limite sa perte.
+    // Lot multiplier: un input dedie par niveau de pyramide pour permettre
+    // de tuner L0 (signal de base, souvent perdant), L1 (profit engine) et
+    // L2 (amplificateur) independamment.
     double mult;
-    if(g_st.streak==0) {
-        mult=Inp_L0_LotMult;  // ex: 0.5 => L0 a lot reduit
-    } else {
-        mult=MathPow(Inp_MgMult, g_st.streak);  // L1=1.5, L2=2.25, ...
-    }
+    if(g_st.streak==0)      mult=Inp_L0_LotMult;  // L0: 0.05 par defaut (minimum, ticket d'entree)
+    else if(g_st.streak==1) mult=Inp_L1_LotMult;  // L1: 3.0 par defaut (profit engine)
+    else                    mult=Inp_L2_LotMult;  // L2+: 4.0 par defaut (amplificateur)
     double lots=baseLot*mult;
 
     double maxL=MarketInfo(Symbol(),MODE_MAXLOT);

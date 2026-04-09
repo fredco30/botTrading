@@ -18,13 +18,14 @@
 //|                                                                  |
 //|  v2: filtre ATR ajoute pour eviter les regimes chaotiques       |
 //|  v3: seuil ATR fixe en pips (15p) au lieu du rolling ratio      |
-//|      (v4 abandonne - reduction a 7 cellules s'est averee        |
-//|       desastreuse en live malgre simulation positive)          |
+//|  v5: multiplicateurs par niveau L0/L1/L2 (v4 = 7cells abandonne)|
+//|      L0 reduit a 0.3 (perdant structurellement, evite le drain) |
+//|      L1/L2 tunables pour optimisation fine                      |
 //+------------------------------------------------------------------+
-#property copyright "Anti-Martingale Filtered v3"
-#property version   "3.00"
+#property copyright "Anti-Martingale Filtered v5"
+#property version   "5.00"
 #property strict
-#property description "Anti-martingale + H*J(27) + ATR fixed(15p)"
+#property description "Anti-mart + H*J(27) + ATR(15p) + per-level lot multipliers"
 
 // ============================================================================
 // INPUTS
@@ -44,9 +45,13 @@ input double Inp_RiskPct         = 1.0;      // % risk base lot
 
 input group "=== ANTI-MARTINGALE ==="
 input bool   Inp_UsePyramid      = true;     // activer la pyramide sur wins
-input double Inp_MgMult          = 1.5;      // multiplicateur lot par niveau
-input int    Inp_MaxLevel        = 2;        // cap du streak (2 -> 3 niveaux: 1x, 1.5x, 2.25x)
+input double Inp_L0_LotMult      = 0.3;      // multiplicateur lot L0 (signal de base, perdant seul)
+input double Inp_L1_LotMult      = 1.5;      // multiplicateur lot L1 (apres 1 win - PROFIT ENGINE)
+input double Inp_L2_LotMult      = 2.25;     // multiplicateur lot L2 (apres 2 wins)
+input int    Inp_MaxLevel        = 2;        // cap du streak (2 -> 3 niveaux: L0, L1, L2)
 input bool   Inp_ResetOnNewDay   = false;    // reset streak chaque nouveau jour
+// Note: Inp_MgMult est deprecie (remplace par les 3 inputs L0/L1/L2 ci-dessus)
+input double Inp_MgMult          = 1.5;      // (deprecie, garde pour compat backward)
 
 input group "=== FILTRES H x J ==="
 input bool   Inp_UseFilter       = true;     // activer filtre cellules toxiques
@@ -67,9 +72,9 @@ input int    Inp_StartHr         = 8;
 input int    Inp_EndHr           = 21;
 
 input group "=== SYSTEM ==="
-input int    Inp_Magic           = 112402;
+input int    Inp_Magic           = 112405;
 input int    Inp_Slip            = 3;
-input string Inp_Prefix          = "AMF3";
+input string Inp_Prefix          = "AMF5";
 input bool   Inp_Log             = true;
 
 // ============================================================================
@@ -206,8 +211,9 @@ int OnInit() {
     InitToxicCells();
     ResetState();
 
-    LogMsg(StringFormat("=== AMF READY | Pyramid:%s Mult:%.2f MaxLvl:%d Filter:%s ===",
-        Inp_UsePyramid?"ON":"OFF", Inp_MgMult, Inp_MaxLevel, Inp_UseFilter?"ON":"OFF"),true);
+    LogMsg(StringFormat("=== AMF READY | Lots L0:%.2fx L1:%.2fx L2:%.2fx MaxLvl:%d | HxJ:%s ATR:%s ===",
+        Inp_L0_LotMult, Inp_L1_LotMult, Inp_L2_LotMult, Inp_MaxLevel,
+        Inp_UseFilter?"ON":"OFF", Inp_UseATRFilter?"ON":"OFF"),true);
 
     return INIT_SUCCEEDED;
 }
@@ -296,8 +302,12 @@ void CheckTradeClosed() {
                 if(g_st.streak>Inp_MaxLevel) g_st.streak=Inp_MaxLevel;  // cap
             }
             if(g_st.streak>g_maxStreakReached) g_maxStreakReached=g_st.streak;
+            double nextMult;
+            if(g_st.streak==0)      nextMult=Inp_L0_LotMult;
+            else if(g_st.streak==1) nextMult=Inp_L1_LotMult;
+            else                    nextMult=Inp_L2_LotMult;
             LogMsg(StringFormat("WIN pnl=%.2f | streak %d -> %d (next lot x%.3f)",
-                pnl, oldStreak, g_st.streak, MathPow(Inp_MgMult, g_st.streak)),true);
+                pnl, oldStreak, g_st.streak, nextMult),true);
         } else {
             // LOSS -> reset
             int oldStreak=g_st.streak;
@@ -328,11 +338,17 @@ void OpenTrade(int type) {
         tp=Norm(Bid-Inp_TP_Mult*atr);
     }
 
-    // Base lot from current balance + pyramid multiplier
+    // Base lot from current balance + pyramid multiplier par niveau
     double baseLot=CalcBaseLots();
     if(baseLot<=0) return;
 
-    double mult=MathPow(Inp_MgMult, g_st.streak);
+    // Lot multiplier: un input dedie par niveau de pyramide.
+    // L0 perd seul (PF 0.88), L1 est le profit engine (PF 1.53),
+    // L2 amplifie (PF 1.14). On peut tuner chaque niveau independamment.
+    double mult;
+    if(g_st.streak==0)      mult=Inp_L0_LotMult;  // L0: 0.3 par defaut (reduit)
+    else if(g_st.streak==1) mult=Inp_L1_LotMult;  // L1: 1.5 par defaut
+    else                    mult=Inp_L2_LotMult;  // L2+: 2.25 par defaut
     double lots=baseLot*mult;
 
     double maxL=MarketInfo(Symbol(),MODE_MAXLOT);
