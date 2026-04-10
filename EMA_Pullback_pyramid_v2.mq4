@@ -52,6 +52,7 @@ input int          MaxStreakLevel = 2;             // cap du streak (2 -> 3 nive
 
 // --- Reverse Trade (on L0 SL) ---
 input bool         UseReverseTrade = true;         // Open reverse trade when L0 hits SL
+input bool         UseReverseOnL2  = false;        // Also reverse on L2 SL
 input double       RevLotMult      = 1.0;          // Reverse trade lot multiplier (1.0 = same as L0)
 input double       RevMaxSL_Pips   = 25.0;         // Max SL for reverse trade (0 = no limit)
 
@@ -725,8 +726,8 @@ void CheckPyramidClose() {
          Print("PYRAMID LOSS pnl=", DoubleToStr(pnl, 2),
                " | streak reset (was ", oldStreak, ")");
 
-         // --- TRIGGER REVERSE TRADE on L0 SL only ---
-         if(UseReverseTrade && wasLevel == 0) {
+         // --- TRIGGER REVERSE TRADE on L0 SL (+ optionally L1) ---
+         if(UseReverseTrade && (wasLevel == 0 || (UseReverseOnL2 && wasLevel == 2))) {
             ExecuteReverseTrade(wasType);
          }
       }
