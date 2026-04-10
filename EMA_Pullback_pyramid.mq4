@@ -30,21 +30,9 @@
 //+------------------------------------------------------------------+
 //| INPUTS                                                            |
 //+------------------------------------------------------------------+
-// --- Preset ---
-enum INSTRUMENT_PRESET {
-   PRESET_EURUSD = 0,   // EURUSD (optimized, default)
-   PRESET_GBPUSD = 1,   // GBPUSD (balanced filter)
-   PRESET_USDJPY = 2,   // USDJPY (hour+SL filter)
-   PRESET_XAUUSD = 3    // XAUUSD / Gold
-};
-input INSTRUMENT_PRESET Preset  = PRESET_EURUSD; // Instrument preset
-
-// --- Timeframe Mode ---
-enum TF_MODE {
-   TF_H1_M15  = 0,      // H1 trend + M15 entry (default)
-   TF_H4_M30  = 1       // H4 trend + M30 entry (swing)
-};
-input TF_MODE TimeframeMode     = TF_H1_M15;    // Timeframe combination
+// EURUSD only — tested pyramid on GBPUSD (L0 PF 0.87), USDCHF (PF 1.01), not viable.
+// Pyramid requires baseline PF > 2.0 to amplify. Only EURUSD qualifies.
+// Tested M30 entry (PF 1.00), ADX Daily (nuisible), EMA200 Weekly + ATR Monthly (PF 0.88) — none improved.
 
 // --- Risk Management ---
 input double RiskPercent        = 1.0;     // Risk % per trade
@@ -55,7 +43,7 @@ input double MinSL_Pips         = 15.0;    // Minimum SL distance (pips) — was
 input double MaxSL_Pips         = 25.0;    // Maximum SL distance (pips) — was 30, tightened (25-30 bucket PF=0.98)
 
 // --- ANTI-MARTINGALE PYRAMID (on wins) ---
-// Preset mode pour demarrer rapidement avec des valeurs eprouvees.
+// Pyramid mode pour demarrer rapidement avec des valeurs eprouvees.
 // SAFE        : L0=1.0 L1=4.0 L2=2.5 -> Net 6y +$34k / DD 26% / PF 1.89 (tradeable live)
 // AGGRESSIVE  : L0=2.0 L1=7.0 L2=4.0 -> Net 6y +$109k / DD 47% / PF 1.91 (experimental)
 // CUSTOM      : utilise les inputs L0/L1/L2_LotMult ci-dessous
@@ -168,8 +156,6 @@ double  r_ThursdayRiskMult;
 int     r_MaxTradesPerDay;
 int     r_TrendBars;
 int     r_SL_SwingBars;
-int     r_TrendTF;      // PERIOD_H1 or PERIOD_H4
-int     r_EntryTF;      // PERIOD_M15 or PERIOD_M30
 
 //+------------------------------------------------------------------+
 //| APPLY PYRAMID MODE                                                |
@@ -215,11 +201,6 @@ int OnInit() {
    g_pyr.lastTicket = 0;
    g_pyr.waitingForClose = false;
 
-   string presetName = "EURUSD";
-   if(Preset == PRESET_GBPUSD) presetName = "GBPUSD (balanced)";
-   if(Preset == PRESET_USDJPY) presetName = "USDJPY";
-   if(Preset == PRESET_XAUUSD) presetName = "XAUUSD/Gold";
-   string tfMode = (TimeframeMode == TF_H4_M30) ? "H4+M30 (swing)" : "H1+M15 (intraday)";
    string pyrModeName = "SAFE";
    if(PyramidMode == MODE_AGGRESSIVE) pyrModeName = "AGGRESSIVE";
    else if(PyramidMode == MODE_CUSTOM) pyrModeName = "CUSTOM";
@@ -229,9 +210,7 @@ int OnInit() {
          " | Lots L0:", DoubleToStr(r_L0_LotMult, 2),
          " L1:", DoubleToStr(r_L1_LotMult, 2),
          " L2:", DoubleToStr(r_L2_LotMult, 2));
-   Print("EMA Pullback EA v3 initialized | Symbol: ", Symbol(),
-         " | Preset: ", presetName,
-         " | TF: ", tfMode,
+   Print("EMA Pullback Pyramid EA | EURUSD only | H1+M15",
          " | Pip value: ", g_pipValue,
          " | SL range: ", DoubleToStr(r_MinSL_Pips, 0), "-", DoubleToStr(r_MaxSL_Pips, 0), " pips",
          " | ATR: ", UseATRFilter ? DoubleToStr(r_ATR_MinPips, 0) + "-" + DoubleToStr(r_ATR_MaxPips, 0) + " pips" : "OFF",
@@ -269,123 +248,12 @@ void ApplyPreset() {
    r_MaxTradesPerDay   = MaxTradesPerDay;
    r_TrendBars         = TrendBars;
    r_SL_SwingBars      = SL_SwingBars;
-   r_TrendTF           = PERIOD_H1;
-   r_EntryTF           = PERIOD_M15;
    r_BlockedHoursCount = 0;
    ArrayInitialize(r_BlockedHoursArr, -1);
 
-   // --- Timeframe Mode ---
-   if(TimeframeMode == TF_H4_M30) {
-      r_TrendTF        = PERIOD_H4;
-      r_EntryTF        = PERIOD_M30;
-      r_MinSL_Pips     = 25.0;     // Wider SL for M30 entries
-      r_MaxSL_Pips     = 50.0;     // Wider range
-      r_ATR_MinPips    = 12.0;     // Higher ATR threshold for H4
-      r_ATR_MaxPips    = 30.0;     // H4 ATR can be wider
-      r_MaxEMA50DistPips = 50.0;   // H4 price moves further from EMA50
-      r_MaxTradesPerDay = 1;       // Less frequent on higher TF
-      r_SL_SwingBars   = 4;        // Wider swing lookback
-      Print("Timeframe H4+M30 (swing mode) applied | SL: 25-50 pips | ATR min: 12");
-   }
-
-   // --- XAUUSD / GOLD PRESET ---
-   if(Preset == PRESET_XAUUSD) {
-      r_MaxSpreadPips     = 8.0;       // Gold spread is wider
-      r_MinSL_Pips        = 50.0;      // Gold moves ~5x more than EURUSD
-      r_MaxSL_Pips        = 120.0;     // Wider range for gold
-      r_ATR_MinPips       = 20.0;      // Gold ATR is much larger
-      r_ATR_MaxPips       = 80.0;      // Gold can have high ATR normally
-      r_MaxEMA50DistPips  = 150.0;     // Gold moves further from EMA50
-      r_MinRR             = 2.5;       // Keep same RR
-      r_BE_Trigger_R      = 1.5;       // Same BE logic
-      r_LondonStartHour   = 8;         // Gold active during London
-      r_LondonEndHour     = 12;
-      r_NYStartHour       = 13;
-      r_NYEndHour         = 18;        // Gold stays active longer in NY
-      r_UseLondonSession  = true;
-      r_BlockFriday       = true;      // Gold is erratic on Fridays too
-      r_BlockMonday       = false;
-      r_BlockToxicCombos  = false;     // EURUSD-specific, don't apply to gold
-      r_ReduceThursdayRisk = false;    // Not validated for gold
-      r_ThursdayRiskMult  = 1.0;
-      r_MaxTradesPerDay   = 2;
-      r_TrendBars         = 5;
-      r_SL_SwingBars      = 4;         // Wider swing lookback for gold volatility
-      Print("Preset XAUUSD/Gold applied | SL: 50-120 pips | ATR min: 20 | Spread max: 8");
-   }
-
-   // --- GBPUSD PRESET (data-driven from V3 analysis of 340 trades) ---
-   if(Preset == PRESET_GBPUSD) {
-      r_MaxSpreadPips     = 4.0;       // GBPUSD spread slightly wider
-      r_MinSL_Pips        = 20.0;      // 15-20 bucket = -$4,267. 20-25 = +$2,800
-      r_MaxSL_Pips        = 25.0;      // Only profitable SL bucket
-      r_ATR_MinPips       = 9.0;       // Same as EURUSD
-      r_ATR_MaxPips       = 25.0;      // Wide enough
-      r_MaxEMA50DistPips  = 50.0;      // GBPUSD moves further
-      r_MinRR             = 2.5;
-      r_BE_Trigger_R      = 1.5;
-      r_LondonStartHour   = 9;         // Skip 08h (-$534) — start at 09h
-      r_LondonEndHour     = 12;
-      r_NYStartHour       = 14;        // Skip 13h
-      r_NYEndHour         = 17;
-      r_UseLondonSession  = true;
-      r_BlockFriday       = true;      // Friday = 0 trades (proven)
-      r_BlockMonday       = true;      // Monday = -$1,901 (proven in V3 too)
-      r_BlockToxicCombos  = false;     // Not needed with day/hour blocks
-      r_ReduceThursdayRisk = false;
-      r_ThursdayRiskMult  = 1.0;
-      r_MaxTradesPerDay   = 2;
-      r_TrendBars         = 5;
-      r_SL_SwingBars      = 3;
-
-      // Block 10h (-$2,048 worst hour) and 15h (-$1,873)
-      r_BlockedHoursCount = 2;
-      r_BlockedHoursArr[0] = 10;       // 10h: -$2,048 in V3
-      r_BlockedHoursArr[1] = 15;       // 15h: -$1,873 in brut
-
-      // Pullback size filter too aggressive on GBP (8 trades in 3yr at 0.70)
-      r_PB_MaxRatio       = 1.0;       // Effectively disabled for GBPUSD
-
-      Print("Preset GBPUSD (V4) applied",
-            " | SL: 20-25 pips | ATR: 9-25 | EMA50 dist: <50",
-            " | Block: Fri+Mon+10h+15h");
-   }
-
-   // --- USDJPY PRESET (validated on 349 trades, optimized to 81) ---
-   if(Preset == PRESET_USDJPY) {
-      r_MaxSpreadPips     = 3.0;       // USDJPY has tight spreads
-      r_MinSL_Pips        = 17.0;      // Below 17 = weak setups on JPY
-      r_MaxSL_Pips        = 25.0;      // Keep tight
-      r_ATR_MinPips       = 0.0;       // ATR filter disabled (no clear sweet spot on JPY)
-      r_ATR_MaxPips       = 0.0;       // 0 = disabled
-      r_MaxEMA50DistPips  = 75.0;      // JPY moves further from EMA50
-      r_MinRR             = 2.5;
-      r_BE_Trigger_R      = 1.5;
-      r_LondonStartHour   = 8;         // London open
-      r_LondonEndHour     = 12;
-      r_NYStartHour       = 14;        // Skip 13h
-      r_NYEndHour         = 17;
-      r_UseLondonSession  = true;
-      r_BlockFriday       = true;      // Friday PF=0.97, marginal
-      r_BlockMonday       = true;      // Monday PF=0.76, -$930
-      r_BlockToxicCombos  = false;     // Not needed with hour blocks
-      r_ReduceThursdayRisk = false;
-      r_ThursdayRiskMult  = 1.0;
-      r_MaxTradesPerDay   = 2;
-      r_TrendBars         = 5;
-      r_SL_SwingBars      = 3;
-      r_PB_MaxRatio       = 1.0;       // Pullback size filter disabled (tested 0.70 and 0.90 — both kill trades)
-
-      // Block 09h (-$2,034), 11h (-$1,777), 16h (PF=0.87)
-      r_BlockedHoursCount = 3;
-      r_BlockedHoursArr[0] = 9;
-      r_BlockedHoursArr[1] = 11;
-      r_BlockedHoursArr[2] = 16;
-
-      Print("Preset USDJPY applied",
-            " | SL: 17-25 pips | ATR: OFF | EMA50 dist: <75",
-            " | Block: Fri+Mon+09h+11h+16h");
-   }
+   // --- EURUSD blocked hours (from analysis) ---
+   r_BlockedHoursCount = 1;
+   r_BlockedHoursArr[0] = 13;       // NY open chaos
 }
 
 //+------------------------------------------------------------------+
@@ -406,7 +274,7 @@ void OnTick() {
    CheckPyramidClose();
 
    // --- New bar check (entry TF) ---
-   datetime currentBarTime = iTime(Symbol(), r_EntryTF, 0);
+   datetime currentBarTime = iTime(Symbol(), PERIOD_M15, 0);
    if(currentBarTime == g_lastBarTime) return;
    g_lastBarTime = currentBarTime;
 
@@ -485,27 +353,12 @@ bool IsHourBlocked() {
       }
    }
 
-   // Block toxic hour+day combos
+   // Block toxic hour+day combos (EURUSD specific)
    if(r_BlockToxicCombos) {
-      if(Preset == PRESET_EURUSD) {
-         // EURUSD combos: 14h/Tue, 11h/Mon, 14h/Thu, 16h/Mon
-         if(hour == 14 && dow == 2) return true;
-         if(hour == 11 && dow == 1) return true;
-         if(hour == 14 && dow == 4) return true;
-         if(hour == 16 && dow == 1) return true;
-      }
-      if(Preset == PRESET_GBPUSD) {
-         // GBPUSD worst combos from analysis (732 trades)
-         if(hour ==  9 && dow == 2) return true;  // 09h/Tue
-         if(hour == 10 && dow == 4) return true;  // 10h/Thu
-         if(hour == 11 && dow == 2) return true;  // 11h/Tue
-         if(hour == 11 && dow == 3) return true;  // 11h/Wed
-         if(hour == 14 && dow == 2) return true;  // 14h/Tue
-         if(hour == 14 && dow == 4) return true;  // 14h/Thu
-         if(hour == 16 && dow == 2) return true;  // 16h/Tue
-         if(hour == 16 && dow == 3) return true;  // 16h/Wed
-         if(hour == 16 && dow == 4) return true;  // 16h/Thu
-      }
+      if(hour == 14 && dow == 2) return true;  // 14h/Tue
+      if(hour == 11 && dow == 1) return true;  // 11h/Mon
+      if(hour == 14 && dow == 4) return true;  // 14h/Thu
+      if(hour == 16 && dow == 1) return true;  // 16h/Mon
    }
 
    return false;
@@ -515,7 +368,7 @@ bool IsHourBlocked() {
 //| VOLATILITY FILTER (ATR on H1)                                     |
 //+------------------------------------------------------------------+
 bool IsVolatilityOK() {
-   double atr = iATR(Symbol(), r_TrendTF, ATR_Period, 0);
+   double atr = iATR(Symbol(), PERIOD_H1, ATR_Period, 0);
    double atrPips = atr / g_pipValue;
 
    // Too calm — no momentum for pullback
@@ -534,7 +387,7 @@ bool IsVolatilityOK() {
 bool IsEMA50DistanceOK() {
    if(!UseEMA50DistFilter) return true;
 
-   double ema50 = iMA(Symbol(), r_TrendTF, TrendEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
+   double ema50 = iMA(Symbol(), PERIOD_H1, TrendEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
    double price = (MarketInfo(Symbol(), MODE_BID) + MarketInfo(Symbol(), MODE_ASK)) / 2.0;
    double distPips = MathAbs(price - ema50) / g_pipValue;
 
@@ -543,6 +396,7 @@ bool IsEMA50DistanceOK() {
    return true;
 }
 
+//+------------------------------------------------------------------+
 //+------------------------------------------------------------------+
 //| PULLBACK SIZE FILTER                                              |
 //| Compares pullback candle sizes vs trend candle sizes              |
@@ -558,8 +412,8 @@ bool IsPullbackHealthy(int direction) {
    double pullbackSize = 0;
    int pbCount = 0;
    for(int i = 1; i <= 3; i++) {
-      double h = iHigh(Symbol(), r_EntryTF, i);
-      double l = iLow(Symbol(), r_EntryTF, i);
+      double h = iHigh(Symbol(), PERIOD_M15, i);
+      double l = iLow(Symbol(), PERIOD_M15, i);
       double range = h - l;
       if(range > 0) {
          pullbackSize += range;
@@ -573,10 +427,10 @@ bool IsPullbackHealthy(int direction) {
    double trendSize = 0;
    int trCount = 0;
    for(int i = 4; i <= 8; i++) {
-      double h = iHigh(Symbol(), r_EntryTF, i);
-      double l = iLow(Symbol(), r_EntryTF, i);
-      double c = iClose(Symbol(), r_EntryTF, i);
-      double o = iOpen(Symbol(), r_EntryTF, i);
+      double h = iHigh(Symbol(), PERIOD_M15, i);
+      double l = iLow(Symbol(), PERIOD_M15, i);
+      double c = iClose(Symbol(), PERIOD_M15, i);
+      double o = iOpen(Symbol(), PERIOD_M15, i);
       double range = h - l;
 
       // Only count candles in the trend direction
@@ -613,12 +467,12 @@ bool IsStructureIntact(int direction) {
    if(direction == 1) {
       // BULLISH: find last swing low, check it's not broken
       for(int i = StructureSwingBars + 1; i < lookback; i++) {
-         double low_i = iLow(Symbol(), r_EntryTF, i);
+         double low_i = iLow(Symbol(), PERIOD_M15, i);
          bool isSwingLow = true;
 
          for(int j = 1; j <= StructureSwingBars; j++) {
-            if(iLow(Symbol(), r_EntryTF, i - j) < low_i ||
-               iLow(Symbol(), r_EntryTF, i + j) < low_i) {
+            if(iLow(Symbol(), PERIOD_M15, i - j) < low_i ||
+               iLow(Symbol(), PERIOD_M15, i + j) < low_i) {
                isSwingLow = false;
                break;
             }
@@ -627,7 +481,7 @@ bool IsStructureIntact(int direction) {
          if(isSwingLow) {
             // Found swing low — check if any recent bar closed below it
             for(int k = 1; k < i; k++) {
-               if(iClose(Symbol(), r_EntryTF, k) < low_i) {
+               if(iClose(Symbol(), PERIOD_M15, k) < low_i) {
                   return false; // Structure broken — swing low violated
                }
             }
@@ -638,12 +492,12 @@ bool IsStructureIntact(int direction) {
    else if(direction == -1) {
       // BEARISH: find last swing high, check it's not broken
       for(int i = StructureSwingBars + 1; i < lookback; i++) {
-         double high_i = iHigh(Symbol(), r_EntryTF, i);
+         double high_i = iHigh(Symbol(), PERIOD_M15, i);
          bool isSwingHigh = true;
 
          for(int j = 1; j <= StructureSwingBars; j++) {
-            if(iHigh(Symbol(), r_EntryTF, i - j) > high_i ||
-               iHigh(Symbol(), r_EntryTF, i + j) > high_i) {
+            if(iHigh(Symbol(), PERIOD_M15, i - j) > high_i ||
+               iHigh(Symbol(), PERIOD_M15, i + j) > high_i) {
                isSwingHigh = false;
                break;
             }
@@ -652,7 +506,7 @@ bool IsStructureIntact(int direction) {
          if(isSwingHigh) {
             // Found swing high — check if any recent bar closed above it
             for(int k = 1; k < i; k++) {
-               if(iClose(Symbol(), r_EntryTF, k) > high_i) {
+               if(iClose(Symbol(), PERIOD_M15, k) > high_i) {
                   return false; // Structure broken — swing high violated
                }
             }
@@ -683,9 +537,9 @@ int CountOpenTrades() {
 //| Returns: 1 = bullish, -1 = bearish, 0 = no trend                 |
 //+------------------------------------------------------------------+
 int GetTrendDirection() {
-   double ema_now  = iMA(Symbol(), r_TrendTF, TrendEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
-   double ema_prev = iMA(Symbol(), r_TrendTF, TrendEMA_Period, 0, MODE_EMA, PRICE_CLOSE, r_TrendBars);
-   double close_tf = iClose(Symbol(), r_TrendTF, 0);
+   double ema_now  = iMA(Symbol(), PERIOD_H1, TrendEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
+   double ema_prev = iMA(Symbol(), PERIOD_H1, TrendEMA_Period, 0, MODE_EMA, PRICE_CLOSE, r_TrendBars);
+   double close_tf = iClose(Symbol(), PERIOD_H1, 0);
 
    // Bullish: price above EMA AND EMA rising
    if(close_tf > ema_now && ema_now > ema_prev)
@@ -711,19 +565,19 @@ void CheckEntry() {
    // Structure check: reject if last swing H/L has been broken
    if(!IsStructureIntact(trend)) return;
 
-   double ema20 = iMA(Symbol(), r_EntryTF, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
+   double ema20 = iMA(Symbol(), PERIOD_M15, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 0);
 
    // Last closed bar (bar 1)
-   double open1  = iOpen(Symbol(), r_EntryTF, 1);
-   double close1 = iClose(Symbol(), r_EntryTF, 1);
-   double high1  = iHigh(Symbol(), r_EntryTF, 1);
-   double low1   = iLow(Symbol(), r_EntryTF, 1);
+   double open1  = iOpen(Symbol(), PERIOD_M15, 1);
+   double close1 = iClose(Symbol(), PERIOD_M15, 1);
+   double high1  = iHigh(Symbol(), PERIOD_M15, 1);
+   double low1   = iLow(Symbol(), PERIOD_M15, 1);
 
    // Previous bar (bar 2) — must have touched/crossed EMA
-   double open2  = iOpen(Symbol(), r_EntryTF, 2);
-   double close2 = iClose(Symbol(), r_EntryTF, 2);
-   double low2   = iLow(Symbol(), r_EntryTF, 2);
-   double high2  = iHigh(Symbol(), r_EntryTF, 2);
+   double open2  = iOpen(Symbol(), PERIOD_M15, 2);
+   double close2 = iClose(Symbol(), PERIOD_M15, 2);
+   double low2   = iLow(Symbol(), PERIOD_M15, 2);
+   double high2  = iHigh(Symbol(), PERIOD_M15, 2);
 
    // Price action: body sizes
    double body1  = MathAbs(close1 - open1);
@@ -734,13 +588,13 @@ void CheckEntry() {
    double ask = MarketInfo(Symbol(), MODE_ASK);
 
    // RSI filter
-   double rsi = iRSI(Symbol(), r_EntryTF, RSI_Period, PRICE_CLOSE, 1);
+   double rsi = iRSI(Symbol(), PERIOD_M15, RSI_Period, PRICE_CLOSE, 1);
 
    // ============ BULLISH PULLBACK ============
    if(trend == 1) {
       if(rsi > RSI_OB) return;  // Don't buy when overbought
       // Bar 2 must have dipped to or below EMA20 (pullback)
-      double ema20_bar2 = iMA(Symbol(), r_EntryTF, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 2);
+      double ema20_bar2 = iMA(Symbol(), PERIOD_M15, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 2);
       if(low2 > ema20_bar2) return;  // No pullback to EMA
 
       // Bar 1 must close above EMA20 (rejection/bounce)
@@ -754,7 +608,7 @@ void CheckEntry() {
       // Calculate SL: lowest low of last r_SL_SwingBars bars
       double sl = low1;
       for(int i = 1; i <= r_SL_SwingBars; i++) {
-         double l = iLow(Symbol(), r_EntryTF, i);
+         double l = iLow(Symbol(), PERIOD_M15, i);
          if(l < sl) sl = l;
       }
       sl = sl - 2 * g_pipValue;  // Buffer
@@ -771,7 +625,7 @@ void CheckEntry() {
    if(trend == -1) {
       if(rsi < RSI_OS) return;  // Don't sell when oversold
       // Bar 2 must have spiked to or above EMA20 (pullback)
-      double ema20_bar2 = iMA(Symbol(), r_EntryTF, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 2);
+      double ema20_bar2 = iMA(Symbol(), PERIOD_M15, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 2);
       if(high2 < ema20_bar2) return;  // No pullback to EMA
 
       // Bar 1 must close below EMA20 (rejection)
@@ -785,7 +639,7 @@ void CheckEntry() {
       // Calculate SL: highest high of last r_SL_SwingBars bars
       double sl = high1;
       for(int i = 1; i <= r_SL_SwingBars; i++) {
-         double h = iHigh(Symbol(), r_EntryTF, i);
+         double h = iHigh(Symbol(), PERIOD_M15, i);
          if(h > sl) sl = h;
       }
       sl = sl + 2 * g_pipValue;  // Buffer
