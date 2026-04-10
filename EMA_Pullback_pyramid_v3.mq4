@@ -1,18 +1,15 @@
 //+------------------------------------------------------------------+
-//|                                 EMA_Pullback_pyramid_v2.mq4      |
+//|                                 EMA_Pullback_pyramid_v3.mq4      |
 //|            EMA Pullback Trend Following + Anti-Martingale Pyramid |
 //|                    H1 Trend + M15 Pullback Entry                   |
-//|            + Reverse Trade on L0 Stop Loss                         |
+//|            + Reverse Trade on L0 SL + Martingale Hedge L1/L2      |
 //|                                                                    |
-//|  Extension de EMA_Pullback_pyramid avec trade inverse apres SL L0.|
-//|  Quand un L0 touche son SL, on ouvre immediatement un trade dans  |
-//|  le sens oppose (au market, sans signal ni filtre).               |
-//|  Le trade inverse se comporte comme un L0 (lot, BE, TP/SL) mais  |
-//|  ne participe PAS au streak pyramid.                              |
-//|                                                                    |
-//|  v2.00: reverse trade on L0 SL                                    |
+//|  v2 features: reverse trade on L0 SL (opposite direction)         |
+//|  v3 features: martingale hedge on L1/L2 at 75% of SL              |
+//|    When L1/L2 reaches 75% of SL, open opposite direction trade    |
+//|    TP = mother SL, SL = mother entry, lot = configurable mult     |
 //+------------------------------------------------------------------+
-#property copyright "EMA Pullback Pyramid EA v2.00"
+#property copyright "EMA Pullback Pyramid EA v3.00"
 #property link      ""
 #property version   "2.00"
 #property strict
@@ -50,18 +47,15 @@ input double       L1_LotMult    = 4.0;            // L1 multiplier (used only i
 input double       L2_LotMult    = 2.5;            // L2 multiplier (used only if MODE_CUSTOM)
 input int          MaxStreakLevel = 2;             // cap du streak (2 -> 3 niveaux: L0, L1, L2)
 
-// --- Reverse Trade (on SL) ---
-input bool         UseReverseTrade = true;         // Open reverse trade when trade hits SL
-input bool         UseReverseOnL0  = true;          // Reverse on L0 SL (after ConsecLosses threshold)
-input bool         UseReverseOnL2  = true;          // Reverse on L2 SL (only when signal is "cold")
-input bool         UseRevLotFromLevel = true;       // Reverse lot = same as losing level (L0→L0x, L2→L2x)
-input double       RevLotMult      = 1.0;          // Reverse lot multiplier if UseRevLotFromLevel=false
-input double       RevMaxSL_Pips   = 25.0;         // Max SL for reverse trade (0 = no limit)
-input int          RevMinConsecLosses = 3;          // Only reverse L0 after N consecutive losses (0 = always)
-
-// --- Signal Health (Rolling WR) ---
-input int          RollingWR_Window  = 5;           // Number of last L0 trades to measure WR (~2.6 mois)
-input double       RollingWR_Threshold = 40.0;      // Below this WR% → signal is "cold" → reverse L2
+// --- Martingale Hedge (opposite trade at X% of SL) ---
+// When a trade reaches X% of its SL, open opposite direction trade.
+// TP = mother SL, SL = mother entry. Reduces DD when SL is hit.
+input bool         UseMartingaleHedge = true;       // Master switch for hedge
+input bool         HedgeOnL0         = true;        // Hedge on L0 trades
+input bool         HedgeOnL1         = true;        // Hedge on L1 trades
+input bool         HedgeOnL2         = true;        // Hedge on L2 trades
+input double       HedgeSL_Percent   = 75.0;        // Trigger at X% of SL distance
+input double       HedgeLotMult      = 2.0;         // Hedge lot multiplier vs mother trade lot
 
 // --- Trend Filter (H1) ---
 input int    TrendEMA_Period    = 50;      // H1 EMA period for trend direction
@@ -122,9 +116,7 @@ struct PyramidState {
    int    lastTicket;      // last ticket opened (to detect close)
    bool   waitingForClose; // true if a trade is in flight
    int    lastTradeLevel;  // pyramid level of the trade in flight (0/1/2)
-   bool   lastTradeIsReverse; // true if the trade in flight is a reverse trade
    int    lastTradeType;   // OP_BUY or OP_SELL of the trade in flight
-   int    consecLosses;    // consecutive normal losses (reset on win, reverse doesn't count)
 };
 PyramidState g_pyr;
 
@@ -133,14 +125,10 @@ int g_pyr_wins = 0;
 int g_pyr_losses = 0;
 int g_pyr_maxStreak = 0;
 
-// Reverse trade counters
-int g_rev_wins = 0;
-
-// --- Rolling WR buffer (circular buffer of last N L0 results) ---
-int    g_rollingL0[20];    // max window = 20
-int    g_rollingL0_count = 0;
-int    g_rollingL0_index = 0;
-int g_rev_losses = 0;
+// --- Martingale hedge state ---
+int    g_hedgeTicket = 0;       // ticket of the hedge trade (0 = no hedge active)
+bool   g_hedgeActive = false;   // true if a hedge is open
+int    g_hedgeMotherTicket = 0; // ticket of the mother trade being hedged
 
 // Pyramid runtime multipliers (applied by ApplyPyramidMode())
 double r_L0_LotMult = 1.0;
@@ -217,20 +205,15 @@ int OnInit() {
    g_pyr.lastTicket = 0;
    g_pyr.waitingForClose = false;
    g_pyr.lastTradeLevel = 0;
-   g_pyr.lastTradeIsReverse = false;
    g_pyr.lastTradeType = -1;
-   g_pyr.consecLosses = 0;
-   g_rollingL0_count = 0;
-   g_rollingL0_index = 0;
-   ArrayInitialize(g_rollingL0, 0);
 
    string pyrModeName = "SAFE";
    if(PyramidMode == MODE_AGGRESSIVE) pyrModeName = "AGGRESSIVE";
    else if(PyramidMode == MODE_CUSTOM) pyrModeName = "CUSTOM";
-   Print("EMA Pullback Pyramid v2 EA initialized | Symbol: ", Symbol(),
+   Print("EMA Pullback Pyramid v3 EA initialized | Symbol: ", Symbol(),
          " | Pyramid: ", UsePyramid ? "ON" : "OFF",
          " | Mode: ", pyrModeName,
-         " | ReverseTrade: ", UseReverseTrade ? "ON" : "OFF",
+         " | Hedge: ", UseMartingaleHedge ? "ON" : "OFF",
          " | Lots L0:", DoubleToStr(r_L0_LotMult, 2),
          " L1:", DoubleToStr(r_L1_LotMult, 2),
          " L2:", DoubleToStr(r_L2_LotMult, 2));
@@ -293,6 +276,12 @@ void OnDeinit(const int reason) {
 void OnTick() {
    // --- Manage open trades on every tick (breakeven) ---
    ManageOpenTrades();
+
+   // --- Martingale hedge: check if L1/L2 approaching SL ---
+   CheckMartingaleHedge();
+
+   // --- Check hedge close (reset state) ---
+   CheckHedgeClose();
 
    // --- Pyramid: detect closed trade and update streak (tick level) ---
    CheckPyramidClose();
@@ -545,6 +534,8 @@ bool IsStructureIntact(int direction) {
 //+------------------------------------------------------------------+
 //| COUNT OPEN TRADES                                                 |
 //+------------------------------------------------------------------+
+// Count only signal+reverse trades, NOT hedges (MagicNumber+1)
+// Hedges are "passengers" of the mother trade, not standalone trades
 int CountOpenTrades() {
    int count = 0;
    for(int i = OrdersTotal() - 1; i >= 0; i--) {
@@ -701,254 +692,162 @@ void CheckPyramidClose() {
       if(OrderTicket() != g_pyr.lastTicket || OrderSymbol() != Symbol()) continue;
 
       double pnl = OrderProfit() + OrderSwap() + OrderCommission();
-      bool wasReverse = g_pyr.lastTradeIsReverse;
-      int  wasLevel   = g_pyr.lastTradeLevel;
-      int  wasType    = g_pyr.lastTradeType;
 
       g_pyr.waitingForClose = false;
       g_pyr.lastTicket = 0;
 
-      // --- REVERSE TRADE: does not affect pyramid streak ---
-      if(wasReverse) {
-         if(pnl > 0) {
-            g_rev_wins++;
-            Print("REVERSE WIN pnl=", DoubleToStr(pnl, 2),
-                  " | streak stays at ", g_pyr.streak);
-         } else {
-            g_rev_losses++;
-            Print("REVERSE LOSS pnl=", DoubleToStr(pnl, 2),
-                  " | streak stays at ", g_pyr.streak);
-         }
-         return;
-      }
-
-      // --- NORMAL TRADE: update pyramid streak + rolling WR ---
-      if(wasLevel == 0) AddL0Result(pnl > 0);
-
+      // --- Update pyramid streak (hedges don't pass here, only signal trades) ---
       if(pnl > 0) {
          // WIN -> pyramid up (with cap)
          int oldStreak = g_pyr.streak;
          g_pyr_wins++;
          g_pyr.streak++;
-         g_pyr.consecLosses = 0;
          if(g_pyr.streak > MaxStreakLevel) g_pyr.streak = MaxStreakLevel;
          if(g_pyr.streak > g_pyr_maxStreak) g_pyr_maxStreak = g_pyr.streak;
          double nextMult = (g_pyr.streak == 0) ? r_L0_LotMult :
                            (g_pyr.streak == 1) ? r_L1_LotMult : r_L2_LotMult;
-         Print("PYRAMID WIN L", wasLevel, " pnl=", DoubleToStr(pnl, 2),
+         Print("PYRAMID WIN pnl=", DoubleToStr(pnl, 2),
                " | streak ", oldStreak, " -> ", g_pyr.streak,
-               " | rollingWR=", DoubleToStr(GetRollingWR(), 1), "%",
                " | next lot x", DoubleToStr(nextMult, 2));
       } else {
          // LOSS -> reset streak
          int oldStreak = g_pyr.streak;
          g_pyr_losses++;
          g_pyr.streak = 0;
-         g_pyr.consecLosses++;
+         Print("PYRAMID LOSS pnl=", DoubleToStr(pnl, 2),
+               " | streak reset (was ", oldStreak, ")");
+      }
+      return;
+   }
+}
 
-         bool signalCold = IsSignalCold();
-         Print("PYRAMID LOSS L", wasLevel, " pnl=", DoubleToStr(pnl, 2),
-               " | streak reset (was ", oldStreak, ")",
-               " | consecLosses=", g_pyr.consecLosses,
-               " | rollingWR=", DoubleToStr(GetRollingWR(), 1), "%",
-               signalCold ? " [COLD]" : " [OK]");
+//+------------------------------------------------------------------+
+//| MARTINGALE HEDGE — open opposite trade when L1/L2 near SL        |
+//| Trigger: mother trade at X% of SL distance (default 75%)         |
+//| Hedge: opposite direction, configurable lot multiplier            |
+//|   TP = mother's SL level                                          |
+//|   SL = mother's entry level                                       |
+//+------------------------------------------------------------------+
+void CheckMartingaleHedge() {
+   if(!UseMartingaleHedge) return;
+   if(g_hedgeActive) return;  // already hedged this trade
 
-         // --- TRIGGER REVERSE TRADE ---
-         if(UseReverseTrade) {
-            bool shouldReverse = false;
+   // Only hedge trades that are in flight and enabled for their level
+   if(!g_pyr.waitingForClose) return;
+   if(g_pyr.lastTradeLevel == 0 && !HedgeOnL0) return;
+   if(g_pyr.lastTradeLevel == 1 && !HedgeOnL1) return;
+   if(g_pyr.lastTradeLevel == 2 && !HedgeOnL2) return;
 
-            // L0: reverse after N consecutive losses
-            if(wasLevel == 0 && UseReverseOnL0) {
-               shouldReverse = (RevMinConsecLosses <= 0 || g_pyr.consecLosses >= RevMinConsecLosses);
-            }
-            // L2: reverse only when signal is "cold"
-            else if(wasLevel == 2 && UseReverseOnL2) {
-               shouldReverse = signalCold;
-            }
+   // Find the mother trade
+   int motherTicket = g_pyr.lastTicket;
+   if(motherTicket <= 0) return;
 
-            if(shouldReverse) {
-               Print("REVERSE TRIGGERED: level=L", wasLevel,
-                     " rollingWR=", DoubleToStr(GetRollingWR(), 1), "%");
-               ExecuteReverseTrade(wasType, wasLevel);
-            }
+   bool found = false;
+   for(int i = 0; i < OrdersTotal(); i++) {
+      if(OrderSelect(i, SELECT_BY_POS, MODE_TRADES)) {
+         if(OrderTicket() == motherTicket && OrderSymbol() == Symbol()) {
+            found = true;
+            break;
          }
       }
-      return;
    }
-}
+   if(!found) return;
 
-//+------------------------------------------------------------------+
-//| ROLLING WR — track last N L0 results to measure signal health    |
-//+------------------------------------------------------------------+
-void AddL0Result(bool isWin) {
-   int window = MathMin(RollingWR_Window, 20);
-   g_rollingL0[g_rollingL0_index] = isWin ? 1 : 0;
-   g_rollingL0_index = (g_rollingL0_index + 1) % window;
-   if(g_rollingL0_count < window) g_rollingL0_count++;
-}
+   // Get mother trade info
+   int    motherType  = OrderType();
+   double motherOpen  = OrderOpenPrice();
+   double motherSL    = OrderStopLoss();
+   double motherLot   = OrderLots();
 
-double GetRollingWR() {
-   if(g_rollingL0_count == 0) return 50.0;
-   int wins = 0;
-   for(int i = 0; i < g_rollingL0_count; i++) {
-      wins += g_rollingL0[i];
-   }
-   return (double)wins / (double)g_rollingL0_count * 100.0;
-}
+   if(motherSL == 0) return;
 
-bool IsSignalCold() {
-   return (GetRollingWR() <= RollingWR_Threshold);
-}
+   double slDistance = MathAbs(motherOpen - motherSL);
+   if(slDistance <= 0) return;
 
-//+------------------------------------------------------------------+
-//| EXECUTE REVERSE TRADE — after SL, open opposite direction        |
-//| Lot = level lot (UseRevLotFromLevel) or RevLotMult               |
-//| Does not participate in pyramid streak.                           |
-//+------------------------------------------------------------------+
-void ExecuteReverseTrade(int originalType, int originalLevel = 0) {
-   // Block reverse during toxic hours (13h-14h NY chaos, 17h+ end of session)
-   int revHour = TimeHour(TimeCurrent());
-   if(revHour >= 13 && revHour <= 14) {
-      Print("REVERSE SKIPPED: toxic hour ", revHour, "h");
-      return;
-   }
-   if(revHour >= 17) {
-      Print("REVERSE SKIPPED: end of session hour ", revHour, "h");
-      return;
-   }
+   // Check if price has reached X% of SL distance
+   double currentPrice;
+   double priceMoveTowardSL;
 
-   // Check daily limit
-   if(g_dailyTrades >= r_MaxTradesPerDay) {
-      Print("REVERSE SKIPPED: daily limit reached (", g_dailyTrades, "/", r_MaxTradesPerDay, ")");
-      return;
-   }
-
-   // Check no open trade
-   if(CountOpenTrades() >= 1) {
-      Print("REVERSE SKIPPED: trade already open");
-      return;
-   }
-
-   double bid = MarketInfo(Symbol(), MODE_BID);
-   double ask = MarketInfo(Symbol(), MODE_ASK);
-
-   // Reverse direction: original buy SL -> open sell, original sell SL -> open buy
-   if(originalType == OP_BUY) {
-      // Original was BUY, it hit SL -> open SELL
-      // SL = highest high of last SL_SwingBars bars + buffer
-      double sl = iHigh(Symbol(), PERIOD_M15, 1);
-      for(int i = 1; i <= r_SL_SwingBars; i++) {
-         double h = iHigh(Symbol(), PERIOD_M15, i);
-         if(h > sl) sl = h;
-      }
-      sl = sl + 2 * g_pipValue;
-
-      double slDist = (sl - bid) / g_pipValue;
-      if(slDist <= 0) {
-         Print("REVERSE SKIPPED: SL distance <= 0");
-         return;
-      }
-      if(RevMaxSL_Pips > 0 && slDist > RevMaxSL_Pips) {
-         Print("REVERSE SKIPPED: SL ", DoubleToStr(slDist, 1), " pips > RevMaxSL ", DoubleToStr(RevMaxSL_Pips, 1));
-         return;
-      }
-
-      double tp = bid - (sl - bid) * r_MinRR;
-      double price = bid;
-
-      ExecuteTradeReverse(OP_SELL, price, sl, tp, "EMA Reverse Sell", originalLevel);
-   }
-   else if(originalType == OP_SELL) {
-      // Original was SELL, it hit SL -> open BUY
-      // SL = lowest low of last SL_SwingBars bars - buffer
-      double sl = iLow(Symbol(), PERIOD_M15, 1);
-      for(int i = 1; i <= r_SL_SwingBars; i++) {
-         double l = iLow(Symbol(), PERIOD_M15, i);
-         if(l < sl) sl = l;
-      }
-      sl = sl - 2 * g_pipValue;
-
-      double slDist = (ask - sl) / g_pipValue;
-      if(slDist <= 0) {
-         Print("REVERSE SKIPPED: SL distance <= 0");
-         return;
-      }
-      if(RevMaxSL_Pips > 0 && slDist > RevMaxSL_Pips) {
-         Print("REVERSE SKIPPED: SL ", DoubleToStr(slDist, 1), " pips > RevMaxSL ", DoubleToStr(RevMaxSL_Pips, 1));
-         return;
-      }
-
-      double tp = ask + (ask - sl) * r_MinRR;
-      double price = ask;
-
-      ExecuteTradeReverse(OP_BUY, price, sl, tp, "EMA Reverse Buy", originalLevel);
-   }
-}
-
-//+------------------------------------------------------------------+
-//| EXECUTE TRADE REVERSE — sends order with L0 lot, no pyramid      |
-//| Tracks as reverse so CheckPyramidClose ignores it for streak     |
-//+------------------------------------------------------------------+
-void ExecuteTradeReverse(int type, double price, double sl, double tp, string comment, int fromLevel = 0) {
-   double slDist = MathAbs(price - sl);
-   if(slDist <= 0) return;
-
-   // Lot = same as the losing level or flat multiplier
-   double riskMult;
-   if(UseRevLotFromLevel) {
-      if(fromLevel == 2)      riskMult = r_L2_LotMult;
-      else                    riskMult = r_L0_LotMult;
+   if(motherType == OP_BUY) {
+      currentPrice = MarketInfo(Symbol(), MODE_BID);
+      priceMoveTowardSL = motherOpen - currentPrice;
    } else {
-      riskMult = RevLotMult;
+      currentPrice = MarketInfo(Symbol(), MODE_ASK);
+      priceMoveTowardSL = currentPrice - motherOpen;
    }
 
-   // Thursday risk reduction applies to reverse trades too
-   if(r_ReduceThursdayRisk && TimeDayOfWeek(TimeCurrent()) == 4) {
-      riskMult *= r_ThursdayRiskMult;
-      comment = comment + "|THU_REDUCED";
+   if(priceMoveTowardSL <= 0) return;  // not losing
+
+   double percentToSL = (priceMoveTowardSL / slDistance) * 100.0;
+   if(percentToSL < HedgeSL_Percent) return;  // not at threshold yet
+
+   // === TRIGGER HEDGE ===
+   double hedgeLot = NormalizeDouble(motherLot * HedgeLotMult, 2);
+   double minLot = MarketInfo(Symbol(), MODE_MINLOT);
+   double maxLot = MarketInfo(Symbol(), MODE_MAXLOT);
+   if(hedgeLot < minLot) hedgeLot = minLot;
+   if(hedgeLot > maxLot) hedgeLot = maxLot;
+
+   int    hedgeType;
+   double hedgePrice, hedgeSL, hedgeTP;
+
+   if(motherType == OP_BUY) {
+      hedgeType  = OP_SELL;
+      hedgePrice = MarketInfo(Symbol(), MODE_BID);
+      hedgeSL    = NormalizeDouble(motherOpen, g_digits);    // SL = mother entry
+      hedgeTP    = NormalizeDouble(motherSL, g_digits);      // TP = mother SL
+   } else {
+      hedgeType  = OP_BUY;
+      hedgePrice = MarketInfo(Symbol(), MODE_ASK);
+      hedgeSL    = NormalizeDouble(motherOpen, g_digits);    // SL = mother entry
+      hedgeTP    = NormalizeDouble(motherSL, g_digits);      // TP = mother SL
    }
 
-   comment = comment + "|REV|L" + IntegerToString(fromLevel);
+   hedgePrice = NormalizeDouble(hedgePrice, g_digits);
+   string comment = "HEDGE|L" + IntegerToString(g_pyr.lastTradeLevel)
+                   + "|x" + DoubleToStr(HedgeLotMult, 1);
 
-   double lotSize = CalculateLotSize(slDist, riskMult);
-   if(lotSize <= 0) {
-      Print("REVERSE lot size invalid: ", lotSize);
-      return;
+   int ticket = OrderSend(Symbol(), hedgeType, hedgeLot, hedgePrice, 3,
+                          hedgeSL, hedgeTP, comment, MagicNumber + 1, 0, clrOrange);
+
+   if(ticket > 0) {
+      g_hedgeTicket = ticket;
+      g_hedgeActive = true;
+      g_hedgeMotherTicket = motherTicket;
+      Print("HEDGE OPENED: L", g_pyr.lastTradeLevel,
+            " at ", DoubleToStr(percentToSL, 1), "% of SL",
+            " | ", hedgeType == OP_BUY ? "BUY" : "SELL",
+            " | lot=", DoubleToStr(hedgeLot, 2),
+            " | mother lot=", DoubleToStr(motherLot, 2));
+   } else {
+      Print("HEDGE FAILED: error=", GetLastError());
+   }
+}
+
+//+------------------------------------------------------------------+
+//| CHECK HEDGE CLOSE — reset hedge state when hedge trade closes    |
+//+------------------------------------------------------------------+
+void CheckHedgeClose() {
+   if(!g_hedgeActive) return;
+
+   bool stillOpen = false;
+   for(int i = 0; i < OrdersTotal(); i++) {
+      if(OrderSelect(i, SELECT_BY_POS, MODE_TRADES))
+         if(OrderTicket() == g_hedgeTicket && OrderSymbol() == Symbol())
+            stillOpen = true;
    }
 
-   price = NormalizeDouble(price, g_digits);
-   sl    = NormalizeDouble(sl, g_digits);
-   tp    = NormalizeDouble(tp, g_digits);
-
-   string fullComment = comment + "|R=" + DoubleToStr(slDist, g_digits);
-
-   int ticket = OrderSend(Symbol(), type, lotSize, price, 3, sl, tp,
-                           fullComment, MagicNumber, 0,
-                           type == OP_BUY ? clrBlue : clrOrange);
-
-   if(ticket < 0) {
-      Print("REVERSE OrderSend failed: ", GetLastError(),
-            " | Type: ", type,
-            " | Price: ", price,
-            " | SL: ", sl,
-            " | TP: ", tp,
-            " | Lots: ", lotSize);
-   }
-   else {
-      g_dailyTrades++;
-      // Track for close detection — marked as reverse
-      g_pyr.lastTicket = ticket;
-      g_pyr.waitingForClose = true;
-      g_pyr.lastTradeIsReverse = true;
-      g_pyr.lastTradeLevel = 0;
-      g_pyr.lastTradeType = type;
-      Print("REVERSE Trade opened #", ticket,
-            " | ", comment,
-            " | Lots: ", lotSize,
-            " | SL: ", sl,
-            " | TP: ", tp,
-            " | SL pips: ", DoubleToStr(MathAbs(price - sl) / g_pipValue, 1),
-            " | RR: ", DoubleToStr(MathAbs(tp - price) / slDist, 1));
+   if(!stillOpen) {
+      for(int i = OrdersHistoryTotal() - 1; i >= 0; i--) {
+         if(!OrderSelect(i, SELECT_BY_POS, MODE_HISTORY)) continue;
+         if(OrderTicket() != g_hedgeTicket || OrderSymbol() != Symbol()) continue;
+         double pnl = OrderProfit() + OrderSwap() + OrderCommission();
+         Print("HEDGE CLOSED: pnl=", DoubleToStr(pnl, 2), pnl > 0 ? " [WIN]" : " [LOSS]");
+         break;
+      }
+      g_hedgeActive = false;
+      g_hedgeTicket = 0;
+      g_hedgeMotherTicket = 0;
    }
 }
 
@@ -1007,7 +906,6 @@ void ExecuteTrade(int type, double price, double sl, double tp, string comment) 
       g_pyr.lastTicket = ticket;
       g_pyr.waitingForClose = true;
       g_pyr.lastTradeLevel = g_pyr.streak;
-      g_pyr.lastTradeIsReverse = false;
       g_pyr.lastTradeType = type;
       Print("Trade opened #", ticket,
             " | ", comment,
