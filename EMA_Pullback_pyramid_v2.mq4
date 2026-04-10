@@ -52,6 +52,8 @@ input int          MaxStreakLevel = 2;             // cap du streak (2 -> 3 nive
 
 // --- Reverse Trade (on L0 SL) ---
 input bool         UseReverseTrade = true;         // Open reverse trade when L0 hits SL
+input bool         UseRevL1        = true;         // If reverse wins -> next normal trade = L1 (boosted)
+input double       RevL1_LotMult   = 2.0;         // Lot multiplier for L1 after reverse win (adjustable)
 
 // --- Trend Filter (H1) ---
 input int    TrendEMA_Period    = 50;      // H1 EMA period for trend direction
@@ -114,6 +116,7 @@ struct PyramidState {
    int    lastTradeLevel;  // pyramid level of the trade in flight (0/1/2)
    bool   lastTradeIsReverse; // true if the trade in flight is a reverse trade
    int    lastTradeType;   // OP_BUY or OP_SELL of the trade in flight
+   bool   revL1Pending;    // true = next normal trade uses RevL1_LotMult (after reverse win)
 };
 PyramidState g_pyr;
 
@@ -203,6 +206,7 @@ int OnInit() {
    g_pyr.lastTradeLevel = 0;
    g_pyr.lastTradeIsReverse = false;
    g_pyr.lastTradeType = -1;
+   g_pyr.revL1Pending = false;
 
    string pyrModeName = "SAFE";
    if(PyramidMode == MODE_AGGRESSIVE) pyrModeName = "AGGRESSIVE";
@@ -688,12 +692,19 @@ void CheckPyramidClose() {
       g_pyr.waitingForClose = false;
       g_pyr.lastTicket = 0;
 
-      // --- REVERSE TRADE: does not affect pyramid streak ---
+      // --- REVERSE TRADE: handle RevL1 boost ---
       if(wasReverse) {
          if(pnl > 0) {
             g_rev_wins++;
-            Print("REVERSE WIN pnl=", DoubleToStr(pnl, 2),
-                  " | streak stays at ", g_pyr.streak);
+            if(UseRevL1) {
+               g_pyr.streak = 1;
+               g_pyr.revL1Pending = true;
+               Print("REVERSE WIN pnl=", DoubleToStr(pnl, 2),
+                     " | RevL1 ARMED -> next trade L1 x", DoubleToStr(RevL1_LotMult, 2));
+            } else {
+               Print("REVERSE WIN pnl=", DoubleToStr(pnl, 2),
+                     " | streak stays at ", g_pyr.streak);
+            }
          } else {
             g_rev_losses++;
             Print("REVERSE LOSS pnl=", DoubleToStr(pnl, 2),
@@ -878,11 +889,21 @@ void ExecuteTrade(int type, double price, double sl, double tp, string comment) 
    double pyrMult = 1.0;
    if(UsePyramid) {
       if(g_pyr.streak == 0)      pyrMult = r_L0_LotMult;
-      else if(g_pyr.streak == 1) pyrMult = r_L1_LotMult;
+      else if(g_pyr.streak == 1) {
+         // Use RevL1 multiplier if this L1 was triggered by a reverse win
+         if(g_pyr.revL1Pending) {
+            pyrMult = RevL1_LotMult;
+            comment = comment + "|RevL1";
+         } else {
+            pyrMult = r_L1_LotMult;
+         }
+      }
       else                       pyrMult = r_L2_LotMult;
       riskMult *= pyrMult;
       comment = comment + "|L" + IntegerToString(g_pyr.streak);
    }
+   // Reset revL1 flag after use
+   g_pyr.revL1Pending = false;
 
    double lotSize = CalculateLotSize(slDist, riskMult);
 
