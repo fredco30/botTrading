@@ -63,6 +63,13 @@ input int          RevMinConsecLosses = 3;          // Only reverse L0 after N c
 input int          RollingWR_Window  = 5;           // Number of last L0 trades to measure WR (~2.6 mois)
 input double       RollingWR_Threshold = 40.0;      // Below this WR% → signal is "cold" → reverse L2
 
+// --- Trailing Stop + Partial Close (L1 only) --- TESTED: worse than fixed TP 2.5R
+input bool   UseL1PartialClose  = false;   // OFF — trail 10 pips too tight, L1 PF drops to 0.99
+input double L1_TP1_R           = 1.5;     // TP1: close partial at X * R
+input double L1_PartialPercent  = 50.0;    // % of lot to close at TP1 (50 = half)
+input double L1_TrailStart_R    = 2.0;     // Start trailing after X * R profit
+input double L1_TrailStep_Pips  = 10.0;    // Trail SL at X pips behind price
+
 // --- Trend Filter (H1) ---
 input int    TrendEMA_Period    = 50;      // H1 EMA period for trend direction
 input int    TrendBars          = 5;       // H1 EMA must slope for X bars
@@ -132,6 +139,10 @@ PyramidState g_pyr;
 int g_pyr_wins = 0;
 int g_pyr_losses = 0;
 int g_pyr_maxStreak = 0;
+
+// --- L1 Partial Close state ---
+bool   g_l1PartialDone = false;    // true if TP1 partial close already done for current L1
+int    g_l1RemainTicket = 0;       // ticket of the remaining lot after partial close
 
 // Reverse trade counters
 int g_rev_wins = 0;
@@ -707,6 +718,9 @@ void CheckPyramidClose() {
 
       g_pyr.waitingForClose = false;
       g_pyr.lastTicket = 0;
+      // Reset L1 partial close state
+      g_l1PartialDone = false;
+      g_l1RemainTicket = 0;
 
       // --- REVERSE TRADE: does not affect pyramid streak ---
       if(wasReverse) {
@@ -1045,7 +1059,7 @@ double CalculateLotSize(double slDistance, double riskMultiplier = 1.0) {
 }
 
 //+------------------------------------------------------------------+
-//| MANAGE OPEN TRADES (Breakeven)                                   |
+//| MANAGE OPEN TRADES (Breakeven + L1 Partial Close + Trailing)     |
 //+------------------------------------------------------------------+
 void ManageOpenTrades() {
    for(int i = OrdersTotal() - 1; i >= 0; i--) {
@@ -1054,34 +1068,153 @@ void ManageOpenTrades() {
 
       double openPrice = OrderOpenPrice();
       double currentSL = OrderStopLoss();
+      int    ticket    = OrderTicket();
+      double lots      = OrderLots();
 
       // Get initial risk from comment
       string comment = OrderComment();
       double riskDist = GetInitialRisk(comment, MathAbs(openPrice - currentSL));
       if(riskDist <= 0) continue;
 
+      // Detect if this is a L1 trade (comment contains "|L1|")
+      bool isL1 = (StringFind(comment, "|L1|") >= 0 || StringFind(comment, "|L1") >= 0);
+      // Also detect the remaining half after partial close (MT4 prefixes with "#ticket")
+      if(g_l1PartialDone && ticket == g_l1RemainTicket) isL1 = true;
+
       if(OrderType() == OP_BUY) {
          double currentPrice = MarketInfo(Symbol(), MODE_BID);
          double profit = currentPrice - openPrice;
 
-         // Breakeven at BE_Trigger_R (default 1.5R — gives trade more room)
-         if(UseBreakeven && profit >= riskDist * r_BE_Trigger_R && currentSL < openPrice) {
-            double beSL = openPrice + 1 * g_pipValue;
-            if(!OrderModify(OrderTicket(), openPrice, NormalizeDouble(beSL, g_digits),
-                           OrderTakeProfit(), 0, clrYellow))
-               Print("BE modify failed: ", GetLastError());
+         // === L1 PARTIAL CLOSE + TRAILING ===
+         if(isL1 && UseL1PartialClose) {
+            // Step 1: Partial close at TP1
+            if(!g_l1PartialDone && profit >= riskDist * L1_TP1_R) {
+               double closeLots = NormalizeDouble(lots * L1_PartialPercent / 100.0, 2);
+               double minLot = MarketInfo(Symbol(), MODE_MINLOT);
+               if(closeLots < minLot) closeLots = minLot;
+               if(closeLots >= lots) closeLots = lots - minLot;  // keep at least minLot
+
+               if(closeLots > 0 && closeLots < lots) {
+                  if(OrderClose(ticket, closeLots, currentPrice, 3, clrGold)) {
+                     Print("L1 PARTIAL CLOSE: ", DoubleToStr(closeLots, 2), " lots at ",
+                           DoubleToStr(L1_TP1_R, 1), "R | remaining: ",
+                           DoubleToStr(lots - closeLots, 2), " lots");
+                     g_l1PartialDone = true;
+
+                     // Find the new ticket for the remaining lot
+                     g_l1RemainTicket = 0;
+                     for(int j = OrdersTotal() - 1; j >= 0; j--) {
+                        if(OrderSelect(j, SELECT_BY_POS, MODE_TRADES)) {
+                           if(OrderSymbol() == Symbol() && OrderMagicNumber() == MagicNumber
+                              && OrderTicket() != ticket && OrderType() == OP_BUY) {
+                              g_l1RemainTicket = OrderTicket();
+                              break;
+                           }
+                        }
+                     }
+
+                     // Update pyramid tracking to new ticket
+                     if(g_l1RemainTicket > 0) {
+                        g_pyr.lastTicket = g_l1RemainTicket;
+
+                        // Move SL to BE and remove TP (let trailing handle exit)
+                        if(OrderSelect(g_l1RemainTicket, SELECT_BY_TICKET)) {
+                           double beSL = NormalizeDouble(openPrice + 1 * g_pipValue, g_digits);
+                           OrderModify(g_l1RemainTicket, openPrice, beSL, 0, 0, clrYellow);
+                           Print("L1 REMAIN: ticket=", g_l1RemainTicket, " | SL->BE, TP removed");
+                        }
+                     }
+                  } else {
+                     Print("L1 PARTIAL CLOSE FAILED: ", GetLastError());
+                  }
+               }
+            }
+            // Step 2: Trailing stop (after partial done)
+            else if(g_l1PartialDone && ticket == g_l1RemainTicket
+                    && profit >= riskDist * L1_TrailStart_R) {
+               double newSL = NormalizeDouble(currentPrice - L1_TrailStep_Pips * g_pipValue, g_digits);
+               if(newSL > currentSL) {
+                  if(OrderModify(ticket, openPrice, newSL, 0, 0, clrAqua))
+                     Print("L1 TRAIL: SL moved to ", DoubleToStr(newSL, g_digits));
+               }
+            }
+         }
+         // === NORMAL BE (L0, L2, or L1 without partial close) ===
+         else {
+            if(UseBreakeven && profit >= riskDist * r_BE_Trigger_R && currentSL < openPrice) {
+               double beSL = openPrice + 1 * g_pipValue;
+               if(!OrderModify(ticket, openPrice, NormalizeDouble(beSL, g_digits),
+                              OrderTakeProfit(), 0, clrYellow))
+                  Print("BE modify failed: ", GetLastError());
+            }
          }
       }
       else if(OrderType() == OP_SELL) {
          double currentPrice = MarketInfo(Symbol(), MODE_ASK);
          double profit = openPrice - currentPrice;
 
-         // Breakeven at BE_Trigger_R
-         if(UseBreakeven && profit >= riskDist * r_BE_Trigger_R && currentSL > openPrice) {
-            double beSL = openPrice - 1 * g_pipValue;
-            if(!OrderModify(OrderTicket(), openPrice, NormalizeDouble(beSL, g_digits),
-                           OrderTakeProfit(), 0, clrYellow))
-               Print("BE modify failed: ", GetLastError());
+         // === L1 PARTIAL CLOSE + TRAILING ===
+         if(isL1 && UseL1PartialClose) {
+            // Step 1: Partial close at TP1
+            if(!g_l1PartialDone && profit >= riskDist * L1_TP1_R) {
+               double closeLots = NormalizeDouble(lots * L1_PartialPercent / 100.0, 2);
+               double minLot = MarketInfo(Symbol(), MODE_MINLOT);
+               if(closeLots < minLot) closeLots = minLot;
+               if(closeLots >= lots) closeLots = lots - minLot;
+
+               if(closeLots > 0 && closeLots < lots) {
+                  if(OrderClose(ticket, closeLots, currentPrice, 3, clrGold)) {
+                     Print("L1 PARTIAL CLOSE: ", DoubleToStr(closeLots, 2), " lots at ",
+                           DoubleToStr(L1_TP1_R, 1), "R | remaining: ",
+                           DoubleToStr(lots - closeLots, 2), " lots");
+                     g_l1PartialDone = true;
+
+                     // Find the new ticket for the remaining lot
+                     g_l1RemainTicket = 0;
+                     for(int j = OrdersTotal() - 1; j >= 0; j--) {
+                        if(OrderSelect(j, SELECT_BY_POS, MODE_TRADES)) {
+                           if(OrderSymbol() == Symbol() && OrderMagicNumber() == MagicNumber
+                              && OrderTicket() != ticket && OrderType() == OP_SELL) {
+                              g_l1RemainTicket = OrderTicket();
+                              break;
+                           }
+                        }
+                     }
+
+                     // Update pyramid tracking to new ticket
+                     if(g_l1RemainTicket > 0) {
+                        g_pyr.lastTicket = g_l1RemainTicket;
+
+                        // Move SL to BE and remove TP
+                        if(OrderSelect(g_l1RemainTicket, SELECT_BY_TICKET)) {
+                           double beSL = NormalizeDouble(openPrice - 1 * g_pipValue, g_digits);
+                           OrderModify(g_l1RemainTicket, openPrice, beSL, 0, 0, clrYellow);
+                           Print("L1 REMAIN: ticket=", g_l1RemainTicket, " | SL->BE, TP removed");
+                        }
+                     }
+                  } else {
+                     Print("L1 PARTIAL CLOSE FAILED: ", GetLastError());
+                  }
+               }
+            }
+            // Step 2: Trailing stop (after partial done)
+            else if(g_l1PartialDone && ticket == g_l1RemainTicket
+                    && profit >= riskDist * L1_TrailStart_R) {
+               double newSL = NormalizeDouble(currentPrice + L1_TrailStep_Pips * g_pipValue, g_digits);
+               if(newSL < currentSL) {
+                  if(OrderModify(ticket, openPrice, newSL, 0, 0, clrAqua))
+                     Print("L1 TRAIL: SL moved to ", DoubleToStr(newSL, g_digits));
+               }
+            }
+         }
+         // === NORMAL BE (L0, L2, or L1 without partial close) ===
+         else {
+            if(UseBreakeven && profit >= riskDist * r_BE_Trigger_R && currentSL > openPrice) {
+               double beSL = openPrice - 1 * g_pipValue;
+               if(!OrderModify(ticket, openPrice, NormalizeDouble(beSL, g_digits),
+                              OrderTakeProfit(), 0, clrYellow))
+                  Print("BE modify failed: ", GetLastError());
+            }
          }
       }
    }
