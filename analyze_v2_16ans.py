@@ -6,7 +6,8 @@ Focus: L0 normaux vs L0 inversés (REV)
 from collections import defaultdict
 from datetime import datetime
 
-FILE = "EMA_Pullback_pyramid_v2Test01_16ans.txt"
+import sys
+FILE = sys.argv[1] if len(sys.argv) > 1 else "EMA_Pullback_pyramid_v2Test01_16ans.txt"
 
 # Parse — skip modify lines, pair opens with closes
 events = []
