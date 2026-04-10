@@ -53,6 +53,7 @@ input int          MaxStreakLevel = 2;             // cap du streak (2 -> 3 nive
 // --- Reverse Trade (on L0 SL) ---
 input bool         UseReverseTrade = true;         // Open reverse trade when L0 hits SL
 input double       RevLotMult      = 1.0;          // Reverse trade lot multiplier (1.0 = same as L0)
+input double       RevMaxSL_Pips   = 25.0;         // Max SL for reverse trade (0 = no limit)
 
 // --- Trend Filter (H1) ---
 input int    TrendEMA_Period    = 50;      // H1 EMA period for trend direction
@@ -766,9 +767,12 @@ void ExecuteReverseTrade(int originalType) {
       sl = sl + 2 * g_pipValue;
 
       double slDist = (sl - bid) / g_pipValue;
-      // No MinSL/MaxSL filter — force the trade
       if(slDist <= 0) {
          Print("REVERSE SKIPPED: SL distance <= 0");
+         return;
+      }
+      if(RevMaxSL_Pips > 0 && slDist > RevMaxSL_Pips) {
+         Print("REVERSE SKIPPED: SL ", DoubleToStr(slDist, 1), " pips > RevMaxSL ", DoubleToStr(RevMaxSL_Pips, 1));
          return;
       }
 
@@ -788,9 +792,12 @@ void ExecuteReverseTrade(int originalType) {
       sl = sl - 2 * g_pipValue;
 
       double slDist = (ask - sl) / g_pipValue;
-      // No MinSL/MaxSL filter — force the trade
       if(slDist <= 0) {
          Print("REVERSE SKIPPED: SL distance <= 0");
+         return;
+      }
+      if(RevMaxSL_Pips > 0 && slDist > RevMaxSL_Pips) {
+         Print("REVERSE SKIPPED: SL ", DoubleToStr(slDist, 1), " pips > RevMaxSL ", DoubleToStr(RevMaxSL_Pips, 1));
          return;
       }
 
