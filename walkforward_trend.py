@@ -33,8 +33,13 @@ import numpy as np
 from engine import instruments as I, portfolio as P, report
 
 SYMBOLS = ("EURUSD", "GBPUSD", "USDJPY", "XAUUSD")
+CRYPTO = ("BTCUSD", "ETHUSD", "BNBUSD", "SOLUSD",
+          "XRPUSD", "ADAUSD", "LTCUSD", "LINKUSD")
 DATA_START = {"EURUSD": "1999.01.01"}
-CORR_GROUPS = {"EURUSD": "USD_EUROPE", "GBPUSD": "USD_EUROPE"}
+CORR_GROUPS = {"EURUSD": "USD_EUROPE", "GBPUSD": "USD_EUROPE",
+               "BTCUSD": "CRYPTO", "ETHUSD": "CRYPTO", "BNBUSD": "CRYPTO",
+               "SOLUSD": "CRYPTO", "XRPUSD": "CRYPTO", "ADAUSD": "CRYPTO",
+               "LTCUSD": "CRYPTO", "LINKUSD": "CRYPTO"}
 
 # Deliberately small. A wide grid searched on limited in-sample data is exactly
 # how the EMA-pullback presets were produced.
@@ -43,6 +48,8 @@ GRID_STOP = (2.0, 3.0, 4.0)
 GRID_TRAIL = (4.0, 5.0, 6.0)
 
 YEAR = 365.25 * 86400
+MAXC = [4]
+MAXG = [99]
 
 
 def slice_from(series, start):
@@ -92,7 +99,8 @@ def score_in_sample(rows, cutoff, risk_pct, oos_years, max_dd=None):
         return None
     W = P.rolling_windows(hist, years=oos_years, step_months=6,
                           risk_pct=risk_pct, initial=10000.0,
-                          max_concurrent=4, corr_groups=CORR_GROUPS)
+                          max_concurrent=MAXC[0], corr_groups=CORR_GROUPS,
+                          max_group_concurrent=MAXG[0])
     if len(W) < 4:
         return None
     if max_dd is not None:
@@ -106,10 +114,15 @@ def score_in_sample(rows, cutoff, risk_pct, oos_years, max_dd=None):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--symbols", default=None,
+                    help="liste, ou 'crypto', ou 'all' (12 instruments)")
     ap.add_argument("--risk", type=float, default=2.0)
     ap.add_argument("--oos-years", type=float, default=5.0)
     ap.add_argument("--min-history", type=float, default=7.0,
                     help="years of history required before the first anchor")
+    ap.add_argument("--max-group", type=int, default=99,
+                    help="positions simultanees max dans un groupe correle")
+    ap.add_argument("--max-concurrent", type=int, default=4)
     ap.add_argument("--max-dd", type=float, default=None,
                     help="reject configs whose worst in-sample 5y DD exceeds this %%")
     args = ap.parse_args(argv)
@@ -121,6 +134,18 @@ def main(argv=None):
           f"risque {args.risk}%   OOS {args.oos_years:.0f} ans"
           + (f"   budget DD {args.max_dd:.0f}%" if args.max_dd else ""))
     print("=" * 78)
+
+    global SYMBOLS
+    if args.symbols:
+        if args.symbols.lower() == "crypto":
+            SYMBOLS = CRYPTO
+        elif args.symbols.lower() == "all":
+            SYMBOLS = SYMBOLS + CRYPTO
+        else:
+            SYMBOLS = tuple(s.strip().upper() for s in args.symbols.split(","))
+    MAXC[0] = args.max_concurrent
+    MAXG[0] = args.max_group
+    print(f"instruments    {len(SYMBOLS)} : {', '.join(SYMBOLS)}")
 
     table = build_all()
     fixed = (2880, 3.0, 5.0)
@@ -154,9 +179,13 @@ def main(argv=None):
         if len(res_rows) < 15 or len(ref_rows) < 15:
             continue
         res = P.simulate(res_rows, risk_pct=args.risk, initial=10000.0,
-                         max_concurrent=4, corr_groups=CORR_GROUPS)
+                         max_concurrent=args.max_concurrent,
+                         corr_groups=CORR_GROUPS,
+                         max_group_concurrent=args.max_group)
         ref = P.simulate(ref_rows, risk_pct=args.risk, initial=10000.0,
-                         max_concurrent=4, corr_groups=CORR_GROUPS)
+                         max_concurrent=args.max_concurrent,
+                         corr_groups=CORR_GROUPS,
+                         max_group_concurrent=args.max_group)
 
         picked.append(best)
         oos_mult.append(res.final / 10000.0)

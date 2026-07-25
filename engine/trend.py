@@ -255,6 +255,35 @@ def _run_trend(
     return k
 
 
+@njit(cache=True)
+def _rolling_extreme(values, period, out, want_max):
+    """Rolling max or min via a monotonic deque: O(n) instead of O(n*period).
+
+    The naive sliding-window version costs 490M operations for a 2880-bar
+    channel over 170k bars, which makes a 12-instrument sweep unusable. This
+    keeps indices of candidates that could still become the extreme, dropping
+    any that the newest value dominates.
+    """
+    n = values.size
+    idx = np.empty(n, dtype=np.int64)
+    head = 0
+    tail = 0
+    for i in range(n):
+        v = values[i]
+        while tail > head:
+            last = values[idx[tail - 1]]
+            if (v >= last) if want_max else (v <= last):
+                tail -= 1
+            else:
+                break
+        idx[tail] = i
+        tail += 1
+        if idx[head] <= i - period:
+            head += 1
+        if i >= period - 1:
+            out[i] = values[idx[head]]
+
+
 def donchian(high, low, period):
     """Rolling Donchian channel over the `period` bars ending at each index."""
     n = high.size
@@ -262,11 +291,8 @@ def donchian(high, low, period):
     lo = np.full(n, np.nan)
     if n <= period:
         return hi, lo
-    from numpy.lib.stride_tricks import sliding_window_view
-    hw = sliding_window_view(high, period)
-    lw = sliding_window_view(low, period)
-    hi[period - 1:] = hw.max(axis=1)
-    lo[period - 1:] = lw.min(axis=1)
+    _rolling_extreme(np.ascontiguousarray(high), period, hi, True)
+    _rolling_extreme(np.ascontiguousarray(low), period, lo, False)
     return hi, lo
 
 
