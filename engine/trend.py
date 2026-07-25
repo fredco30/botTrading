@@ -41,9 +41,10 @@ R_COLS = 11
 def _run_trend(
     ts, o, h, l, c, atr, don_hi, don_lo, exit_hi, exit_lo, roll_w,
     # instrument
-    initial_equity, spread, slippage, contract_size, inverse_quote,
+    initial_equity, spread, slippage, spread_bps, slippage_bps,
+    contract_size, inverse_quote,
     min_lot, max_lot, lot_step, tick_size, tick_value,
-    swap_long, swap_short, use_swap,
+    swap_long, swap_short, financing_bps_day, use_swap,
     # strategy
     risk_pct, atr_stop_mult, atr_trail_mult, use_trailing,
     allow_long, allow_short, max_risk_units,
@@ -85,6 +86,13 @@ def _run_trend(
 
         bar_h = h[i]
         bar_l = l[i]
+        # Absolute plus proportional costs. A fixed spread is meaningless on an
+        # instrument whose price moves two orders of magnitude - BTC went from
+        # $1k to $120k in this sample - so crypto is quoted in basis points and
+        # FX keeps its measured absolute spread.
+        px = c[i - 1]
+        eff_spread = spread + px * spread_bps * 1e-4
+        eff_slip = slippage + px * slippage_bps * 1e-4
 
         if in_pos:
             p_rollw += roll_w[i]
@@ -92,11 +100,11 @@ def _run_trend(
 
             if p_dir == 1:
                 if bar_l <= p_stop:
-                    exit_price = p_stop - slippage
+                    exit_price = p_stop - eff_slip
                 elif not np.isnan(exit_lo[i - 1]) and bar_l <= exit_lo[i - 1]:
                     # Opposite Donchian: a resting stop at that level.
                     lvl = exit_lo[i - 1]
-                    exit_price = (lvl if lvl < p_stop else lvl) - slippage
+                    exit_price = (lvl if lvl < p_stop else lvl) - eff_slip
                 else:
                     if bar_h > p_ext:
                         p_ext = bar_h
@@ -106,7 +114,7 @@ def _run_trend(
                             p_stop = trail
                     while (n_units < max_units and p_next_add > 0.0
                            and bar_h >= p_next_add):
-                        add_at = p_next_add + spread + slippage
+                        add_at = p_next_add + eff_spread + eff_slip
                         rp = atr_stop_mult * atr[i - 1]
                         vpp = contract_size / add_at if inverse_quote else contract_size
                         add_u = (equity * risk_pct / 100.0) / (rp * vpp)
@@ -120,10 +128,10 @@ def _run_trend(
                         p_risk += rp * vpp * add_u
                         p_next_add = add_at + add_step_atr * atr[i - 1]
             else:
-                if bar_h + spread >= p_stop:
-                    exit_price = p_stop + slippage
-                elif not np.isnan(exit_hi[i - 1]) and bar_h + spread >= exit_hi[i - 1]:
-                    exit_price = exit_hi[i - 1] + slippage
+                if bar_h + eff_spread >= p_stop:
+                    exit_price = p_stop + eff_slip
+                elif not np.isnan(exit_hi[i - 1]) and bar_h + eff_spread >= exit_hi[i - 1]:
+                    exit_price = exit_hi[i - 1] + eff_slip
                 else:
                     if bar_l < p_ext:
                         p_ext = bar_l
@@ -133,7 +141,7 @@ def _run_trend(
                             p_stop = trail
                     while (n_units < max_units and p_next_add > 0.0
                            and bar_l <= p_next_add):
-                        add_at = p_next_add - slippage
+                        add_at = p_next_add - eff_slip
                         rp = atr_stop_mult * atr[i - 1]
                         vpp = contract_size / add_at if inverse_quote else contract_size
                         add_u = (equity * risk_pct / 100.0) / (rp * vpp)
@@ -155,8 +163,14 @@ def _run_trend(
                         leg /= exit_price
                     pnl += leg
                 if use_swap and p_rollw > 0.0:
-                    rate = swap_long if p_dir == 1 else swap_short
-                    pnl += p_rollw * p_units * rate
+                    if financing_bps_day > 0.0:
+                        # Crypto CFDs charge a percentage of notional per day,
+                        # always against the holder, long or short.
+                        notional = p_units * contract_size * exit_price
+                        pnl -= p_rollw * notional * financing_bps_day * 1e-4
+                    else:
+                        rate = swap_long if p_dir == 1 else swap_short
+                        pnl += p_rollw * p_units * rate
                 equity += pnl
 
                 out[k, R_ENTRY_IDX] = p_idx
@@ -194,11 +208,11 @@ def _run_trend(
         # A gap through the level fills at the open, not at the level.
         if direction == 1:
             entry = o[i] if o[i] > level else level
-            entry += spread + slippage
+            entry += eff_spread + eff_slip
             stop = entry - atr_stop_mult * atr[i - 1]
         else:
             entry = o[i] if o[i] < level else level
-            entry -= slippage
+            entry -= eff_slip
             stop = entry + atr_stop_mult * atr[i - 1]
 
         risk_price = abs(entry - stop)

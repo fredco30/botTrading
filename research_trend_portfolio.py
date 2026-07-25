@@ -18,12 +18,15 @@ Usage:
 """
 
 import argparse
+import os
 
 import numpy as np
 
 from engine import instruments as I, portfolio as P, report, trend
 
 SYMBOLS = ("EURUSD", "GBPUSD", "USDJPY", "XAUUSD")
+CRYPTO = ("BTCUSD", "ETHUSD", "BNBUSD", "SOLUSD",
+          "XRPUSD", "ADAUSD", "LTCUSD", "LINKUSD")
 # EURUSD's CSV back-fills 1971-1998 with one synthetic daily bar; real M15
 # starts in 1999.
 DATA_START = {"EURUSD": "1999.01.01"}
@@ -71,6 +74,8 @@ def build_rows(entry_period, exit_period, atr_stop_mult, atr_trail_mult,
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--symbols", default=None,
+                    help="liste separee par des virgules; 'crypto' ou 'all' acceptes")
     ap.add_argument("--risk", type=float, default=2.0, help="%% equity per trade")
     ap.add_argument("--years", type=float, default=5.0)
     ap.add_argument("--entry", type=int, default=DEFAULTS["entry_period"])
@@ -86,6 +91,18 @@ def main(argv=None):
     print(f"canal entree {args.entry} barres (~{args.entry/24:.0f} jours)   "
           f"sortie {args.exit}   stop {args.stop} ATR   trailing {args.trail} ATR")
     print("=" * 76)
+
+    global SYMBOLS
+    if args.symbols:
+        if args.symbols.lower() == "crypto":
+            SYMBOLS = CRYPTO
+        elif args.symbols.lower() == "all":
+            SYMBOLS = SYMBOLS + CRYPTO
+        else:
+            SYMBOLS = tuple(s.strip().upper() for s in args.symbols.split(",") if s.strip())
+        missing = [s for s in SYMBOLS if not os.path.exists(I.INSTRUMENTS[s].m15_csv)]
+        if missing:
+            raise SystemExit("CSV manquant(s) : " + ", ".join(missing))
 
     rows, _ = build_rows(args.entry, args.exit, args.stop, args.trail)
     r = np.array([x[2] for x in rows])

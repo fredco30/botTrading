@@ -29,6 +29,13 @@ class Instrument:
     swap_long: float       # account currency per unit per rollover
     swap_short: float
     calibrated: bool       # False = spread/swap are estimates, not measured
+    # Proportional costs, in basis points of price. Required for anything whose
+    # price changes by orders of magnitude: an absolute spread calibrated at
+    # BTC $1,000 is meaningless at $120,000.
+    spread_bps: float = 0.0
+    slippage_bps: float = 0.0
+    financing_bps_day: float = 0.0   # % of notional per day, charged both ways
+    is_24_7: bool = False            # crypto: no weekend, no Thursday triple
     min_lot: float = 0.01
     max_lot: float = 200.0
     lot_step: float = 0.01
@@ -54,6 +61,37 @@ INSTRUMENTS = {
         spread=0.20, slippage=0.10,
         swap_long=-15.0, swap_short=5.0, calibrated=False),
 }
+
+# ---------------------------------------------------------------------------
+# Crypto. Data comes from Binance spot via fetch_crypto.py, so the default
+# costs are Binance's: 10 bps taker per side, and no financing because spot
+# carries none. UNCALIBRATED against any broker.
+#
+# If these are to be traded as CFDs instead, both numbers change hard: retail
+# crypto CFD spreads run 20-60 bps and financing 2-6 bps per day charged both
+# ways. That gap is large enough to flip the result, which is exactly the swap
+# lesson from the EMA-pullback work at ten times the scale. Override
+# spread_bps / financing_bps_day with the broker's real figures before
+# treating any crypto result as tradeable.
+#
+# contract_size = 1 means one unit is one coin, so position sizes come out in
+# coins and the lot step is fractional rather than the 0.01 of an FX lot.
+# ---------------------------------------------------------------------------
+def _crypto(symbol):
+    return Instrument(
+        symbol, f"{symbol}15.csv",
+        point=0.01, pip=0.01, tick_size=0.01, tick_value=0.01,
+        contract_size=1.0, inverse_quote=False,
+        spread=0.0, slippage=0.0,
+        swap_long=0.0, swap_short=0.0, calibrated=False,
+        spread_bps=10.0, slippage_bps=5.0, financing_bps_day=0.0,
+        is_24_7=True, min_lot=1e-6, max_lot=1e9, lot_step=1e-6,
+    )
+
+
+for _sym in ("BTCUSD", "ETHUSD", "BNBUSD", "SOLUSD",
+             "XRPUSD", "ADAUSD", "LTCUSD", "LINKUSD"):
+    INSTRUMENTS[_sym] = _crypto(_sym)
 
 
 _H1_CACHE = {}
@@ -88,9 +126,14 @@ def load_h1(symbol, atr_period=14, entry_period=55, exit_period=20):
     dow = ((ts // 86400) + 4) % 7
     roll_w = np.zeros(ts.size)
     at_midnight = hour == 0
-    roll_w[at_midnight] = 1.0
-    roll_w[at_midnight & (dow == 4)] = 3.0
-    roll_w[at_midnight & ((dow == 0) | (dow == 6))] = 0.0
+    if inst.is_24_7:
+        # Crypto never closes: financing is charged every day, weekends
+        # included, and there is no Wednesday-to-Thursday triple to cover them.
+        roll_w[at_midnight] = 1.0
+    else:
+        roll_w[at_midnight] = 1.0
+        roll_w[at_midnight & (dow == 4)] = 3.0
+        roll_w[at_midnight & ((dow == 0) | (dow == 6))] = 0.0
 
     return dict(ts=ts, o=h_o, h=h_h, l=h_l, c=h_c, atr=atr,
                 don_hi=don_hi, don_lo=don_lo, exit_hi=ex_hi, exit_lo=ex_lo,
@@ -109,10 +152,12 @@ def run(series, risk_pct=1.0, atr_stop_mult=3.0, atr_trail_mult=4.0,
         series["atr"], series["don_hi"], series["don_lo"],
         series["exit_hi"], series["exit_lo"], series["roll_w"],
         float(initial_equity), float(inst.spread), float(inst.slippage),
+        float(inst.spread_bps), float(inst.slippage_bps),
         float(inst.contract_size), bool(inst.inverse_quote),
         float(inst.min_lot), float(inst.max_lot), float(inst.lot_step),
         float(inst.tick_size), float(inst.tick_value),
-        float(inst.swap_long), float(inst.swap_short), bool(use_swap),
+        float(inst.swap_long), float(inst.swap_short),
+        float(inst.financing_bps_day), bool(use_swap),
         float(risk_pct), float(atr_stop_mult), float(atr_trail_mult),
         bool(use_trailing), bool(allow_long), bool(allow_short),
         float(max_risk_units),
