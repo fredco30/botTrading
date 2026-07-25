@@ -45,6 +45,8 @@ def parse_args(argv=None):
     ap.add_argument("--no-pyramid", action="store_true")
     ap.add_argument("--set", action="append", default=[], dest="overrides",
                     metavar="NAME=VALUE")
+    ap.add_argument("--m15", default=None, help="override the preset M15 CSV")
+    ap.add_argument("--h1", default=None, help="override the preset H1 CSV")
     ap.add_argument("--balance", type=float, default=10000.0)
     ap.add_argument("--split", default=None, help="walk-forward cut YYYY.MM.DD")
     return ap.parse_args(argv)
@@ -78,7 +80,9 @@ def main(argv=None):
             raise SystemExit(f"unknown parameter '{name}'")
         setattr(params, name, parse_value(raw))
 
-    md = data.build(*PAIR_DATA[args.pair],
+    m15_path = args.m15 or PAIR_DATA[args.pair][0]
+    h1_path = args.h1 or PAIR_DATA[args.pair][1]
+    md = data.build(m15_path, h1_path,
                     entry_ema_period=params.entry_ema_period,
                     rsi_period=params.rsi_period,
                     trend_ema_period=params.trend_ema_period,

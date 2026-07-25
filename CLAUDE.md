@@ -68,6 +68,41 @@ directement le profit sans toucher aux losses (qui resetent le streak).
 
 **L1 génère 73% du profit total.** C'est le profit engine. Ne pas le déprécier.
 
+### ⚠️ EURUSD sur 27 ans : l'edge est SPECIFIQUE AU REGIME 2020+
+`EURUSD15.csv` (ré-export complet, M15 depuis 1999, un seul trou de 4 jours)
+permet enfin de tester hors de la fenêtre 2023-2026. Résultat, mode SAFE :
+
+| Période | Trades | Net | PF | DD |
+|---------|--------|-----|-----|-----|
+| 1999-2009 | 320 | +$4 213 | 1.09 | 52% |
+| **2010-2019** | **380** | **−$4 089** | **0.84** | **56%** |
+| 2020-2026 | 260 | +$37 807 | 1.93 | 27% |
+| 2023-2026 | 136 | +$28 763 | 2.30 | 12% |
+| **1999-2026** | **960** | +$34 756 | **1.27** | **70%** |
+
+**12 années positives sur 28.** La décennie 2010-2019 est perdante.
+
+Ce n'est **PAS** un problème de calibrage des filtres — vérifié filtre par filtre :
+
+| Variante sur 2010-2019 | PF |
+|---|---|
+| Champion tel quel | 0.84 |
+| Sans combos toxiques H×J | 0.85 |
+| Sans heures bloquées | 0.83 |
+| Sans filtre ATR | 0.86 |
+| Sans filtre EMA50 dist | 0.77 |
+| **Signal brut, zéro filtre** | **0.74** |
+| Signal brut sur 2020-2026 | **1.19** |
+
+Les filtres *améliorent* les deux époques. C'est **le signal EMA Pullback lui-même**
+qui ne fonctionne pas avant 2020. L'edge existe, mais il est validé sur ~6 ans,
+pas sur 27.
+
+**Conséquences :**
+- Le « +$34k / PF 1.89 / 6 années positives sur 7 » du mode SAFE porte sur 2020-2026 uniquement. Ce n'est pas une preuve de robustesse.
+- **GBPUSD est dans le même angle mort** : mes 5.3 ans (2021-2026) sont entièrement dans le régime favorable. Les 6/6 années positives ne confirment donc rien d'indépendant. → Ré-exporter `GBPUSD15` depuis 1999 est maintenant la priorité n°1.
+- ⚠️ Réserve honnête sur les années anciennes : le spread (0.2 pip) et les swaps sont des constantes 2023-2025. En 2005 le spread EURUSD réel était de 2-3 pips. Les années 2000-2019 sont donc simulées **trop favorablement**, pas l'inverse.
+
 ### Presets multi-paires (v1.20) ⭐
 Le verdict « pyramide EURUSD uniquement » venait du fait que GBPUSD et USDJPY
 étaient testés avec les **filtres de contexte d'EURUSD**. Re-calibrés par paire

@@ -25,16 +25,17 @@ Calibré contre trois runs MT4 distincts, sur les trois paires :
 
 | Paire | Rapport MT4 | Trades | Écart net |
 |-------|-------------|--------|-----------|
-| EURUSD | `resultats_martingale_EMAPullback3ans.txt` | 101/101 | **0.006 %** |
+| EURUSD | `resultats_martingale_EMAPullback3ans.txt` | 113/113 | **0.000 %** |
 | GBPUSD | `historique trade gbpusd 3ansV4.txt` | 78/78 | **0.024 %** |
 | USDJPY | `historique trade usdjpy 3ansV2.txt` | 89/89 | 2 bougies ambiguës |
 
-Sur EURUSD, en détail :
+Sur EURUSD, avec le ré-export complet, la fenêtre du rapport est couverte en
+entier (113 trades au lieu de 101) et l'écart tombe à zéro :
 
 | Métrique | Moteur | MT4 | Écart |
 |----------|--------|-----|-------|
-| Trades | 101 | 101 | 0 |
-| Net | 9 610.45 | 9 611.05 | **0.006 %** |
+| Trades | 113 | 113 | 0 |
+| Net | 9 568.90 | 9 568.93 | **0.000 %** |
 | PF | 2.19 | 2.19 | 0.0 % |
 | WR | 56.44 % | 56.44 % | 0.0 % |
 | DD max | 4.77 % | 4.77 % | 0.0 % |
@@ -155,13 +156,16 @@ appliquée mécaniquement plutôt qu'à la main.
    ci-dessus. Rare (0-3 % des trades) mais coûteux quand ça arrive : toujours
    vérifier la colonne `amb%` avant de retenir une config.
 
-2. **Fenêtre de données courte.** `EURUSD15_cut.csv` couvre
-   2023.03.13 → 2025.10.31 seulement : l'export "Bars" de MT4 est plafonné à
-   65 535 lignes. Cette fenêtre est une **bonne** période pour la stratégie
-   (PF 2.19 baseline). Les résultats 6 ans du `CLAUDE.md` incluent 2021, qui est
-   négatif. **Ne pas extrapoler un balayage fait sur cette fenêtre.**
-   → Pour débloquer : dans MT4, Outils > Options > Graphiques > "Max. de barres
-   dans l'historique" à 999999999, puis ré-exporter M15 depuis 2020.
+2. **Le régime domine tout, et la fenêtre de données le cache.** Avec le
+   ré-export complet (`EURUSD15.csv`, M15 depuis 1999), le signal fait
+   **PF 0.74 sur 2010-2019** et **PF 1.19 sur 2020-2026**, filtres retirés des
+   deux côtés. Un balayage fait sur 2023-2026 optimise donc un régime, pas un
+   edge intemporel. GBPUSD (2021-2026) et USDJPY (2023-2025) sont tous deux
+   entièrement dans le régime favorable : leurs résultats ne sont pas des
+   confirmations indépendantes.
+   → Ré-exporter `GBPUSD15` et `USDJPY15` sur toute l'historique : MT4, Outils >
+   Options > Graphiques > "Max. de barres dans l'historique" à 999999999,
+   redémarrer, F2 pour recharger, puis exporter.
 
 3. **Spread constant.** Le tester tournait à spread fixe 2 points. Le spread
    réel varie (rollover, news). Les configs à SL serré sont donc optimistes.

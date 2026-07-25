@@ -193,8 +193,10 @@ PAIR_PRESETS = {
     ),
 }
 
+# EURUSD now points at the full export (M15 back to 1999) rather than the
+# 65k-row _cut file. The _cut files stay usable via --m15 / --h1.
 PAIR_DATA = {
-    "EURUSD": ("EURUSD15_cut.csv", "EURUSD60_cut.csv"),
+    "EURUSD": ("EURUSD15.csv", "EURUSD60.csv"),
     "GBPUSD": ("GBPUSD15_cut.csv", "GBPUSD60_cut.csv"),
     "USDJPY": ("USDJPY15_cut.csv", "USDJPY60_cut.csv"),
 }
