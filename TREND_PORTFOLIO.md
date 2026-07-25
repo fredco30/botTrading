@@ -164,6 +164,74 @@ Avec 12 instruments au lieu de 4, le même système à 2-3 % de risque devrait
 placer la médiane dans la zone ×5 à ×8 sur 5 ans, avec un DD comparable. Le ×10
 devient alors un objectif haut plausible plutôt qu'un coup de dés.
 
+## Crypto — 8 instruments, 8.9 ans, et le résultat change tout
+
+Données Binance spot M15 via `fetch_crypto.py`. Le portefeuille passe de 4 à
+**12 instruments**.
+
+| Instrument | Trades | PF | DD | Buy & hold |
+|---|---|---|---|---|
+| BTCUSD | 142 | 1.47 | 10.4 % | 4 261 → 64 370 |
+| ETHUSD | 140 | 1.62 | 11.3 % | 298 → 1 873 |
+| BNBUSD | 117 | **2.14** | 7.1 % | 1.7 → 569 |
+| SOLUSD | 95 | 1.57 | 9.8 % | 3.2 → 74 |
+| XRPUSD | 47 | **4.40** | 3.8 % | 0.93 → 1.10 |
+| ADAUSD | 104 | 2.07 | 7.0 % | 0.267 → **0.165** |
+| LTCUSD | 111 | 1.40 | 14.1 % | 288 → **46** |
+| LINKUSD | 93 | 1.28 | 10.1 % | 0.52 → 8.4 |
+
+**Les 8 sont rentables, y compris LTC et ADA qui ont perdu 84 % et 38 % en
+buy & hold.** Le système gagne sur des actifs qui ont baissé — c'est le shorting
+et le suivi de tendance qui travaillent, pas l'exposition longue au marché.
+
+### L'edge n'est pas qu'un artefact du bull run
+
+| Période | Trades | × (1 % risque) | Espérance |
+|---|---|---|---|
+| 2017-2019 (avant) | 156 | ×2.90 | +0.710 R |
+| 2020-2021 (le bull run) | 249 | ×3.91 | +0.561 R |
+| **2022-2026 (après, bear 2022 inclus)** | **444** | **×3.45** | **+0.267 R** |
+
+Positif dans les trois régimes. Mais l'espérance **décroît nettement**
+(0.71 → 0.56 → 0.27) et les fenêtres glissantes passent de ×13 à **×3.93** pour
+la plus récente. C'est de l'érosion d'edge : le marché crypto devient plus
+efficient. **Toute projection doit partir du régime récent, pas de la moyenne.**
+
+### ⚠️ Le lieu d'exécution compte plus que la stratégie
+
+| Scénario de coûts | Espérance | × sur 2022-2026 |
+|---|---|---|
+| Binance spot (10 bps/côté) | +0.435 R | **3.45** |
+| Binance + slippage réaliste | +0.380 R | 2.73 |
+| CFD serré (25 bps, 2 bps/j) | +0.344 R | 2.37 |
+| **CFD type IC Markets (40 bps, 4 bps/j)** | +0.275 R | **1.72** |
+| CFD large (60 bps, 6 bps/j) | +0.183 R | **1.14** |
+
+Le même système, la même période : **×3.45 sur Binance spot, ×1.14 en CFD
+large.** Le choix du broker détruit ou préserve les deux tiers du résultat.
+C'est la leçon du swap de l'EMA Pullback, portée à une échelle où elle décide
+de tout.
+
+## Estimation prospective honnête — 12 instruments, régime récent seul
+
+2022.01 → 2026.07 (4.5 ans, hors bull run), 708 trades :
+
+| Risque | × réel 4.5 ans | CAGR | DD | Extrapolé 5 ans |
+|---|---|---|---|---|
+| 0.50 % | 3.07 | 28 % | 16 % | 3.44 |
+| **0.75 %** | **5.14** | 43 % | **23 %** | **6.06** |
+| **1.00 %** | **8.39** | 60 % | **29 %** | **10.37** |
+| 1.50 % | 20.71 | 95 % | 41 % | 28.04 |
+
+**À 1 % de risque, l'objectif ×10 est atteint** — sur le régime le plus
+défavorable disponible, coûts Binance spot inclus, avec 29 % de DD.
+
+Ce qui reste à vérifier avant d'y croire :
+- 4.5 ans seulement, et une seule trajectoire (pas 16 fenêtres indépendantes)
+- coûts Binance spot : en CFD, diviser le résultat par ~2
+- l'érosion d'edge crypto est réelle et pourrait continuer
+- biais du survivant : les 8 paires sont toutes encore cotées en 2026
+
 ## Ce qui a été testé et ne marche PAS
 
 **La pyramide, pour la troisième fois.** Ajouter des unités dans une tendance
