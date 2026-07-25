@@ -21,9 +21,10 @@
 //|                                                                    |
 //|    PAIR (defaut) : multiplicateurs propres a la paire choisie     |
 //|      EURUSD : L0=1.0 L1=4.0 L2=2.5  (= SAFE)                     |
-//|      GBPUSD : L0=1.5 L1=2.0 L2=2.0                                |
-//|        5.2y 2021-2026 : +$9,481 / PF 1.90 / DD 9.1%              |
-//|        6 annees positives sur 6 | L1 PF 2.15 > L0 PF 1.89        |
+//|      GBPUSD : pyramide NEUTRALISEE (1.0/1.0/1.0)                  |
+//|        16.5y 2010-2026 : +$3,989 / PF 1.22 / DD 11.1%            |
+//|        9 annees positives sur 17 | IS PF 1.34 / OOS PF 1.17      |
+//|        Le PF 1.90 annonce avant portait sur 2021-2026 seulement. |
 //|      USDJPY : L0=1.0 L1=1.0 L2=2.5                                |
 //|        6.5y 2020-2026 : +$16,665 / PF 1.44 / DD 13.6%            |
 //|        6 annees positives sur 7 | IS +$5,783 / OOS +$6,879       |
@@ -49,15 +50,16 @@
 // v1.20: GBPUSD and USDJPY presets added. The earlier "EURUSD only" verdict
 // came from running those pairs with the EURUSD context filters. Re-tuned per
 // pair with the bar-by-bar engine (engine/, calibrated to 0.006% of MT4):
-//   GBPUSD  baseline PF 1.21 -> 1.92  (EMA50 dist 50->30, BE 1.5R->2.0R, swing 3->5)
+//   GBPUSD  PF 1.22 sur 16.5 ans (EMA50 dist 50->30 ; le reste ne survit pas)
 //   USDJPY  baseline PF 1.22 -> 1.41 sur 6.5 ans (RR 2.5->3.0, RSI_OS 30->40)
-// GBPUSD clears the "baseline PF > 1.5" bar. USDJPY sits just under it (1.41)
-// once measured over 6.5 years instead of 2.6 - see the USDJPY note below.
+// Mesures sur historique complet, aucune des deux ne passe le seuil PF > 1.5 :
+// GBPUSD 1.22 sur 16.5 ans, USDJPY 1.41 sur 6.5 ans. La pyramide est donc
+// desactivee sur GBPUSD et reduite sur USDJPY.
 // Tested M30 entry (PF 1.00), ADX Daily (nuisible), EMA200 Weekly + ATR Monthly (PF 0.88) — none improved.
 
 enum PAIR_PRESET {
    PRESET_EURUSD = 0,   // EURUSD (champion, 2.6y: PF 2.24 baseline)
-   PRESET_GBPUSD = 1,   // GBPUSD (5.2y: PF 1.90 pyramid, DD 9.1%, 6/6 years positive)
+   PRESET_GBPUSD = 1,   // GBPUSD (16.5y: PF 1.22, DD 11.1%, 9/17 years positive)
    PRESET_USDJPY = 2    // USDJPY (6.5y: PF 1.44 pyramid, DD 13.6%, 6/7 years positive)
 };
 
@@ -213,11 +215,12 @@ void ApplyPyramidMode() {
       // the worse of return/DD on each half of the data, so a config that only
       // works on one half cannot win. See optimize_pullback_pyramid.py.
       if(Preset == PRESET_GBPUSD) {
-         // 5.2y 2021-2026: net +$9,481 / PF 1.90 / DD 9.1% / 6 years positive
-         // L1 PF 2.15 vs L0 PF 1.89 -> the streak effect is real, not leverage
-         r_L0_LotMult = 1.5;
-         r_L1_LotMult = 2.0;
-         r_L2_LotMult = 2.0;
+         // Pyramid neutralised on GBPUSD. Over the full 16.5-year history the
+         // signal is PF 1.22, far below the PF > 1.5 the pyramid needs, and the
+         // best multipliers the search returns are 1.0 / 1.0 - flat risk.
+         r_L0_LotMult = 1.0;
+         r_L1_LotMult = 1.0;
+         r_L2_LotMult = 1.0;
       }
       else if(Preset == PRESET_USDJPY) {
          // 6.5y 2020-2026: net +$16,665 / PF 1.44 / DD 13.6% / 6 years positive
@@ -338,13 +341,13 @@ void ApplyPreset() {
    if(Preset == PRESET_GBPUSD) {
       r_MaxSpreadPips     = 4.0;
       r_MinRR             = 2.5;
-      r_MinSL_Pips        = 20.0;
+      r_MinSL_Pips        = 18.0;
       r_MaxSL_Pips        = 25.0;
       r_ATR_MinPips       = 9.0;
       r_ATR_MaxPips       = 25.0;
-      r_MaxEMA50DistPips  = 30.0;      // was 50 — biggest single lever
-      r_BE_Trigger_R      = 2.0;       // was 1.5 — give the trade room
-      r_SL_SwingBars      = 5;         // was 3 — better stop placement
+      r_MaxEMA50DistPips  = 30.0;      // was 50 — the one lever that survived 16.5y
+      r_BE_Trigger_R      = 1.0;       // re-fitted on 2010-2026
+      r_SL_SwingBars      = 3;
       r_LondonStartHour   = 9;         // 08h is toxic on GBP
       r_LondonEndHour     = 12;
       r_NYStartHour       = 14;        // skip 13h

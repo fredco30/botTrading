@@ -191,14 +191,34 @@ PAIR_PRESETS = {
         block_toxic_combos=False, toxic_combos=(),
         reduce_thursday_risk=False, thursday_risk_mult=1.0,
     ),
+    # XAUUSD: 2-digit quotes, so the EA's g_pipValue = Point = 0.01 and every
+    # "pip" figure below is a cent. Contract is 100 oz, so a $1 move on 1 lot
+    # is $100. UNCALIBRATED: there is no MT4 gold report in this repo, so the
+    # spread is an estimate and the swap is set to zero - which flatters any
+    # configuration that holds overnight. Use this to answer "is there an edge
+    # at all", never to quote a dollar figure.
+    "XAUUSD": dict(
+        spread_points=20.0, point=0.01, pip=0.01, tick_size=0.01,
+        tick_value=1.0, contract_size=100.0, inverse_quote=False,
+        use_swap=False, swap_long_per_lot=0.0, swap_short_per_lot=0.0,
+        max_spread_pips=80.0, min_sl_pips=500.0, max_sl_pips=3000.0,
+        use_atr_filter=False, atr_min_pips=0.0, atr_max_pips=0.0,
+        use_ema50_dist_filter=True, max_ema50_dist_pips=3000.0,
+        london_start=8, london_end=12, ny_start=13, ny_end=18,
+        block_friday=True, block_monday=False, blocked_hours=(),
+        block_toxic_combos=False, toxic_combos=(),
+        reduce_thursday_risk=False, thursday_risk_mult=1.0,
+    ),
 }
 
 # EURUSD now points at the full export (M15 back to 1999) rather than the
 # 65k-row _cut file. The _cut files stay usable via --m15 / --h1.
+
 PAIR_DATA = {
     "EURUSD": ("EURUSD15.csv", "EURUSD60.csv"),
-    "GBPUSD": ("GBPUSD15_cut.csv", "GBPUSD60_cut.csv"),   # "auto" derives H1 from M15
+    "GBPUSD": ("GBPUSD15.csv", "GBPUSD60.csv"),
     "USDJPY": ("USDJPY15.csv", "USDJPY60.csv"),
+    "XAUUSD": ("XAUUSD15.csv", "auto"),
 }
 
 
@@ -210,14 +230,32 @@ PAIR_DATA = {
 # nothing here improved it out of sample.
 # ---------------------------------------------------------------------------
 CHAMPION_OVERRIDES = {
+    # XAUUSD: no edge found. Baseline over 16.5 years is PF 1.03 on 1,239
+    # trades. The best sweep result (PF 1.26) puts only 18 trades in the first
+    # half, so its walk-forward is meaningless. Left here so the finding is not
+    # re-discovered from scratch; do not trade it.
+    "XAUUSD": dict(),
     "EURUSD": dict(l0_mult=1.0, l1_mult=4.0, l2_mult=2.5),
     # GBPUSD: the two levers that mattered were a much tighter EMA50 distance
     # (30 instead of 50) and a later breakeven (2.0R instead of 1.5R). A wider
     # SL swing lookback (5 bars) placed better stops. Baseline PF 1.21 -> 1.92.
+    # GBPUSD, re-fitted on the full 16.5-year export (2010-2026, no gaps).
+    #
+    # The version this replaces scored PF 1.90 with 6 positive years out of 6 -
+    # on 2021-2026, which is the favourable regime end to end. Over 16.5 years
+    # it collapses to PF 1.14 with 9 positive years out of 17.
+    #
+    # The tighter EMA50 distance (30 rather than 50) survives; the rest of the
+    # previous tuning does not. This config is what is left once both halves of
+    # the history have to agree: PF 1.22, DD 11.1%, IS 1.34 / OOS 1.17.
+    #
+    # The pyramid is OFF here. On 16.5 years the best "pyramid" the search finds
+    # is L1 = L2 = 1.0 - flat risk. That is consistent with the project's own
+    # rule: a PF 1.22 signal is well below the PF > 1.5 the pyramid needs.
     "GBPUSD": dict(
-        max_ema50_dist_pips=30.0, be_trigger_r=2.0, sl_swing_bars=5,
-        min_sl_pips=20.0,
-        l0_mult=1.5, l1_mult=2.0, l2_mult=2.0,
+        max_ema50_dist_pips=30.0, be_trigger_r=1.0, sl_swing_bars=3,
+        min_sl_pips=18.0, max_sl_pips=25.0, min_rr=2.5,
+        use_pyramid=False, l0_mult=1.0, l1_mult=1.0, l2_mult=1.0,
     ),
     # USDJPY, re-tuned on the full 6.5-year export (2020-2026, no gaps).
     #

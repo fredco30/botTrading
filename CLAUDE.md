@@ -100,24 +100,40 @@ pas sur 27.
 
 **Conséquences :**
 - Le « +$34k / PF 1.89 / 6 années positives sur 7 » du mode SAFE porte sur 2020-2026 uniquement. Ce n'est pas une preuve de robustesse.
-- **GBPUSD est dans le même angle mort** : mes 5.3 ans (2021-2026) sont entièrement dans le régime favorable. Les 6/6 années positives ne confirment donc rien d'indépendant. → Ré-exporter `GBPUSD15` depuis 1999 est maintenant la priorité n°1.
+- **GBPUSD était dans le même angle mort** — confirmé depuis sur 16.5 ans : PF 1.90 → **1.14**.
 - ⚠️ Réserve honnête sur les années anciennes : le spread (0.2 pip) et les swaps sont des constantes 2023-2025. En 2005 le spread EURUSD réel était de 2-3 pips. Les années 2000-2019 sont donc simulées **trop favorablement**, pas l'inverse.
 
-### Presets multi-paires (v1.20) ⭐
-Le verdict « pyramide EURUSD uniquement » venait du fait que GBPUSD et USDJPY
-étaient testés avec les **filtres de contexte d'EURUSD**. Re-calibrés par paire
-avec `engine/`, les deux passent le seuil PF > 1.5.
+### 🔴 VERDICT SUR HISTORIQUE COMPLET — les 3 paires perdent leur edge
+Une fois les 4 paires ré-exportées sur toute leur histoire, **aucune ne tient
+ses chiffres annoncés**. Ceux-ci portaient tous sur 2020-2026, le régime
+favorable, parce que c'était toute la donnée disponible.
 
-| Paire | Période | PF avant | PF après | Net | DD | Années + |
-|-------|---------|----------|----------|-----|-----|----------|
-| EURUSD | 2.6 ans | 2.24 | 2.54 | +$25 293 | 8.7% | — |
-| **GBPUSD** | **5.3 ans** | **1.21** | **1.90** | **+$9 481** | **9.1%** | **6/6** |
-| **USDJPY** | 2.6 ans | 1.48 | **2.24** | **+$18 189** | **11.2%** | **3/3** |
+| Paire | Annoncé (fenêtre courte) | Réel (historique complet) | Période |
+|-------|--------------------------|---------------------------|---------|
+| EURUSD | PF 1.89 / 6 ans + | **PF 1.27 / 12 années + sur 28** | 27 ans |
+| GBPUSD | PF 1.90 / 6 années + sur 6 | **PF 1.14 / 9 sur 17** | 16.5 ans |
+| USDJPY | PF 2.24 / 3 sur 3 | **PF 1.73, perd sur 2020-2023** | 6.5 ans |
+| XAUUSD | — | **PF 1.03, aucun edge** | 16.5 ans |
 
-**GBPUSD** — `PyramidMode = MODE_PAIR`, L0=1.5 / L1=2.0 / L2=2.0
-- Les 2 leviers : **EMA50 dist 50 → 30** et **BE 1.5R → 2.0R** (dominaient tout le top du sweep)
-- Aussi : SL swing 3 → 5 bougies, MinSL 20
-- IS PF 2.14 / OOS PF 1.73 | L1 PF 2.15 > L0 PF 1.89 → clustering réel
+**Configs honnêtes après re-calibrage sur historique complet :**
+
+| Paire | Config | Trades | Net | PF | DD | Années + |
+|-------|--------|--------|-----|----|----|---------|
+| GBPUSD | pyramide **OFF** | 308 | +$3 989 | **1.22** | 11.1% | 9/17 |
+| USDJPY | L0/L1/L2 = 1/1/2.5 | 265 | +$16 665 | **1.44** | 13.6% | 6/7 |
+| XAUUSD | — | 1 239 | +$2 054 | **1.03** | 35.6% | — |
+
+Aucune ne passe le seuil PF > 1.5 exigé pour la pyramide.
+
+**Diagnostic par paire** (signal brut, zéro filtre) :
+- **EURUSD** : PF 0.74 sur 2010-2019 vs 1.19 sur 2020-2026 → le signal lui-même est régime-dépendant
+- **GBPUSD** : PF 0.90 puis 0.89 → **aucun edge à aucune époque**, ce sont les filtres calés sur 2020+ qui créaient le résultat
+- **USDJPY** : PF 1.17 puis 1.24 → edge faible mais stable ; c'étaient les filtres qui cassaient 2020-2022
+
+**GBPUSD** — `PyramidMode = MODE_PAIR`, pyramide **neutralisée** (1.0/1.0/1.0)
+- Seul levier qui survit à 16.5 ans : **EMA50 dist 50 → 30**
+- BE 1.0R, SL 18-25, swing 3, RR 2.5 | IS PF 1.34 / OOS PF 1.17
+- La pyramide n'apporte rien : le meilleur triplet trouvé est L1=L2=1.0 (risque plat)
 - Le RSI est **inerte** sur GBPUSD (0/20/30 donnent le même résultat)
 
 **USDJPY** — `PyramidMode = MODE_PAIR`, L0=1.0 / L1=1.0 / L2=2.5
@@ -270,7 +286,8 @@ Concerne : `EMA_Pullback_EA.mq4` et `EMA_Pullback_pyramid.mq4`.
 - **Over-fit walk-forward** : toujours tester sur 2 périodes séparées (2020-2022 vs 2023-2026). Un filtre qui marche sur 1 période seule est probablement over-fit.
 - **Le bug TP ×10 sur 5-digit** : `tickVal = $1` sur 5-digit (vs $10 sur 4-digit), toujours convertir via `MarketInfo(MODE_TICKSIZE)` pas `g_pt`
 - **Le swap overnight n'est PAS négligeable** (mesuré sur le backtest MT4, cf. `engine/README.md`) : **−8.34 $/lot/nuit en long**, **+2.54 $/lot/nuit en short**, **×3 le jeudi**. Aucun script `analyze_*.py` / `simul_*.py` ne le modélisait. Sur le run 3 ans il coûte ~$110 et surtout il **retourne un trade** d'un win breakeven en perte → reset du streak → toute la pyramide en aval est décalée. Toute simulation Python qui ignore le swap surévalue les configs qui gardent overnight.
-- **Un mauvais résultat sur une paire peut venir du preset, pas du signal.** GBPUSD était classé non-viable (PF 0.87 sur L0) : c'était le filtre EMA50-dist d'EURUSD appliqué à une paire qui bouge plus. Retuné, il fait PF 1.90 sur 5.3 ans avec 6 années positives. Toujours re-balayer les filtres de contexte avant de condamner une paire.
+- **Un bon résultat sur fenêtre courte ne vaut rien, même walk-forwardé.** Les 3 paires ont été validées IS/OOS sur des demi-périodes — et les 3 se sont effondrées dès qu'on a élargi les données. Un walk-forward ne protège pas quand les deux moitiés sont dans le même régime. **Exiger 15+ ans avant toute conclusion.**
+- **Distinguer « le preset est mauvais » de « le signal n'a pas d'edge ».** Test : retirer TOUS les filtres et mesurer le signal brut par époque. GBPUSD = PF 0.89 partout (pas d'edge, les filtres fabriquaient le résultat). USDJPY = 1.17/1.24 (edge faible mais réel, filtres mal calés). Diagnostics opposés, remèdes opposés.
 - **Les bougies qui touchent SL ET TP faussent tout** si on les résout au hasard. 3 bougies ambiguës dans le corpus MT4 : 2 résolues en TP, 1 en SL — aucun modèle n'est universellement bon. Le moteur les compte (`amb%`) ; toute config champion retenue est à 0%. Une config qui en dépend n'est pas un edge.
 - **La microstructure diffère radicalement par paire** : spread 0.2 / 1.0 / 0.9 pip, et surtout le swap long EURUSD −8.34 vs USDJPY **+7.77** (carry positif). Un filtre "pas d'overnight" est rentable sur EURUSD et coûteux sur USDJPY.
 - **Quirk MT4 sur JPY** : le P&L se convertit au prix de sortie, mais le sizing utilise un `MODE_TICKVALUE` **constant** pris sur le symbole live au lancement du test (0.6304 aussi bien en 2023 qu'en 2025). Toute réimplémentation qui recalcule le tickvalue par bougie se désaligne.
