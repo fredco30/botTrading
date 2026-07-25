@@ -1,19 +1,27 @@
-"""Bar-by-bar Python engine for the EMA Pullback Pyramid EA.
+"""Moteur de backtest et indicateurs.
 
-Replays the EA's signal from raw M15/H1 bars instead of replaying a fixed MT4
-trade list, so the pyramid streak stays correct when filters change.
+Les sous-modules sont importes paresseusement (PEP 562). `engine.core` et
+`engine.trend` tirent numba, qui coute 68 Mo de RSS ; le bot live n'a besoin que
+de `engine.channels`, en numpy pur. Un import eager du paquet lui imposerait
+numba sans aucun usage - la moitie de son empreinte sur un petit VPS.
 
-Typical use:
-
-    from engine import data, core, report
-    from engine.params import Params
-
-    md = data.build("EURUSD15_cut.csv", "EURUSD60_cut.csv")
-    p = Params().with_mode("SAFE")
-    trades = core.run(md, p)
-    print(report.metrics(trades[:, 9], trades[:, 10], p.initial_balance))
+    from engine import core, data, report     # backtest : numba charge
+    from engine.channels import donchian      # live : numba jamais importe
 """
 
-from . import core, data, indicators, params, report  # noqa: F401
+import importlib
 
-__all__ = ["core", "data", "indicators", "params", "report"]
+__all__ = ["channels", "core", "data", "debug", "indicators", "instruments",
+           "params", "portfolio", "report", "trend"]
+
+
+def __getattr__(name):
+    if name in __all__:
+        module = importlib.import_module(f".{name}", __name__)
+        globals()[name] = module
+        return module
+    raise AttributeError(f"module {__name__!r} n'a pas d'attribut {name!r}")
+
+
+def __dir__():
+    return sorted(__all__)

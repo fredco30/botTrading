@@ -111,6 +111,44 @@ retournement short. La logique est vérifiée, l'intégration ccxt ne l'est pas.
 3. Comparer les trades obtenus à ceux du backtest sur la même période
 4. Passer en live à **risque réduit** (0.1-0.2 %) avant 0.5 %
 
+## Empreinte VPS
+
+Mesuré, pas estimé :
+
+| Étape | RSS |
+|---|---|
+| python seul | 8 Mo |
+| + modules du bot | 27 Mo |
+| + ccxt | 79 Mo |
+| **+ calcul des 8 paires** | **82 Mo** |
+
+**~82 Mo en fonctionnement.** Un VPS à **512 Mo suffit largement**, 1 Go est
+confortable. Le CPU est négligeable : un cycle complet sur 8 paires coûte moins
+de 5 ms de calcul, le reste est de l'attente réseau.
+
+Les données ne pèsent rien : 1 459 barres H1 × 6 colonnes = **68 Ko par paire**,
+et elles sont traitées une paire à la fois.
+
+### D'où viennent les 82 Mo
+
+`ccxt` en représente 52 à lui seul — il importe plus de cent classes d'échange
+au chargement. C'est incompressible sans bricoler ses internes, ce qui ne vaut
+pas le risque.
+
+**Numba a été sorti du chemin live** : il coûtait 68 Mo (21 à l'import, 47 de
+plus à la compilation JIT) pour un gain nul. Le bot calcule 1 459 barres toutes
+les cinq minutes, ce qui prend **0.6 ms en numpy pur**. Le backtest, lui, garde
+numba — il rejoue 170 000 barres des centaines de fois.
+
+Concrètement : `engine/channels.py` contient les indicateurs en numpy pur,
+`engine/__init__.py` importe ses sous-modules paresseusement (PEP 562) pour que
+`from engine.channels import ...` ne tire pas tout le paquet, et
+`tests/test_channels.py` verrouille l'équivalence — **bit-identique**, écart
+0.00e+00 sur 5 jeux de test jusqu'à 170 000 barres.
+
+Sans ce verrou, le bot pourrait un jour ne plus trader la stratégie validée sans
+que rien ne le signale.
+
 ## Choix de la place
 
 `bitvavo` est la valeur par défaut (Pays-Bas, MiCA). Les perps n'y sont pas

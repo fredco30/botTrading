@@ -1,15 +1,20 @@
 """Calcul du signal, strictement identique au backtest.
 
-Les indicateurs sont importes de `engine.trend`, pas reimplementes. C'est
-volontaire : une reimplementation, meme fidele au depart, derive des qu'un des
-deux cotes est modifie, et l'ecart ne se voit qu'en production.
+Les indicateurs viennent de `engine.channels`, pas d'une reimplementation
+locale : une copie reste fidele jusqu'a ce qu'un seul des deux cotes bouge, et
+l'ecart ne se voit qu'en production.
+
+`engine.channels` est la version numpy pure, bit-identique a la version numba de
+`engine.trend` (verifie par tests/test_channels.py). Le bot evite ainsi
+d'importer numba, qui coute 68 Mo de RSS pour un gain nul : 1 459 barres toutes
+les cinq minutes se calculent en 0.6 ms.
 """
 
 from dataclasses import dataclass
 
 import numpy as np
 
-from engine.trend import donchian, wilder_atr
+from engine.channels import donchian, wilder_atr
 
 
 @dataclass
