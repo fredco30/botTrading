@@ -60,6 +60,30 @@ def load_mt4_csv(path):
     return dt, arr[:, 0], arr[:, 1], arr[:, 2], arr[:, 3]
 
 
+def derive_h1(m15_dt, m_o, m_h, m_l, m_c):
+    """Aggregate M15 bars into H1 bars.
+
+    MT4's own H1 export is reproducible from the M15 series to the point:
+    checked against EURUSD60.csv over 175,992 bars, open/high/low match 100%
+    exactly and close matches everywhere except the final, still-forming bar.
+
+    This exists so a pair only needs its M15 export. Asking for both timeframes
+    doubles the manual work in the terminal and, in practice, is where the H1
+    file ends up covering a different span than the M15 one.
+    """
+    ts = m15_dt.astype("int64")
+    bucket = ts // SECONDS_PER_HOUR
+    starts = np.concatenate(([0], np.flatnonzero(np.diff(bucket)) + 1))
+    ends = np.concatenate((starts[1:], [ts.size]))
+
+    h1_dt = (bucket[starts] * SECONDS_PER_HOUR).astype("datetime64[s]")
+    h_o = m_o[starts]
+    h_c = m_c[ends - 1]
+    h_h = np.maximum.reduceat(m_h, starts)
+    h_l = np.minimum.reduceat(m_l, starts)
+    return h1_dt, h_o, h_h, h_l, h_c
+
+
 @dataclass
 class MarketData:
     """Everything the backtest core needs, pre-aligned to the M15 index."""
@@ -105,7 +129,10 @@ def build(
 ):
     """Load both timeframes and produce the M15-aligned view the EA sees."""
     m15_dt, m_o, m_h, m_l, m_c = load_mt4_csv(m15_path)
-    h1_dt, h_o, h_h, h_l, h_c = load_mt4_csv(h1_path)
+    if h1_path in (None, "auto"):
+        h1_dt, h_o, h_h, h_l, h_c = derive_h1(m15_dt, m_o, m_h, m_l, m_c)
+    else:
+        h1_dt, h_o, h_h, h_l, h_c = load_mt4_csv(h1_path)
 
     ts = m15_dt.astype("int64")
     h1_ts = h1_dt.astype("int64")

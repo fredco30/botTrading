@@ -197,7 +197,7 @@ PAIR_PRESETS = {
 # 65k-row _cut file. The _cut files stay usable via --m15 / --h1.
 PAIR_DATA = {
     "EURUSD": ("EURUSD15.csv", "EURUSD60.csv"),
-    "GBPUSD": ("GBPUSD15_cut.csv", "GBPUSD60_cut.csv"),
+    "GBPUSD": ("GBPUSD15_cut.csv", "GBPUSD60_cut.csv"),   # "auto" derives H1 from M15
     "USDJPY": ("USDJPY15.csv", "USDJPY60.csv"),
 }
 

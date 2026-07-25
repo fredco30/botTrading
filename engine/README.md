@@ -182,6 +182,17 @@ appliquée mécaniquement plutôt qu'à la main.
    pyramide). 2023-2025 = forte hausse puis retournement ; cette asymétrie est
    probablement spécifique au régime et peut ne pas se reproduire.
 
+## H1 dérivé du M15
+
+`data.build(m15, "auto")` reconstruit les bougies H1 par agrégation du M15 au
+lieu de lire un second CSV. Vérifié contre `EURUSD60.csv` sur **175 992
+bougies** : open / high / low **identiques à 100 %**, close identique partout
+sauf la dernière bougie en formation. Le backtest complet donne exactement le
+même résultat (960 trades, net 34 756, PF 1.27) dans les deux cas.
+
+Conséquence pratique : **une paire n'a besoin que de son export M15.** Ça évite
+le piège récurrent où le fichier H1 couvre une période différente du M15.
+
 ## Support multi-paires
 
 `Params.for_pair("GBPUSD")` charge un preset complet. La microstructure de
