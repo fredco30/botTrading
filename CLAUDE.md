@@ -120,13 +120,25 @@ avec `engine/`, les deux passent le seuil PF > 1.5.
 - IS PF 2.14 / OOS PF 1.73 | L1 PF 2.15 > L0 PF 1.89 → clustering réel
 - Le RSI est **inerte** sur GBPUSD (0/20/30 donnent le même résultat)
 
-**USDJPY** — `PyramidMode = MODE_PAIR`, L0=1.0 / L1=2.0 / L2=3.0
-- Les gains viennent du **reward**, pas des filtres : **MinRR 2.5 → 3.5**
-- Aussi : RSI_OS 30 → 40, SL 17-25 → 20-30, BE 1.5R → 1.0R, swing 3 → 5
-- IS PF 2.16 / OOS PF 2.29 (très équilibré)
-- ⚠️ **L2 fait 74% du profit** (inverse du pattern habituel) — surveiller en live
-- ⚠️ **Shorts PF 3.87 vs longs PF 1.44** hors pyramide → probablement spécifique au régime 2023-2025
-- ⚠️ `USDJPY15_cut.csv` a un **trou de 207 jours** (2025.09.12 → 2026.04.07) : 2.6 ans exploitables, pas 3.2
+**USDJPY** — `PyramidMode = MODE_PAIR`, L0=1.0 / L1=1.0 / L2=2.5
+Re-calibré sur `USDJPY15.csv` (2020.01 → 2026.07, **6.5 ans sans trou**).
+
+⚠️ **La version précédente était surajustée.** Calée sur 2023-2025 (tout ce
+qu'on avait), elle affichait PF 2.24 / DD 11.2%. Sur l'historique complet elle
+tombe à **PF 1.73 / DD 23.7%** et surtout elle **perd de l'argent sur
+2020-2023**, les années jamais vues (PF 0.66). Leçon : un walk-forward sur
+2.6 ans ne protège de rien si les 2.6 ans sont dans le même régime.
+
+Config re-calibrée sur les 6.5 ans :
+- MinRR 2.5 → **3.0**, RSI_OS 30 → **40**, swing 3 → **5**, SL **17-30**, BE **1.0R**
+- EMA50 dist → **120** (quasi désactivé ; le 75 venait du sur-ajustement)
+- 265 trades | net **+$16 665** | PF **1.44** | DD **13.6%**
+- **6 années positives sur 7** (seul 2020 négatif) | IS +$5 783 / OOS +$6 879
+- ⚠️ **L1 n'est PAS meilleur que L0** (PF 1.25 vs 1.30) : ici la pyramide est du
+  **levier sur L2**, pas de l'amplification de clustering. Elle améliore quand
+  même le return/DD (12.2 vs 8.0 sans), d'où son maintien — mais la
+  justification habituelle ne tient pas sur cette paire.
+- Le signal seul fait PF 1.41, donc **sous le seuil de 1.5**.
 
 ### Lecons apprises sur la pyramide
 - Le signal de base doit être RENTABLE (PF > 1.5) pour que la pyramide marche. Sur un signal à PF 0.88 (comme `regime_pyramid_EA`), la pyramide amplifie mais l'edge reste marginal.

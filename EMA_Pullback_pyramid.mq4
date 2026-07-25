@@ -24,9 +24,11 @@
 //|      GBPUSD : L0=1.5 L1=2.0 L2=2.0                                |
 //|        5.2y 2021-2026 : +$9,481 / PF 1.90 / DD 9.1%              |
 //|        6 annees positives sur 6 | L1 PF 2.15 > L0 PF 1.89        |
-//|      USDJPY : L0=1.0 L1=2.0 L2=3.0                                |
-//|        2.6y 2023-2025 : +$18,189 / PF 2.24 / DD 11.2%            |
-//|        3 annees positives sur 3 | IS PF 2.16 / OOS PF 2.29       |
+//|      USDJPY : L0=1.0 L1=1.0 L2=2.5                                |
+//|        6.5y 2020-2026 : +$16,665 / PF 1.44 / DD 13.6%            |
+//|        6 annees positives sur 7 | IS +$5,783 / OOS +$6,879       |
+//|        ATTENTION : L1 pas meilleur que L0 sur cette paire, le    |
+//|        gain vient de L2 -> c'est du levier, pas du clustering.   |
 //|                                                                    |
 //|  IMPORTANT : Preset doit correspondre au symbole du graphique.    |
 //|  Chiffres issus du moteur Python bar-par-bar (engine/), calibre   |
@@ -48,14 +50,15 @@
 // came from running those pairs with the EURUSD context filters. Re-tuned per
 // pair with the bar-by-bar engine (engine/, calibrated to 0.006% of MT4):
 //   GBPUSD  baseline PF 1.21 -> 1.92  (EMA50 dist 50->30, BE 1.5R->2.0R, swing 3->5)
-//   USDJPY  baseline PF 1.48 -> 2.00  (RR 2.5->3.5, RSI_OS 30->40, SL 17-25->20-30)
-// Both now clear the "baseline PF > 1.5" bar the pyramid needs to amplify.
+//   USDJPY  baseline PF 1.22 -> 1.41 sur 6.5 ans (RR 2.5->3.0, RSI_OS 30->40)
+// GBPUSD clears the "baseline PF > 1.5" bar. USDJPY sits just under it (1.41)
+// once measured over 6.5 years instead of 2.6 - see the USDJPY note below.
 // Tested M30 entry (PF 1.00), ADX Daily (nuisible), EMA200 Weekly + ATR Monthly (PF 0.88) — none improved.
 
 enum PAIR_PRESET {
    PRESET_EURUSD = 0,   // EURUSD (champion, 2.6y: PF 2.24 baseline)
    PRESET_GBPUSD = 1,   // GBPUSD (5.2y: PF 1.90 pyramid, DD 9.1%, 6/6 years positive)
-   PRESET_USDJPY = 2    // USDJPY (2.6y: PF 2.24 pyramid, DD 11.2%, 3/3 years positive)
+   PRESET_USDJPY = 2    // USDJPY (6.5y: PF 1.44 pyramid, DD 13.6%, 6/7 years positive)
 };
 
 input PAIR_PRESET Preset = PRESET_EURUSD;  // Pair preset (must match the chart symbol)
@@ -217,12 +220,14 @@ void ApplyPyramidMode() {
          r_L2_LotMult = 2.0;
       }
       else if(Preset == PRESET_USDJPY) {
-         // 2.6y 2023-2025: net +$18,189 / PF 2.24 / DD 11.2% / 3 years positive
-         // L2 carries 74% of the profit here, which is unusual - keep it at 3.0
-         // rather than the 4.0 the search preferred, and re-check on live data.
+         // 6.5y 2020-2026: net +$16,665 / PF 1.44 / DD 13.6% / 6 years positive
+         // Re-fitted on the full export. The earlier 2.0/3.0 pair was tuned on
+         // 2023-2025 alone and lost money on 2020-2023 once that data existed.
+         // Note L1 is not stronger than L0 on this pair: the gain comes from
+         // L2, so this is leverage rather than clustering amplification.
          r_L0_LotMult = 1.0;
-         r_L1_LotMult = 2.0;
-         r_L2_LotMult = 3.0;
+         r_L1_LotMult = 1.0;
+         r_L2_LotMult = 2.5;
       }
       else {  // PRESET_EURUSD -> the published SAFE tuning
          r_L0_LotMult = 1.0;
@@ -366,12 +371,12 @@ void ApplyPreset() {
    // wider stops with an early breakeven.
    if(Preset == PRESET_USDJPY) {
       r_MaxSpreadPips     = 3.0;
-      r_MinRR             = 3.5;       // was 2.5 — dominated every ranking
-      r_MinSL_Pips        = 20.0;      // was 17
+      r_MinRR             = 3.0;       // was 2.5
+      r_MinSL_Pips        = 17.0;
       r_MaxSL_Pips        = 30.0;      // was 25
       r_ATR_MinPips       = 0.0;       // ATR filter stays off on JPY
       r_ATR_MaxPips       = 0.0;
-      r_MaxEMA50DistPips  = 75.0;
+      r_MaxEMA50DistPips  = 120.0;     // was 75 — effectively off, best on 6.5y
       r_BE_Trigger_R      = 1.0;       // was 1.5 — lock in earlier
       r_SL_SwingBars      = 5;         // was 3
       r_RSI_OS            = 40;        // was 30 — do not sell into oversold

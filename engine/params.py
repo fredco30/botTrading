@@ -198,7 +198,7 @@ PAIR_PRESETS = {
 PAIR_DATA = {
     "EURUSD": ("EURUSD15.csv", "EURUSD60.csv"),
     "GBPUSD": ("GBPUSD15_cut.csv", "GBPUSD60_cut.csv"),
-    "USDJPY": ("USDJPY15_cut.csv", "USDJPY60_cut.csv"),
+    "USDJPY": ("USDJPY15.csv", "USDJPY60.csv"),
 }
 
 
@@ -219,15 +219,23 @@ CHAMPION_OVERRIDES = {
         min_sl_pips=20.0,
         l0_mult=1.5, l1_mult=2.0, l2_mult=2.0,
     ),
-    # USDJPY: a higher reward target (RR 3.5), a stricter oversold gate on
-    # sells (RSI 40), wider stops (20-30) and an early breakeven (1.0R).
-    # Baseline PF 1.48 -> 2.00.
+    # USDJPY, re-tuned on the full 6.5-year export (2020-2026, no gaps).
+    #
+    # The previous version of this entry was fitted to 2023-2025 only, because
+    # that was all the data there was. On the full history it scored PF 1.73
+    # with a 23.7% drawdown and *lost money* over 2020-2023 - the years it had
+    # never seen. This one is re-fitted across both regimes: PF 1.44, DD 13.6%,
+    # 6 positive years out of 7, and in-sample / out-of-sample halves within
+    # 20% of each other (5,783 vs 6,879).
+    #
+    # Honest caveat: L1 is NOT stronger than L0 here (PF 1.25 vs 1.30), so the
+    # pyramid is leverage on L2 rather than the win-clustering amplification it
+    # is on EURUSD and GBPUSD. It still improves return/DD (12.2 vs 8.0 without
+    # it), which is why it stays on - but the usual justification does not hold.
     "USDJPY": dict(
-        min_rr=3.5, rsi_os=40.0, sl_swing_bars=5,
-        min_sl_pips=20.0, max_sl_pips=30.0, be_trigger_r=1.0,
-        # L2=4.0 scored better (net 24.5k, R/DD 20) but put 80% of the profit
-        # in the deepest level. 3.0 keeps most of the gain, respects the
-        # "L2 <= 3.0" rule in CLAUDE.md, and spreads the profit wider.
-        l0_mult=1.0, l1_mult=2.0, l2_mult=3.0,
+        min_rr=3.0, rsi_os=40.0, sl_swing_bars=5,
+        min_sl_pips=17.0, max_sl_pips=30.0, be_trigger_r=1.0,
+        max_ema50_dist_pips=120.0,
+        l0_mult=1.0, l1_mult=1.0, l2_mult=2.5,
     ),
 }
