@@ -73,13 +73,67 @@ l'EMA Pullback, et c'est ce qui rend le système supportable en DD.
 trois régimes de marché. C'est le premier système du projet dont on puisse dire
 ça — et c'est plus important que n'importe quel PF.
 
+## Validation hors-échantillon du **processus**, pas d'une config
+
+Tout ce qui précède partage un défaut : les paramètres ont été choisis en
+regardant les mêmes données qui servent à les juger. `walkforward_trend.py`
+répond à la vraie question :
+
+> Si, à une date passée, j'avais choisi les paramètres avec **uniquement**
+> l'historique disponible à ce moment-là, puis tradé 5 ans sans y toucher —
+> qu'est-ce qui se serait passé ?
+
+16 ancrages annuels de 2006 à 2021, paramètres re-choisis à chaque fois sur
+l'historique seul, testés sur 5 ans de données qui n'existaient pas encore.
+
+| | Choix ancré (honnête) | Config fixe (avec recul) |
+|---|---|---|
+| × médian | **3.56** | 3.39 |
+| × pire fenêtre | **1.93** | 1.49 |
+| Fenêtres perdantes | **0 / 16** | 0 / 16 |
+
+**Écart +5 % en faveur du choix ancré.** Le rétrospectif ne trichait pas — il
+était même légèrement conservateur. C'est la première fois dans ce projet qu'un
+système passe un test hors-échantillon du processus de sélection lui-même.
+
+Le choix est **stable** : `1440 / 3 ATR / trail 6` retenu **15 fois sur 16**.
+Ce n'est pas une grille qui saute d'un optimum à l'autre.
+
+### Le budget de DD ne se transmet pas hors-échantillon
+
+Imposer « DD in-sample ≤ 25 % » au moment du choix laisse quand même passer
+**39 % de DD out-of-sample**. Une contrainte de DD calée sur le passé ne borne
+pas l'avenir. Le seul levier fiable sur le DD est le **% de risque**, qui est
+un cadran linéaire.
+
+### Cadran risque / rendement sur les 16 fenêtres OOS
+
+Config `1440 / 3 / 6`, celle que le processus choisit tout seul :
+
+| Risque | × médian | × min | × max | DD médian | DD pire | ≥ ×10 | perdantes |
+|---|---|---|---|---|---|---|---|
+| 0.75 % | 1.74 | 1.23 | 2.20 | 9.6 % | 16.9 % | 0 % | 0/16 |
+| 1.00 % | 2.05 | 1.32 | 2.82 | 12.6 % | 21.9 % | 0 % | 0/16 |
+| **1.25 %** | **2.40** | **1.40** | 3.58 | **15.5 %** | **26.6 %** | 0 % | **0/16** |
+| 1.50 % | 2.80 | 1.49 | 4.51 | 18.3 % | 31.1 % | 0 % | 0/16 |
+| 2.00 % | 3.71 | 1.68 | 7.00 | 23.7 % | 39.3 % | 0 % | 0/16 |
+| 2.50 % | 4.80 | 1.87 | 10.58 | 28.7 % | 46.7 % | 6 % | 0/16 |
+| 3.00 % | 6.06 | 2.07 | 15.57 | 33.4 % | 53.2 % | 12 % | 0/16 |
+
+**Point de fonctionnement retenu : 1.25 % de risque par trade.** C'est le
+dernier palier qui respecte le plafond de DD de 25-30 % documenté comme
+psychologiquement tenable. Il donne **×2.4 médian sur 5 ans** (~19 % de CAGR),
+la pire des 16 fenêtres à **×1.40**, et **aucune fenêtre perdante sur 20 ans**.
+
 ## Réponse à l'objectif ×10
 
 **Non atteint de façon fiable.**
 
-- À 2 % de risque (DD pire 29 %, tenable) : médiane **2.6×**, meilleure fenêtre 7.6×
-- À 3 % : **16 %** des fenêtres atteignent ×10, mais DD pire **41 %**
-- À 4 % : **31 %** des fenêtres, DD pire **51 %** — au-delà de ton seuil de 25-30 %
+Sur les 16 fenêtres réellement hors-échantillon :
+
+- À **1.25 %** (DD pire 26.6 %, tenable) : médiane **2.4×**, jamais ×10
+- À **2.5 %** : ×10 dans **6 %** des fenêtres, DD pire **46.7 %**
+- À **3 %** : ×10 dans **12 %** des fenêtres, DD pire **53.2 %**
 
 Traduit : à un risque tradeable, ce système fait ×2 à ×3 sur 5 ans. Le ×10 est
 atteignable seulement en pariant sur un bon régime **et** en acceptant un DD
@@ -151,9 +205,11 @@ historique complet. C'est une conclusion, pas un accident.
 | `engine/trend.py` | Cœur numba : Donchian + ATR + trailing + pyramiding |
 | `engine/instruments.py` | Spécifications par instrument, chargement H1 |
 | `engine/portfolio.py` | Équity partagée, compounding, fenêtres glissantes |
-| `research_trend_portfolio.py` | Reproduit tous les chiffres de ce document |
+| `research_trend_portfolio.py` | Reproduit les chiffres in-sample |
+| `walkforward_trend.py` | Walk-forward ancré sur le **choix des paramètres** |
 
 ```bash
-python3 research_trend_portfolio.py            # run complet
-python3 research_trend_portfolio.py --risk 3   # a 3% de risque
+python3 research_trend_portfolio.py               # run in-sample
+python3 walkforward_trend.py                      # validation OOS du processus
+python3 walkforward_trend.py --max-dd 25          # avec budget de DD
 ```

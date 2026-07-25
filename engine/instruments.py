@@ -56,11 +56,27 @@ INSTRUMENTS = {
 }
 
 
+_H1_CACHE = {}
+
+
+def _h1_ohlc(symbol):
+    """M15 CSV -> H1 OHLC, cached.
+
+    Parsing a 680k-line CSV takes seconds, and a parameter sweep asks for the
+    same symbol dozens of times. Only the indicators depend on the parameters,
+    so the bars themselves are built once and reused.
+    """
+    if symbol not in _H1_CACHE:
+        inst = INSTRUMENTS[symbol]
+        m15_dt, m_o, m_h, m_l, m_c = _data.load_mt4_csv(inst.m15_csv)
+        _H1_CACHE[symbol] = _data.derive_h1(m15_dt, m_o, m_h, m_l, m_c)
+    return _H1_CACHE[symbol]
+
+
 def load_h1(symbol, atr_period=14, entry_period=55, exit_period=20):
     """Build the H1 series and every indicator the breakout core needs."""
     inst = INSTRUMENTS[symbol]
-    m15_dt, m_o, m_h, m_l, m_c = _data.load_mt4_csv(inst.m15_csv)
-    h_dt, h_o, h_h, h_l, h_c = _data.derive_h1(m15_dt, m_o, m_h, m_l, m_c)
+    h_dt, h_o, h_h, h_l, h_c = _h1_ohlc(symbol)
 
     ts = h_dt.astype("int64")
     atr = _trend.wilder_atr(h_h, h_l, h_c, atr_period)

@@ -256,6 +256,13 @@ def donchian(high, low, period):
     return hi, lo
 
 
+@njit(cache=True)
+def _wilder_smooth(tr, period, out):
+    out[period - 1] = tr[:period].mean()
+    for i in range(period, tr.size):
+        out[i] = (out[i - 1] * (period - 1) + tr[i]) / period
+
+
 def wilder_atr(high, low, close, period):
     """Wilder-smoothed ATR. Slower to react than MT4's SMA-of-TR, which is the
     behaviour a trailing stop actually wants."""
@@ -267,7 +274,5 @@ def wilder_atr(high, low, close, period):
     out = np.full(n, np.nan)
     if n <= period:
         return out
-    out[period - 1] = tr[:period].mean()
-    for i in range(period, n):
-        out[i] = (out[i - 1] * (period - 1) + tr[i]) / period
+    _wilder_smooth(tr, period, out)
     return out
