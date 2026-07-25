@@ -58,7 +58,7 @@ class Bot:
     def _pnl(self, pos, exit_price):
         return (exit_price - pos["entry"]) * pos["side"] * pos["units"]
 
-    def close_position(self, symbol, pos, reason):
+    def close_position(self, symbol, pos, reason, bar_ts=None):
         side = "sell" if pos["side"] == 1 else "buy"
         px = self.broker.price(symbol)
         self.broker.create_market_order(symbol, side, abs(pos["units"]),
@@ -66,10 +66,10 @@ class Bot:
         pnl = self._pnl(pos, px)
         if isinstance(self.broker, PaperBroker):
             self.broker.settle(symbol, pnl)
-        self.state.close(symbol, px, pnl)
+        self.state.close(symbol, px, pnl, bar_ts=bar_ts)
         log.info("FERME %s a %.6g | %s | P&L %+.2f", symbol, px, reason, pnl)
 
-    def open_position(self, symbol, dec, equity):
+    def open_position(self, symbol, dec, equity, bar_ts=None):
         px = self.broker.price(symbol)
         # Le stop est recalcule depuis le prix REELLEMENT paye, pas depuis le
         # niveau theorique du canal. Le backtest entre au niveau via un ordre
@@ -88,7 +88,8 @@ class Bot:
             return
         side = "buy" if dec.side == 1 else "sell"
         self.broker.create_market_order(symbol, side, units)
-        self.state.open(symbol, dec.side, units, px, stop, dec.atr)
+        self.state.open(symbol, dec.side, units, px, stop, dec.atr,
+                        bar_ts=bar_ts)
         log.info("OUVRE %s %s %.8f a %.6g | stop %.6g (%.2f ATR) | %s",
                  side, symbol, units, px, stop,
                  abs(px - stop) / dec.atr if dec.atr else 0, dec.reason)
@@ -108,9 +109,10 @@ class Bot:
                 bars = self.broker.ohlcv(symbol, self.cfg.timeframe, need)
                 pos = self.state.get(symbol)
                 dec = decide(bars, self.cfg, pos)
+                bar_ts = int(bars[-1, 0] // 1000)   # barre close qui a decide
 
                 if dec.action == "close" and pos:
-                    self.close_position(symbol, pos, dec.reason)
+                    self.close_position(symbol, pos, dec.reason, bar_ts)
                 elif dec.action == "trail" and pos:
                     self.state.update(symbol, stop=dec.stop,
                                       extreme=dec.level, atr=dec.atr)
@@ -122,7 +124,7 @@ class Bot:
                         log.info("%s : signal ignore, %d positions deja ouvertes",
                                  symbol, self.state.n_open)
                         continue
-                    self.open_position(symbol, dec, equity)
+                    self.open_position(symbol, dec, equity, bar_ts)
             except Exception as exc:            # noqa: BLE001
                 # Une paire en erreur ne doit pas empecher les autres d'etre
                 # gerees : une position ouverte non surveillee est bien pire

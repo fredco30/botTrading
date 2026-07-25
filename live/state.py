@@ -45,11 +45,19 @@ class State:
     def get(self, symbol):
         return self.data["positions"].get(symbol)
 
-    def open(self, symbol, side, units, entry, stop, atr):
+    def open(self, symbol, side, units, entry, stop, atr, bar_ts=None):
+        """`bar_ts` est l'horodatage de la bougie qui a declenche, en secondes.
+
+        Distinct de `opened`, qui est l'heure systeme. Les deux sont conserves :
+        si le bot a pris du retard - redemarrage, latence reseau - ils divergent,
+        et seul `bar_ts` permet de retrouver la barre responsable ou de comparer
+        une execution reelle au backtest.
+        """
         self.data["positions"][symbol] = {
             "side": side, "units": units, "entry": entry, "stop": stop,
             "stop0": stop, "extreme": entry, "atr": atr,
             "opened": time.strftime("%Y-%m-%d %H:%M:%S"),
+            "bar_ts": bar_ts,
         }
         self.save()
 
@@ -58,12 +66,13 @@ class State:
             self.data["positions"][symbol].update(kw)
             self.save()
 
-    def close(self, symbol, exit_price, pnl):
+    def close(self, symbol, exit_price, pnl, bar_ts=None):
         pos = self.data["positions"].pop(symbol, None)
         if pos:
             self.data["history"].append(
                 {**pos, "symbol": symbol, "exit": exit_price, "pnl": pnl,
-                 "closed": time.strftime("%Y-%m-%d %H:%M:%S")})
+                 "closed": time.strftime("%Y-%m-%d %H:%M:%S"),
+                 "exit_bar_ts": bar_ts})
             self.data["history"] = self.data["history"][-500:]
         self.save()
         return pos
