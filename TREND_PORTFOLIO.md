@@ -232,6 +232,52 @@ Ce qui reste à vérifier avant d'y croire :
 - l'érosion d'edge crypto est réelle et pourrait continuer
 - biais du survivant : les 8 paires sont toutes encore cotées en 2026
 
+## Walk-forward ancré sur les 12 instruments
+
+Même test que sur le FX : paramètres re-choisis à chaque ancrage avec
+**l'historique seul**, puis tradés 5 ans sans y toucher. 16 ancrages, 2006-2021.
+
+| | Choix ancré | Config fixe (avec recul) |
+|---|---|---|
+| × médian (1 % risque) | **8.00** | 5.38 |
+| × pire fenêtre | **1.43** | 1.20 |
+| Fenêtres perdantes | **0 / 16** | 0 / 16 |
+
+Paramètres retenus : `1440 / 3 ATR / trail 6` **13 fois sur 16**. Le processus
+converge, il ne saute pas d'un optimum à l'autre.
+
+### ⚠️ Pourquoi le × médian de 8.00 ne doit pas être pris au pied de la lettre
+
+Les fenêtres récentes affichent ×444, ×324, ×88. Ces chiffres ne sont **pas
+atteignables**. À 1 % de risque depuis 10 000 €, ×444 implique des positions
+444 fois plus grosses en fin de course — sur des altcoins, tu deviens le marché.
+Le simulateur suppose une liquidité infinie et un slippage constant ; ni l'un ni
+l'autre ne tient à cette échelle.
+
+Il faut aussi voir d'où vient la médiane : les ancrages 2006-2013 (FX seul,
+la crypto n'existait pas) donnent ×1.43 à ×4.17. Tout ce qui dépasse vient des
+ancrages 2014+, tous dominés par la même envolée crypto 2016-2021 et tous
+chevauchants.
+
+### Point de fonctionnement réaliste
+
+Avec un plafond de **3 positions crypto simultanées** — les 8 pièces bougent
+ensemble, 8 positions crypto ouvertes ne sont pas 8 paris :
+
+| Risque | × médian (16 fen.) | × min | DD médian | DD pire | × médian ère crypto |
+|---|---|---|---|---|---|
+| 1.00 % | 6.16 | 1.31 | 17 % | 41 % | 59.75 |
+| 0.75 % | 4.02 | 1.23 | 13 % | 32 % | 24.52 |
+| **0.50 % (cap 3 crypto)** | **2.47** | **1.15** | **9 %** | **19 %** | **8.14** |
+| 0.35 % (cap 3) | 1.90 | 1.10 | 6 % | 14 % | 4.48 |
+
+**Retenu : 0.50 % de risque, maximum 3 positions crypto simultanées.**
+Aucune fenêtre perdante sur 20 ans, DD pire **19 %**, et ×8.14 médian sur les
+fenêtres où les 12 instruments coexistent.
+
+C'est deux fois moins de risque par trade que le portefeuille FX seul (1.25 %),
+parce que 12 instruments déploient bien plus de capital simultanément.
+
 ## Ce qui a été testé et ne marche PAS
 
 **La pyramide, pour la troisième fois.** Ajouter des unités dans une tendance
