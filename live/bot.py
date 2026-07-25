@@ -12,6 +12,7 @@ si le bot tombe, et pas de divergence entre l'etat local et le carnet.
 """
 
 import logging
+import signal
 import time
 
 from .broker import PaperBroker, make_broker
@@ -27,6 +28,29 @@ class Bot:
         self.broker = make_broker(cfg)
         self.state = State(cfg.state_file)
         self.markets = self.broker.markets()
+        self._stopping = False
+
+    def _install_signal_handlers(self):
+        """Arret propre sur SIGTERM.
+
+        systemd envoie SIGTERM a chaque `stop` et a chaque `restart`. Sans
+        handler, Python meurt sur-le-champ : potentiellement entre l'envoi d'un
+        ordre et l'ecriture de l'etat, ce qui laisse une position ouverte que le
+        fichier d'etat ignore - donc un stop que plus personne ne surveille.
+
+        Ici le signal ne fait que lever un drapeau ; le cycle en cours se
+        termine et l'etat est ecrit avant la sortie.
+        """
+        def handler(signum, _frame):
+            log.info("signal %s recu, arret apres le cycle en cours",
+                     signal.Signals(signum).name)
+            self._stopping = True
+
+        for sig in (signal.SIGTERM, signal.SIGINT):
+            try:
+                signal.signal(sig, handler)
+            except ValueError:
+                pass    # pas dans le thread principal (tests)
 
     def _market(self, symbol):
         return self.markets.get(symbol, {})
@@ -47,18 +71,27 @@ class Bot:
 
     def open_position(self, symbol, dec, equity):
         px = self.broker.price(symbol)
-        # Le niveau de cassure est deja franchi : on entre au prix courant, pas
-        # au niveau theorique. L'ecart est le cout de ne pas laisser d'ordre
-        # stop sur le marche, et il est comptabilise tel quel.
-        units = size_position(equity, px, dec.stop, self.cfg, self._market(symbol))
+        # Le stop est recalcule depuis le prix REELLEMENT paye, pas depuis le
+        # niveau theorique du canal. Le backtest entre au niveau via un ordre
+        # stop ; ici on entre au marche apres coup, et le prix a bouge. Garder
+        # le stop derive du niveau donnerait un risque different de 3 ATR, et
+        # si le prix a reflue au-dela du niveau il le placerait carrement du
+        # mauvais cote de l'entree - un long avec un stop au-dessus.
+        stop = px - dec.side * self.cfg.atr_stop_mult * dec.atr
+        if (px - stop) * dec.side <= 0:
+            log.error("%s : stop du mauvais cote (entree %.6g, stop %.6g), "
+                      "trade abandonne", symbol, px, stop)
+            return
+        units = size_position(equity, px, stop, self.cfg, self._market(symbol))
         if units <= 0:
             log.info("%s : taille nulle apres arrondis, on passe", symbol)
             return
         side = "buy" if dec.side == 1 else "sell"
         self.broker.create_market_order(symbol, side, units)
-        self.state.open(symbol, dec.side, units, px, dec.stop, dec.atr)
-        log.info("OUVRE %s %s %.8f a %.6g | stop %.6g | %s",
-                 side, symbol, units, px, dec.stop, dec.reason)
+        self.state.open(symbol, dec.side, units, px, stop, dec.atr)
+        log.info("OUVRE %s %s %.8f a %.6g | stop %.6g (%.2f ATR) | %s",
+                 side, symbol, units, px, stop,
+                 abs(px - stop) / dec.atr if dec.atr else 0, dec.reason)
 
     def step(self):
         equity = self.broker.equity()
@@ -100,19 +133,28 @@ class Bot:
                  equity, dd, self.state.n_open)
 
     def run(self, once=False):
+        self._install_signal_handlers()
         log.info("demarrage | %s | %s | %s | risque %.2f%% | %d paires",
                  self.cfg.exchange, self.cfg.market_type, self.cfg.mode.upper(),
                  self.cfg.risk_pct, len(self.cfg.symbols))
         if self.cfg.mode == "live":
             log.warning("MODE LIVE : des ordres reels vont etre envoyes")
-        while True:
+        if self.state.n_open:
+            log.info("reprise avec %d position(s) en cours : %s",
+                     self.state.n_open, ", ".join(self.state.data["positions"]))
+        while not self._stopping:
             try:
                 self.step()
-            except KeyboardInterrupt:
-                log.info("arret demande")
-                return
             except Exception as exc:            # noqa: BLE001
                 log.exception("erreur du cycle : %s", exc)
             if once:
-                return
-            time.sleep(self.cfg.poll_seconds)
+                break
+            # Sommeil fractionne pour reagir a SIGTERM en une seconde au lieu
+            # d'attendre la fin du cycle de poll.
+            for _ in range(self.cfg.poll_seconds):
+                if self._stopping:
+                    break
+                time.sleep(1)
+        self.state.save()
+        log.info("arrete proprement | %d position(s) conservee(s) dans %s",
+                 self.state.n_open, self.cfg.state_file)
