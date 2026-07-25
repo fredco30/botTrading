@@ -197,6 +197,8 @@ Concerne : `EMA_Pullback_EA.mq4` et `EMA_Pullback_pyramid.mq4`.
 - **Les simulations Python sur trades existants sont UNREALIABLES** pour le pyramid (l'ordre des trades change avec les filtres, ce qui casse le streak). Toujours valider en MT4 backtest.
 - **Over-fit walk-forward** : toujours tester sur 2 périodes séparées (2020-2022 vs 2023-2026). Un filtre qui marche sur 1 période seule est probablement over-fit.
 - **Le bug TP ×10 sur 5-digit** : `tickVal = $1` sur 5-digit (vs $10 sur 4-digit), toujours convertir via `MarketInfo(MODE_TICKSIZE)` pas `g_pt`
+- **Le swap overnight n'est PAS négligeable** (mesuré sur le backtest MT4, cf. `engine/README.md`) : **−8.34 $/lot/nuit en long**, **+2.54 $/lot/nuit en short**, **×3 le jeudi**. Aucun script `analyze_*.py` / `simul_*.py` ne le modélisait. Sur le run 3 ans il coûte ~$110 et surtout il **retourne un trade** d'un win breakeven en perte → reset du streak → toute la pyramide en aval est décalée. Toute simulation Python qui ignore le swap surévalue les configs qui gardent overnight.
+- **Le problème "simulations Python UNRELIABLE" est résolu** : `engine/` rejoue le signal depuis les bougies brutes, le streak est un état dans la boucle. Calibré à **0.006 % du net MT4**, 101/101 trades appariés. Un balayage de filtres y est enfin valide.
 
 ### Configs qui ne marchent pas (enseignements)
 - Reverse martingale direction-opposee sur H1 : marché continue à 60% après SL, pas de mean-reversion exploitable
@@ -242,6 +244,18 @@ Concerne : `EMA_Pullback_EA.mq4` et `EMA_Pullback_pyramid.mq4`.
 - `SMC_Scalper_EA.mq4` — EA SMC (~1200 lignes, en dev)
 - `news_calendar.csv` — Calendrier news pour SMC EA
 
+### Moteur Python bar-par-bar (`engine/`) ⭐
+Rejoue le signal `EMA_Pullback_pyramid` depuis les bougies M15/H1 brutes, streak
+pyramide inclus dans la boucle. **0.7 ms par backtest** sur 65k bougies.
+Voir `engine/README.md` pour la fidélité mesurée et les limites.
+- `engine/indicators.py` — EMA / RSI / ATR fidèles MT4 (seeding compris ; ATR = SMA du TR, pas Wilder)
+- `engine/data.py` — chargement CSV, alignement H1↔M15, **bougie H1 en formation** (shift 0), poids de rollover swap
+- `engine/params.py` — dataclass des inputs de l'EA + presets pyramide
+- `engine/core.py` — boucle de simulation numba
+- `engine/report.py` — parsing rapports MT4, métriques, comparaison trade par trade
+- `calibrate_pullback_pyramid.py` — moteur vs MT4 (`--tolerance 0.1` = test de non-régression, `--infer-mults` = récupère L0/L1/L2 d'un rapport)
+- `optimize_pullback_pyramid.py` — grid search + walk-forward automatique (classement `robust` = min(R/DD sur les 2 moitiés))
+
 ### Analyses Python EMA Pullback
 - `analysis.py` — Analyse v1 EURUSD (723 trades)
 - `analysis_v2.py` — Analyse v2 EURUSD (527 trades)
@@ -276,7 +290,7 @@ Concerne : `EMA_Pullback_EA.mq4` et `EMA_Pullback_pyramid.mq4`.
 
 ### Historiques de trades Pyramid (resultats_*.txt)
 **EMA Pullback Pyramid :**
-- `resultats_martingale_EMAPullback3ans.txt` — mode SAFE 3 ans
+- `resultats_martingale_EMAPullback3ans.txt` — **L0=1.0 / L1=1.5 / L2=2.25** (pyramide géométrique ×1.5, PAS le mode SAFE). Multiplicateurs récupérés depuis les lots du rapport via `calibrate_pullback_pyramid.py --infer-mults`. 2023.04.04 → 2026.03.17, 113 trades, +$9,569.
 - `resultats_martingale_EMAPullback6ans.txt` — mode SAFE 6 ans (+$34k, DD 26%)
 - `resultats_martingale_EMAPullback3ansFinal.txt` — mode AGGRESSIVE 3 ans (+$87k, DD 24%)
 - `resultats_martingale_EMAPullback6ansFinal.txt` — mode AGGRESSIVE 6 ans (+$109k, DD 47%)
