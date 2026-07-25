@@ -1,0 +1,21 @@
+{
+  "exchange": "bitvavo",
+  "market_type": "swap",
+  "quote": "USDT",
+  "symbols": ["BTC", "ETH", "BNB", "SOL", "XRP", "ADA", "LTC", "LINK"],
+  "timeframe": "1h",
+  "entry_period": 1440,
+  "exit_period": 480,
+  "atr_period": 14,
+  "atr_stop_mult": 3.0,
+  "atr_trail_mult": 6.0,
+  "risk_pct": 0.5,
+  "max_concurrent": 3,
+  "max_leverage": 2.0,
+  "allow_long": true,
+  "allow_short": true,
+  "max_drawdown_pct": 30.0,
+  "mode": "paper",
+  "poll_seconds": 300,
+  "initial_equity": 10000.0
+}
