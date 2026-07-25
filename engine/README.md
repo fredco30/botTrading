@@ -21,8 +21,15 @@ se propage correctement.
 
 ## Fidélité mesurée
 
-Calibré contre `resultats_martingale_EMAPullback3ans.txt`
-(EURUSD M15, 2023.04.04 → 2025.10.31, 101 trades) :
+Calibré contre trois runs MT4 distincts, sur les trois paires :
+
+| Paire | Rapport MT4 | Trades | Écart net |
+|-------|-------------|--------|-----------|
+| EURUSD | `resultats_martingale_EMAPullback3ans.txt` | 101/101 | **0.006 %** |
+| GBPUSD | `historique trade gbpusd 3ansV4.txt` | 78/78 | **0.024 %** |
+| USDJPY | `historique trade usdjpy 3ansV2.txt` | 89/89 | 2 bougies ambiguës |
+
+Sur EURUSD, en détail :
 
 | Métrique | Moteur | MT4 | Écart |
 |----------|--------|-----|-------|
@@ -144,12 +151,9 @@ appliquée mécaniquement plutôt qu'à la main.
 
 ## Limites à connaître
 
-1. **Ordonnancement intra-bougie inconnu.** On ne dispose que de l'OHLC M15. Si
-   SL et TP sont touchés dans la même bougie, le moteur prend le SL
-   (`pessimistic_intrabar=True`). MT4 en mode "every tick" utilise les vrais
-   ticks et peut trancher autrement. Les 101 trades de la calibration ont tous
-   le même exit, donc le cas est rare ici — mais il le sera moins avec un SL
-   plus serré.
+1. **Ordonnancement intra-bougie inconnu.** Voir la section « Bougies ambiguës »
+   ci-dessus. Rare (0-3 % des trades) mais coûteux quand ça arrive : toujours
+   vérifier la colonne `amb%` avant de retenir une config.
 
 2. **Fenêtre de données courte.** `EURUSD15_cut.csv` couvre
    2023.03.13 → 2025.10.31 seulement : l'export "Bars" de MT4 est plafonné à
@@ -166,10 +170,56 @@ appliquée mécaniquement plutôt qu'à la main.
    moteur aussi. En réalité le différentiel de taux EUR/USD a beaucoup bougé
    entre 2020 et 2026 ; les valeurs par défaut sont calées sur 2023-2025.
 
-5. **EURUSD uniquement pour l'instant.** Les combos horaires toxiques et les
-   heures bloquées codés en dur dans `Params` sont ceux du preset EURUSD.
-   Pour GBPUSD/USDJPY il faut porter `ApplyPreset()` (et sur JPY, `pip = 0.01`,
-   `tick_size = 0.001`).
+5. **USDJPY : trou de 207 jours** dans `USDJPY15_cut.csv` entre 2025.09.12 et
+   2026.04.07. La paire ne couvre donc que **2.6 ans exploitables**, pas 3.2.
+   GBPUSD est propre sur 5.3 ans sans aucun trou.
+
+6. **Asymétrie long/short sur USDJPY** : shorts PF 3.87 vs longs PF 1.44 (hors
+   pyramide). 2023-2025 = forte hausse puis retournement ; cette asymétrie est
+   probablement spécifique au régime et peut ne pas se reproduire.
+
+## Support multi-paires
+
+`Params.for_pair("GBPUSD")` charge un preset complet. La microstructure de
+chaque paire (spread, tick value, swap) n'est **pas devinée** : elle est
+extraite des rapports MT4 en réconciliant chaque lot et chaque P&L.
+
+| | EURUSD | GBPUSD | USDJPY |
+|---|---|---|---|
+| Spread tester | 2 pts (0.2 pip) | 10 pts (1.0 pip) | 9 pts (0.9 pip) |
+| Tick value | 1.0 | 1.0 | **0.63046** (constant) |
+| Swap long $/lot/nuit | −8.3433 | −3.5088 | **+7.7671** |
+| Swap short $/lot/nuit | +2.5357 | −3.8000 | −12.4791 |
+
+Deux quirks JPY reproduits :
+
+- Le P&L s'accumule en JPY et MT4 le convertit **au prix de sortie**
+  (`inverse_quote=True`).
+- Mais le dimensionnement des lots utilise un `MarketInfo(MODE_TICKVALUE)`
+  **constant**, pris sur le symbole live au moment où le test a été lancé, pas
+  sur le prix de la bougie historique. Vérifié : la même valeur 0.6304 dimensionne
+  le trade de 2023 et celui de 2025.
+
+## Bougies ambiguës SL+TP
+
+Quand une bougie touche le SL **et** le TP, l'ordre des ticks est inconnu.
+Trois modèles (`intrabar_model`) :
+
+| Modèle | EURUSD | GBPUSD | USDJPY |
+|---|---|---|---|
+| `pessimistic` (SL gagne) | ✅ 0.0 % | ✅ 0.0 % | ❌ −37.7 % |
+| `nearest` (**défaut**) | ✅ 0.0 % | ✅ 0.0 % | −20.1 % |
+| `optimistic` (TP gagne) | +3.7 % | ✅ 0.0 % | ✅ 0.0 % |
+
+Sur les 3 bougies ambiguës du corpus, MT4 en a résolu 2 en TP et 1 en SL :
+aucun modèle n'est universellement correct. `nearest` (l'extrême le plus proche
+de l'open est atteint en premier) est le défaut parce qu'il est le seul des
+trois qu'un optimiseur ne peut pas exploiter systématiquement.
+
+**Garde-fou** : chaque trade porte un flag `T_CONFLICT`, et
+`optimize_pullback_pyramid.py` affiche la colonne `amb%` plus
+`--max-conflict`. Toutes les configs champion retenues sont à **0 %** — leur
+résultat ne repose sur aucun tirage au sort.
 
 ## Fichiers
 
@@ -182,3 +232,5 @@ appliquée mécaniquement plutôt qu'à la main.
 | `engine/report.py` | Parsing des rapports MT4, métriques, comparaison |
 | `calibrate_pullback_pyramid.py` | Moteur vs MT4, trade par trade |
 | `optimize_pullback_pyramid.py` | Grid search + walk-forward |
+| `validate_pair.py` | Dossier complet d'une config : année par année, IS/OOS, niveaux, ambiguïté |
+| `engine/debug.py` | Explique filtre par filtre pourquoi une bougie a été rejetée |

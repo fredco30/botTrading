@@ -6,7 +6,7 @@ import numpy as np
 
 from .core import (
     T_BALANCE, T_BE, T_DIR, T_ENTRY, T_ENTRY_IDX, T_EXIT, T_EXIT_IDX, T_LEVEL,
-    T_LOTS, T_PNL, T_SL, T_SL0, T_SWAP, T_TP,
+    T_CONFLICT, T_LOTS, T_PNL, T_SL, T_SL0, T_SWAP, T_TP,
 )
 
 
@@ -125,6 +125,7 @@ def to_records(trades, md):
                 "balance": row[T_BALANCE],
                 "be": int(row[T_BE]),
                 "swap": row[T_SWAP],
+                "conflict": int(row[T_CONFLICT]),
             }
         )
     return recs

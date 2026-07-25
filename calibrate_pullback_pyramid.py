@@ -18,7 +18,7 @@ import numpy as np
 
 from engine import core, data, report
 from engine.core import T_BALANCE, T_PNL
-from engine.params import PYRAMID_MODES, Params
+from engine.params import PAIR_DATA, PAIR_PRESETS, PYRAMID_MODES, Params
 
 DEFAULT_M15 = "EURUSD15_cut.csv"
 DEFAULT_H1 = "EURUSD60_cut.csv"
@@ -28,16 +28,20 @@ DEFAULT_REPORT = "resultats_martingale_EMAPullback3ans.txt"
 def parse_args(argv=None):
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--m15", default=DEFAULT_M15)
-    ap.add_argument("--h1", default=DEFAULT_H1)
+    ap.add_argument("--pair", default="EURUSD", choices=sorted(PAIR_PRESETS),
+                    help="pair preset; also selects the default CSV files")
+    ap.add_argument("--m15", default=None)
+    ap.add_argument("--h1", default=None)
     ap.add_argument("--report", default=DEFAULT_REPORT,
                     help="MT4 trade list to calibrate against")
+    ap.add_argument("--no-pyramid", action="store_true",
+                    help="baseline EA runs (EMA_Pullback_EA.mq4) have no pyramid")
     ap.add_argument("--mode", choices=sorted(PYRAMID_MODES), default=None,
                     help="named pyramid preset")
     ap.add_argument("--mults", nargs=3, type=float, metavar=("L0", "L1", "L2"),
                     default=None, help="explicit pyramid multipliers")
-    ap.add_argument("--spread", type=float, default=2.0,
-                    help="tester spread in points (5-digit)")
+    ap.add_argument("--spread", type=float, default=None,
+                    help="override the preset tester spread, in points")
     ap.add_argument("--balance", type=float, default=10000.0)
     ap.add_argument("--start", default=None, help="YYYY.MM.DD")
     ap.add_argument("--end", default=None, help="YYYY.MM.DD")
@@ -45,6 +49,9 @@ def parse_args(argv=None):
                     help="how many mismatching trades to print")
     ap.add_argument("--infer-mults", action="store_true",
                     help="recover L0/L1/L2 from the MT4 report and exit")
+    ap.add_argument("--set", action="append", default=[], metavar="NAME=VALUE",
+                    dest="overrides",
+                    help="repeatable; override any Params field")
     ap.add_argument("--tolerance", type=float, default=None, metavar="PCT",
                     help="exit non-zero if |net error| exceeds PCT %% or if any "
                          "trade fails to match; use it as a regression test")
@@ -67,13 +74,34 @@ def main(argv=None):
             print(f"  L{lv}: [{lo:.4f} .. {hi:.4f}]  -> {round((lo + hi) / 2, 2)}")
         return 0
 
-    params = Params(initial_balance=args.balance, spread_points=args.spread)
+    m15_path = args.m15 or PAIR_DATA[args.pair][0]
+    h1_path = args.h1 or PAIR_DATA[args.pair][1]
+
+    params = Params.for_pair(args.pair, initial_balance=args.balance)
+    if args.spread is not None:
+        params.spread_points = args.spread
+    if args.no_pyramid:
+        params.use_pyramid = False
     if args.mode:
         params = params.with_mode(args.mode)
     if args.mults:
         params.l0_mult, params.l1_mult, params.l2_mult = args.mults
+    for spec in args.overrides:
+        name, _, raw = spec.partition("=")
+        name = name.strip()
+        if not hasattr(params, name):
+            raise SystemExit(f"unknown parameter '{name}'")
+        low = raw.strip().lower()
+        if low in ("true", "false"):
+            value = low == "true"
+        else:
+            try:
+                value = int(raw) if "." not in raw and "e" not in low else float(raw)
+            except ValueError:
+                value = raw.strip()   # string-valued fields, e.g. intrabar_model
+        setattr(params, name, value)
 
-    md = data.build(args.m15, args.h1,
+    md = data.build(m15_path, h1_path,
                     entry_ema_period=params.entry_ema_period,
                     rsi_period=params.rsi_period,
                     trend_ema_period=params.trend_ema_period,
@@ -92,10 +120,13 @@ def main(argv=None):
               if start <= t["entry_time"][:10] <= end and t["exit_time"][:10] <= end]
 
     print("=" * 74)
-    print(f"CALIBRATION  {args.m15} + {args.h1}  vs  {args.report}")
+    print(f"CALIBRATION  {args.pair}: {m15_path} + {h1_path}")
+    print(f"             vs {args.report}")
     print(f"window       {start} -> {end}   ({md.ts.size} M15 bars)")
-    print(f"pyramid      L0={params.l0_mult} L1={params.l1_mult} L2={params.l2_mult}"
-          f"   spread={args.spread} pts   risk={params.risk_percent}%")
+    pyr = (f"L0={params.l0_mult} L1={params.l1_mult} L2={params.l2_mult}"
+           if params.use_pyramid else "OFF (baseline EA)")
+    print(f"pyramid      {pyr}"
+          f"   spread={params.spread_points} pts   risk={params.risk_percent}%")
     if md.n_unaligned:
         print(f"warning      {md.n_unaligned} M15 bars had no matching H1 bar")
     print("=" * 74)
@@ -119,7 +150,7 @@ def main(argv=None):
             rel = (e - m) / abs(m) * 100.0 if m else 0.0
             print(f"{key:<12}{e:>14.2f}{m:>14.2f}{rel:>+13.1f}%")
 
-    matched, engine_only, mt4_only, diffs = report.compare(recs, window)
+    matched, engine_only, mt4_only, diffs = report.compare(recs, window, pip=params.pip)
     n_ref = max(len(window), 1)
     print(f"\nmatched      {len(matched)}/{len(window)} MT4 trades "
           f"({len(matched) / n_ref * 100:.1f}%)")

@@ -35,8 +35,8 @@ from dataclasses import replace
 import numpy as np
 
 from engine import core, data, report
-from engine.core import T_BALANCE, T_PNL
-from engine.params import PYRAMID_MODES, Params
+from engine.core import T_BALANCE, T_CONFLICT, T_PNL
+from engine.params import PAIR_DATA, PAIR_PRESETS, PYRAMID_MODES, Params
 
 DEFAULT_M15 = "EURUSD15_cut.csv"
 DEFAULT_H1 = "EURUSD60_cut.csv"
@@ -49,7 +49,7 @@ def parse_value(text):
     try:
         return int(text) if "." not in text and "e" not in low else float(text)
     except ValueError:
-        return float(text)
+        return text.strip()   # string-valued fields, e.g. intrabar_model
 
 
 def parse_grid(specs):
@@ -69,14 +69,17 @@ def parse_args(argv=None):
     ap = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    ap.add_argument("--m15", default=DEFAULT_M15)
-    ap.add_argument("--h1", default=DEFAULT_H1)
+    ap.add_argument("--pair", default="EURUSD", choices=sorted(PAIR_PRESETS))
+    ap.add_argument("--m15", default=None)
+    ap.add_argument("--h1", default=None)
+    ap.add_argument("--set", action="append", default=[], metavar="NAME=VALUE",
+                    dest="overrides", help="repeatable; fixed override, not swept")
     ap.add_argument("--grid", action="append", default=[],
                     metavar="NAME=V1,V2", help="repeatable; sweeps one parameter")
     ap.add_argument("--mode", choices=sorted(PYRAMID_MODES), default=None,
                     help="pyramid preset applied before the grid")
     ap.add_argument("--balance", type=float, default=10000.0)
-    ap.add_argument("--spread", type=float, default=2.0)
+    ap.add_argument("--spread", type=float, default=None)
     ap.add_argument("--start", default=None)
     ap.add_argument("--end", default=None)
     ap.add_argument("--split", default=None,
@@ -88,6 +91,9 @@ def parse_args(argv=None):
                     help="discard configs with fewer trades on the full period")
     ap.add_argument("--max-dd", type=float, default=100.0,
                     help="discard configs whose full-period DD exceeds this %%")
+    ap.add_argument("--max-conflict", type=float, default=100.0,
+                    help="discard configs where more than this %% of trades were "
+                         "decided by the intrabar model")
     return ap.parse_args(argv)
 
 
@@ -95,8 +101,12 @@ def evaluate(md, params):
     trades = core.run(md, params)
     if trades.shape[0] == 0:
         return None
-    return report.metrics(trades[:, T_PNL], trades[:, T_BALANCE],
-                          params.initial_balance)
+    m = report.metrics(trades[:, T_PNL], trades[:, T_BALANCE],
+                       params.initial_balance)
+    # Share of trades whose outcome was decided by the intrabar model rather
+    # than by the data. A config that leans on these is not a real edge.
+    m["conflict_pct"] = float(trades[:, T_CONFLICT].sum() / len(trades) * 100.0)
+    return m
 
 
 def main(argv=None):
@@ -105,11 +115,21 @@ def main(argv=None):
     if not grid:
         raise SystemExit("nothing to sweep: pass at least one --grid NAME=V1,V2")
 
-    base = Params(initial_balance=args.balance, spread_points=args.spread)
+    base = Params.for_pair(args.pair, initial_balance=args.balance)
+    if args.spread is not None:
+        base.spread_points = args.spread
+    for spec in args.overrides:
+        name, _, raw = spec.partition("=")
+        name = name.strip()
+        if not hasattr(base, name):
+            raise SystemExit(f"unknown parameter '{name}'")
+        setattr(base, name, parse_value(raw))
     if args.mode:
         base = base.with_mode(args.mode)
+    m15_path = args.m15 or PAIR_DATA[args.pair][0]
+    h1_path = args.h1 or PAIR_DATA[args.pair][1]
 
-    md_full = data.build(args.m15, args.h1,
+    md_full = data.build(m15_path, h1_path,
                          entry_ema_period=base.entry_ema_period,
                          rsi_period=base.rsi_period,
                          trend_ema_period=base.trend_ema_period,
@@ -127,7 +147,7 @@ def main(argv=None):
     combos = list(itertools.product(*(grid[n] for n in names)))
 
     print("=" * 92)
-    print(f"GRID SEARCH   {len(combos)} combinations over "
+    print(f"GRID SEARCH   {args.pair}: {len(combos)} combinations over "
           f"{md_full.ts.size} M15 bars")
     print(f"full          {report._fmt(md_full.ts[0])[:10]} -> "
           f"{report._fmt(md_full.ts[-1])[:10]}")
@@ -151,6 +171,8 @@ def main(argv=None):
         if full is None or full["trades"] < args.min_trades:
             continue
         if full["dd_pct"] > args.max_dd:
+            continue
+        if full["conflict_pct"] > args.max_conflict:
             continue
         m_is = evaluate(md_is, params)
         m_oos = evaluate(md_oos, params)
@@ -190,14 +212,15 @@ def main(argv=None):
 
     head = "  ".join(f"{n[:11]:>11}" for n in names)
     print(f"{head}  {'trades':>7}{'net':>11}{'PF':>6}{'DD%':>7}{'R/DD':>7}"
-          f"{'IS net':>10}{'OOS net':>10}{'robust':>8}")
-    print("-" * (len(head) + 66))
+          f"{'IS net':>10}{'OOS net':>10}{'robust':>8}{'amb%':>7}")
+    print("-" * (len(head) + 73))
     for r in rows[:args.top]:
         vals = "  ".join(f"{v:>11}" for v in r["values"])
         f, i, o = r["full"], r["is"], r["oos"]
         print(f"{vals}  {f['trades']:>7}{f['net']:>11.0f}{f['pf']:>6.2f}"
               f"{f['dd_pct']:>7.1f}{f['ret_dd']:>7.0f}"
-              f"{i['net']:>10.0f}{o['net']:>10.0f}{r['robust']:>8.0f}")
+              f"{i['net']:>10.0f}{o['net']:>10.0f}{r['robust']:>8.0f}"
+              f"{f['conflict_pct']:>7.1f}")
 
     best = rows[0]
     print("\nbest config:")

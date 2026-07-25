@@ -42,7 +42,36 @@ T_BE = 11       # 1 if breakeven was armed before the exit
 T_RISK = 12     # initial risk distance in price units
 T_SL0 = 13      # SL as placed at entry, before any breakeven move
 T_SWAP = 14     # overnight swap charged on this trade, in account currency
-T_COLS = 15
+T_CONFLICT = 15 # 1 if the exit bar touched BOTH the SL and the TP, so the
+                # outcome rests on the intrabar model rather than on data
+T_COLS = 16
+
+# Intrabar resolution when one bar touches both SL and TP.
+INTRABAR_MODES = {"pessimistic": 0, "nearest": 1, "optimistic": 2}
+
+
+@njit(cache=True, inline="always")
+def _tp_first(direction, mode, bar_o, bar_h, bar_l):
+    """Which of SL / TP was reached first, when one bar touches both.
+
+    We only have the bar's OHLC, never the tick order, so this is a modelling
+    choice - and it is not cosmetic. On USDJPY exactly two such bars out of 89
+    trades swing the 3-year net by 38%.
+
+      0 PESSIMISTIC - always the stop. Safe, but it understates any strategy
+                      whose target sits inside normal bar range.
+      1 NEAREST     - the extreme closer to the bar open is reached first.
+                      Assumes one clean out-and-back swing within the bar.
+      2 OPTIMISTIC  - always the target. Useful only as an upper bound.
+    """
+    if mode == 0:
+        return False
+    if mode == 2:
+        return True
+    high_first = (bar_h - bar_o) <= (bar_o - bar_l)
+    # Long: target above, stop below, so hitting the high first means the
+    # target went first. Short is the mirror image.
+    return high_first if direction == 1 else not high_first
 
 
 @njit(cache=True)
@@ -53,7 +82,7 @@ def _run(
     roll_cum, day0,
     # account / instrument
     initial_balance, spread, pip, tick_size, tick_value,
-    min_lot, max_lot, lot_step,
+    contract_size, inverse_quote, min_lot, max_lot, lot_step,
     # risk
     risk_percent, max_spread_pips, min_rr, min_sl_pips, max_sl_pips,
     # pyramid
@@ -73,7 +102,7 @@ def _run(
     # overnight swap
     use_swap, swap_long_per_lot, swap_short_per_lot,
     # realism
-    exit_on_entry_bar, pessimistic_intrabar,
+    exit_on_entry_bar, intrabar_mode,
     out,
 ):
     n = ts.size
@@ -96,6 +125,7 @@ def _run(
     p_entry_idx = 0
     p_day_entry = 0
     p_be = 0
+    p_conflict = 0
 
     spread_pips = spread / pip
     start_bar = max(sl_swing_bars + 2, 3)
@@ -121,7 +151,11 @@ def _run(
             if p_dir == 1:
                 hit_sl = bar_l <= p_sl
                 hit_tp = bar_h >= p_tp
-                if hit_sl and (pessimistic_intrabar or not hit_tp):
+                if hit_sl and hit_tp:
+                    p_conflict = 1
+                    exit_price = p_tp if _tp_first(1, intrabar_mode, bar_o,
+                                                   bar_h, bar_l) else p_sl
+                elif hit_sl:
                     exit_price = p_sl
                 elif hit_tp:
                     exit_price = p_tp
@@ -134,7 +168,11 @@ def _run(
                 ask_l = bar_l + spread
                 hit_sl = ask_h >= p_sl
                 hit_tp = ask_l <= p_tp
-                if hit_sl and (pessimistic_intrabar or not hit_tp):
+                if hit_sl and hit_tp:
+                    p_conflict = 1
+                    exit_price = p_tp if _tp_first(-1, intrabar_mode, bar_o,
+                                                    bar_h, bar_l) else p_sl
+                elif hit_sl:
                     exit_price = p_sl
                 elif hit_tp:
                     exit_price = p_tp
@@ -144,7 +182,11 @@ def _run(
                         p_be = 1
 
             if not np.isnan(exit_price):
-                pnl = (exit_price - p_entry) * p_dir * p_lots * tick_value / tick_size
+                pnl = (exit_price - p_entry) * p_dir * p_lots * contract_size
+                if inverse_quote:
+                    # Account currency is the base (USDJPY): profit accrues in
+                    # the quote currency and MT4 converts it at the exit price.
+                    pnl /= exit_price
                 swap = 0.0
                 if use_swap:
                     n_roll = (roll_cum[day_id[i] - day0]
@@ -170,6 +212,7 @@ def _run(
                 out[n_trades, T_RISK] = p_risk
                 out[n_trades, T_SL0] = p_sl0
                 out[n_trades, T_SWAP] = swap
+                out[n_trades, T_CONFLICT] = p_conflict
                 n_trades += 1
                 if n_trades >= out.shape[0]:
                     return n_trades
@@ -380,6 +423,7 @@ def _run(
         p_sl0 = sl
         p_entry_idx = i
         p_day_entry = day_id[i]
+        p_conflict = 0
         p_be = 0
         daily_trades += 1
 
@@ -390,7 +434,11 @@ def _run(
             if p_dir == 1:
                 hit_sl = bar_l <= p_sl
                 hit_tp = bar_h >= p_tp
-                if hit_sl and (pessimistic_intrabar or not hit_tp):
+                if hit_sl and hit_tp:
+                    p_conflict = 1
+                    exit_price = p_tp if _tp_first(1, intrabar_mode, bar_o,
+                                                   bar_h, bar_l) else p_sl
+                elif hit_sl:
                     exit_price = p_sl
                 elif hit_tp:
                     exit_price = p_tp
@@ -402,7 +450,11 @@ def _run(
                 ask_l = bar_l + spread
                 hit_sl = ask_h >= p_sl
                 hit_tp = ask_l <= p_tp
-                if hit_sl and (pessimistic_intrabar or not hit_tp):
+                if hit_sl and hit_tp:
+                    p_conflict = 1
+                    exit_price = p_tp if _tp_first(-1, intrabar_mode, bar_o,
+                                                    bar_h, bar_l) else p_sl
+                elif hit_sl:
                     exit_price = p_sl
                 elif hit_tp:
                     exit_price = p_tp
@@ -411,7 +463,11 @@ def _run(
                     p_be = 1
 
             if not np.isnan(exit_price):
-                pnl = (exit_price - p_entry) * p_dir * p_lots * tick_value / tick_size
+                pnl = (exit_price - p_entry) * p_dir * p_lots * contract_size
+                if inverse_quote:
+                    # Account currency is the base (USDJPY): profit accrues in
+                    # the quote currency and MT4 converts it at the exit price.
+                    pnl /= exit_price
                 swap = 0.0
                 if use_swap:
                     n_roll = (roll_cum[day_id[i] - day0]
@@ -436,6 +492,7 @@ def _run(
                 out[n_trades, T_RISK] = p_risk
                 out[n_trades, T_SL0] = p_sl0
                 out[n_trades, T_SWAP] = swap
+                out[n_trades, T_CONFLICT] = p_conflict
                 n_trades += 1
                 if n_trades >= out.shape[0]:
                     return n_trades
@@ -474,6 +531,7 @@ def run(md, params, max_trades=20000):
         md.roll_cum, md.day0,
         f(params.initial_balance), spread, f(params.pip), f(params.tick_size),
         f(params.tick_value),
+        f(params.contract_size), b(params.inverse_quote),
         f(params.min_lot), f(params.max_lot), f(params.lot_step),
         f(params.risk_percent), f(params.max_spread_pips), f(params.min_rr),
         f(params.min_sl_pips), f(params.max_sl_pips),
@@ -491,7 +549,8 @@ def run(md, params, max_trades=20000):
         params.blocked_hours_array, params.toxic_combos_array,
         b(params.reduce_thursday_risk), f(params.thursday_risk_mult),
         b(params.use_swap), f(params.swap_long_per_lot), f(params.swap_short_per_lot),
-        b(params.exit_on_entry_bar), b(params.pessimistic_intrabar),
+        b(params.exit_on_entry_bar),
+        int(INTRABAR_MODES[params.intrabar_model]),
         out,
     )
     return out[:n]

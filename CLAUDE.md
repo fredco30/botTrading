@@ -68,6 +68,31 @@ directement le profit sans toucher aux losses (qui resetent le streak).
 
 **L1 génère 73% du profit total.** C'est le profit engine. Ne pas le déprécier.
 
+### Presets multi-paires (v1.20) ⭐
+Le verdict « pyramide EURUSD uniquement » venait du fait que GBPUSD et USDJPY
+étaient testés avec les **filtres de contexte d'EURUSD**. Re-calibrés par paire
+avec `engine/`, les deux passent le seuil PF > 1.5.
+
+| Paire | Période | PF avant | PF après | Net | DD | Années + |
+|-------|---------|----------|----------|-----|-----|----------|
+| EURUSD | 2.6 ans | 2.24 | 2.54 | +$25 293 | 8.7% | — |
+| **GBPUSD** | **5.3 ans** | **1.21** | **1.90** | **+$9 481** | **9.1%** | **6/6** |
+| **USDJPY** | 2.6 ans | 1.48 | **2.24** | **+$18 189** | **11.2%** | **3/3** |
+
+**GBPUSD** — `PyramidMode = MODE_PAIR`, L0=1.5 / L1=2.0 / L2=2.0
+- Les 2 leviers : **EMA50 dist 50 → 30** et **BE 1.5R → 2.0R** (dominaient tout le top du sweep)
+- Aussi : SL swing 3 → 5 bougies, MinSL 20
+- IS PF 2.14 / OOS PF 1.73 | L1 PF 2.15 > L0 PF 1.89 → clustering réel
+- Le RSI est **inerte** sur GBPUSD (0/20/30 donnent le même résultat)
+
+**USDJPY** — `PyramidMode = MODE_PAIR`, L0=1.0 / L1=2.0 / L2=3.0
+- Les gains viennent du **reward**, pas des filtres : **MinRR 2.5 → 3.5**
+- Aussi : RSI_OS 30 → 40, SL 17-25 → 20-30, BE 1.5R → 1.0R, swing 3 → 5
+- IS PF 2.16 / OOS PF 2.29 (très équilibré)
+- ⚠️ **L2 fait 74% du profit** (inverse du pattern habituel) — surveiller en live
+- ⚠️ **Shorts PF 3.87 vs longs PF 1.44** hors pyramide → probablement spécifique au régime 2023-2025
+- ⚠️ `USDJPY15_cut.csv` a un **trou de 207 jours** (2025.09.12 → 2026.04.07) : 2.6 ans exploitables, pas 3.2
+
 ### Lecons apprises sur la pyramide
 - Le signal de base doit être RENTABLE (PF > 1.5) pour que la pyramide marche. Sur un signal à PF 0.88 (comme `regime_pyramid_EA`), la pyramide amplifie mais l'edge reste marginal.
 - Amplifier L1 (profit engine) est beaucoup plus efficace que L2 (weak link, PF 1.25)
@@ -198,6 +223,10 @@ Concerne : `EMA_Pullback_EA.mq4` et `EMA_Pullback_pyramid.mq4`.
 - **Over-fit walk-forward** : toujours tester sur 2 périodes séparées (2020-2022 vs 2023-2026). Un filtre qui marche sur 1 période seule est probablement over-fit.
 - **Le bug TP ×10 sur 5-digit** : `tickVal = $1` sur 5-digit (vs $10 sur 4-digit), toujours convertir via `MarketInfo(MODE_TICKSIZE)` pas `g_pt`
 - **Le swap overnight n'est PAS négligeable** (mesuré sur le backtest MT4, cf. `engine/README.md`) : **−8.34 $/lot/nuit en long**, **+2.54 $/lot/nuit en short**, **×3 le jeudi**. Aucun script `analyze_*.py` / `simul_*.py` ne le modélisait. Sur le run 3 ans il coûte ~$110 et surtout il **retourne un trade** d'un win breakeven en perte → reset du streak → toute la pyramide en aval est décalée. Toute simulation Python qui ignore le swap surévalue les configs qui gardent overnight.
+- **Un mauvais résultat sur une paire peut venir du preset, pas du signal.** GBPUSD était classé non-viable (PF 0.87 sur L0) : c'était le filtre EMA50-dist d'EURUSD appliqué à une paire qui bouge plus. Retuné, il fait PF 1.90 sur 5.3 ans avec 6 années positives. Toujours re-balayer les filtres de contexte avant de condamner une paire.
+- **Les bougies qui touchent SL ET TP faussent tout** si on les résout au hasard. 3 bougies ambiguës dans le corpus MT4 : 2 résolues en TP, 1 en SL — aucun modèle n'est universellement bon. Le moteur les compte (`amb%`) ; toute config champion retenue est à 0%. Une config qui en dépend n'est pas un edge.
+- **La microstructure diffère radicalement par paire** : spread 0.2 / 1.0 / 0.9 pip, et surtout le swap long EURUSD −8.34 vs USDJPY **+7.77** (carry positif). Un filtre "pas d'overnight" est rentable sur EURUSD et coûteux sur USDJPY.
+- **Quirk MT4 sur JPY** : le P&L se convertit au prix de sortie, mais le sizing utilise un `MODE_TICKVALUE` **constant** pris sur le symbole live au lancement du test (0.6304 aussi bien en 2023 qu'en 2025). Toute réimplémentation qui recalcule le tickvalue par bougie se désaligne.
 - **Le problème "simulations Python UNRELIABLE" est résolu** : `engine/` rejoue le signal depuis les bougies brutes, le streak est un état dans la boucle. Calibré à **0.006 % du net MT4**, 101/101 trades appariés. Un balayage de filtres y est enfin valide.
 
 ### Configs qui ne marchent pas (enseignements)
@@ -254,7 +283,9 @@ Voir `engine/README.md` pour la fidélité mesurée et les limites.
 - `engine/core.py` — boucle de simulation numba
 - `engine/report.py` — parsing rapports MT4, métriques, comparaison trade par trade
 - `calibrate_pullback_pyramid.py` — moteur vs MT4 (`--tolerance 0.1` = test de non-régression, `--infer-mults` = récupère L0/L1/L2 d'un rapport)
-- `optimize_pullback_pyramid.py` — grid search + walk-forward automatique (classement `robust` = min(R/DD sur les 2 moitiés))
+- `optimize_pullback_pyramid.py` — grid search + walk-forward automatique (classement `robust` = min(R/DD sur les 2 moitiés), colonne `amb%`)
+- `validate_pair.py` — dossier complet d'une config : année par année, IS/OOS, niveaux L0/L1/L2, ambiguïté, split long/short (`--pair GBPUSD --champion`)
+- `engine/debug.py` — explique filtre par filtre pourquoi une bougie a été rejetée
 
 ### Analyses Python EMA Pullback
 - `analysis.py` — Analyse v1 EURUSD (723 trades)
@@ -335,9 +366,10 @@ Voir `engine/README.md` pour la fidélité mesurée et les limites.
 - Comparer trades reels vs backtest sur la meme periode
 
 ### Moyen terme — extension pyramid
-- Test `EMA_Pullback_pyramid` sur GBPUSD (preset deja existant)
-- Test sur USDJPY (preset deja existant)
-- Si les 3 paires fonctionnent -> portfolio pyramid multi-paires
+- ✅ GBPUSD et USDJPY retunés (v1.20, `MODE_PAIR`) — **à reconfirmer en Strategy Tester MT4 avant tout live**
+- Ré-exporter `USDJPY15` pour combler le trou de 207 jours, puis re-valider
+- Ré-exporter `EURUSD15` depuis 2020 (Outils > Options > Graphiques > max barres = 999999999)
+- Si les 3 paires tiennent en demo -> portfolio pyramid multi-paires
 - Evaluation mode AGGRESSIVE SEULEMENT apres 3-6 mois de SAFE en live
 
 ### Long terme

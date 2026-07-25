@@ -19,20 +19,46 @@
 //|    CUSTOM        : utilise les inputs L0/L1/L2_LotMult           |
 //|      -> Pour experimentation fine                                 |
 //|                                                                    |
+//|    PAIR (defaut) : multiplicateurs propres a la paire choisie     |
+//|      EURUSD : L0=1.0 L1=4.0 L2=2.5  (= SAFE)                     |
+//|      GBPUSD : L0=1.5 L1=2.0 L2=2.0                                |
+//|        5.2y 2021-2026 : +$9,481 / PF 1.90 / DD 9.1%              |
+//|        6 annees positives sur 6 | L1 PF 2.15 > L0 PF 1.89        |
+//|      USDJPY : L0=1.0 L1=2.0 L2=3.0                                |
+//|        2.6y 2023-2025 : +$18,189 / PF 2.24 / DD 11.2%            |
+//|        3 annees positives sur 3 | IS PF 2.16 / OOS PF 2.29       |
+//|                                                                    |
+//|  IMPORTANT : Preset doit correspondre au symbole du graphique.    |
+//|  Chiffres issus du moteur Python bar-par-bar (engine/), calibre   |
+//|  a 0.006% du net MT4. A reconfirmer en Strategy Tester avant live.|
+//|                                                                    |
 //|  v1.00: initial pyramid implementation                            |
 //|  v1.10: pyramid mode preset (SAFE/AGGRESSIVE/CUSTOM)              |
+//|  v1.20: GBPUSD + USDJPY presets, MODE_PAIR multipliers            |
 //+------------------------------------------------------------------+
-#property copyright "EMA Pullback Pyramid EA v1.10"
+#property copyright "EMA Pullback Pyramid EA v1.20"
 #property link      ""
-#property version   "1.10"
+#property version   "1.20"
 #property strict
 
 //+------------------------------------------------------------------+
 //| INPUTS                                                            |
 //+------------------------------------------------------------------+
-// EURUSD only — tested pyramid on GBPUSD (L0 PF 0.87), USDCHF (PF 1.01), not viable.
-// Pyramid requires baseline PF > 2.0 to amplify. Only EURUSD qualifies.
+// v1.20: GBPUSD and USDJPY presets added. The earlier "EURUSD only" verdict
+// came from running those pairs with the EURUSD context filters. Re-tuned per
+// pair with the bar-by-bar engine (engine/, calibrated to 0.006% of MT4):
+//   GBPUSD  baseline PF 1.21 -> 1.92  (EMA50 dist 50->30, BE 1.5R->2.0R, swing 3->5)
+//   USDJPY  baseline PF 1.48 -> 2.00  (RR 2.5->3.5, RSI_OS 30->40, SL 17-25->20-30)
+// Both now clear the "baseline PF > 1.5" bar the pyramid needs to amplify.
 // Tested M30 entry (PF 1.00), ADX Daily (nuisible), EMA200 Weekly + ATR Monthly (PF 0.88) — none improved.
+
+enum PAIR_PRESET {
+   PRESET_EURUSD = 0,   // EURUSD (champion, 2.6y: PF 2.24 baseline)
+   PRESET_GBPUSD = 1,   // GBPUSD (5.2y: PF 1.90 pyramid, DD 9.1%, 6/6 years positive)
+   PRESET_USDJPY = 2    // USDJPY (2.6y: PF 2.24 pyramid, DD 11.2%, 3/3 years positive)
+};
+
+input PAIR_PRESET Preset = PRESET_EURUSD;  // Pair preset (must match the chart symbol)
 
 // --- Risk Management ---
 input double RiskPercent        = 1.0;     // Risk % per trade
@@ -48,13 +74,14 @@ input double MaxSL_Pips         = 25.0;    // Maximum SL distance (pips) — was
 // AGGRESSIVE  : L0=2.0 L1=7.0 L2=4.0 -> Net 6y +$109k / DD 47% / PF 1.91 (experimental)
 // CUSTOM      : utilise les inputs L0/L1/L2_LotMult ci-dessous
 enum PYRAMID_MODE {
-   MODE_SAFE       = 0,   // SAFE: L0=1.0 L1=4.0 L2=2.5 (DD 26%, tradeable live)
+   MODE_SAFE       = 0,   // SAFE: L0=1.0 L1=4.0 L2=2.5 (EURUSD tuning, DD 26%)
    MODE_AGGRESSIVE = 1,   // AGGRESSIVE: L0=2.0 L1=7.0 L2=4.0 (DD 47%, experimental)
-   MODE_CUSTOM     = 2    // CUSTOM: use L0/L1/L2_LotMult inputs
+   MODE_CUSTOM     = 2,   // CUSTOM: use L0/L1/L2_LotMult inputs
+   MODE_PAIR       = 3    // PAIR: multipliers tuned for the selected Preset
 };
 
 input bool         UsePyramid    = true;           // activer pyramid lot sizing sur wins
-input PYRAMID_MODE PyramidMode   = MODE_SAFE;      // preset mode (SAFE recommande pour live)
+input PYRAMID_MODE PyramidMode   = MODE_PAIR;      // PAIR = tuning propre a la paire choisie
 input double       L0_LotMult    = 1.0;            // L0 multiplier (used only if MODE_CUSTOM)
 input double       L1_LotMult    = 4.0;            // L1 multiplier (used only if MODE_CUSTOM)
 input double       L2_LotMult    = 2.5;            // L2 multiplier (used only if MODE_CUSTOM)
@@ -156,6 +183,8 @@ double  r_ThursdayRiskMult;
 int     r_MaxTradesPerDay;
 int     r_TrendBars;
 int     r_SL_SwingBars;
+int     r_RSI_OB;
+int     r_RSI_OS;
 
 //+------------------------------------------------------------------+
 //| APPLY PYRAMID MODE                                                |
@@ -175,6 +204,31 @@ void ApplyPyramidMode() {
       r_L0_LotMult = 2.0;
       r_L1_LotMult = 7.0;
       r_L2_LotMult = 4.0;
+   }
+   else if(PyramidMode == MODE_PAIR) {
+      // Per-pair multipliers. Chosen on the walk-forward "robust" criterion:
+      // the worse of return/DD on each half of the data, so a config that only
+      // works on one half cannot win. See optimize_pullback_pyramid.py.
+      if(Preset == PRESET_GBPUSD) {
+         // 5.2y 2021-2026: net +$9,481 / PF 1.90 / DD 9.1% / 6 years positive
+         // L1 PF 2.15 vs L0 PF 1.89 -> the streak effect is real, not leverage
+         r_L0_LotMult = 1.5;
+         r_L1_LotMult = 2.0;
+         r_L2_LotMult = 2.0;
+      }
+      else if(Preset == PRESET_USDJPY) {
+         // 2.6y 2023-2025: net +$18,189 / PF 2.24 / DD 11.2% / 3 years positive
+         // L2 carries 74% of the profit here, which is unusual - keep it at 3.0
+         // rather than the 4.0 the search preferred, and re-check on live data.
+         r_L0_LotMult = 1.0;
+         r_L1_LotMult = 2.0;
+         r_L2_LotMult = 3.0;
+      }
+      else {  // PRESET_EURUSD -> the published SAFE tuning
+         r_L0_LotMult = 1.0;
+         r_L1_LotMult = 4.0;
+         r_L2_LotMult = 2.5;
+      }
    }
    else {  // MODE_CUSTOM
       r_L0_LotMult = L0_LotMult;
@@ -204,20 +258,34 @@ int OnInit() {
    string pyrModeName = "SAFE";
    if(PyramidMode == MODE_AGGRESSIVE) pyrModeName = "AGGRESSIVE";
    else if(PyramidMode == MODE_CUSTOM) pyrModeName = "CUSTOM";
+   else if(PyramidMode == MODE_PAIR)   pyrModeName = "PAIR";
+
+   string presetName = "EURUSD";
+   if(Preset == PRESET_GBPUSD) presetName = "GBPUSD";
+   else if(Preset == PRESET_USDJPY) presetName = "USDJPY";
+
+   // Guard against the classic mistake: preset says one pair, chart is another.
+   if(StringFind(Symbol(), presetName) < 0)
+      Print("WARNING: preset ", presetName, " selected but chart symbol is ",
+            Symbol(), " — parameters will not match this market.");
    Print("EMA Pullback Pyramid EA initialized | Symbol: ", Symbol(),
+         " | Preset: ", presetName,
          " | Pyramid: ", UsePyramid ? "ON" : "OFF",
          " | Mode: ", pyrModeName,
          " | Lots L0:", DoubleToStr(r_L0_LotMult, 2),
          " L1:", DoubleToStr(r_L1_LotMult, 2),
          " L2:", DoubleToStr(r_L2_LotMult, 2));
-   Print("EMA Pullback Pyramid EA | EURUSD only | H1+M15",
+   Print("EMA Pullback Pyramid EA | ", presetName, " | H1+M15",
          " | Pip value: ", g_pipValue,
          " | SL range: ", DoubleToStr(r_MinSL_Pips, 0), "-", DoubleToStr(r_MaxSL_Pips, 0), " pips",
          " | ATR: ", UseATRFilter ? DoubleToStr(r_ATR_MinPips, 0) + "-" + DoubleToStr(r_ATR_MaxPips, 0) + " pips" : "OFF",
          " | EMA50 dist max: ", UseEMA50DistFilter ? DoubleToStr(r_MaxEMA50DistPips, 0) + " pips" : "OFF",
          " | Friday: ", r_BlockFriday ? "BLOCKED" : "allowed",
          " | Spread max: ", DoubleToStr(r_MaxSpreadPips, 1),
-         " | BE trigger: ", DoubleToStr(r_BE_Trigger_R, 1), "R");
+         " | BE trigger: ", DoubleToStr(r_BE_Trigger_R, 1), "R",
+         " | MinRR: ", DoubleToStr(r_MinRR, 1),
+         " | RSI: ", r_RSI_OS, "/", r_RSI_OB,
+         " | Swing bars: ", r_SL_SwingBars);
    return INIT_SUCCEEDED;
 }
 
@@ -248,12 +316,84 @@ void ApplyPreset() {
    r_MaxTradesPerDay   = MaxTradesPerDay;
    r_TrendBars         = TrendBars;
    r_SL_SwingBars      = SL_SwingBars;
+   r_RSI_OB            = RSI_OB;
+   r_RSI_OS            = RSI_OS;
    r_BlockedHoursCount = 0;
    ArrayInitialize(r_BlockedHoursArr, -1);
 
    // --- EURUSD blocked hours (from analysis) ---
    r_BlockedHoursCount = 1;
    r_BlockedHoursArr[0] = 13;       // NY open chaos
+
+   // --- GBPUSD PRESET ---
+   // Re-tuned with the bar-by-bar engine over 2021-2026 (5.2 years of M15).
+   // The old preset ran EMA50 dist < 50 and BE at 1.5R and scored PF 1.21.
+   // Tightening the distance to 30 and pushing breakeven out to 2.0R is what
+   // turned it around: both dominated every top row of the sweep.
+   if(Preset == PRESET_GBPUSD) {
+      r_MaxSpreadPips     = 4.0;
+      r_MinRR             = 2.5;
+      r_MinSL_Pips        = 20.0;
+      r_MaxSL_Pips        = 25.0;
+      r_ATR_MinPips       = 9.0;
+      r_ATR_MaxPips       = 25.0;
+      r_MaxEMA50DistPips  = 30.0;      // was 50 — biggest single lever
+      r_BE_Trigger_R      = 2.0;       // was 1.5 — give the trade room
+      r_SL_SwingBars      = 5;         // was 3 — better stop placement
+      r_LondonStartHour   = 9;         // 08h is toxic on GBP
+      r_LondonEndHour     = 12;
+      r_NYStartHour       = 14;        // skip 13h
+      r_NYEndHour         = 17;
+      r_UseLondonSession  = true;
+      r_BlockFriday       = true;
+      r_BlockMonday       = true;
+      r_BlockToxicCombos  = false;     // EURUSD-specific, not applicable
+      r_ReduceThursdayRisk = false;
+      r_ThursdayRiskMult  = 1.0;
+      r_MaxTradesPerDay   = 2;
+      r_TrendBars         = 5;
+      r_PB_MaxRatio       = 1.0;       // pullback size filter disabled
+      r_BlockedHoursCount = 3;
+      r_BlockedHoursArr[0] = 10;
+      r_BlockedHoursArr[1] = 13;
+      r_BlockedHoursArr[2] = 15;
+   }
+
+   // --- USDJPY PRESET ---
+   // Re-tuned over 2023-2025 (2.6 years of usable M15; the CSV has a 207-day
+   // hole after 2025.09). The wins came from the reward side, not the filters:
+   // a 3.5 target instead of 2.5, a stricter oversold gate on sells, and
+   // wider stops with an early breakeven.
+   if(Preset == PRESET_USDJPY) {
+      r_MaxSpreadPips     = 3.0;
+      r_MinRR             = 3.5;       // was 2.5 — dominated every ranking
+      r_MinSL_Pips        = 20.0;      // was 17
+      r_MaxSL_Pips        = 30.0;      // was 25
+      r_ATR_MinPips       = 0.0;       // ATR filter stays off on JPY
+      r_ATR_MaxPips       = 0.0;
+      r_MaxEMA50DistPips  = 75.0;
+      r_BE_Trigger_R      = 1.0;       // was 1.5 — lock in earlier
+      r_SL_SwingBars      = 5;         // was 3
+      r_RSI_OS            = 40;        // was 30 — do not sell into oversold
+      r_LondonStartHour   = 8;
+      r_LondonEndHour     = 12;
+      r_NYStartHour       = 14;        // skip 13h
+      r_NYEndHour         = 17;
+      r_UseLondonSession  = true;
+      r_BlockFriday       = true;
+      r_BlockMonday       = true;
+      r_BlockToxicCombos  = false;
+      r_ReduceThursdayRisk = false;
+      r_ThursdayRiskMult  = 1.0;
+      r_MaxTradesPerDay   = 2;
+      r_TrendBars         = 5;
+      r_PB_MaxRatio       = 1.0;
+      r_BlockedHoursCount = 4;
+      r_BlockedHoursArr[0] = 9;
+      r_BlockedHoursArr[1] = 11;
+      r_BlockedHoursArr[2] = 13;
+      r_BlockedHoursArr[3] = 16;
+   }
 }
 
 //+------------------------------------------------------------------+
@@ -592,7 +732,7 @@ void CheckEntry() {
 
    // ============ BULLISH PULLBACK ============
    if(trend == 1) {
-      if(rsi > RSI_OB) return;  // Don't buy when overbought
+      if(rsi > r_RSI_OB) return;  // Don't buy when overbought
       // Bar 2 must have dipped to or below EMA20 (pullback)
       double ema20_bar2 = iMA(Symbol(), PERIOD_M15, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 2);
       if(low2 > ema20_bar2) return;  // No pullback to EMA
@@ -623,7 +763,7 @@ void CheckEntry() {
 
    // ============ BEARISH PULLBACK ============
    if(trend == -1) {
-      if(rsi < RSI_OS) return;  // Don't sell when oversold
+      if(rsi < r_RSI_OS) return;  // Don't sell when oversold
       // Bar 2 must have spiked to or above EMA20 (pullback)
       double ema20_bar2 = iMA(Symbol(), PERIOD_M15, EntryEMA_Period, 0, MODE_EMA, PRICE_CLOSE, 2);
       if(high2 < ema20_bar2) return;  // No pullback to EMA
