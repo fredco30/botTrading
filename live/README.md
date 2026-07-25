@@ -98,12 +98,60 @@ production.
 3. **Pas de swap ni de financement modélisés côté bot** — ils sont prélevés par
    la place et apparaissent dans l'equity.
 
+## Le portage trade-t-il bien la stratégie validée ?
+
+Oui, et c'est mesuré. `tests/test_integration_replay.py` rejoue les **vraies
+bougies H1** du CSV à travers `Bot.step()`, cycle par cycle, et compare les
+trades obtenus à ceux du noyau numba sur exactement les mêmes barres. Deux
+chemins de code entièrement différents, un seul jeu de bougies.
+
+| Symbole | Appariés | Absorbés | Découpages |
+|---|---|---|---|
+| BTCUSD | 54/55 | 1 | 1 |
+| ETHUSD | 50/52 | 2 | 0 |
+| BNBUSD | 45/48 | 3 | 3 |
+| SOLUSD | 47/51 | 4 | 1 |
+| XRPUSD | 35/37 | 2 | 2 |
+| ADAUSD | 36/36 | 0 | 1 |
+| LTCUSD | 42/46 | 4 | 1 |
+| LINKUSD | 42/42 | 0 | 0 |
+
+**367 trades, 0 signal raté, 0 signal inventé, sens identique partout.**
+
+Les écarts restants sont classés, pas masqués. *Absorbé* : le backtest a coupé
+en deux ce que le bot a traversé d'une traite — son stop, calculé sur un prix
+d'entrée légèrement différent, ne l'a pas sorti. *Découpage* : l'inverse. Dans
+les deux cas l'exposition est la même, seul le découpage en tickets diffère.
+Seuls un signal raté ou inventé font échouer le test.
+
+### Le coût d'exécution n'est pas mesurable sur cet échantillon
+
+Le bot est structurellement en retard sur le backtest (détection à la clôture
+puis ordre au marché, contre un ordre stop posé au niveau du canal). On
+attendrait donc un P&L systématiquement inférieur. Ce n'est **pas** ce qu'on
+observe :
+
+| | BTC | ETH | BNB | SOL | XRP | ADA | LTC | LINK |
+|---|---|---|---|---|---|---|---|---|
+| écart P&L | +49% | +111% | +60% | +325% | −19% | −33% | signe inversé | −32% |
+
+Agrégé : backtest 6 875 $, bot 9 059 $, soit **+32 % en faveur du bot**.
+
+Personne ne doit lire ça comme un avantage. C'est la démonstration que
+**40 à 55 trades par symbole ne suffisent pas à mesurer un coût d'exécution** :
+en suivi de tendance le P&L est porté par trois ou quatre trades de queue, et de
+quel côté d'un stop ils tombent est un tirage au sort qui écrase largement les
+quelques points de base d'écart d'entrée. Le coût réel du retard est positif,
+mais il est enfoui sous le bruit — ne pas le budgéter à zéro pour autant.
+
 ## Ce qui n'a PAS été testé
 
 **Le bot n'a jamais parlé à une vraie place.** L'environnement de développement
-bloque les API d'exchange, donc tout a été validé hors ligne, sur un marché
-synthétique : cassure détectée, stop suivi de 114 à 172, sortie sur stop,
-retournement short. La logique est vérifiée, l'intégration ccxt ne l'est pas.
+bloque les API d'exchange, donc l'intégration ccxt elle-même n'est pas vérifiée :
+tout a été validé hors ligne, sur marché synthétique d'abord (cassure détectée,
+stop suivi de 114 à 172, sortie sur stop, retournement short) puis sur bougies
+réelles via le rejeu ci-dessus. La **stratégie** est vérifiée, la **plomberie
+réseau** ne l'est pas.
 
 **À faire avant tout live :**
 1. `python3 run_bot.py --once -v` et vérifier que les bougies arrivent
