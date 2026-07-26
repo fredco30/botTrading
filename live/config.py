@@ -61,6 +61,11 @@ class Config:
     poll_seconds: int = 300
     state_file: str = "live_state.json"
     log_file: str = "live_bot.log"
+    # Alertes Telegram. Le jeton et le salon viennent de TELEGRAM_BOT_TOKEN et
+    # TELEGRAM_CHAT_ID, jamais d'ici : un jeton permet d'usurper l'emetteur des
+    # alertes, donc de faire croire a un arret qui n'a pas eu lieu.
+    alerts: bool = True
+    alert_on_trades: bool = True     # a false : seulement pannes et drawdown
     initial_equity: float = 1000.0   # utilise en paper uniquement
 
     def __post_init__(self):

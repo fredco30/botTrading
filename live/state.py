@@ -85,6 +85,18 @@ class State:
     def n_open(self):
         return len(self.data["positions"])
 
+    def downtime(self, threshold=3600):
+        """Duree depuis le dernier cycle, si elle depasse `threshold`.
+
+        Sert a n'annoncer un retour que lorsqu'il y a vraiment eu interruption :
+        un redemarrage de service de trente secondes n'en est pas une.
+        """
+        ts = self.data.get("updated_ts")
+        if not ts:
+            return 0.0
+        gap = time.time() - ts
+        return gap if gap > threshold else 0.0
+
     # --- courbe d'equity ---
     def record_equity(self, equity, every=3600, cap=2000):
         """Echantillonne l'equity pour le suivi.

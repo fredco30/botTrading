@@ -16,6 +16,7 @@ import signal
 import time
 
 from .broker import PaperBroker, make_broker
+from .notify import Notifier
 from .signal import decide, size_position
 from .state import State
 
@@ -31,6 +32,11 @@ class Bot:
         self.state = State(cfg.state_file)
         self.markets = self.broker.markets()
         self._stopping = False
+        self.notify = Notifier(
+            throttle_file=cfg.state_file + ".alerts",
+            enabled=cfg.alerts)
+        if cfg.alerts and not self.notify.enabled:
+            log.info("alertes Telegram inactives : %s", self.notify.why_disabled())
 
     def _install_signal_handlers(self):
         """Arret propre sur SIGTERM.
@@ -70,6 +76,9 @@ class Bot:
             self.broker.settle(symbol, pnl)
         self.state.close(symbol, px, pnl, bar_ts=bar_ts)
         log.info("FERME %s a %.6g | %s | P&L %+.2f", symbol, px, reason, pnl)
+        if self.cfg.alert_on_trades:
+            self.notify.closed(symbol, pos["side"], px, pnl, reason,
+                               equity=self.broker.equity())
 
     def open_position(self, symbol, dec, equity, bar_ts=None):
         px = self.broker.price(symbol)
@@ -95,6 +104,9 @@ class Bot:
         log.info("OUVRE %s %s %.8f a %.6g | stop %.6g (%.2f ATR) | %s",
                  side, symbol, units, px, stop,
                  abs(px - stop) / dec.atr if dec.atr else 0, dec.reason)
+        if self.cfg.alert_on_trades:
+            self.notify.opened(symbol, dec.side, units, px, stop, dec.atr,
+                               dec.reason)
 
     def step(self):
         equity = self.broker.equity()
@@ -103,6 +115,9 @@ class Bot:
             log.error("ARRET : drawdown %.1f%% au-dela du plafond de %.1f%%. "
                       "Plus aucune ouverture ; les positions ouvertes sont "
                       "toujours gerees.", dd, self.cfg.max_drawdown_pct)
+            self.notify.halted(dd, self.cfg.max_drawdown_pct)
+        else:
+            self.notify.drawdown(dd, self.cfg.max_drawdown_pct)
 
         for base in self.cfg.symbols:
             symbol = self.cfg.market(base)
@@ -138,6 +153,7 @@ class Bot:
                 # gerees : une position ouverte non surveillee est bien pire
                 # qu'un signal manque.
                 log.exception("%s : %s", symbol, exc)
+                self.notify.pair_error(symbol, exc)
 
         self.state.record_equity(equity)
         self.state.save()
@@ -154,6 +170,15 @@ class Bot:
         if self.state.n_open:
             log.info("reprise avec %d position(s) en cours : %s",
                      self.state.n_open, ", ".join(self.state.data["positions"]))
+        if not once:
+            # Pas d'alerte de demarrage sur --once : ce mode sert aux
+            # verifications manuelles, il en enverrait une a chaque essai.
+            self.notify.started(self.cfg)
+            # Le watchdog a pu signaler une panne ; c'est ici, et seulement ici,
+            # qu'on sait que le bot est reparti.
+            down = self.state.downtime()
+            if down:
+                self.notify.recovered(down)
         while not self._stopping:
             try:
                 self.step()
@@ -170,3 +195,6 @@ class Bot:
         self.state.save()
         log.info("arrete proprement | %d position(s) conservee(s) dans %s",
                  self.state.n_open, self.cfg.state_file)
+        if not once:
+            self.notify.stopped(
+                f"arret propre · {self.state.n_open} position(s) conservee(s)")

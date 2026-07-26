@@ -1,0 +1,55 @@
+[Unit]
+Description=Verifie que le bot Donchian repond encore, alerte sinon
+Documentation=file:/opt/donchian-bot/live/README.md
+# Volontairement SANS Requires= ni BindsTo= sur donchian-bot.service : le
+# surveillant doit tourner precisement quand le surveille ne tourne plus.
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=donchian
+Group=donchian
+WorkingDirectory=/opt/donchian-bot
+
+# Seuls TELEGRAM_BOT_TOKEN et TELEGRAM_CHAT_ID sont utiles ici ; le watchdog
+# n'appelle jamais la place, donc les cles d'API ne lui servent a rien - mais
+# le fichier est partage, d'ou la lecture seule et le meme groupe.
+EnvironmentFile=/etc/donchian-bot/env
+Environment=PYTHONUNBUFFERED=1
+
+ExecStart=/opt/donchian-bot/.venv/bin/python watchdog.py \
+    --state /var/lib/donchian-bot/live_state.json \
+    --config /etc/donchian-bot/config.json \
+    --quiet
+
+# Le code 1 signifie « bot muet », ce qui est un resultat, pas une panne du
+# watchdog. Sans ceci systemd marquerait l'unite en echec a chaque alerte.
+SuccessExitStatus=0 1
+
+# Un watchdog qui traine est un watchdog qui ne repondra pas au prochain tir.
+TimeoutStartSec=60
+
+# --- durcissement : il lit un fichier et envoie un message, rien de plus ---
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+SystemCallArchitectures=native
+CapabilityBoundingSet=
+# Ecriture necessaire uniquement pour son propre fichier de limitation d'envoi.
+ReadWritePaths=/var/lib/donchian-bot
+MemoryMax=128M
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=donchian-watchdog

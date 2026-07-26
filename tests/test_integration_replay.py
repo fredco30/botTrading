@@ -40,6 +40,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from engine import instruments as I, trend                      # noqa: E402
 from live.bot import Bot                                        # noqa: E402
 from live.config import Config                                  # noqa: E402
+from live.notify import Notifier                                # noqa: E402
 from live.state import State                                    # noqa: E402
 import live.broker as B                                         # noqa: E402
 
@@ -88,6 +89,9 @@ def replay(symbol, cfg, bars):
     bot.broker = B.PaperBroker(cfg, live_source=src)
     bot.state = State(state_file)
     bot.markets = bot.broker.markets()
+    # Alertes neutralisees : le rejeu declenche des centaines de trades, et ce
+    # test mesure la fidelite du signal, pas la notification.
+    bot.notify = Notifier(token="", chat_id="", enabled=False)
 
     warm = cfg.entry_period + cfg.atr_period + 5
     for i in range(warm, len(bars)):

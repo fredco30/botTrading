@@ -46,6 +46,13 @@ if [ ! -f "$CFG/env" ]; then
 # Cles API. Laisser vide tant que le bot tourne en paper.
 BITVAVO_API_KEY=
 BITVAVO_API_SECRET=
+
+# Alertes Telegram. Creer un bot avec @BotFather, puis recuperer l'identifiant
+# de salon en lui envoyant un message et en lisant
+#   https://api.telegram.org/bot<JETON>/getUpdates
+# Laisser vide desactive les alertes sans rien casser.
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_CHAT_ID=
 ENVEOF
   echo "    fichier de cles cree : $CFG/env"
 fi
@@ -72,24 +79,36 @@ LOGEOF
 
 echo "==> service systemd"
 cp "$SRC/deploy/donchian-bot.service" /etc/systemd/system/
+# Le watchdog est un service separe, declenche par un timer : un processus mort
+# ne peut pas signaler sa propre mort, donc le surveillant doit survivre au
+# surveille.
+cp "$SRC/deploy/donchian-watchdog.service" /etc/systemd/system/
+cp "$SRC/deploy/donchian-watchdog.timer" /etc/systemd/system/
 systemctl daemon-reload
 systemctl enable donchian-bot
+systemctl enable --now donchian-watchdog.timer
 
 cat <<MSG
 
 Installation terminee.
 
   Verifier la config      : cat $CFG/config.json
+  Tester la plomberie     : sudo -u $USER $APP/.venv/bin/python \\
+                              $APP/run_bot.py --dry-run-api --config $CFG/config.json
   Demarrer (paper)        : systemctl start donchian-bot
   Suivre les journaux     : journalctl -u donchian-bot -f
   Etat des positions      : cat $DATA/state.json
   Arreter                 : systemctl stop donchian-bot
 
+  Tester les alertes      : sudo -u $USER $APP/.venv/bin/python $APP/watchdog.py --test
+  Etat du surveillant     : systemctl list-timers donchian-watchdog.timer
+
 Avant de passer en live :
-  1. laisser tourner plusieurs semaines en paper
-  2. renseigner les cles dans $CFG/env
-  3. passer "mode": "live" dans $CFG/config.json
-  4. baisser "risk_pct" a 0.1 pour les premieres semaines
-  5. systemctl restart donchian-bot
+  1. lancer --dry-run-api et corriger ce qu'il signale
+  2. laisser tourner plusieurs semaines en paper
+  3. renseigner les cles dans $CFG/env
+  4. passer "mode": "live" dans $CFG/config.json
+  5. baisser "risk_pct" a 0.2 pour les premieres semaines
+  6. systemctl restart donchian-bot
 
 MSG

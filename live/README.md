@@ -184,6 +184,71 @@ un VPS, passer par un tunnel plutôt que par `--host` :
 ssh -L 8000:localhost:8000 user@vps
 ```
 
+### Alertes Telegram
+
+Le tableau de bord ne prévient que si on le regarde. Les alertes viennent
+chercher l'utilisateur.
+
+```bash
+export TELEGRAM_BOT_TOKEN="123456:AA..."   # via @BotFather
+export TELEGRAM_CHAT_ID="987654321"        # via /getUpdates
+python3 watchdog.py --test                 # vérifier que ça arrive
+```
+
+Le jeton n'est **jamais** dans un fichier de configuration, seulement dans
+l'environnement — même règle que les clés de la place, et pour une raison
+propre : un jeton Telegram permet d'usurper l'émetteur des alertes, donc de
+faire croire à un arrêt qui n'a pas eu lieu. Sans les deux variables, tout est
+un no-op silencieux ; rien ne casse.
+
+Bibliothèque standard uniquement (`urllib`) — `requests` ou
+`python-telegram-bot` ajouteraient des dizaines de mégaoctets à un processus qui
+en fait 82 au total.
+
+| Événement | Émis par |
+|---|---|
+| démarrage / arrêt propre | bot |
+| ouverture et clôture de position (avec P&L et equity) | bot |
+| paliers de drawdown (10 %, 20 %, 30 %…) | bot |
+| déclenchement du disjoncteur | bot |
+| erreur répétée sur une paire | bot |
+| **bot muet** | **watchdog** |
+| retour après interruption | bot |
+
+#### Pourquoi un watchdog séparé
+
+**Un processus mort ne peut pas signaler sa propre mort.** Un OOM kill, un
+redémarrage de VPS, une exception non rattrapée : dans ces cas aucune alerte ne
+partirait du bot. `watchdog.py` s'exécute donc à part, ne partage rien avec lui,
+et se contente de lire l'âge du fichier d'état.
+
+Il ne fait **aucun appel à la place** et n'écrit rien dans l'état du bot — un
+surveillant qui peut casser ce qu'il surveille est pire que pas de surveillant.
+
+`donchian-watchdog.timer` le déclenche toutes les 15 minutes ; l'alerte part
+après 3 cycles manqués, soit une détection en 15 à 30 minutes. Le service est
+volontairement **sans** `Requires=` sur le bot : il doit tourner précisément
+quand celui-ci ne tourne plus.
+
+#### Trois protections, verrouillées par `tests/test_notify.py`
+
+Un système d'alerte est du code qui tourne dans la boucle de trading sans rien
+apporter en cas de succès. Son risque est donc asymétrique : il ne peut que
+nuire.
+
+1. **`send()` ne lève jamais.** Perdre une notification est désagréable, perdre
+   la gestion d'une position ouverte ne l'est pas.
+2. **Coupe-circuit après 3 échecs** (silence d'une heure). Sans lui, un DNS qui
+   pend coûterait 10 s par paire et par cycle, et le bot prendrait un retard que
+   rien ne signalerait.
+3. **Limitation par clé.** Une paire qui échoue à chaque cycle enverrait 288
+   messages par jour ; au troisième on ne les lit plus, et l'alerte utile passe
+   inaperçue. La limitation est persistée sur disque, sans quoi elle ne servirait
+   à rien pour le watchdog qui redémarre à chaque tir.
+
+Pour ne garder que les pannes et le drawdown, sans les trades :
+`"alert_on_trades": false`. Pour tout couper : `"alerts": false`.
+
 Le mode paper utilise les **vraies bougies** de la place et simule uniquement
 l'exécution : les écarts observés viennent donc de l'exécution, pas des données.
 

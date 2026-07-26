@@ -1,0 +1,22 @@
+[Unit]
+Description=Declenche la verification du bot Donchian toutes les 15 minutes
+Documentation=file:/opt/donchian-bot/live/README.md
+
+[Timer]
+# Premier tir 5 min apres le demarrage : laisser au bot le temps d'ecrire un
+# premier etat, sinon chaque redemarrage de machine produirait une fausse alerte.
+OnBootSec=5min
+OnUnitActiveSec=15min
+
+# Le seuil d'alerte est de 3 cycles, soit 15 min a poll_seconds=300. Verifier
+# tous les quarts d'heure detecte donc une panne en 15 a 30 minutes, ce qui est
+# le bon ordre de grandeur : le systeme tient ses positions plusieurs jours,
+# alerter a la minute n'apporterait rien et reveillerait pour du bruit reseau.
+AccuracySec=1min
+
+# Le timer doit survivre a un redemarrage : Persistent rattrape un tir manque
+# pendant que la machine etait eteinte.
+Persistent=true
+
+[Install]
+WantedBy=timers.target
