@@ -30,6 +30,10 @@ class State:
 
     def save(self):
         self.data["updated"] = time.strftime("%Y-%m-%d %H:%M:%S")
+        # Horodatage epoch en plus du texte : c'est ce qui permet a un lecteur
+        # exterieur de savoir si le bot est encore vivant. Comparer des chaines
+        # de temps local casse au changement d'heure et suppose le meme fuseau.
+        self.data["updated_ts"] = int(time.time())
         d = os.path.dirname(os.path.abspath(self.path))
         fd, tmp = tempfile.mkstemp(dir=d, suffix=".tmp")
         try:

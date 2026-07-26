@@ -85,6 +85,23 @@ def build_payload(cfg_path, state_path, log_path):
         if pnl:
             unrealized += pnl
 
+    # Le bot est-il encore vivant ? C'est la question que ce tableau de bord doit
+    # repondre en premier : si le processus meurt, l'etat sur disque reste
+    # parfaitement valide et la page continuerait a afficher une situation
+    # rassurante. C'est le pire mode de panne, parce qu'il est silencieux.
+    updated_ts = state.get("updated_ts")
+    if not updated_ts and state.get("updated"):
+        try:    # etats ecrits avant l'ajout de updated_ts
+            updated_ts = int(time.mktime(
+                time.strptime(state["updated"], "%Y-%m-%d %H:%M:%S")))
+        except (ValueError, OverflowError):
+            updated_ts = None
+    poll = cfg.get("poll_seconds") or 300
+    age = (time.time() - updated_ts) if updated_ts else None
+    # Trois cycles manques : au-dela d'un cycle c'est du bruit reseau, au-dela
+    # de trois c'est un processus qui ne tourne plus.
+    stale = age is not None and age > 3 * poll
+
     realized = sum(h.get("pnl", 0.0) for h in history)
     wins = [h for h in history if h.get("pnl", 0.0) > 0]
     equity = curve[-1][1] if curve else None
@@ -93,6 +110,7 @@ def build_payload(cfg_path, state_path, log_path):
 
     return dict(
         updated=state.get("updated"),
+        updated_ts=updated_ts, age=age, poll_seconds=poll, stale=stale,
         error=state.get("_error"),
         halted=bool(state.get("halted")),
         equity=equity, peak=peak, dd=dd,

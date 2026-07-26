@@ -185,27 +185,56 @@ const cls = v => v > 0 ? "pos" : (v < 0 ? "neg" : "");
 const when = ts => ts ? new Date(ts * 1000).toLocaleString("fr-FR",
   {day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit"}) : "—";
 
-/* ---------- bandeau d'alerte ---------- */
+/* ---------- bandeaux d'alerte ----------
+   Empilés, pas exclusifs : un bot mort AVEC des positions ouvertes est
+   précisément le cas où il faut voir les deux informations à la fois. */
+const dur = s => {
+  s = Math.round(s);
+  if (s < 90) return s + " s";
+  if (s < 5400) return Math.round(s / 60) + " min";
+  if (s < 172800) return (s / 3600).toFixed(1) + " h";
+  return (s / 86400).toFixed(1) + " jours";
+};
+
 function banner(d) {
-  const el = $("#banner");
+  const out = [];
+
   if (d.error) {
-    el.innerHTML = `<div class="banner warn"><span>⚠</span><div>${d.error}</div></div>`;
-    return;
+    out.push(["warn", "⚠", d.error]);
   }
+
+  // Le bot ne tourne plus. Priorité absolue : l'état sur disque reste valide et
+  // la page paraîtrait normale — c'est une panne silencieuse.
+  if (d.stale) {
+    const risk = d.n_open > 0
+      ? `<br><b>${d.n_open} position(s) sont ouvertes et ne sont plus surveillées</b> —
+         leurs stops ne remonteront plus et ne seront plus exécutés.
+         Vérifier le compte directement sur la place.`
+      : `<br>Aucune position ouverte : rien n'est exposé pour l'instant.`;
+    out.push(["stop", "⛔", `<b>Le bot ne répond plus.</b> Dernier cycle il y a
+      <b>${dur(d.age)}</b>, alors qu'il en fait un toutes les ${dur(d.poll_seconds)}.
+      ${risk}<br>
+      <code>systemctl status donchian-bot</code> · <code>journalctl -u donchian-bot -n 50</code>`]);
+  } else if (d.age !== null && d.age > d.poll_seconds * 1.5) {
+    out.push(["warn", "⚠", `Dernier cycle il y a ${dur(d.age)} — un cycle a été
+      manqué. Une seule fois, c'est du bruit réseau ; si ça se répète, regarder
+      le journal.`]);
+  }
+
   if (d.halted) {
-    el.innerHTML = `<div class="banner stop"><span>⛔</span><div>
-      <b>Bot arrêté par le garde-fou de drawdown.</b> Plus aucune ouverture ;
-      les positions déjà ouvertes restent gérées. L'arrêt est définitif —
-      il faut remettre <code>halted</code> à <code>false</code> dans le fichier
-      d'état après avoir compris ce qui s'est passé.</div></div>`;
-    return;
+    out.push(["stop", "⛔", `<b>Bot arrêté par le garde-fou de drawdown.</b>
+      Plus aucune ouverture ; les positions déjà ouvertes restent gérées.
+      L'arrêt est définitif — remettre <code>halted</code> à <code>false</code>
+      dans le fichier d'état seulement après avoir compris ce qui s'est passé.`]);
   }
-  if (d.config && d.config.mode && d.config.mode !== "live") {
-    el.innerHTML = `<div class="banner warn"><span>ℹ</span><div>Mode
-      <b>${d.config.mode}</b> — aucun ordre réel n'est envoyé.</div></div>`;
-    return;
+
+  if (!d.stale && d.config && d.config.mode && d.config.mode !== "live") {
+    out.push(["warn", "ℹ", `Mode <b>${d.config.mode}</b> — aucun ordre réel
+      n'est envoyé.`]);
   }
-  el.innerHTML = "";
+
+  $("#banner").innerHTML = out.map(([k, i, t]) =>
+    `<div class="banner ${k}"><span>${i}</span><div>${t}</div></div>`).join("");
 }
 
 /* ---------- tuiles ---------- */
@@ -393,8 +422,12 @@ async function load() {
     return;
   }
   const d = DATA;
-  $("#sub").textContent = `état mis à jour ${d.updated || "jamais"} · `
-    + `page rafraîchie ${d.server_time}`;
+  $("#sub").textContent = `dernier cycle ${d.updated || "jamais"}`
+    + (d.age !== null && d.age !== undefined ? ` (il y a ${dur(d.age)})` : "")
+    + ` · page rafraîchie ${d.server_time}`;
+  // L'onglet en arrière-plan doit signaler la panne sans être au premier plan.
+  document.title = (d.stale ? "⛔ ARRÊTÉ — " : d.halted ? "⛔ " : "")
+    + "Bot Donchian — suivi";
   banner(d); tiles(d); chart(d); openTable(d); closedTable(d);
   logView(d); cfgView(d);
 }

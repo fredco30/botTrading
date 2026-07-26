@@ -161,6 +161,22 @@ l'equity flottante, le drawdown avec sa distance au disjoncteur, les positions
 ouvertes avec leur P&L latent et leur distance au stop, l'historique, et la fin
 du journal avec les erreurs en évidence.
 
+**Détection de bot mort.** C'est la fonction la plus importante de la page. Si
+le processus s'arrête, le fichier d'état reste parfaitement valide et le
+tableau de bord afficherait une situation rassurante — panne silencieuse, le
+pire mode de défaillance. `State.save()` écrit donc un `updated_ts` epoch (pas
+seulement le texte, qui casse au changement d'heure et suppose le même fuseau)
+et la page compare :
+
+| Retard | Affichage |
+|---|---|
+| > 1.5 cycle | avertissement — un cycle manqué, probablement du réseau |
+| **> 3 cycles** | **bandeau rouge : le bot ne répond plus**, avec le nombre de positions laissées sans surveillance et les commandes `systemctl` / `journalctl` |
+
+Le titre de l'onglet passe à `⛔ ARRÊTÉ — …`, pour que l'alerte soit visible
+sans mettre la page au premier plan. Les bandeaux s'empilent : un bot mort
+*avec* des positions ouvertes et un drawdown déclenché doit montrer les trois.
+
 **Il n'a aucune authentification** et n'écoute donc que sur `127.0.0.1`. Depuis
 un VPS, passer par un tunnel plutôt que par `--host` :
 
