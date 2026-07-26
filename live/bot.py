@@ -23,9 +23,11 @@ log = logging.getLogger(__name__)
 
 
 class Bot:
-    def __init__(self, cfg):
+    def __init__(self, cfg, broker=None):
         self.cfg = cfg
-        self.broker = make_broker(cfg)
+        # `broker` injectable : le dry-run et les tests reutilisent une instance
+        # deja construite plutot que d'en ouvrir une seconde vers la place.
+        self.broker = broker if broker is not None else make_broker(cfg)
         self.state = State(cfg.state_file)
         self.markets = self.broker.markets()
         self._stopping = False
@@ -111,6 +113,12 @@ class Bot:
                 dec = decide(bars, self.cfg, pos)
                 bar_ts = int(bars[-1, 0] // 1000)   # barre close qui a decide
 
+                # Dernier prix vu, conserve dans l'etat pour que le suivi puisse
+                # afficher le P&L latent sans redemander la place.
+                if pos:
+                    self.state.update(symbol, last_price=float(bars[-1, 4]),
+                                      last_ts=bar_ts)
+
                 if dec.action == "close" and pos:
                     self.close_position(symbol, pos, dec.reason, bar_ts)
                 elif dec.action == "trail" and pos:
@@ -131,6 +139,8 @@ class Bot:
                 # qu'un signal manque.
                 log.exception("%s : %s", symbol, exc)
 
+        self.state.record_equity(equity)
+        self.state.save()
         log.info("equity %.2f | drawdown %.1f%% | %d position(s)",
                  equity, dd, self.state.n_open)
 

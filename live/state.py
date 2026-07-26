@@ -19,7 +19,7 @@ class State:
     def __init__(self, path):
         self.path = path
         self.data = {"positions": {}, "peak_equity": 0.0, "halted": False,
-                     "history": [], "updated": None}
+                     "history": [], "equity_curve": [], "updated": None}
         self.load()
 
     def load(self):
@@ -80,6 +80,27 @@ class State:
     @property
     def n_open(self):
         return len(self.data["positions"])
+
+    # --- courbe d'equity ---
+    def record_equity(self, equity, every=3600, cap=2000):
+        """Echantillonne l'equity pour le suivi.
+
+        Un point par heure : le bot tourne toutes les 5 minutes, garder chaque
+        cycle ferait 288 points par jour pour une information que la barre H1 ne
+        renouvelle pas. A `cap` = 2000 points, cela couvre environ 80 jours.
+
+        C'est bien l'equity FLOTTANTE (celle du broker, positions ouvertes
+        comprises) qui est enregistree - la seule que le compte affiche, et
+        celle sur laquelle le garde-fou de drawdown se declenche.
+        """
+        now = int(time.time())
+        curve = self.data.setdefault("equity_curve", [])
+        if curve and now - curve[-1][0] < every:
+            curve[-1] = [now, equity]      # rafraichit le point courant
+        else:
+            curve.append([now, equity])
+        if len(curve) > cap:
+            del curve[:len(curve) - cap]
 
     # --- garde-fou de drawdown ---
     def check_drawdown(self, equity, max_dd_pct):

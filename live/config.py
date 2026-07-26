@@ -54,13 +54,19 @@ class Config:
     min_order_value: float = 10.0    # sous ce montant, on n'envoie pas d'ordre
 
     # --- exploitation ---
-    mode: str = "paper"              # "paper" ou "live"
+    # "paper"  : donnees reelles, execution simulee
+    # "dryrun" : place reelle en LECTURE, aucun ordre possible (verif plomberie)
+    # "live"   : ordres reels
+    mode: str = "paper"
     poll_seconds: int = 300
     state_file: str = "live_state.json"
     log_file: str = "live_bot.log"
     initial_equity: float = 1000.0   # utilise en paper uniquement
 
     def __post_init__(self):
+        if self.mode not in ("paper", "dryrun", "live"):
+            raise ValueError(
+                f"mode inconnu : {self.mode!r} (attendu paper, dryrun ou live)")
         if self.market_type == "spot" and self.allow_short:
             # Vendre a decouvert est impossible en spot. Mesure : cela coute
             # environ 60% du resultat, mais mieux vaut le savoir que decouvrir

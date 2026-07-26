@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bot Donchian — suivi</title>
+<style>
+  :root {
+    color-scheme: light;
+    --surface-0: #f4f4f2;
+    --surface-1: #fcfcfb;
+    --border:    #e0e0dc;
+    --text-1:    #0b0b0b;
+    --text-2:    #52514e;
+    --text-3:    #85847e;
+    --series-1:  #2a78d6;
+    --good:      #0ca30c;
+    --critical:  #d03b3b;
+    --warning:   #fab219;
+    --grid:      #ececea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --surface-0: #111110;
+      --surface-1: #1a1a19;
+      --border:    #33322f;
+      --text-1:    #ffffff;
+      --text-2:    #c3c2b7;
+      --text-3:    #8a8981;
+      --series-1:  #3987e5;
+      --good:      #0ca30c;
+      --critical:  #d03b3b;
+      --warning:   #fab219;
+      --grid:      #262624;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-0: #111110; --surface-1: #1a1a19; --border: #33322f;
+    --text-1: #ffffff; --text-2: #c3c2b7; --text-3: #8a8981;
+    --series-1: #3987e5; --grid: #262624;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--surface-0); color: var(--text-1);
+    font: 14px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 20px 16px 48px; }
+
+  header { display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline;
+           justify-content: space-between; margin-bottom: 20px; }
+  h1 { font-size: 18px; margin: 0; letter-spacing: -0.01em; }
+  .sub { color: var(--text-3); font-size: 12px; }
+  button {
+    font: inherit; font-size: 12px; padding: 5px 11px; cursor: pointer;
+    background: var(--surface-1); color: var(--text-2);
+    border: 1px solid var(--border); border-radius: 7px;
+  }
+  button:hover { color: var(--text-1); }
+
+  .banner { padding: 11px 14px; border-radius: 9px; margin-bottom: 18px;
+            font-size: 13px; display: flex; gap: 9px; align-items: flex-start; }
+  .banner.stop { background: color-mix(in srgb, var(--critical) 12%, var(--surface-1));
+                 border: 1px solid var(--critical); }
+  .banner.warn { background: color-mix(in srgb, var(--warning) 14%, var(--surface-1));
+                 border: 1px solid var(--border); }
+
+  .tiles { display: grid; gap: 12px; margin-bottom: 20px;
+           grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); }
+  .tile { background: var(--surface-1); border: 1px solid var(--border);
+          border-radius: 11px; padding: 13px 15px; }
+  .tile .k { font-size: 11px; color: var(--text-3); text-transform: uppercase;
+             letter-spacing: 0.05em; margin-bottom: 5px; }
+  .tile .v { font-size: 23px; font-weight: 600; letter-spacing: -0.02em;
+             font-variant-numeric: tabular-nums; }
+  .tile .n { font-size: 11px; color: var(--text-3); margin-top: 3px; }
+
+  .card { background: var(--surface-1); border: 1px solid var(--border);
+          border-radius: 11px; padding: 16px; margin-bottom: 18px; }
+  .card h2 { font-size: 13px; margin: 0 0 3px; font-weight: 600; }
+  .card .h-note { font-size: 11px; color: var(--text-3); margin-bottom: 12px; }
+
+  .chart-wrap { position: relative; }
+  canvas { width: 100%; height: 230px; display: block; }
+  .tip { position: absolute; pointer-events: none; opacity: 0;
+         transition: opacity .1s; background: var(--surface-1);
+         border: 1px solid var(--border); border-radius: 7px; padding: 6px 9px;
+         font-size: 12px; font-variant-numeric: tabular-nums; white-space: nowrap;
+         box-shadow: 0 3px 12px rgba(0,0,0,.14); z-index: 5; }
+
+  .scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px;
+          font-variant-numeric: tabular-nums; }
+  th { text-align: right; font-weight: 500; color: var(--text-3); font-size: 11px;
+       text-transform: uppercase; letter-spacing: 0.04em;
+       padding: 0 10px 7px; border-bottom: 1px solid var(--border);
+       white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  td { padding: 8px 10px; border-bottom: 1px solid var(--border);
+       text-align: right; white-space: nowrap; }
+  tr:last-child td { border-bottom: none; }
+  .pos { color: var(--good); } .neg { color: var(--critical); }
+  .badge { display: inline-block; font-size: 11px; padding: 1px 7px;
+           border-radius: 5px; border: 1px solid var(--border);
+           color: var(--text-2); }
+  .empty { color: var(--text-3); font-size: 13px; padding: 14px 2px; }
+
+  .bar { height: 6px; border-radius: 3px; background: var(--grid);
+         overflow: hidden; margin-top: 7px; }
+  .bar > i { display: block; height: 100%; border-radius: 3px; }
+
+  pre.log { margin: 0; max-height: 260px; overflow: auto; font-size: 11.5px;
+            line-height: 1.55; color: var(--text-2); white-space: pre-wrap;
+            word-break: break-word; font-family: ui-monospace, SFMono-Regular,
+            Menlo, monospace; }
+  .log b { color: var(--critical); font-weight: 600; }
+  .cfg { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12px;
+         color: var(--text-2); }
+  .cfg span b { color: var(--text-1); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <h1>Bot Donchian — suivi</h1>
+      <div class="sub" id="sub">chargement…</div>
+    </div>
+    <div>
+      <button id="theme">thème</button>
+      <button id="refresh">rafraîchir</button>
+    </div>
+  </header>
+
+  <div id="banner"></div>
+  <div class="tiles" id="tiles"></div>
+
+  <div class="card">
+    <h2>Equity</h2>
+    <div class="h-note">Equity flottante relevée à chaque heure, positions ouvertes
+      comprises — c'est celle qu'affiche le compte et sur laquelle se déclenche
+      l'arrêt automatique.</div>
+    <div class="chart-wrap">
+      <canvas id="chart"></canvas>
+      <div class="tip" id="tip"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Positions ouvertes</h2>
+    <div class="h-note">« au stop » = distance qui reste avant la sortie, en % du prix.</div>
+    <div class="scroll"><div id="open"></div></div>
+  </div>
+
+  <div class="card">
+    <h2>Trades fermés</h2>
+    <div class="h-note">Les 100 derniers, du plus récent au plus ancien.</div>
+    <div class="scroll"><div id="closed"></div></div>
+  </div>
+
+  <div class="card">
+    <h2>Journal</h2>
+    <div class="h-note">Fin de <code>live_bot.log</code>.</div>
+    <pre class="log" id="log"></pre>
+  </div>
+
+  <div class="card">
+    <h2>Configuration active</h2>
+    <div class="cfg" id="cfg"></div>
+  </div>
+
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+let DATA = null;
+
+const nf = (v, d = 2) => v === null || v === undefined || !isFinite(v)
+  ? "—" : v.toLocaleString("fr-FR", {minimumFractionDigits: d, maximumFractionDigits: d});
+const sign = (v, d = 2) => (v > 0 ? "+" : "") + nf(v, d);
+const cls = v => v > 0 ? "pos" : (v < 0 ? "neg" : "");
+const when = ts => ts ? new Date(ts * 1000).toLocaleString("fr-FR",
+  {day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit"}) : "—";
+
+/* ---------- bandeau d'alerte ---------- */
+function banner(d) {
+  const el = $("#banner");
+  if (d.error) {
+    el.innerHTML = `<div class="banner warn"><span>⚠</span><div>${d.error}</div></div>`;
+    return;
+  }
+  if (d.halted) {
+    el.innerHTML = `<div class="banner stop"><span>⛔</span><div>
+      <b>Bot arrêté par le garde-fou de drawdown.</b> Plus aucune ouverture ;
+      les positions déjà ouvertes restent gérées. L'arrêt est définitif —
+      il faut remettre <code>halted</code> à <code>false</code> dans le fichier
+      d'état après avoir compris ce qui s'est passé.</div></div>`;
+    return;
+  }
+  if (d.config && d.config.mode && d.config.mode !== "live") {
+    el.innerHTML = `<div class="banner warn"><span>ℹ</span><div>Mode
+      <b>${d.config.mode}</b> — aucun ordre réel n'est envoyé.</div></div>`;
+    return;
+  }
+  el.innerHTML = "";
+}
+
+/* ---------- tuiles ---------- */
+function tiles(d) {
+  const total = (d.equity !== null && d.equity !== undefined) ? d.equity : null;
+  const cap = d.max_dd_pct || 45;
+  const ratio = Math.min(100, (d.dd / cap) * 100);
+  const ddColor = d.dd >= cap * 0.8 ? "var(--critical)"
+                : d.dd >= cap * 0.5 ? "var(--warning)" : "var(--series-1)";
+  const t = [
+    [`Equity`, total === null ? "—" : nf(total), `pic ${nf(d.peak)}`],
+    [`Drawdown`, nf(d.dd, 1) + " %",
+     `<div class="bar"><i style="width:${ratio}%;background:${ddColor}"></i></div>
+      <div style="margin-top:4px">arrêt automatique à ${nf(cap, 0)} %</div>`],
+    [`P&L réalisé`, `<span class="${cls(d.realized)}">${sign(d.realized)}</span>`,
+     `${d.n_closed} trade(s) fermé(s)`],
+    [`P&L latent`, `<span class="${cls(d.unrealized)}">${sign(d.unrealized)}</span>`,
+     `${d.n_open} position(s) ouverte(s)`],
+    [`Trades gagnants`, d.win_rate === null ? "—" : nf(d.win_rate, 0) + " %",
+     `le système gagne par la queue droite, pas par le taux`],
+  ];
+  $("#tiles").innerHTML = t.map(([k, v, n]) =>
+    `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div>
+     <div class="n">${n}</div></div>`).join("");
+}
+
+/* ---------- courbe d'equity ---------- */
+let hover = null;
+function chart(d) {
+  const c = $("#chart"), tip = $("#tip");
+  const dpr = window.devicePixelRatio || 1;
+  const W = c.clientWidth, H = 230;
+  c.width = W * dpr; c.height = H * dpr;
+  const g = c.getContext("2d");
+  g.scale(dpr, dpr);
+  g.clearRect(0, 0, W, H);
+
+  const css = getComputedStyle(document.documentElement);
+  const col = n => css.getPropertyValue(n).trim();
+  const pts = d.curve || [];
+  if (pts.length < 2) {
+    g.fillStyle = col("--text-3"); g.font = "13px system-ui";
+    g.fillText("Pas encore assez de relevés — la courbe apparaît après quelques heures.", 12, 34);
+    return;
+  }
+
+  const P = {l: 58, r: 14, t: 14, b: 26};
+  const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+  let y0 = Math.min(...ys), y1 = Math.max(...ys);
+  const pad = (y1 - y0) * 0.12 || Math.max(1, y1 * 0.01);
+  y0 -= pad; y1 += pad;
+  const x0 = xs[0], x1 = xs[xs.length - 1];
+  const X = v => P.l + (v - x0) / ((x1 - x0) || 1) * (W - P.l - P.r);
+  const Y = v => P.t + (1 - (v - y0) / ((y1 - y0) || 1)) * (H - P.t - P.b);
+
+  // grille horizontale, volontairement discrète
+  g.strokeStyle = col("--grid"); g.lineWidth = 1;
+  g.fillStyle = col("--text-3"); g.font = "11px system-ui"; g.textAlign = "right";
+  for (let i = 0; i <= 4; i++) {
+    const v = y0 + (y1 - y0) * i / 4, y = Math.round(Y(v)) + .5;
+    g.beginPath(); g.moveTo(P.l, y); g.lineTo(W - P.r, y); g.stroke();
+    g.fillText(v.toLocaleString("fr-FR", {maximumFractionDigits: 0}), P.l - 8, y + 4);
+  }
+  g.textAlign = "left";
+  g.fillText(when(x0), P.l, H - 8);
+  g.textAlign = "right";
+  g.fillText(when(x1), W - P.r, H - 8);
+
+  // aire + ligne, une seule série donc pas de légende : le titre la nomme
+  const line = col("--series-1");
+  const grad = g.createLinearGradient(0, P.t, 0, H - P.b);
+  grad.addColorStop(0, line + "38"); grad.addColorStop(1, line + "00");
+  g.beginPath(); g.moveTo(X(x0), H - P.b);
+  pts.forEach(p => g.lineTo(X(p[0]), Y(p[1])));
+  g.lineTo(X(x1), H - P.b); g.closePath();
+  g.fillStyle = grad; g.fill();
+
+  g.beginPath();
+  pts.forEach((p, i) => i ? g.lineTo(X(p[0]), Y(p[1])) : g.moveTo(X(p[0]), Y(p[1])));
+  g.strokeStyle = line; g.lineWidth = 2; g.lineJoin = "round"; g.stroke();
+
+  // survol : repère vertical + point + infobulle
+  if (hover !== null) {
+    const p = pts[hover], px = X(p[0]), py = Y(p[1]);
+    g.beginPath(); g.moveTo(px, P.t); g.lineTo(px, H - P.b);
+    g.strokeStyle = col("--text-3"); g.lineWidth = 1; g.stroke();
+    g.beginPath(); g.arc(px, py, 4.5, 0, 7);
+    g.fillStyle = line; g.fill();
+    g.strokeStyle = col("--surface-1"); g.lineWidth = 2; g.stroke();
+    tip.style.opacity = 1;
+    tip.innerHTML = `<b>${nf(p[1])}</b><br><span style="color:var(--text-3)">${when(p[0])}</span>`;
+    const tw = tip.offsetWidth;
+    tip.style.left = Math.min(Math.max(px - tw / 2, 2), W - tw - 2) + "px";
+    tip.style.top = Math.max(py - 52, 2) + "px";
+  } else {
+    tip.style.opacity = 0;
+  }
+
+  c.onmousemove = e => {
+    const rect = c.getBoundingClientRect();
+    const mx = e.clientX - rect.left;
+    let best = 0, bd = 1e9;
+    pts.forEach((p, i) => { const dd = Math.abs(X(p[0]) - mx); if (dd < bd) { bd = dd; best = i; } });
+    if (best !== hover) { hover = best; chart(d); }
+  };
+  c.onmouseleave = () => { hover = null; chart(d); };
+}
+
+/* ---------- tableaux ---------- */
+function openTable(d) {
+  const el = $("#open");
+  if (!d.positions.length) {
+    el.innerHTML = `<div class="empty">Aucune position ouverte. C'est l'état normal
+      la plupart du temps — le système prend quelques dizaines de trades par an et par paire.</div>`;
+    return;
+  }
+  el.innerHTML = `<table><thead><tr>
+    <th>Paire</th><th>Sens</th><th>Taille</th><th>Entrée</th><th>Dernier</th>
+    <th>Stop</th><th>au stop</th><th>P&L</th><th>R</th><th>Depuis</th>
+    </tr></thead><tbody>` + d.positions.map(p => `<tr>
+      <td>${p.symbol}</td>
+      <td><span class="badge">${p.side === 1 ? "long" : "short"}</span></td>
+      <td>${nf(p.units, 6)}</td>
+      <td>${nf(p.entry, 4)}</td>
+      <td>${nf(p.last, 4)}</td>
+      <td>${nf(p.stop, 4)}</td>
+      <td>${p.to_stop === null ? "—" : nf(p.to_stop, 1) + " %"}</td>
+      <td class="${cls(p.pnl)}">${p.pnl === null ? "—" : sign(p.pnl)}</td>
+      <td class="${cls(p.r)}">${p.r === null ? "—" : sign(p.r, 2) + " R"}</td>
+      <td>${p.opened || "—"}</td></tr>`).join("") + `</tbody></table>`;
+}
+
+function closedTable(d) {
+  const el = $("#closed");
+  if (!d.history.length) {
+    el.innerHTML = `<div class="empty">Aucun trade fermé pour l'instant.</div>`;
+    return;
+  }
+  el.innerHTML = `<table><thead><tr>
+    <th>Paire</th><th>Sens</th><th>Taille</th><th>Entrée</th><th>Sortie</th>
+    <th>P&L</th><th>Ouvert</th><th>Fermé</th>
+    </tr></thead><tbody>` + d.history.map(h => `<tr>
+      <td>${h.symbol || "—"}</td>
+      <td><span class="badge">${h.side === 1 ? "long" : "short"}</span></td>
+      <td>${nf(h.units, 6)}</td>
+      <td>${nf(h.entry, 4)}</td>
+      <td>${nf(h.exit, 4)}</td>
+      <td class="${cls(h.pnl)}">${sign(h.pnl)}</td>
+      <td>${h.opened || "—"}</td>
+      <td>${h.closed || "—"}</td></tr>`).join("") + `</tbody></table>`;
+}
+
+function logView(d) {
+  $("#log").innerHTML = (d.log || []).map(l =>
+    /ERROR|ARRET|Traceback|ECHEC/.test(l)
+      ? `<b>${l.replace(/[<&]/g, c => c === "<" ? "&lt;" : "&amp;")}</b>`
+      : l.replace(/[<&]/g, c => c === "<" ? "&lt;" : "&amp;")).join("\n");
+  $("#log").scrollTop = $("#log").scrollHeight;
+}
+
+function cfgView(d) {
+  const c = d.config || {};
+  const items = [
+    ["place", c.exchange], ["marché", c.market_type], ["mode", c.mode],
+    ["risque", c.risk_pct !== null ? c.risk_pct + " %" : null],
+    ["max positions", c.max_concurrent],
+    ["arrêt DD", c.max_drawdown_pct !== null ? c.max_drawdown_pct + " %" : null],
+    ["canal", (c.entry_period && c.exit_period) ? c.entry_period + "/" + c.exit_period : null],
+    ["stop", c.atr_stop_mult ? c.atr_stop_mult + " ATR" : null],
+    ["trailing", c.atr_trail_mult ? c.atr_trail_mult + " ATR" : null],
+    ["paires", Array.isArray(c.symbols) ? c.symbols.join(" ") : null],
+  ].filter(([, v]) => v !== null && v !== undefined);
+  $("#cfg").innerHTML = items.length
+    ? items.map(([k, v]) => `<span>${k} <b>${v}</b></span>`).join("")
+    : `<span style="color:var(--text-3)">Pas de live_config.json — le bot tourne
+       sur les valeurs par défaut de live/config.py.</span>`;
+}
+
+async function load() {
+  try {
+    const r = await fetch("/api/state", {cache: "no-store"});
+    DATA = await r.json();
+  } catch (e) {
+    $("#sub").textContent = "serveur injoignable";
+    return;
+  }
+  const d = DATA;
+  $("#sub").textContent = `état mis à jour ${d.updated || "jamais"} · `
+    + `page rafraîchie ${d.server_time}`;
+  banner(d); tiles(d); chart(d); openTable(d); closedTable(d);
+  logView(d); cfgView(d);
+}
+
+$("#refresh").onclick = load;
+$("#theme").onclick = () => {
+  const cur = document.documentElement.getAttribute("data-theme");
+  const next = cur === "dark" ? "light" : (cur === "light" ? "dark"
+    : (matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "dark"));
+  document.documentElement.setAttribute("data-theme", next);
+  if (DATA) chart(DATA);
+};
+addEventListener("resize", () => DATA && chart(DATA));
+load();
+setInterval(load, 15000);
+</script>
+</body>
+</html>

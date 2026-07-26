@@ -150,10 +150,69 @@ class PaperBroker:
         pass
 
 
+class DryRunBroker:
+    """Vraie place en LECTURE, ecriture impossible.
+
+    Le paper trading simule aussi les donnees quand on lui donne une source
+    locale, donc il ne teste pas la moitie dangereuse de l'integration :
+    l'authentification, le nom exact des marches, la pagination des bougies, la
+    precision des tailles. Ce broker-la fait tous ces appels pour de vrai et
+    n'expose simplement aucun chemin vers `create_order`.
+
+    Le blocage est ici, dans la couche par laquelle TOUT ordre doit passer, et
+    pas dans `bot.py` : une garde dans la logique de decision se contourne par
+    un chemin oublie, une garde ici est la seule porte.
+    """
+
+    def __init__(self, cfg):
+        self.cfg = cfg
+        self.src = CcxtBroker(cfg)
+        self.ex = self.src.ex          # lecture seule, pour les diagnostics
+        self.would_send = []
+
+    def markets(self):
+        return self.src.markets()
+
+    def ohlcv(self, symbol, timeframe, limit):
+        return self.src.ohlcv(symbol, timeframe, limit)
+
+    def price(self, symbol):
+        return self.src.price(symbol)
+
+    def equity(self):
+        if not self.cfg.api_key:
+            return self.cfg.initial_equity
+        return self.src.equity()
+
+    def position(self, symbol):
+        if not self.cfg.api_key:
+            return 0.0
+        return self.src.position(symbol)
+
+    def create_market_order(self, symbol, side, amount, reduce_only=False):
+        px = self.price(symbol)
+        self.would_send.append(
+            dict(symbol=symbol, side=side, amount=amount, price=px,
+                 reduce_only=reduce_only))
+        log.warning("[DRY-RUN] ordre NON envoye : %s %s %.8f @ %.6g%s",
+                    side, symbol, amount, px,
+                    " (reduce-only)" if reduce_only else "")
+        return {"id": "dry-run", "price": px, "amount": amount, "side": side}
+
+    def settle(self, symbol, pnl):
+        """Le bot appelle `settle` sur un broker papier ; ici il n'y a rien a
+        regler, mais la methode doit exister pour que le cycle aille au bout."""
+
+    def cancel_all(self, symbol):
+        log.warning("[DRY-RUN] annulation NON envoyee sur %s", symbol)
+
+
 def make_broker(cfg):
     if cfg.mode == "live":
         if not cfg.api_key:
             raise BrokerError(
                 f"mode live demande mais {cfg.exchange.upper()}_API_KEY est vide")
         return CcxtBroker(cfg)
+    if cfg.mode == "dryrun":
+        return DryRunBroker(cfg)
     return PaperBroker(cfg)

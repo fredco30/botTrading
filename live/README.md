@@ -111,8 +111,61 @@ paramètres.
 
 ```bash
 pip install ccxt numpy numba
+python3 run_bot.py --dry-run-api   # vraie place, LECTURE SEULE
 python3 run_bot.py --once          # un cycle, en paper
 python3 run_bot.py                 # boucle, en paper
+python3 dashboard.py               # suivi sur http://127.0.0.1:8000
+```
+
+### `--dry-run-api` : tester la plomberie sans qu'un ordre puisse partir
+
+Le paper trading simule l'exécution, donc il ne teste pas la moitié dangereuse
+de l'intégration : le nom exact des marchés, l'authentification, la pagination
+des bougies, la précision des tailles. Ce mode fait tous ces appels **pour de
+vrai**, en lecture seule.
+
+Le blocage est dans `DryRunBroker`, la couche par laquelle tout ordre doit
+passer — pas dans `bot.py`. Une garde dans la logique de décision se contourne
+par un chemin oublié ; une garde dans le broker est la seule porte.
+
+Il vérifie, dans l'ordre :
+
+| Vérification | Ce qu'elle attrape |
+|---|---|
+| marchés | la place répond, `load_markets` aboutit |
+| **symboles** | `BTC/USDT:USDT` existe-t-il vraiment — l'échec le plus probable, une place sans perpétuels ne le connaît pas. Propose les noms voisins. |
+| timeframe | `1h` supporté |
+| bougies | assez de barres, espacement de 3600 s, dernière barre fraîche |
+| rythme | un cycle tient-il bien sous `poll_seconds` |
+| solde / positions | les clés ouvrent-elles la lecture du compte |
+| dimensionnement | la taille calculée passe-t-elle les minimums de la place |
+| levier | `max_concurrent` positions dépassent-elles `max_leverage` |
+
+**Les clés API ne sont pas nécessaires.** Sans elles, tout est testé sauf le
+solde et les positions, et le dimensionnement est simulé sur `initial_equity`.
+
+Si tout passe, un vrai cycle de décision tourne sur les bougies réelles et
+affiche les ordres qui *auraient* été envoyés. `tests/test_dryrun.py` verrouille
+la propriété critique : un faux exchange lève une exception si une écriture est
+tentée, et un témoin vérifie que le broker normal, lui, l'atteint bien — sans ce
+témoin, le test ne prouverait que l'absence de chemin, pas son blocage.
+
+### Le tableau de bord
+
+`dashboard.py` lit `live_state.json` et `live_bot.log`, rien d'autre : aucun
+appel à la place, aucune écriture. Un tableau de bord qui peut passer des ordres
+est une surface d'attaque pour zéro bénéfice.
+
+Bibliothèque standard uniquement — pas de Flask, pas de npm. Il affiche
+l'equity flottante, le drawdown avec sa distance au disjoncteur, les positions
+ouvertes avec leur P&L latent et leur distance au stop, l'historique, et la fin
+du journal avec les erreurs en évidence.
+
+**Il n'a aucune authentification** et n'écoute donc que sur `127.0.0.1`. Depuis
+un VPS, passer par un tunnel plutôt que par `--host` :
+
+```bash
+ssh -L 8000:localhost:8000 user@vps
 ```
 
 Le mode paper utilise les **vraies bougies** de la place et simule uniquement
