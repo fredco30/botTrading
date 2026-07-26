@@ -27,14 +27,29 @@ class Config:
     atr_trail_mult: float = 6.0
 
     # --- risque ---
-    risk_pct: float = 0.5            # % de l'equity par trade
-    max_concurrent: int = 3          # positions simultanees, toutes paires
-    max_leverage: float = 2.0        # garde-fou ; le systeme en utilise ~0.13x
+    # Calibre sur un drawdown FLOTTANT de 30% : c'est ce que le compte affiche,
+    # donc le seul chiffre qui compte pour tenir la position. A ce plafond, ce
+    # reglage donne x12-13 sur 2021-2026 (la pire fenetre de 5 ans du jeu de
+    # donnees), soit 1 000 EUR -> environ 13 000 EUR.
+    risk_pct: float = 1.0            # % de l'equity par trade
+    # 4 plutot que 3 : +18% de resultat pour +0.9 point de DD, et surtout 26% des
+    # signaux etaient refuses par le plafond dans le simple ordre d'arrivee.
+    max_concurrent: int = 4          # positions simultanees, toutes paires
+    # Le notionnel median d'une position vaut 29% du capital (85% au 99e
+    # centile) : 4 positions ouvertes font 1.17x, 8 feraient 2.34x et seraient
+    # rognees en silence par ce plafond. C'est ce qui interdit d'augmenter
+    # max_concurrent sans y toucher.
+    max_leverage: float = 2.0
     allow_long: bool = True
     allow_short: bool = True         # force a False si market_type == "spot"
 
     # --- garde-fous ---
-    max_drawdown_pct: float = 30.0   # au-dela, le bot arrete d'ouvrir
+    # Un disjoncteur, pas un outil de gestion du risque - c'est le sizing a 1%
+    # qui joue ce role. Il doit attraper une panne (flux corrompu, boucle
+    # d'ordres), donc se declencher nettement au-dessus du pire DD attendu.
+    # A 30% de DD flottant attendu, un plafond a 30% couperait en plein
+    # fonctionnement normal, au creux, juste avant la reprise qui paie.
+    max_drawdown_pct: float = 45.0   # au-dela, le bot arrete d'ouvrir
     max_position_notional_pct: float = 100.0   # notionnel max par position
     min_order_value: float = 10.0    # sous ce montant, on n'envoie pas d'ordre
 
@@ -43,7 +58,7 @@ class Config:
     poll_seconds: int = 300
     state_file: str = "live_state.json"
     log_file: str = "live_bot.log"
-    initial_equity: float = 10000.0  # utilise en paper uniquement
+    initial_equity: float = 1000.0   # utilise en paper uniquement
 
     def __post_init__(self):
         if self.market_type == "spot" and self.allow_short:

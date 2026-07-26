@@ -75,8 +75,9 @@ Dans l'ordre, sans sauter d'étape :
    backtest sur la même période.
 2. Renseigner les clés dans `/etc/donchian-bot/env`.
 3. Passer `"mode": "live"` dans `/etc/donchian-bot/config.json`.
-4. **Descendre `risk_pct` à 0.1** pour les premières semaines. Le point de
-   fonctionnement validé est 0.5 %, on n'y va pas d'emblée.
+4. **Descendre `risk_pct` à 0.2** pour les premières semaines. Le point de
+   fonctionnement calibré est 1 %, on n'y va pas d'emblée — c'est le réglage
+   qui amène le drawdown flottant à 30 %.
 5. `systemctl restart donchian-bot`.
 
 Créer les clés API **sans droit de retrait** et, si la place le permet, avec une

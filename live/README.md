@@ -21,17 +21,91 @@ de la qualité.
 Le financement des perps est quasi indolore : la détention moyenne est de
 **1.9 jour**, donc 3 ou 6 bps/jour ne changent presque rien (13.85 vs 12.84).
 
-### Le levier n'est pas un problème
+### Le levier est le facteur qui limite `max_concurrent`
 
-| | notionnel / equity |
+Le notionnel d'une position vaut `risque / (distance au stop en %)`. Le stop
+étant à 3 ATR, soit 2-4 % du prix en crypto, le notionnel est un multiple du
+risque — il **double si `risk_pct` double**.
+
+| notionnel / equity | à 0.5 % de risque | **à 1 % (réglage actuel)** |
+|---|---|---|
+| médiane | 0.15× | **0.29×** |
+| p95 | 0.33× | 0.66× |
+| p99 | 0.43× | 0.86× |
+
+Exposition totale selon le nombre de positions ouvertes, à 1 % de risque :
+
+| positions | exposition |
 |---|---|
-| médiane | **0.13×** |
-| p99 | 0.40× |
-| maximum | 0.56× |
+| 3 | 0.88× |
+| **4 (réglage actuel)** | **1.17×** |
+| 8 | 2.34× — **au-dessus de `max_leverage = 2.0`** |
 
-**100 % des trades passent sous le plafond ESMA de 2:1**, et 3 positions
-simultanées n'utilisent que 0.7× le capital. Le risque vient du stop à 0.5 %,
-pas du levier. Aucun risque de liquidation dans ces conditions.
+C'est ce qui interdit de monter `max_concurrent` à 8 pour exploiter le
+multi-vitesse : le plafond de levier rognerait les positions en silence et le
+bot ne traderait plus la stratégie mesurée. Sous 4 positions on reste dans le
+plafond ESMA de 2:1, sans risque de liquidation.
+
+## Calibrage du risque : viser le drawdown FLOTTANT
+
+⚠️ **Les DD des backtests de ce dépôt sont des DD sur equity *clôturée*.**
+`portfolio.simulate()` ne crédite le capital qu'à la fermeture d'un trade, donc
+une position ouverte qui part contre nous n'apparaît nulle part tant qu'elle
+n'est pas sortie. C'est la métrique standard des rapports MT4, et elle est
+structurellement optimiste sur du suivi de tendance — où l'on tient des
+positions des semaines et où le trailing à 6 ATR est *conçu* pour rendre du
+profit ouvert avant de sortir.
+
+Le bot, lui, lit l'equity **mark-to-market** du broker (`state.check_drawdown`).
+Ce sont deux définitions différentes du même mot. Mesuré sur 2021-2026 :
+
+| Configuration | DD clôturé | DD flottant |
+|---|---|---|
+| 0.5 %, max 3 | 13.4 % | **16.0 %** |
+| 0.5 %, max 4 | 14.3 % | **16.7 %** |
+| 1.0 %, max 3 | 25.5 % | **29.6 %** |
+| 3 vitesses, 0.5 %, max 6 | 24.7 % | **29.4 %** |
+
+**Majorer d'environ 20 % un DD clôturé pour obtenir ce que le compte affichera.**
+Et c'est une borne basse : le flottant est calculé sur les clôtures H1, pas sur
+les mèches, donc les creux intra-barre réels sont plus profonds.
+
+Le réglage actuel (1 % / max 4) est calibré pour **30 % de DD flottant**, seuil
+retenu comme tenable. `max_drawdown_pct` est à 45 % en conséquence : un
+disjoncteur placé à 30 % couperait en fonctionnement normal, au creux, juste
+avant la reprise de tendance qui paie — et `halted` est définitif.
+
+Résultat de ce réglage sur 2021-2026, **la pire fenêtre de 5 ans du jeu de
+données** : ×13.0 (1 000 € → 13 024 €), CAGR 68.6 %.
+
+## Petit compte : ce qui change et ce qui ne change pas
+
+Le système est proportionnel — ×13.02 au départ de 1 000 € comme de 10 000 €,
+même DD. Vérifié, pas supposé :
+
+- **Minimum d'ordre : aucun problème.** Notionnel médian de 292 € sur un compte
+  de 1 000 €, le plus petit à 47 €. 0 % des trades sous le minimum de 10 €. Ça
+  tient encore à 250 € de capital.
+- **Levier : voir plus haut.** C'est la seule contrainte qui mord vraiment.
+- **Coûts fixes : le vrai handicap.** Un VPS n'est pas un pourcentage, donc il
+  ponctionne le petit compte au moment où il compose le plus fort.
+
+| VPS | Capital final sur 5 ans | Perte |
+|---|---|---|
+| 0 €/mois | 13 623 € | — |
+| 3 €/mois | 12 772 € | −6.2 % |
+| 5 €/mois | 12 205 € | **−10.4 %** |
+| 10 €/mois | 10 786 € | **−20.8 %** |
+
+5 €/mois ne coûte pas 300 € sur 5 ans mais **1 400 €** : chaque euro prélevé en
+année 1 est un euro qui ne compose plus pendant quatre ans. Sur un compte de
+10 000 € le même VPS coûte 1 % du résultat au lieu de 10 %.
+
+**Sur un petit compte, ne pas payer d'hébergement.** Le bot tient dans 82 Mo et
+moins de 5 ms de calcul par cycle : un Oracle Cloud Free Tier (ARM, gratuit) ou
+un Raspberry Pi déjà en place suffisent. C'est la plus grosse optimisation
+disponible à cette taille — elle vaut plus que tout ce qui a été gratté sur les
+paramètres.
 
 ## Démarrage
 
@@ -157,7 +231,7 @@ réseau** ne l'est pas.
 1. `python3 run_bot.py --once -v` et vérifier que les bougies arrivent
 2. Laisser tourner **plusieurs semaines en paper**
 3. Comparer les trades obtenus à ceux du backtest sur la même période
-4. Passer en live à **risque réduit** (0.1-0.2 %) avant 0.5 %
+4. Passer en live à **risque réduit** (0.2 %) avant le 1 % calibré
 
 ## Empreinte VPS
 
