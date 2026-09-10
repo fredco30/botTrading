@@ -162,9 +162,12 @@ avec, par fill : `ref = prix côté (mid)` ; `GROSS` = PnL mid-à-mid ;
 `SLIPPAGE_COST = slippage réellement appliqué` ; `COMMISSION = 2 × par-side`.
 `NET` est calculé par cette identité et **vérifié** contre le PnL brut
 d'exécution (`dir × (exit_exec − entry_exec)`, tolérance 1e-6, test O).
-Rounding : lots arrondis **au floor** au `lot_step` puis clampés
-`[min_lot, max_lot]` (ASSUMPTION : pas de rejet du trade si `< min_lot` —
-arrondi au `min_lot` comme le legacy) ; les PnL ne sont pas arrondis.
+Rounding : les PnL ne sont pas arrondis ; les lots sont arrondis **au floor**
+au `lot_step` (floor ne peut que réduire ou maintenir le risque) puis, selon
+le mode (cf. §13) : `fixed_lot` → clamp aux contraintes broker
+(ASSUMPTION, choix explicite de l'utilisateur) ; `fixed_risk_percent` →
+**rejet** si le lot minimal broker dépasse le risque planifié (aucun clamp
+vers `min_lot`).
 
 ## 12. INSTRUMENT SPEC
 
@@ -176,14 +179,41 @@ fournis et non backtestés** dans cette mission.
 
 ## 13. MONEY MANAGEMENT
 
-- `SizingConfig.mode = "fixed_lot"` ou `"fixed_risk_percent"`
-  (risque = distance |entry_exec − sl| × valeur du pip, lot floored au step).
-- **Règle min-lot (V1B)** : en `fixed_risk_percent`, le floor au `lot_step`
-  ne peut que réduire le risque ; si le **lot minimal du broker** ferait
-  dépasser le risque cible, le trade est **REJETÉ proprement** et compté
-  dans `orders_rejected_min_lot_risk`. Le moteur ne transforme jamais
-  silencieusement un risque de 1 % en 2 % ou 5 %.
-  En `fixed_lot`, la taille est un choix explicite de l'utilisateur : elle
+- `SizingConfig.mode = "fixed_lot"` ou `"fixed_risk_percent"`.
+- **Risque planifié all-in (V1C)** : en `fixed_risk_percent`, la taille est
+  calculée sur la **PERTE NETTE PLANIFIÉE SUR STOP NON GAPÉ**
+  (`PLANNED_NON_GAP_STOP_LOSS_NET`), qui inclut TOUS les coûts
+  déterministes connus du moteur :
+  - distance de prix entre `entry_exec` et le stop **ajusté du slippage de
+    sortie** (LONG : `sl − slippage` ; SHORT : `sl + slippage`) — le spread
+    et le slippage d'entrée sont déjà dans `entry_exec`, **sans double
+    comptage** ;
+  - **plus** `2 × commission_per_lot_per_side` (entrée + sortie).
+
+  ```
+  RISK_TARGET_MONEY = balance × risk_percent / 100
+  lots = floor(RISK_TARGET_MONEY / PLANNED_LOSS_PER_LOT, au lot_step)
+  Garantie : PLANNED_NON_GAP_STOP_LOSS_NET <= RISK_TARGET_MONEY
+             (tolérance flottante 1e-9 relative, testée)
+  ```
+- **Règle min-lot (V1B/V1C)** : si le lot minimal du broker ferait dépasser
+  `RISK_TARGET_MONEY`, le trade est **REJETÉ proprement** et compté dans
+  `orders_rejected_min_lot_risk`. Le moteur ne transforme jamais
+  silencieusement un risque de 1 % en 2 % ou 5 %. Un clamp à `max_lot` est
+  autorisé (il réduit le risque par rapport à la cible).
+- **Les gaps restent NON BORNÉS** : le sizing garantit le risque planifié
+  hors gap uniquement.
+  ```
+  FIXED_RISK_PLANNED_NON_GAP_CAN_EXCEED_TARGET = NO
+  GAP_LOSS_CAN_EXCEED_TARGET = YES
+  ```
+  Un gap à travers le stop peut produire `REALIZED_LOSS >
+  RISK_TARGET_MONEY` : c'est un comportement réaliste, pas un bug. Aucun
+  re-dimensionnement rétrospectif n'a lieu ; `gap_exit` identifie ces trades.
+  Auditabilité : chaque trade expose `risk_target_money` et
+  `planned_stop_loss_net` (`None` en `fixed_lot`) pour contrôle a posteriori
+  de `planned_stop_loss_net <= risk_target_money`.
+- En `fixed_lot`, la taille est un choix explicite de l'utilisateur : elle
   reste clampée aux contraintes broker (comportement legacy documenté).
 - **Aucune martingale / pyramid / reverse** dans le moteur V1.
 - Une seule position à la fois ; les ordres émis pendant une position ouverte
@@ -243,7 +273,7 @@ run(bars, strategy, entry_start_dt=None, end_dt=None)
 | Marqueur | Objet |
 |---|---|
 | ASSUMPTION | `quote_currency == account_currency` (pas de conversion FX) |
-| ASSUMPTION | `fixed_lot` : taille clampée aux contraintes broker (choix explicite utilisateur) ; `fixed_risk_percent` : trade REJETÉ si lot < min_lot (jamais au-dessus du risque cible, cf. §13) |
+| ASSUMPTION | `fixed_lot` : taille clampée aux contraintes broker (choix explicite utilisateur) ; `fixed_risk_percent` : trade REJETÉ si lot < min_lot (jamais au-dessus du risque PLANIFIÉ HORS GAP, cf. §13 ; `GAP_LOSS_CAN_EXCEED_TARGET=YES`) |
 | ASSUMPTION | spread constant intra-barre |
 | ASSUMPTION | niveaux d'ordre comparés à OHLC Bid/Ask dérivé, sans microstructure |
 | SYNTHETIC | spread (aucun historique de spread dans le dépôt) |

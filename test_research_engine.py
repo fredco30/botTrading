@@ -565,7 +565,7 @@ class TestMission1B(unittest.TestCase):
             costs=CostModel(spread_pips=1.0),
             sizing=SizingConfig(mode="fixed_risk_percent", risk_percent=0.01953125),
             initial_balance=10_000.0)
-        lots = eng._lots_for(1.001953125, 1.0)   # risk_dist = 2^-9 exactly
+        lots = eng._lots_for(1, 1.001953125, 1.0)  # risk_dist = 2^-9 exactly
         self.assertIsNotNone(lots)
         self.assertAlmostEqual(lots, 0.01, places=12)
 
@@ -599,6 +599,133 @@ class TestMission1B(unittest.TestCase):
         self.assertEqual(res.n_trades, 1)
         self.assertAlmostEqual(res.trades[0].lots, 0.01, places=12)
         self.assertEqual(res.orders_rejected_min_lot_risk, 0)
+
+
+class TestMission1C(unittest.TestCase):
+    """Mission 1C: all-in planned net stop-loss risk sizing, gap semantics,
+    risk auditability.  Synthetic data only."""
+
+    # entry exec 1.1001 (long, spread 1 pip, no slippage), SL 1.0980 (20 pips)
+    # -> 21 pips price distance = $210/lot before extra costs.
+    def _long_bars(self):
+        return mk_bars(SETUP + [
+            (1.1000, 1.1005, 1.0998, 1.0990),   # entry bar, survives, no next signal
+            (1.0990, 1.0992, 1.0970, 1.0975),   # non-gap SL exit
+        ])
+
+    def _long_gap_bars(self):
+        return mk_bars(SETUP + [
+            (1.1000, 1.1005, 1.0998, 1.0990),
+            (1.0500, 1.0510, 1.0490, 1.0505),   # huge gap through SL
+        ])
+
+    def _short_bars(self):
+        # entry exec 1.1000 (short, Bid), SL Ask 1.1020 (20 pips above open).
+        return mk_bars(SETUP_SHORT + [
+            (1.1000, 1.1002, 1.0995, 1.0998),   # entry bar, survives
+            (1.0998, 1.1025, 1.0995, 1.1015),   # non-gap SL exit on Ask
+        ])
+
+    def _risk_run(self, bars, direction, commission=0.0, slippage=0.0,
+                  risk_percent=1.0):
+        strat = TrendStrategy(sl_pips=20, tp_pips=50) if direction == 1 \
+            else ShortStrategy(sl_pips=20, tp_pips=50)
+        costs = CostModel(spread_pips=1.0, commission_per_lot_per_side=commission,
+                          adverse_slippage_pips=slippage)
+        sizing = SizingConfig(mode="fixed_risk_percent", risk_percent=risk_percent)
+        return engine(costs, sizing=sizing).run(bars, strat)
+
+    # -- A ---------------------------------------------------------------
+    def test_1c_zero_costs_matches_v1b_sizing(self):
+        res = self._risk_run(self._long_bars(), 1)
+        self.assertEqual(res.n_trades, 1)
+        tr = res.trades[0]
+        self.assertAlmostEqual(tr.lots, 0.47, places=9)      # 100 / 210 floored
+        self.assertAlmostEqual(tr.risk_target_money, 100.0, places=9)
+        # planned non-gap net loss: 0.47 * $210 = $98.70 <= target
+        self.assertAlmostEqual(tr.planned_stop_loss_net, 98.70, places=6)
+        self.assertLessEqual(tr.planned_stop_loss_net, tr.risk_target_money)
+
+    # -- B ---------------------------------------------------------------
+    def test_1c_commission_reduces_lots_and_keeps_planned_risk_under_target(self):
+        # $210 price loss + 2*$7 commission = $224/lot -> 100/224 -> 0.44 lots
+        res = self._risk_run(self._long_bars(), 1, commission=7.0)
+        tr = res.trades[0]
+        self.assertAlmostEqual(tr.lots, 0.44, places=9)
+        self.assertAlmostEqual(tr.planned_stop_loss_net, 98.56, places=6)  # 0.44*224
+        self.assertLessEqual(tr.planned_stop_loss_net, tr.risk_target_money)
+
+    # -- C ---------------------------------------------------------------
+    def test_1c_stop_slippage_reduces_lots_and_keeps_planned_risk_under_target(self):
+        # entry exec 1.1002 (spread+slip); planned exit 1.0980-1pip=1.0979
+        # -> 23 pips = $230/lot -> 100/230 -> 0.43 lots
+        res = self._risk_run(self._long_bars(), 1, slippage=1.0)
+        tr = res.trades[0]
+        self.assertAlmostEqual(tr.lots, 0.43, places=9)
+        self.assertAlmostEqual(tr.planned_stop_loss_net, 98.90, places=6)  # 0.43*230
+        self.assertLessEqual(tr.planned_stop_loss_net, tr.risk_target_money)
+
+    # -- D ---------------------------------------------------------------
+    def test_1c_commission_plus_slippage_keeps_planned_risk_under_target(self):
+        # 23 pips ($230) + $14 commission = $244/lot -> 100/244 -> 0.40 lots
+        res = self._risk_run(self._long_bars(), 1, commission=7.0, slippage=1.0)
+        tr = res.trades[0]
+        self.assertAlmostEqual(tr.lots, 0.40, places=9)
+        self.assertAlmostEqual(tr.planned_stop_loss_net, 97.60, places=6)  # 0.40*244
+        self.assertLessEqual(tr.planned_stop_loss_net, tr.risk_target_money)
+
+    # -- E ---------------------------------------------------------------
+    def test_1c_min_lot_ok_without_costs_rejected_after_costs(self):
+        # target $2.2: without costs 2.2/210 = 0.0105 -> 0.01 lot accepted;
+        # with $7 commission 2.2/224 = 0.0098 < min lot -> REJECTED.
+        ok = self._risk_run(self._long_bars(), 1, risk_percent=0.022)
+        self.assertEqual(ok.n_trades, 1)
+        self.assertEqual(ok.orders_rejected_min_lot_risk, 0)
+        self.assertAlmostEqual(ok.trades[0].lots, 0.01, places=9)
+        rej = self._risk_run(self._long_bars(), 1, commission=7.0,
+                             risk_percent=0.022)
+        self.assertEqual(rej.n_trades, 0)
+        self.assertEqual(rej.orders_rejected_min_lot_risk, 1)
+
+    # -- F ---------------------------------------------------------------
+    def test_1c_short_direction_all_in_risk(self):
+        # entry exec 1.0999 (1.1000 - 1 pip slip); planned exit 1.1020+1pip
+        # = 1.1021 -> 22 pips ($220) + $14 = $234/lot -> 100/234 -> 0.42 lots
+        res = self._risk_run(self._short_bars(), -1, commission=7.0, slippage=1.0)
+        self.assertEqual(res.n_trades, 1)
+        tr = res.trades[0]
+        self.assertEqual(tr.direction, -1)
+        self.assertAlmostEqual(tr.lots, 0.42, places=9)
+        self.assertAlmostEqual(tr.planned_stop_loss_net, 98.28, places=6)  # 0.42*234
+        self.assertLessEqual(tr.planned_stop_loss_net, tr.risk_target_money)
+        self.assertEqual(tr.exit_reason, "SL")
+
+    # -- G ---------------------------------------------------------------
+    def test_1c_gap_loss_can_exceed_target_and_is_flagged(self):
+        res = self._risk_run(self._long_gap_bars(), 1)   # planned risk $98.70
+        self.assertEqual(res.n_trades, 1)
+        tr = res.trades[0]
+        self.assertTrue(tr.gap_exit)
+        self.assertEqual(tr.exit_reason, "SL")
+        # no retrospective re-sizing: lots unchanged, planned risk unchanged
+        self.assertAlmostEqual(tr.lots, 0.47, places=9)
+        self.assertAlmostEqual(tr.planned_stop_loss_net, 98.70, places=6)
+        # realized loss far exceeds the target — realistic, engine accepts it
+        self.assertLess(tr.net_pnl, -tr.risk_target_money)
+
+    # -- H ---------------------------------------------------------------
+    def test_1c_no_double_counting_planned_equals_non_gap_stop_net_pnl(self):
+        # commission $7 + slippage 1 pip: the planned all-in loss must equal
+        # the realized net PnL of the deterministic NON-GAP SL exit.
+        res = self._risk_run(self._long_bars(), 1, commission=7.0, slippage=1.0)
+        tr = res.trades[0]
+        self.assertEqual(tr.exit_reason, "SL")
+        self.assertFalse(tr.gap_exit)
+        self.assertAlmostEqual(-tr.net_pnl, tr.planned_stop_loss_net, places=6)
+        # exec-price check of the same figure (tolerance documented in spec)
+        exec_loss = ((tr.entry_exec - tr.exit_exec) / PIP * 10.0 * tr.lots
+                     + tr.commission_cost)
+        self.assertAlmostEqual(exec_loss, tr.planned_stop_loss_net, places=6)
 
 
 if __name__ == "__main__":

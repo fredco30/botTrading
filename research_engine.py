@@ -396,6 +396,8 @@ class TradeRecord:
     net_pnl: float
     ambiguous_events: int
     balance_after: float
+    risk_target_money: Optional[float]      # fixed_risk_percent only; None otherwise
+    planned_stop_loss_net: Optional[float]  # planned non-gap net SL loss (all-in)
 
 
 @dataclass
@@ -444,10 +446,12 @@ class RunResult:
 class _Position:
     __slots__ = ("direction", "decision_ts", "entry_ts", "entry_ref",
                  "entry_exec", "initial_sl", "sl", "tp", "lots", "risk_dist",
-                 "be_done", "slip_in", "amb_start")
+                 "be_done", "slip_in", "amb_start", "risk_target",
+                 "planned_sl_net")
 
     def __init__(self, direction, decision_ts, entry_ts, entry_ref,
-                 entry_exec, sl, tp, lots, risk_dist, slip_in, amb_start) -> None:
+                 entry_exec, sl, tp, lots, risk_dist, slip_in, amb_start,
+                 risk_target, planned_sl_net) -> None:
         self.direction = direction
         self.decision_ts = decision_ts
         self.entry_ts = entry_ts
@@ -461,6 +465,8 @@ class _Position:
         self.be_done = False
         self.slip_in = slip_in
         self.amb_start = amb_start  # ambiguity events before this position
+        self.risk_target = risk_target      # None in fixed_lot mode
+        self.planned_sl_net = planned_sl_net
 
 
 class ResearchEngine:
@@ -629,32 +635,55 @@ class ResearchEngine:
         )
 
     # -- internals -----------------------------------------------------------
-    def _lots_for(self, entry_exec: float, sl_price: float):
+    def _planned_loss_per_lot(self, direction: int, entry_exec: float,
+                              sl_price: float) -> float:
+        """All-in planned NET loss per lot on a NON-GAP stop exit.
+
+        Includes every deterministic cost the engine knows at entry time:
+        stop-exit slippage and both commissions.  Spread and entry slippage
+        are already embedded in entry_exec (execution side) and are NOT
+        counted twice.  A gap through the stop is NOT bounded by this
+        figure (realistic; see RESEARCH_ENGINE_SPEC.md).
+        """
+        sp = self._slip_price
+        if direction == 1:    # long: stop fills on Bid, adverse slippage lowers it
+            planned_exit = sl_price - sp
+            price_loss = entry_exec - planned_exit
+        else:                 # short: stop fills on Ask, adverse slippage raises it
+            planned_exit = sl_price + sp
+            price_loss = planned_exit - entry_exec
+        return price_loss * self._conv + 2.0 * self._commission
+
+    def _lots_for(self, direction: int, entry_exec: float, sl_price: float):
         """Lot count for an order, or None if the order must be REJECTED.
 
         fixed_lot: user-chosen size, clamped to broker constraints
         (ASSUMPTION: explicit user choice, clamped like legacy).
 
-        fixed_risk_percent: floor to lot_step (floor never increases risk);
-        if the broker minimum lot would make the effective risk EXCEED the
-        target risk, the trade is rejected (never silently sized up).
+        fixed_risk_percent: size from the PLANNED NON-GAP NET STOP LOSS
+        (all-in: price distance at execution prices + stop-exit slippage
+        + both commissions), floored to lot_step (floor never increases
+        the planned risk).  If the broker minimum lot would make the
+        planned net stop loss exceed the target, the trade is rejected
+        (never silently sized up).  max_lot clamping only reduces risk.
         """
         inst = self.instrument
-        risk_dist = abs(entry_exec - sl_price)
         if self.sizing.mode == "fixed_lot":
             lots = self.sizing.fixed_lot
             lots = math.floor(lots / inst.lot_step) * inst.lot_step
             return min(inst.max_lot, max(inst.min_lot, lots))
-        if risk_dist <= 0:
+        planned = self._planned_loss_per_lot(direction, entry_exec, sl_price)
+        if planned <= 0:
             return None
         risk_money = self._balance * self.sizing.risk_percent / 100.0
-        raw = risk_money / (risk_dist * self._conv)
+        raw = risk_money / planned
         lots = math.floor(raw / inst.lot_step) * inst.lot_step
         if lots < inst.min_lot:
-            return None  # broker min lot would exceed the target risk
+            return None  # broker min lot would exceed the planned net risk
         return min(inst.max_lot, lots)
 
-    def _open_position(self, order: Order, open_bid: float, ts: datetime) -> _Position:
+    def _open_position(self, order: Order, open_bid: float,
+                       ts: datetime) -> Optional[_Position]:
         if order.direction not in (1, -1):
             raise EngineError("order.direction must be +1 or -1")
         s, sp = self._spread_price, self._slip_price
@@ -673,13 +702,17 @@ class ResearchEngine:
             if order.tp_price is not None and not order.tp_price < entry_exec:
                 raise EngineError("short TP must be below entry")
         risk_dist = abs(entry_exec - order.sl_price)
-        lots = self._lots_for(entry_exec, order.sl_price)
+        lots = self._lots_for(order.direction, entry_exec, order.sl_price)
         if lots is None:
             self._orders_rejected_min_lot += 1
             return None
+        risk_target = (self._balance * self.sizing.risk_percent / 100.0
+                       if self.sizing.mode == "fixed_risk_percent" else None)
+        planned_sl_net = (self._planned_loss_per_lot(
+            order.direction, entry_exec, order.sl_price) * lots)
         return _Position(order.direction, ts, ts, entry_ref, entry_exec,
                          order.sl_price, order.tp_price, lots, risk_dist, sp,
-                         len(self._amb_events))
+                         len(self._amb_events), risk_target, planned_sl_net)
 
     def _amb(self, kind: str, bar_idx: int) -> None:
         """Record one ambiguity event; track the DISTINCT bar it occurred on."""
@@ -787,4 +820,6 @@ class ResearchEngine:
             commission_cost=commission_cost, net_pnl=net,
             ambiguous_events=len(self._amb_events) - pos.amb_start,
             balance_after=self._balance,
+            risk_target_money=pos.risk_target,
+            planned_stop_loss_net=pos.planned_sl_net,
         ))

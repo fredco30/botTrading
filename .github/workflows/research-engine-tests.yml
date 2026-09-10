@@ -1,0 +1,24 @@
+# Minimal CI for the canonical research engine.
+# Runs ONLY the synthetic unit/causality suite (test_research_engine.py).
+# No optimizer, no real backtest, no broker access, no secrets, no OOS data.
+name: research-engine-tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "research/**"
+
+permissions: {}
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run research engine test suite (synthetic only)
+        run: python -m unittest test_research_engine -v
