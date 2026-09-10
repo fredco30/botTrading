@@ -210,9 +210,10 @@ fournis et non backtestés** dans cette mission.
   Un gap à travers le stop peut produire `REALIZED_LOSS >
   RISK_TARGET_MONEY` : c'est un comportement réaliste, pas un bug. Aucun
   re-dimensionnement rétrospectif n'a lieu ; `gap_exit` identifie ces trades.
-  Auditabilité : chaque trade expose `risk_target_money` et
-  `planned_stop_loss_net` (`None` en `fixed_lot`) pour contrôle a posteriori
-  de `planned_stop_loss_net <= risk_target_money`.
+  Auditabilité : chaque trade expose `risk_target_money` (None en
+  `fixed_lot`, renseigné en `fixed_risk_percent`) et
+  `planned_stop_loss_net` (calculé dans LES DEUX modes) pour contrôle
+  a posteriori de `planned_stop_loss_net <= risk_target_money`.
 - En `fixed_lot`, la taille est un choix explicite de l'utilisateur : elle
   reste clampée aux contraintes broker (comportement legacy documenté).
 - **Aucune martingale / pyramid / reverse** dans le moteur V1.

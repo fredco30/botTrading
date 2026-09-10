@@ -1,6 +1,7 @@
-# Minimal CI for the canonical research engine.
-# Runs ONLY the synthetic unit/causality suite (test_research_engine.py).
-# No optimizer, no real backtest, no broker access, no secrets, no OOS data.
+# Minimal CI for the canonical research engine and its research components.
+# Runs ONLY the synthetic unit/causality suites (test_*.py: research engine
+# + EMA base signal).  No optimizer, no real backtest, no broker access,
+# no secrets, no OOS data, no real Forex dataset.
 name: research-engine-tests
 
 on:
@@ -20,5 +21,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Run research engine test suite (synthetic only)
-        run: python -m unittest test_research_engine -v
+      - name: Run research suites (synthetic only)
+        run: python -m unittest discover -s . -p "test_*.py" -v
