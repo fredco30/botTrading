@@ -120,9 +120,13 @@ Cas ambigus identifiés et résolus :
 | Trigger BE **et** nouveau stop BE touchés dans la même barre (ancien SL intact) | **aucune sortie inventée** : la position survit, le BE est armé pour la barre suivante |
 | Armement BE quelconque | effectif **à partir de la barre suivante** |
 
-Chaque événement ambigu incrémente `AMBIGUOUS_BARS` ; un trade contenant au
-moins un événement incrémente `AMBIGUOUS_TRADES` (détail par type dans
-`ambiguity_event_counts`). **LIMITATION assumée** : bar-level ≠ tick-level.
+`AMBIGUOUS_BARS` compte le nombre de **BARRES DISTINCTES** ayant produit au
+moins une ambiguïté (une même barre peut générer plusieurs événements de
+types différents : elle compte pour une seule barre). La liste déterministe
+des timestamps de ces barres est exposée dans `ambiguous_bar_ts` (ordre
+chronologique). `ambiguity_event_counts` compte, lui, les **ÉVÉNEMENTS**
+par type. `AMBIGUOUS_TRADES` compte les **TRADES DISTINCTS** ayant subi au
+moins une ambiguïté. **LIMITATION assumée** : bar-level ≠ tick-level.
 La validation LTF/tick est une extension prévue (le champ `intrabar_policy`
 est réservé pour `LTF_VALIDATION`), pas une équivalence acquise.
 
@@ -174,6 +178,13 @@ fournis et non backtestés** dans cette mission.
 
 - `SizingConfig.mode = "fixed_lot"` ou `"fixed_risk_percent"`
   (risque = distance |entry_exec − sl| × valeur du pip, lot floored au step).
+- **Règle min-lot (V1B)** : en `fixed_risk_percent`, le floor au `lot_step`
+  ne peut que réduire le risque ; si le **lot minimal du broker** ferait
+  dépasser le risque cible, le trade est **REJETÉ proprement** et compté
+  dans `orders_rejected_min_lot_risk`. Le moteur ne transforme jamais
+  silencieusement un risque de 1 % en 2 % ou 5 %.
+  En `fixed_lot`, la taille est un choix explicite de l'utilisateur : elle
+  reste clampée aux contraintes broker (comportement legacy documenté).
 - **Aucune martingale / pyramid / reverse** dans le moteur V1.
 - Une seule position à la fois ; les ordres émis pendant une position ouverte
   sont ignorés et comptés (`orders_ignored`).
@@ -202,12 +213,37 @@ autoriseront explicitement son usage. Cette mission n'y a pas accédé.
 Smoke test technique autorisé : tranche contaminée 2023 uniquement
 (`ENGINE_RUNS=YES/NO`, aucune conclusion de rentabilité).
 
-## 17. HYPOTHÈSES MARQUÉES (résumé)
+## 17. DATA_HISTORY_START / ENTRY_START (API `run`)
+
+```
+run(bars, strategy, entry_start_dt=None, end_dt=None)
+```
+
+- **DATA_HISTORY_START** = `dt de bars[0]` (implicite : l'historique de
+  données est exactement la liste `bars` fournie). Le moteur parcourt
+  **toutes** les barres depuis le début : les vues M15/H1 et les indicateurs
+  côté stratégie se warm-up sur l'historique antérieur complet. Une EMA50 H1
+  évaluée en 2023 utilise l'historique H1 antérieur — elle ne redémarre pas
+  artificiellement à `entry_start_dt`.
+- **ENTRY_START** = `entry_start_dt` : **aucun nouvel ordre** n'est accepté
+  avant cet instant ; les ordres retournés par la stratégie avant
+  `ENTRY_START` sont écartés et comptés dans `orders_ignored_warmup`.
+- **Garantie d'identité causale** : à tout timestamp T, les features obtenues
+  avec `entry_start_dt = T` sont **identiques** à celles du run complet sur
+  le même historique (test de régression dédié). `entry_start_dt` ne filtre
+  que l'ACCEPTATION des ordres, jamais la construction des vues.
+- `end_dt` : fin d'évaluation ; position ouverte forcée à la clôture de la
+  dernière barre traitée.
+- Note V1B : le paramètre `start_dt` de la V1 (qui découpait la fenêtre et
+  détruisait l'historique de warm-up) est **supprimé** — c'était un défaut,
+  pas une sémantique à conserver.
+
+## 18. HYPOTHÈSES MARQUÉES (résumé)
 
 | Marqueur | Objet |
 |---|---|
 | ASSUMPTION | `quote_currency == account_currency` (pas de conversion FX) |
-| ASSUMPTION | lots < min_lot arrondis au min_lot (pas de rejet) |
+| ASSUMPTION | `fixed_lot` : taille clampée aux contraintes broker (choix explicite utilisateur) ; `fixed_risk_percent` : trade REJETÉ si lot < min_lot (jamais au-dessus du risque cible, cf. §13) |
 | ASSUMPTION | spread constant intra-barre |
 | ASSUMPTION | niveaux d'ordre comparés à OHLC Bid/Ask dérivé, sans microstructure |
 | SYNTHETIC | spread (aucun historique de spread dans le dépôt) |

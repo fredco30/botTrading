@@ -437,5 +437,169 @@ class TestMandatedCases(unittest.TestCase):
                                + res.total_net_pnl, places=9)
 
 
+class TestMission1B(unittest.TestCase):
+    """Mission 1B hardening: warm-up/entry-start split, ambiguity counting
+    per distinct bar, fixed-risk min-lot rejection.  Synthetic data only."""
+
+    # -- warm-up / ENTRY_START (fix 1) ------------------------------------
+    def test_1b_warmup_features_identical_and_no_entry_before_start(self):
+        # Deterministic hand-built history:
+        #  - bars 0..11: triangle wave (several signals, trades closed by bar 12)
+        #  - bars 12..29: monotone fall (no signals; run A is FLAT at bar 20)
+        #  - bars 30..34: rise (first post-start signal at bar 31)
+        #  - bars 35..60: fall (SL exit for the post-start trade)
+        closes = ([1.1000, 1.1005, 1.1010, 1.1005, 1.1000, 1.0995,
+                   1.1000, 1.1005, 1.1010, 1.1005, 1.1000, 1.0995]
+                  + [1.0990 - 0.0001 * k for k in range(18)]      # bars 12..29
+                  + [1.0975 + 0.0001 * k for k in range(5)]       # bars 30..34
+                  + [1.0990 - 0.0001 * k for k in range(26)])     # bars 35..60
+        bars = []
+        for k, c in enumerate(closes):
+            o = closes[k - 1] if k else 1.1000
+            dt = T0 + timedelta(minutes=15 * k)
+            bars.append(Bar(dt, o, max(o, c) + pips(2), min(o, c) - pips(2), c))
+
+        class Recorder(Strategy):
+            def __init__(self):
+                self.features = {}       # ts -> (m15 closes, h1 closes)
+                self.orders_at = []      # (ts, returned_order?)
+
+            def on_bar(self, ctx):
+                feats = (tuple(ctx.m15.close(t) for t in range(len(ctx.m15))),
+                         tuple(ctx.h1.close(t) for t in range(len(ctx.h1))))
+                self.features[ctx.decision_ts] = feats
+                order = Order(direction=1,
+                              sl_price=ctx.open_bid - pips(10),
+                              tp_price=ctx.open_bid + pips(25)) \
+                    if len(ctx.m15) >= 2 and \
+                    ctx.m15.close(len(ctx.m15) - 1) > ctx.m15.close(len(ctx.m15) - 2) \
+                    else None
+                self.orders_at.append((ctx.decision_ts, order is not None))
+                return order
+
+        entry_start = T0 + timedelta(minutes=15 * 20)   # bar 20, run A flat there
+
+        strat_a = Recorder()
+        ra = engine().run(bars, strat_a)
+        strat_b = Recorder()
+        rb = engine().run(bars, strat_b, entry_start_dt=entry_start)
+
+        # 1) warm-up happened: B evaluated decisions BEFORE entry_start too
+        early_b = [ts for ts in strat_b.features if ts < entry_start]
+        self.assertGreater(len(early_b), 0)
+
+        # 2) FEATURES at every timestamp are IDENTICAL to the full run
+        self.assertEqual(set(strat_a.features), set(strat_b.features))
+        for ts, feats in strat_a.features.items():
+            self.assertEqual(feats, strat_b.features[ts],
+                             f"features diverge at {ts}")
+
+        # 3) no trade before ENTRY_START; and since run A is FLAT at the
+        #    boundary, B's trades match A's trades from entry_start onwards
+        self.assertTrue(all(t.decision_ts >= entry_start for t in rb.trades))
+        expected = [t.decision_ts for t in ra.trades if t.decision_ts >= entry_start]
+        self.assertEqual([t.decision_ts for t in rb.trades], expected)
+        self.assertGreaterEqual(len(rb.trades), 1)
+
+        # 4) discarded warm-up orders are counted exactly
+        warmup_orders = sum(1 for ts, requested in strat_a.orders_at
+                            if requested and ts < entry_start)
+        self.assertEqual(rb.orders_ignored_warmup, warmup_orders)
+        self.assertGreater(rb.orders_ignored_warmup, 0)
+        self.assertEqual(ra.orders_ignored_warmup, 0)
+
+    # -- ambiguity counting (fix 2) ---------------------------------------
+    def test_1b_ambiguous_bars_counts_distinct_bars(self):
+        # ONE bar generates TWO ambiguity event types (SL+TP touch AND
+        # BE-trigger+SL): entry exec 1.1001, SL 1.0995, TP 1.1020,
+        # BE trigger (Bid) = 1.1007; bar high 1.1030, low 1.0985.
+        bars = mk_bars(SETUP + [
+            (1.1000, 1.1030, 1.0985, 1.1015),
+        ])
+        be = BreakevenConfig(enabled=True, trigger_r=1.0, offset_pips=1.0)
+        res = engine(CostModel(spread_pips=1.0), breakeven=be).run(
+            bars, TrendStrategy(sl_pips=5, tp_pips=20))
+        self.assertEqual(res.n_trades, 1)
+        self.assertEqual(res.ambiguous_bars, 1)               # ONE distinct bar
+        self.assertEqual(len(res.ambiguous_bar_ts), 1)
+        self.assertEqual(res.ambiguous_bar_ts[0], bars[2].dt)
+        self.assertEqual(res.ambiguity_event_counts.get("SL_AND_TP_SAME_BAR"), 1)
+        self.assertEqual(res.ambiguity_event_counts.get("BE_TRIGGER_AND_SL_SAME_BAR"), 1)
+        self.assertEqual(sum(res.ambiguity_event_counts.values()), 2)  # 2 events
+        self.assertEqual(res.ambiguous_trades, 1)
+
+    # -- fixed risk / min lot (fix 3) --------------------------------------
+    # entry exec 1.1001 (open 1.1000 + 1 pip spread), SL 1.0980 (20 pips)
+    # -> risk distance 21 pips -> $210 per lot.  Bar 2 survives, bar 3 exits SL.
+    RISK_BARS = None  # built in setUpClass-like helper below
+
+    @classmethod
+    def _risk_bars(cls):
+        return mk_bars(SETUP + [
+            (1.1000, 1.1005, 1.0998, 1.0990),   # entry bar, survives, no next signal
+            (1.0990, 1.0992, 1.0970, 1.0975),   # SL exit
+        ])
+
+    def _risk_engine(self, risk_percent):
+        return engine(CostModel(spread_pips=1.0),
+                      sizing=SizingConfig(mode="fixed_risk_percent",
+                                          risk_percent=risk_percent))
+
+    def test_1b_fixed_risk_accepts_above_min_lot(self):
+        res = self._risk_engine(1.0).run(self._risk_bars(),
+                                         TrendStrategy(sl_pips=20, tp_pips=50))
+        self.assertEqual(res.n_trades, 1)
+        tr = res.trades[0]
+        self.assertEqual(res.orders_rejected_min_lot_risk, 0)
+        # floored to 0.47 lots: effective risk 0.47 * $210 = $98.70 <= $100
+        self.assertAlmostEqual(tr.lots, 0.47, places=9)
+        effective = abs(tr.entry_exec - tr.initial_sl) / PIP * 10.0 * tr.lots
+        self.assertLessEqual(effective, 100.0 + 1e-9)
+
+    def test_1b_fixed_risk_accepts_exact_boundary(self):
+        # raw lot == min_lot exactly, using binary-exact numbers:
+        # risk_dist = 0.001953125 (= 2^-9), balance 10000, risk 0.01953125%
+        # (= 5/256) -> risk_money = 1.953125 -> raw = 1.953125 / 195.3125 = 0.01
+        eng = ResearchEngine(
+            instrument=EURUSD_SPEC,
+            costs=CostModel(spread_pips=1.0),
+            sizing=SizingConfig(mode="fixed_risk_percent", risk_percent=0.01953125),
+            initial_balance=10_000.0)
+        lots = eng._lots_for(1.001953125, 1.0)   # risk_dist = 2^-9 exactly
+        self.assertIsNotNone(lots)
+        self.assertAlmostEqual(lots, 0.01, places=12)
+
+    def test_1b_fixed_risk_rejects_below_min_lot(self):
+        # 0.02% of $10,000 = $2 -> raw = 2/210 = 0.0095 < min_lot -> REJECTED
+        res = self._risk_engine(0.02).run(self._risk_bars(),
+                                          TrendStrategy(sl_pips=20, tp_pips=50))
+        self.assertEqual(res.n_trades, 0)
+        self.assertEqual(res.orders_rejected_min_lot_risk, 1)
+
+    def test_1b_fixed_risk_never_exceeds_target(self):
+        for risk_percent in (0.02, 0.05, 0.21, 1.0):
+            eng = self._risk_engine(risk_percent)
+            res = eng.run(self._risk_bars(),
+                          TrendStrategy(sl_pips=20, tp_pips=50))
+            target = 10_000.0 * risk_percent / 100.0
+            self.assertLessEqual(res.n_trades + res.orders_rejected_min_lot_risk, 1)
+            for tr in res.trades:
+                self.assertGreaterEqual(tr.lots, 0.01)   # never below min lot
+                effective = abs(tr.entry_exec - tr.initial_sl) / PIP * 10.0 * tr.lots
+                self.assertLessEqual(effective, target * (1 + 1e-9),
+                                     f"risk {effective} > target {target} "
+                                     f"at risk_percent={risk_percent}")
+            if res.n_trades == 0:
+                self.assertEqual(res.orders_rejected_min_lot_risk, 1)
+        # separation of concerns: fixed_lot is an explicit user choice and
+        # remains clamped (opens at min lot), NOT risk-rejected
+        res = engine(CostModel(spread_pips=1.0),
+                     sizing=SizingConfig(mode="fixed_lot", fixed_lot=0.005)).run(
+            self._risk_bars(), TrendStrategy(sl_pips=20, tp_pips=50))
+        self.assertEqual(res.n_trades, 1)
+        self.assertAlmostEqual(res.trades[0].lots, 0.01, places=12)
+        self.assertEqual(res.orders_rejected_min_lot_risk, 0)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

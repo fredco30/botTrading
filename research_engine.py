@@ -405,11 +405,14 @@ class RunResult:
     intrabar_policy: str
     n_bars_processed: int
     trades: List[TradeRecord]
-    ambiguous_bars: int
-    ambiguous_trades: int
-    ambiguity_event_counts: Dict[str, int]
+    ambiguous_bars: int                    # DISTINCT bars with >= 1 ambiguity
+    ambiguous_bar_ts: List[datetime]       # deterministic, chronological
+    ambiguous_trades: int                  # DISTINCT trades with >= 1 ambiguity
+    ambiguity_event_counts: Dict[str, int] # events per type (a bar may hold several)
     forced_closes: int
     orders_ignored: int
+    orders_ignored_warmup: int             # orders discarded before ENTRY_START
+    orders_rejected_min_lot_risk: int      # fixed_risk trades below broker min lot
     initial_balance: float
     final_balance: float
     total_gross_pnl: float
@@ -417,6 +420,7 @@ class RunResult:
     total_slippage_cost: float
     total_commission_cost: float
     total_net_pnl: float
+    entry_start_dt: Optional[datetime]
     costs: CostModel
     sizing: SizingConfig
     breakeven: BreakevenConfig
@@ -493,13 +497,32 @@ class ResearchEngine:
         self._balance = self.initial_balance
         self._trades: List[TradeRecord] = []
         self._amb_events: List[str] = []
+        self._amb_bar_seen = set()
+        self._amb_bar_order: List[int] = []   # distinct bar indices, deterministic order
         self._forced_closes = 0
         self._orders_ignored = 0
+        self._orders_ignored_warmup = 0
+        self._orders_rejected_min_lot = 0
 
     # -- public ------------------------------------------------------------
     def run(self, bars: List[Bar], strategy: Strategy,
-            start_dt: Optional[datetime] = None,
+            entry_start_dt: Optional[datetime] = None,
             end_dt: Optional[datetime] = None) -> RunResult:
+        """Run over the FULL bar history (warm-up included).
+
+        DATA_HISTORY_START = dt of bars[0]: the strategy is evaluated on
+        every bar from there, so M15/H1 views and strategy-side indicators
+        warm up on the full antecedent history.
+
+        ENTRY_START = entry_start_dt: no new order is accepted before it
+        (orders returned earlier are discarded and counted in
+        orders_ignored_warmup).  Features at any timestamp T are identical
+        whether entry_start_dt=T or None, given the same history
+        (regression-tested).
+
+        end_dt: evaluation end (bars with dt >= end_dt are excluded;
+        an open position is force-closed on the last processed bar).
+        """
         if not bars:
             raise EngineError("empty bar list")
         for a, b in zip(bars, bars[1:]):
@@ -509,14 +532,16 @@ class ResearchEngine:
         self._balance = self.initial_balance
         self._trades = []
         self._amb_events = []
+        self._amb_bar_seen = set()
+        self._amb_bar_order = []
         self._forced_closes = 0
         self._orders_ignored = 0
+        self._orders_ignored_warmup = 0
+        self._orders_rejected_min_lot = 0
 
-        lo = 0 if start_dt is None else max(
-            0, next((k for k, b in enumerate(bars) if b.dt >= start_dt), len(bars)))
         hi = len(bars) if end_dt is None else next(
             (k for k, b in enumerate(bars) if b.dt >= end_dt), len(bars))
-        window = bars[lo:hi]
+        window = bars[:hi]
         n = len(window)
         if n == 0:
             raise EngineError("empty run window")
@@ -552,6 +577,8 @@ class ResearchEngine:
             if order is not None:
                 if pos is not None:
                     self._orders_ignored += 1
+                elif entry_start_dt is not None and t < entry_start_dt:
+                    self._orders_ignored_warmup += 1
                 else:
                     pos = self._open_position(order, opens[i], t)
 
@@ -580,11 +607,14 @@ class ResearchEngine:
             intrabar_policy=self.intrabar_policy,
             n_bars_processed=n,
             trades=self._trades,
-            ambiguous_bars=len(self._amb_events),
+            ambiguous_bars=len(self._amb_bar_order),
+            ambiguous_bar_ts=[dts[k] for k in self._amb_bar_order],
             ambiguous_trades=sum(1 for tr in self._trades if tr.ambiguous_events > 0),
             ambiguity_event_counts=dict(sorted(amb_counts.items())),
             forced_closes=self._forced_closes,
             orders_ignored=self._orders_ignored,
+            orders_ignored_warmup=self._orders_ignored_warmup,
+            orders_rejected_min_lot_risk=self._orders_rejected_min_lot,
             initial_balance=self.initial_balance,
             final_balance=self._balance,
             total_gross_pnl=gross,
@@ -592,25 +622,37 @@ class ResearchEngine:
             total_slippage_cost=slp,
             total_commission_cost=com,
             total_net_pnl=gross - spr - slp - com,
+            entry_start_dt=entry_start_dt,
             costs=self.costs,
             sizing=self.sizing,
             breakeven=self.breakeven,
         )
 
     # -- internals -----------------------------------------------------------
-    def _lots_for(self, entry_exec: float, sl_price: float, direction: int) -> float:
+    def _lots_for(self, entry_exec: float, sl_price: float):
+        """Lot count for an order, or None if the order must be REJECTED.
+
+        fixed_lot: user-chosen size, clamped to broker constraints
+        (ASSUMPTION: explicit user choice, clamped like legacy).
+
+        fixed_risk_percent: floor to lot_step (floor never increases risk);
+        if the broker minimum lot would make the effective risk EXCEED the
+        target risk, the trade is rejected (never silently sized up).
+        """
         inst = self.instrument
         risk_dist = abs(entry_exec - sl_price)
         if self.sizing.mode == "fixed_lot":
             lots = self.sizing.fixed_lot
-        else:
-            risk_money = self._balance * self.sizing.risk_percent / 100.0
-            raw = risk_money / (risk_dist * self._conv) if risk_dist > 0 else 0.0
-            lots = math.floor(raw / inst.lot_step) * inst.lot_step
-            if lots < inst.min_lot:
-                lots = inst.min_lot  # ASSUMPTION: clamp, do not reject (legacy-like)
-        lots = math.floor(lots / inst.lot_step) * inst.lot_step
-        return min(inst.max_lot, max(inst.min_lot, lots))
+            lots = math.floor(lots / inst.lot_step) * inst.lot_step
+            return min(inst.max_lot, max(inst.min_lot, lots))
+        if risk_dist <= 0:
+            return None
+        risk_money = self._balance * self.sizing.risk_percent / 100.0
+        raw = risk_money / (risk_dist * self._conv)
+        lots = math.floor(raw / inst.lot_step) * inst.lot_step
+        if lots < inst.min_lot:
+            return None  # broker min lot would exceed the target risk
+        return min(inst.max_lot, lots)
 
     def _open_position(self, order: Order, open_bid: float, ts: datetime) -> _Position:
         if order.direction not in (1, -1):
@@ -631,13 +673,20 @@ class ResearchEngine:
             if order.tp_price is not None and not order.tp_price < entry_exec:
                 raise EngineError("short TP must be below entry")
         risk_dist = abs(entry_exec - order.sl_price)
-        lots = self._lots_for(entry_exec, order.sl_price, order.direction)
+        lots = self._lots_for(entry_exec, order.sl_price)
+        if lots is None:
+            self._orders_rejected_min_lot += 1
+            return None
         return _Position(order.direction, ts, ts, entry_ref, entry_exec,
                          order.sl_price, order.tp_price, lots, risk_dist, sp,
                          len(self._amb_events))
 
-    def _amb(self, kind: str) -> None:
+    def _amb(self, kind: str, bar_idx: int) -> None:
+        """Record one ambiguity event; track the DISTINCT bar it occurred on."""
         self._amb_events.append(kind)
+        if bar_idx not in self._amb_bar_seen:
+            self._amb_bar_seen.add(bar_idx)
+            self._amb_bar_order.append(bar_idx)
 
     def _manage_bar(self, pos: _Position, j: int, opens, highs, lows, closes,
                     dts) -> Optional[_Position]:
@@ -653,9 +702,9 @@ class ResearchEngine:
             arm = be_trigger is not None and highs[j] >= be_trigger
             if sl_hit:
                 if tp_hit:
-                    self._amb(AMBIGUOUS_SL_AND_TP)
+                    self._amb(AMBIGUOUS_SL_AND_TP, j)
                 if arm:
-                    self._amb(AMBIGUOUS_BE_TRIGGER_AND_SL)
+                    self._amb(AMBIGUOUS_BE_TRIGGER_AND_SL, j)
                 gap = opens[j] < pos.sl
                 fill = opens[j] if gap else pos.sl   # gap: first available (worse)
                 self._close(pos, j, dts, exit_ref=fill + hs,
@@ -671,7 +720,7 @@ class ResearchEngine:
                 be_stop = pos.entry_exec + be.offset_pips * self._pip
                 if lows[j] <= be_stop:
                     # arming bar: never exit at the new BE stop in the same bar
-                    self._amb(AMBIGUOUS_BE_TRIGGER_AND_BE_STOP)
+                    self._amb(AMBIGUOUS_BE_TRIGGER_AND_BE_STOP, j)
                 pos.be_done = True
                 pos.sl = be_stop                      # effective from NEXT bar
             return pos
@@ -685,9 +734,9 @@ class ResearchEngine:
         arm = be_trigger is not None and (lows[j] + s) <= be_trigger
         if sl_hit:
             if tp_hit:
-                self._amb(AMBIGUOUS_SL_AND_TP)
+                self._amb(AMBIGUOUS_SL_AND_TP, j)
             if arm:
-                self._amb(AMBIGUOUS_BE_TRIGGER_AND_SL)
+                self._amb(AMBIGUOUS_BE_TRIGGER_AND_SL, j)
             gap = ask_open > pos.sl
             fill = ask_open if gap else pos.sl
             self._close(pos, j, dts, exit_ref=fill - hs,
@@ -702,7 +751,7 @@ class ResearchEngine:
         if arm:
             be_stop = pos.entry_exec - be.offset_pips * self._pip
             if (highs[j] + s) >= be_stop:
-                self._amb(AMBIGUOUS_BE_TRIGGER_AND_BE_STOP)
+                self._amb(AMBIGUOUS_BE_TRIGGER_AND_BE_STOP, j)
             pos.be_done = True
             pos.sl = be_stop                          # effective from NEXT bar
         return pos
