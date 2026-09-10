@@ -1,0 +1,116 @@
+{
+  "H6_rsi_meanrev": {
+    "4h": {
+      "N": 36031,
+      "MEAN_PIPS": 0.179,
+      "MEDIAN_PIPS": 0.9,
+      "WIN_RATE": 0.5359,
+      "STD": 15.29
+    },
+    "2h0": {
+      "N": 36028,
+      "MEAN_PIPS": 0.121,
+      "MEDIAN_PIPS": 0.9,
+      "WIN_RATE": 0.526,
+      "STD": 21.08
+    },
+    "4h0": {
+      "N": 36023,
+      "MEAN_PIPS": 0.233,
+      "MEDIAN_PIPS": 0.7,
+      "WIN_RATE": 0.5161,
+      "STD": 28.98
+    },
+    "12h": {
+      "N": 36021,
+      "MEAN_PIPS": 0.706,
+      "MEDIAN_PIPS": 0.7,
+      "WIN_RATE": 0.5079,
+      "STD": 45.8
+    },
+    "24h": {
+      "N": 36021,
+      "MEAN_PIPS": -0.485,
+      "MEDIAN_PIPS": -0.2,
+      "WIN_RATE": 0.4973,
+      "STD": 63.68
+    },
+    "N_SIGNALS": 36035
+  },
+  "H7_donchian_24h": {
+    "4h": {
+      "N": 36875,
+      "MEAN_PIPS": -0.18,
+      "MEDIAN_PIPS": -0.7,
+      "WIN_RATE": 0.4669,
+      "STD": 15.28
+    },
+    "2h0": {
+      "N": 36873,
+      "MEAN_PIPS": -0.294,
+      "MEDIAN_PIPS": -0.9,
+      "WIN_RATE": 0.4684,
+      "STD": 20.81
+    },
+    "4h0": {
+      "N": 36873,
+      "MEAN_PIPS": -0.666,
+      "MEDIAN_PIPS": -0.8,
+      "WIN_RATE": 0.4777,
+      "STD": 29.05
+    },
+    "12h": {
+      "N": 36873,
+      "MEAN_PIPS": -1.582,
+      "MEDIAN_PIPS": -1.2,
+      "WIN_RATE": 0.4822,
+      "STD": 44.44
+    },
+    "24h": {
+      "N": 36873,
+      "MEAN_PIPS": -1.211,
+      "MEDIAN_PIPS": -1.0,
+      "WIN_RATE": 0.491,
+      "STD": 63.06
+    },
+    "N_SIGNALS": 36879
+  },
+  "H1_trend_pullback": {
+    "4h": {
+      "N": 194455,
+      "MEAN_PIPS": -0.007,
+      "MEDIAN_PIPS": 0.0,
+      "WIN_RATE": 0.4961,
+      "STD": 12.86
+    },
+    "2h0": {
+      "N": 194454,
+      "MEAN_PIPS": 0.023,
+      "MEDIAN_PIPS": -0.1,
+      "WIN_RATE": 0.4947,
+      "STD": 18.12
+    },
+    "4h0": {
+      "N": 194452,
+      "MEAN_PIPS": 0.051,
+      "MEDIAN_PIPS": -0.2,
+      "WIN_RATE": 0.4935,
+      "STD": 25.64
+    },
+    "12h": {
+      "N": 194451,
+      "MEAN_PIPS": 0.338,
+      "MEDIAN_PIPS": -0.3,
+      "WIN_RATE": 0.4956,
+      "STD": 45.04
+    },
+    "24h": {
+      "N": 194419,
+      "MEAN_PIPS": 0.439,
+      "MEDIAN_PIPS": -0.3,
+      "WIN_RATE": 0.4967,
+      "STD": 62.32
+    },
+    "N_SIGNALS": 194455
+  }
+}
