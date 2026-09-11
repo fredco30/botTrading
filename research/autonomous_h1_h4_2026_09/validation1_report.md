@@ -12,16 +12,22 @@ barre dont la clôture le rend connu ; `event_returns()` applique LE
 seul décalage d'exécution (close[i] → open[i+1]). Garanti par les tests
 de parité DISCOVERY/VALIDATION (`TestExecutionShiftParity`).
 
-## C1 — F6 mean reversion H1 (SMA 20, z 1.5, horizon 12h)
+Censure de borne ajoutée (revue final) : un événement n'est conservé que
+si sa décision ET le règlement de son horizon (`ts[i+horizon]`) sont
+strictement dans la fenêtre — aucun horizon V1 ne consomme plus un prix
+de 2023. Chiffres du rerun à censure : C1 N=5 411 (9 événements censurés),
+C2 N=308 (inchangé).
+
+## C1 — F6 mean reversion H1 (SMA 20, z 1.5, horizon 48 barres = 48 heures)
 
 | | N | MEAN pips | après LOW | après NORMAL | après STRESS | WIN | EX99 |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Agrégat | 5 420 | −1.88 | −2.88 | **−3.88** | −5.38 | 49.4 % | −5.39 |
-| EURUSD | 1 857 | −1.99 | −2.99 | −3.99 | −5.49 | 48.6 % | −4.32 |
+| Agrégat | 5 411 | −1.77 | −2.77 | **−3.77** | −5.27 | 49.4 % | −5.29 |
+| EURUSD | 1 852 | −2.15 | −3.15 | −4.15 | −5.65 | 48.5 % | −4.49 |
 | GBPUSD | 1 843 | −3.18 | −4.18 | −5.18 | −6.68 | 49.1 % | −6.91 |
-| USDJPY | 1 720 | −0.37 | −1.37 | −2.37 | −3.87 | 50.6 % | −4.71 |
+| USDJPY | 1 716 | +0.14 | −0.86 | −1.86 | −3.36 | 50.7 % | −4.21 |
 
-**GATE : FAIL** (`AFTER_NORMAL > 0` violé : −3.88 ; `PAIRS_POS = 0/3`).
+**GATE : FAIL** (`AFTER_NORMAL > 0` violé : −3.77 ; `PAIRS_POS = 0/3`).
 L'effet DISCOVERY (+1.30) s'inverse complètement — inchangé dans sa
 substance par rapport au run invalide : l'effet de mean-reversion
 2010-2018 était un artifact de période.

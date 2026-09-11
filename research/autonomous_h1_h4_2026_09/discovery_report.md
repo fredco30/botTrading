@@ -27,7 +27,7 @@ Sur 484 lignes, seules **2 configurations** satisfont tous les critères :
 ≥ 2/3 paires positives après NORMAL, moyenne hors top-1 % positive sur
 ≥ 2 paires, ≥ 4/9 années positives après coûts, N total ≥ 500 :
 
-1. **C1 — F6 mean reversion H1** (SMA 20, z 1.5, horizon 48 = 12h)
+1. **C1 — F6 mean reversion H1** (SMA 20, z 1.5, horizon 48 barres = 48 heures)
    agrégat +1.30 pip/trade après NORMAL, N = 12 365
    (EURUSD +2.5, GBPUSD +2.8, USDJPY −1.3), 5-6/9 années positives.
 2. **C2 — F5 vol-compression breakout H1** (L 40, ratio 0.85, horizon 12 = 12h)

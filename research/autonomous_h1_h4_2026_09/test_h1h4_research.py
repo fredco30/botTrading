@@ -168,5 +168,29 @@ class TestExecutionShiftParity(unittest.TestCase):
         self.assertAlmostEqual(rows[0]["WIN"], float(np.mean(r > 0)), places=12)
 
 
+class TestForwardReturnWindowBound(unittest.TestCase):
+    """No event's forward return may cross the window `end` boundary."""
+
+    def test_event_near_window_end_is_censored(self):
+        from pipeline import event_returns
+        df = self._frame_frame(320)     # 320 M15 bars -> ~80 hourly bars
+        end = df.index[50]
+        # raw[k]=1 -> executable decision at open[k+1]
+        raw = np.zeros(len(df), dtype=np.int8)
+        raw[44] = 1     # decision at bar 45, settles bar 49 <  end -> KEPT
+        raw[47] = 1     # decision at bar 48, settles bar 52 >= end -> CENSORED
+        raw[49] = 1     # decision at bar 50 == end -> excluded by decision bound
+        raw[52] = 1     # decision after end -> excluded
+        r, sign, ts = event_returns(df, raw, 4, 0.0001, df.index[0], end)
+        self.assertEqual(len(r), 1)                      # near-end event censored
+        self.assertEqual(pd.Timestamp(ts[0]), df.index[45])  # far event kept
+
+    @staticmethod
+    def _frame_frame(n):
+        rng = np.random.default_rng(31)
+        closes = list(np.round(1.1000 + np.cumsum(rng.normal(0, 0.0008, n)), 5))
+        return aggregate(bars_to_frame(m15_bars(closes)), "1h")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

@@ -65,7 +65,9 @@ def event_returns(df, raw_side, horizon, pip, start, end):
     RAW side: marked at the bar whose CLOSE makes the signal known.
     THIS function applies THE ONLY execution shift of the validation
     path (close[i] -> executable at open[i+1]).  Callers must pass the
-    raw generator output — never a pre-shifted side.
+    raw generator output — never a pre-shifted side.  An event is kept
+    only if its decision ts AND its forward-return settle ts are both
+    strictly inside [start, end) — no horizon may cross the window end.
     """
     opens = df["open"].values
     n = len(opens)
@@ -77,6 +79,13 @@ def event_returns(df, raw_side, horizon, pip, start, end):
     in_win = (ts[idx] >= np.datetime64(start)) & (ts[idx] < np.datetime64(end))
     idx = idx[in_win]
     keep = idx[idx + horizon < n]
+    if len(keep) == 0:
+        return np.array([]), np.array([]), np.array([])
+    # CROSS-WINDOW GUARD: the forward return must also settle BEFORE `end`,
+    # otherwise a VALIDATION_1 event could consume a price belonging to the
+    # next window (e.g. 2023).  Censored events are excluded entirely.
+    fr_ts = ts[keep + horizon]
+    keep = keep[fr_ts < np.datetime64(end)]
     if len(keep) == 0:
         return np.array([]), np.array([]), np.array([])
     sign = side_exec[keep]
