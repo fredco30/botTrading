@@ -1,0 +1,232 @@
+{
+  "discovery_candidates": [
+    {
+      "family": "F6_mean_reversion",
+      "tf": "H1",
+      "params": {
+        "sma_len": 20,
+        "z": 1.5
+      },
+      "horizon": 48,
+      "agg_mean_normal": 1.301,
+      "pos_pairs": 2,
+      "n_total": 12365,
+      "min_years_pos": 5
+    },
+    {
+      "family": "F5_vol_compress_breakout",
+      "tf": "H1",
+      "params": {
+        "lookback": 40,
+        "ratio": 0.85
+      },
+      "horizon": 12,
+      "agg_mean_normal": 1.086,
+      "pos_pairs": 2,
+      "n_total": 594,
+      "min_years_pos": 4
+    }
+  ],
+  "validation1": [
+    {
+      "N": 5419,
+      "MEAN_PIPS": -1.665,
+      "MEDIAN_PIPS": -1.1,
+      "WIN_RATE": 0.4934,
+      "STD_PIPS": 92.36,
+      "AFTER_LOW": -2.665,
+      "AFTER_NORMAL": -3.665,
+      "AFTER_STRESS": -5.165,
+      "MEAN_EX99": -5.162,
+      "PAIRS_POS": 0,
+      "PER_PAIR": {
+        "EURUSD": {
+          "N": 1856,
+          "MEAN_PIPS": -2.281,
+          "MEDIAN_PIPS": -3.2,
+          "WIN_RATE": 0.4801,
+          "STD_PIPS": 70.28,
+          "AFTER_LOW": -3.281,
+          "AFTER_NORMAL": -4.281,
+          "AFTER_STRESS": -5.781,
+          "MEAN_EX99": -4.639,
+          "years": {
+            "2019": -5.96,
+            "2020": -7.17,
+            "2021": 1.756,
+            "2022": -5.731
+          }
+        },
+        "GBPUSD": {
+          "N": 1843,
+          "MEAN_PIPS": -2.846,
+          "MEDIAN_PIPS": -1.4,
+          "WIN_RATE": 0.4927,
+          "STD_PIPS": 109.21,
+          "AFTER_LOW": -3.846,
+          "AFTER_NORMAL": -4.846,
+          "AFTER_STRESS": -6.346,
+          "MEAN_EX99": -6.462,
+          "years": {
+            "2019": 0.614,
+            "2020": -15.884,
+            "2021": 5.693,
+            "2022": -9.343
+          }
+        },
+        "USDJPY": {
+          "N": 1720,
+          "MEAN_PIPS": 0.266,
+          "MEDIAN_PIPS": 0.9,
+          "WIN_RATE": 0.5087,
+          "STD_PIPS": 93.65,
+          "AFTER_LOW": -0.734,
+          "AFTER_NORMAL": -1.734,
+          "AFTER_STRESS": -3.234,
+          "MEAN_EX99": -4.097,
+          "years": {
+            "2019": 6.867,
+            "2020": -9.303,
+            "2021": -4.699,
+            "2022": 0.122
+          }
+        }
+      },
+      "NAME": "F6_mean_reversion-H1-{\"sma_len\": 20, \"z\": 1.5}-48"
+    },
+    {
+      "N": 308,
+      "MEAN_PIPS": 2.672,
+      "MEDIAN_PIPS": 0.4,
+      "WIN_RATE": 0.5065,
+      "STD_PIPS": 51.03,
+      "AFTER_LOW": 1.672,
+      "AFTER_NORMAL": 0.672,
+      "AFTER_STRESS": -0.828,
+      "MEAN_EX99": 0.776,
+      "PAIRS_POS": 2,
+      "PER_PAIR": {
+        "EURUSD": {
+          "N": 86,
+          "MEAN_PIPS": 3.721,
+          "MEDIAN_PIPS": -3.55,
+          "WIN_RATE": 0.4535,
+          "STD_PIPS": 41.37,
+          "AFTER_LOW": 2.721,
+          "AFTER_NORMAL": 1.721,
+          "AFTER_STRESS": 0.221,
+          "MEAN_EX99": 2.671,
+          "years": {
+            "2019": 5.352,
+            "2020": 4.579,
+            "2021": -16.722,
+            "2022": 9.188
+          }
+        },
+        "GBPUSD": {
+          "N": 110,
+          "MEAN_PIPS": -0.454,
+          "MEDIAN_PIPS": -0.6,
+          "WIN_RATE": 0.4909,
+          "STD_PIPS": 58.97,
+          "AFTER_LOW": -1.454,
+          "AFTER_NORMAL": -2.454,
+          "AFTER_STRESS": -3.954,
+          "MEAN_EX99": -2.922,
+          "years": {
+            "2019": 7.083,
+            "2020": -0.137,
+            "2021": -16.179,
+            "2022": -5.971
+          }
+        },
+        "USDJPY": {
+          "N": 112,
+          "MEAN_PIPS": 4.936,
+          "MEDIAN_PIPS": 3.8,
+          "WIN_RATE": 0.5625,
+          "STD_PIPS": 49.6,
+          "AFTER_LOW": 3.936,
+          "AFTER_NORMAL": 2.936,
+          "AFTER_STRESS": 1.436,
+          "MEAN_EX99": 2.105,
+          "years": {
+            "2019": -8.548,
+            "2020": 8.03,
+            "2021": -2.42,
+            "2022": 9.352
+          }
+        }
+      },
+      "NAME": "F5_vol_compress_breakout-H1-{\"lookback\": 40, \"ratio\": 0.85}-12"
+    }
+  ],
+  "validation2": [
+    {
+      "N": 285,
+      "MEAN_PIPS": 1.589,
+      "MEDIAN_PIPS": 2.2,
+      "WIN_RATE": 0.5263,
+      "STD_PIPS": 48.71,
+      "AFTER_LOW": 0.589,
+      "AFTER_NORMAL": -0.411,
+      "AFTER_STRESS": -1.911,
+      "MEAN_EX99": 0.013,
+      "PAIRS_POS": 2,
+      "PER_PAIR": {
+        "EURUSD": {
+          "N": 80,
+          "MEAN_PIPS": 3.099,
+          "MEDIAN_PIPS": 0.65,
+          "WIN_RATE": 0.5375,
+          "STD_PIPS": 42.07,
+          "AFTER_LOW": 2.099,
+          "AFTER_NORMAL": 1.099,
+          "AFTER_STRESS": -0.401,
+          "MEAN_EX99": 0.804,
+          "years": {
+            "2023": -0.021,
+            "2024": -6.396,
+            "2025": 6.805,
+            "2026": 17.8
+          }
+        },
+        "GBPUSD": {
+          "N": 81,
+          "MEAN_PIPS": -1.511,
+          "MEDIAN_PIPS": 1.6,
+          "WIN_RATE": 0.5062,
+          "STD_PIPS": 49.11,
+          "AFTER_LOW": -2.511,
+          "AFTER_NORMAL": -3.511,
+          "AFTER_STRESS": -5.011,
+          "MEAN_EX99": -3.3,
+          "years": {
+            "2023": -21.575,
+            "2024": 6.233,
+            "2025": 2.983,
+            "2026": -8.164
+          }
+        },
+        "USDJPY": {
+          "N": 124,
+          "MEAN_PIPS": 2.64,
+          "MEDIAN_PIPS": 4.2,
+          "WIN_RATE": 0.5323,
+          "STD_PIPS": 52.57,
+          "AFTER_LOW": 1.64,
+          "AFTER_NORMAL": 0.64,
+          "AFTER_STRESS": -0.86,
+          "MEAN_EX99": 0.73,
+          "years": {
+            "2023": -7.776,
+            "2024": 7.432,
+            "2025": -4.162,
+            "2026": 5.273
+          }
+        }
+      },
+      "NAME": "F5_vol_compress_breakout-H1-{\"lookback\": 40, \"ratio\": 0.85}-12"
+    }
+  ]
+}

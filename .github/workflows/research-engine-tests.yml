@@ -21,5 +21,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Run research suites (synthetic only)
+      - name: Run root research suites (synthetic only)
         run: python -m unittest discover -s . -p "test_*.py" -v
+      - name: Run H1/H4 research suites (synthetic only)
+        run: python -m unittest discover -s research/autonomous_h1_h4_2026_09 -p "test_*.py" -v

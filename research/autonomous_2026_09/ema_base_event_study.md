@@ -57,10 +57,11 @@ EMA_BASE_REJECTED       = YES
 
 Le noyau de signal historique, isolé de tout money management et de tous
 ses filtres post-hoc, ne contient **pas** d'information prédictive
-exploitable sur EURUSD 2010→2026. Ceci confirme a posteriori que les
-résultats historiques « champions » du dépôt provenaient du money
-management (pyramid sur grappes de wins) et de la sélection post-hoc de
-filtres, pas du signal lui-même.
+exploitable sur EURUSD 2010→2026. Ce résultat est **compatible avec
+l'hypothèse** que les résultats historiques « champions » du dépôt
+s'expliquaient largement par le money management (pyramid sur grappes de
+wins) et la sélection post-hoc de filtres — mais cette causalité exacte
+n'est pas démontrée par la présente étude.
 
 Conformément à la mission : passage en Phase 2B (ablations + familles
 exploratoires), sans tentative de sauvetage d'EMA_BASE.

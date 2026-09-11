@@ -15,7 +15,7 @@ from event_study import DATA_END, DATA_START, SignalCollector, load_filtered_bar
 from variants import DonchianBreakoutH1, EmaBaseVariant, RsiMeanReversion
 from research_engine import CostModel, ResearchEngine, SizingConfig
 
-HORIZONS = {4: "4h", 8: "2h0", 16: "4h0", 48: "12h", 96: "24h"}
+HORIZONS = {4: "1h", 8: "2h", 16: "4h", 48: "12h", 96: "24h"}  # M15 bars
 PIP = 0.0001
 
 

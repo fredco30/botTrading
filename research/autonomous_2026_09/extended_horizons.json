@@ -1,20 +1,20 @@
 {
   "H6_rsi_meanrev": {
-    "4h": {
+    "1h": {
       "N": 36031,
       "MEAN_PIPS": 0.179,
       "MEDIAN_PIPS": 0.9,
       "WIN_RATE": 0.5359,
       "STD": 15.29
     },
-    "2h0": {
+    "2h": {
       "N": 36028,
       "MEAN_PIPS": 0.121,
       "MEDIAN_PIPS": 0.9,
       "WIN_RATE": 0.526,
       "STD": 21.08
     },
-    "4h0": {
+    "4h": {
       "N": 36023,
       "MEAN_PIPS": 0.233,
       "MEDIAN_PIPS": 0.7,
@@ -38,21 +38,21 @@
     "N_SIGNALS": 36035
   },
   "H7_donchian_24h": {
-    "4h": {
+    "1h": {
       "N": 36875,
       "MEAN_PIPS": -0.18,
       "MEDIAN_PIPS": -0.7,
       "WIN_RATE": 0.4669,
       "STD": 15.28
     },
-    "2h0": {
+    "2h": {
       "N": 36873,
       "MEAN_PIPS": -0.294,
       "MEDIAN_PIPS": -0.9,
       "WIN_RATE": 0.4684,
       "STD": 20.81
     },
-    "4h0": {
+    "4h": {
       "N": 36873,
       "MEAN_PIPS": -0.666,
       "MEDIAN_PIPS": -0.8,
@@ -76,21 +76,21 @@
     "N_SIGNALS": 36879
   },
   "H1_trend_pullback": {
-    "4h": {
+    "1h": {
       "N": 194455,
       "MEAN_PIPS": -0.007,
       "MEDIAN_PIPS": 0.0,
       "WIN_RATE": 0.4961,
       "STD": 12.86
     },
-    "2h0": {
+    "2h": {
       "N": 194454,
       "MEAN_PIPS": 0.023,
       "MEDIAN_PIPS": -0.1,
       "WIN_RATE": 0.4947,
       "STD": 18.12
     },
-    "4h0": {
+    "4h": {
       "N": 194452,
       "MEAN_PIPS": 0.051,
       "MEDIAN_PIPS": -0.2,

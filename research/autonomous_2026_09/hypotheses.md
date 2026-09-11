@@ -48,7 +48,7 @@ retenir l'attention.
 
 - **EMA_BASE_REJECTED** (Phase 1).
 - Phase 2A (construction d'une stratégie) **non déclenchée** : aucun
-  signal n'a démontré une espérance brute supérieure aux coûts.
+  signal n'a montré une espérance brute supérieure aux coûts.
 - SMC **non reconstruit** : conformément à la mission, la reconstruction
   propre d'un système à ~25 degrés de liberté sans aucun signal préalable
   convaincant n'est pas un usage raisonnable de la mission.
