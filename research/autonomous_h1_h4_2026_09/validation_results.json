@@ -1,0 +1,165 @@
+{
+  "discovery_candidates": [
+    {
+      "family": "F6_mean_reversion",
+      "tf": "H1",
+      "params": {
+        "sma_len": 20,
+        "z": 1.5
+      },
+      "horizon": 48,
+      "agg_mean_normal": 1.301,
+      "pos_pairs": 2,
+      "n_total": 12365,
+      "min_years_pos": 5
+    },
+    {
+      "family": "F5_vol_compress_breakout",
+      "tf": "H1",
+      "params": {
+        "lookback": 40,
+        "ratio": 0.85
+      },
+      "horizon": 12,
+      "agg_mean_normal": 1.086,
+      "pos_pairs": 2,
+      "n_total": 594,
+      "min_years_pos": 4
+    }
+  ],
+  "validation1": [
+    {
+      "N": 5411,
+      "MEAN_PIPS": -1.774,
+      "MEDIAN_PIPS": -1.2,
+      "WIN_RATE": 0.4938,
+      "STD_PIPS": 92.49,
+      "AFTER_LOW": -2.774,
+      "AFTER_NORMAL": -3.774,
+      "AFTER_STRESS": -5.274,
+      "MEAN_EX99": -5.293,
+      "PAIRS_POS": 0,
+      "PER_PAIR": {
+        "EURUSD": {
+          "N": 1852,
+          "MEAN_PIPS": -2.145,
+          "MEDIAN_PIPS": -2.5,
+          "WIN_RATE": 0.4849,
+          "STD_PIPS": 70.01,
+          "AFTER_LOW": -3.145,
+          "AFTER_NORMAL": -4.145,
+          "AFTER_STRESS": -5.645,
+          "MEAN_EX99": -4.491,
+          "years": {
+            "2019": -5.566,
+            "2020": -8.157,
+            "2021": 1.974,
+            "2022": -4.743
+          }
+        },
+        "GBPUSD": {
+          "N": 1843,
+          "MEAN_PIPS": -3.182,
+          "MEDIAN_PIPS": -2.0,
+          "WIN_RATE": 0.4905,
+          "STD_PIPS": 110.05,
+          "AFTER_LOW": -4.182,
+          "AFTER_NORMAL": -5.182,
+          "AFTER_STRESS": -6.682,
+          "MEAN_EX99": -6.906,
+          "years": {
+            "2019": 0.185,
+            "2020": -16.663,
+            "2021": 5.339,
+            "2022": -9.1
+          }
+        },
+        "USDJPY": {
+          "N": 1716,
+          "MEAN_PIPS": 0.138,
+          "MEDIAN_PIPS": 1.4,
+          "WIN_RATE": 0.507,
+          "STD_PIPS": 93.16,
+          "AFTER_LOW": -0.862,
+          "AFTER_NORMAL": -1.862,
+          "AFTER_STRESS": -3.362,
+          "MEAN_EX99": -4.209,
+          "years": {
+            "2019": 6.35,
+            "2020": -10.332,
+            "2021": -5.241,
+            "2022": 1.76
+          }
+        }
+      },
+      "NAME": "F6_mean_reversion-H1-{\"sma_len\": 20, \"z\": 1.5}-48"
+    },
+    {
+      "N": 308,
+      "MEAN_PIPS": 3.007,
+      "MEDIAN_PIPS": 2.95,
+      "WIN_RATE": 0.5325,
+      "STD_PIPS": 51.86,
+      "AFTER_LOW": 2.007,
+      "AFTER_NORMAL": 1.007,
+      "AFTER_STRESS": -0.493,
+      "MEAN_EX99": 1.027,
+      "PAIRS_POS": 1,
+      "PER_PAIR": {
+        "EURUSD": {
+          "N": 86,
+          "MEAN_PIPS": 1.506,
+          "MEDIAN_PIPS": -1.6,
+          "WIN_RATE": 0.4767,
+          "STD_PIPS": 42.26,
+          "AFTER_LOW": 0.506,
+          "AFTER_NORMAL": -0.494,
+          "AFTER_STRESS": -1.994,
+          "MEAN_EX99": 0.364,
+          "years": {
+            "2019": -0.074,
+            "2020": -3.532,
+            "2021": -12.856,
+            "2022": 9.912
+          }
+        },
+        "GBPUSD": {
+          "N": 110,
+          "MEAN_PIPS": -1.064,
+          "MEDIAN_PIPS": 2.8,
+          "WIN_RATE": 0.5364,
+          "STD_PIPS": 59.41,
+          "AFTER_LOW": -2.064,
+          "AFTER_NORMAL": -3.064,
+          "AFTER_STRESS": -4.564,
+          "MEAN_EX99": -3.657,
+          "years": {
+            "2019": 9.654,
+            "2020": -4.187,
+            "2021": -12.479,
+            "2022": -11.895
+          }
+        },
+        "USDJPY": {
+          "N": 112,
+          "MEAN_PIPS": 8.157,
+          "MEDIAN_PIPS": 4.75,
+          "WIN_RATE": 0.5714,
+          "STD_PIPS": 50.58,
+          "AFTER_LOW": 7.157,
+          "AFTER_NORMAL": 6.157,
+          "AFTER_STRESS": 4.657,
+          "MEAN_EX99": 5.252,
+          "years": {
+            "2019": -8.48,
+            "2020": 8.089,
+            "2021": -1.885,
+            "2022": 18.023
+          }
+        }
+      },
+      "NAME": "F5_vol_compress_breakout-H1-{\"lookback\": 40, \"ratio\": 0.85}-12"
+    }
+  ],
+  "validation2": []
+}

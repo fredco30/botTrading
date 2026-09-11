@@ -1,0 +1,68 @@
+[
+  {
+    "SOURCE": "C:\\Users\\Fred\\.zcode\\tmp\\autonomous\\eurusd15_snapshot.csv (git snapshot 3cd12c3:EURUSD15.csv)",
+    "SYMBOL": "EURUSD",
+    "TIMEFRAME": "H1",
+    "TIMEZONE": "MT4 server time (unknown offset, consistent across pairs)",
+    "BID_OR_MID": "BID (MT4 export)",
+    "FIRST_TS": "2010-01-04 00:00:00",
+    "LAST_TS": "2026-04-08 02:00:00",
+    "ROWS": 100853,
+    "SHA256_SOURCE": "8c2dd952d2a8f8d22d350549be714879db5bf06e024c44592e0c5dbfa6f81792"
+  },
+  {
+    "SOURCE": "C:\\Users\\Fred\\.zcode\\tmp\\autonomous\\eurusd15_snapshot.csv (git snapshot 3cd12c3:EURUSD15.csv)",
+    "SYMBOL": "EURUSD",
+    "TIMEFRAME": "H4",
+    "TIMEZONE": "MT4 server time (unknown offset, consistent across pairs)",
+    "BID_OR_MID": "BID (MT4 export)",
+    "FIRST_TS": "2010-01-04 00:00:00",
+    "LAST_TS": "2026-04-08 00:00:00",
+    "ROWS": 25282,
+    "SHA256_SOURCE": "8c2dd952d2a8f8d22d350549be714879db5bf06e024c44592e0c5dbfa6f81792"
+  },
+  {
+    "SOURCE": "C:\\Users\\Fred\\.zcode\\tmp\\audit-bottrading\\botTrading\\GBPUSD15.csv",
+    "SYMBOL": "GBPUSD",
+    "TIMEFRAME": "H1",
+    "TIMEZONE": "MT4 server time (unknown offset, consistent across pairs)",
+    "BID_OR_MID": "BID (MT4 export)",
+    "FIRST_TS": "2010-01-04 00:00:00",
+    "LAST_TS": "2026-04-08 23:00:00",
+    "ROWS": 100923,
+    "SHA256_SOURCE": "30009aff684656ee90504b16cd4e48f4ba134d2fd692e66cee262297257b1c54"
+  },
+  {
+    "SOURCE": "C:\\Users\\Fred\\.zcode\\tmp\\audit-bottrading\\botTrading\\GBPUSD15.csv",
+    "SYMBOL": "GBPUSD",
+    "TIMEFRAME": "H4",
+    "TIMEZONE": "MT4 server time (unknown offset, consistent across pairs)",
+    "BID_OR_MID": "BID (MT4 export)",
+    "FIRST_TS": "2010-01-04 00:00:00",
+    "LAST_TS": "2026-04-08 20:00:00",
+    "ROWS": 25299,
+    "SHA256_SOURCE": "30009aff684656ee90504b16cd4e48f4ba134d2fd692e66cee262297257b1c54"
+  },
+  {
+    "SOURCE": "C:\\Users\\Fred\\.zcode\\tmp\\audit-bottrading\\botTrading\\USDJPY15.csv",
+    "SYMBOL": "USDJPY",
+    "TIMEFRAME": "H1",
+    "TIMEZONE": "MT4 server time (unknown offset, consistent across pairs)",
+    "BID_OR_MID": "BID (MT4 export)",
+    "FIRST_TS": "2010-01-04 00:00:00",
+    "LAST_TS": "2026-04-08 23:00:00",
+    "ROWS": 100929,
+    "SHA256_SOURCE": "30c0d7436a448344ffb18242f248ca724316a36abf734b76a1d2b6936d3e474a"
+  },
+  {
+    "SOURCE": "C:\\Users\\Fred\\.zcode\\tmp\\audit-bottrading\\botTrading\\USDJPY15.csv",
+    "SYMBOL": "USDJPY",
+    "TIMEFRAME": "H4",
+    "TIMEZONE": "MT4 server time (unknown offset, consistent across pairs)",
+    "BID_OR_MID": "BID (MT4 export)",
+    "FIRST_TS": "2010-01-04 00:00:00",
+    "LAST_TS": "2026-04-08 20:00:00",
+    "ROWS": 25300,
+    "SHA256_SOURCE": "30c0d7436a448344ffb18242f248ca724316a36abf734b76a1d2b6936d3e474a"
+  }
+]
