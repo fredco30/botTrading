@@ -29,6 +29,8 @@ REC = np.dtype([("off", ">i4"), ("o", ">i4"), ("c", ">i4"),
 
 PLAUSIBLE = {
     "EURUSD": (0.60, 1.80), "GBPUSD": (1.10, 2.30), "USDJPY": (60.0, 200.0),
+    "EURGBP": (0.75, 1.05), "EURJPY": (90.0, 190.0), "GBPJPY": (110.0, 260.0),
+    "XAUUSD": (900.0, 5000.0),
     "USA500IDXUSD": (400.0, 12000.0), "USATECHIDXUSD": (800.0, 30000.0),
 }
 

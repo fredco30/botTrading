@@ -43,3 +43,13 @@ stratégies de volatilité/relative-value ultérieures.
   puis s'évanouit.
 - USAGE : valuation d'exécution (confirmer la qualité d'un fill) ; NE JUSTIFIE
   PAS de tenir la position (rien à 30-120 min de stable).
+
+
+## SO5 — Compression de range → expansion de volatilité (P034, Phase 2)
+
+- Événement : range 12 h < 0.60 (ou 0.70) × médiane mobile 30 j du range 12 h.
+- Mesure (Discovery) : range forward 12 h médian vs baseline — EURUSD
+  5.2 vs 4.2 pips (ratio 1.24 ; 1.29 au seuil 0.70, N=1800-2166) ; USDJPY
+  3.7 vs 3.3 (1.09-1.12, N=1334-1795). phase2_results.json P034_*.
+- USAGE : sizing de breakout et vol-targeting ; ne prédit PAS la direction
+  (direction moyenne ≈ 0). Candidat volatilité pour une mission dédiée.

@@ -1,5 +1,4 @@
 __pycache__/
 *.pyc
-data_raw/
-*.bi5
-*.parquet
+data_raw/*
+!data_raw/official/

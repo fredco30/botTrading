@@ -118,10 +118,16 @@ def vwap_rth(df):
 
 def running_day_extremes(df, tz):
     """Per-day running extremes known BEFORE each bar (shifted cummax/cummin
-    within the day in `tz`). Causal at any moment inside the bar."""
+    within the day in `tz`). Causal at any moment inside the bar.
+
+    The shift is applied WITHIN each day group: the first bar of a new day
+    never inherits the previous day's extreme (NaN until the day has
+    its own history)."""
     key = pd.Series(df.index.tz_convert(tz).date, index=df.index)
-    hi = df["high"].groupby(key).cummax().shift(1)
-    lo = df["low"].groupby(key).cummin().shift(1)
+    hi = df["high"].groupby(key).cummax()
+    lo = df["low"].groupby(key).cummin()
+    hi = hi.groupby(key).shift(1)
+    lo = lo.groupby(key).shift(1)
     return hi, lo
 
 
@@ -473,7 +479,14 @@ def simulate_strategy(df, events, cost_rt, tz, sess_end_hm,
                     break
                 hit = (h[i] >= tgt) if side == 1 else (l[i] <= tgt)
                 if hit:
-                    gross += trim_frac * side * (tgt - fill)   # limit fill
+                    # GUARD: a trim never executes worse than the fill. If the
+                    # entry gapped beyond the pre-entry day extreme (long entry
+                    # above the old HOD, short below the old LOD), the "new
+                    # extreme" condition is already met at entry; conservative
+                    # interpretation = trim AT FILL (0 PnL on that fraction),
+                    # never a synthetic loss at a level the trade never had.
+                    trim_price = max(tgt, fill) if side == 1 else min(tgt, fill)
+                    gross += trim_frac * side * (trim_price - fill)  # limit fill
                     remaining -= trim_frac
                     trimmed = True   # trail/BE active from next bar
             else:

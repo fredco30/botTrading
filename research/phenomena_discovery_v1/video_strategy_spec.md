@@ -68,17 +68,26 @@ régulière le jour même ; pas de cutoff horaire artificiel dans P000_VIDEO_COR
 (la vidéo montre des entrées le matin mais ne limite pas explicitement).
 Sensibilité documentée a posteriori, sans optimisation.
 
-## ORIGINAL_MARKET
+## ORIGINAL_MARKET — classification scientifique (audit fix v2)
 
-ORIGINAL_MARKET=Actions US (séance régulière + pre-market 04:00–09:30 ET).
-P000_ORIGINAL est donc testé sur son marché naturel — pas sur le Forex.
-Données publiques sans clé profondes pour actions US individuelles incluant le
-pre-market : INDISPONIBLES (yfinance : 60 jours seulement ; les autres sources
-fiables exigent un compte). Substitution documentée : index CFD S&P 500
-(Dukascopy USA500IDXUSD, cotation ~24h incluant 04:00–09:30 ET) = proxy
-économique direct du marché actions US large (SPY/QQQ-class). Limitations
-inscrites dans data_manifest.md. Toute transposition FX est séparée sous
-P000_TRANSFER (Asia range → London breakout/retest).
+P000_ORIGINAL = la stratégie de la vidéo sur SON marché naturel : actions/ETF
+US individuels avec véritable pre-market, volumes réels et microstructure
+propre. CETTE expérience N'A PAS PU ÊTRE RÉALISÉE : aucune source publique
+sans clé ne fournit un historique 5-min profond incluant le pre-market pour
+les actions US (yfinance : 60 jours ; autres fournisseurs : compte requis).
+
+P000_ORIGINAL_EDGE=INCONCLUSIVE_DATA_BLOCKED
+
+P000_PROXY_SP500_CFD = l'adaptation réellement testée dans cette mission :
+index CFD S&P 500 (Dukascopy USA500IDXUSD, cotation ~24h incluant 04:00–09:30
+ET). C'est une expérience utile et informative, mais elle ne REMPLACE PAS
+scientifiquement le marché original (pas de volumes réels par action, pas de
+pre-market actions au sens strict, microstructure différente).
+
+P000_PROXY_SP500_CFD_EDGE=NO_ROBUST_EDGE_FOUND
+
+Toute transposition FX est séparée sous P000_TRANSFER (Asia range → London
+breakout/retest) : P000_TRANSFER_FX=NOT_PROMISING.
 
 ## Classifications
 

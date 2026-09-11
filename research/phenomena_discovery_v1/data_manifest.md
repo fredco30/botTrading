@@ -73,3 +73,43 @@ incluse : filtrée AVANT toute inspection/analyse** (`p000_lib.load_5m` et
 - Toutes les données chargées passent par un filtre strict `ts < 2026-04-09`.
 - Aucun run, statistique ou visuel n'a été produit sur [2026-04-09, 2026-07-24].
 - OOS_ACCESSED=NO
+
+
+---
+
+## PHASE 2 (audit fix + causal phenomena) — datasets ajoutés
+
+### DS7..DS10 — EURGBP / EURJPY / GBPJPY / XAUUSD 5m (Dukascopy, sans clé)
+
+- SOURCE=Dukascopy public datafeed (BID) — mêmes mécaniques que DS3-DS5
+- FIRST_TS=2010-01-01 UTC (les 4) ; LAST_TS=2026-04-08 23:55 UTC (les 4)
+- ROWS_5M=1 221 120 / 1 221 696 / 1 222 272 / 1 222 272
+- ÉCHELLES détectées : EURGBP 1/100000 ; EURJPY, GBPJPY, XAUUSD 1/1000
+- KNOWN_LIMITATIONS=XAUUSD = CFD or spot (pas les futures COMEX) ; pas de séance dimanche (FX)
+- CAUSALITY_NOTES=identiques ; alignements cross-paires sur la grille 5-min UTC commune (inner join)
+
+### DS11 — DGS2 (US 2-year yield, FRED)
+
+- SOURCE=https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS2 (officiel, sans clé)
+- FREQUENCY=quotidien (% ; 3bp = 0.03) ; TIMEZONE=NA (dates)
+- PÉRIODE UTILISÉE=< 2026-04-09 ; ACCESS_DATE=2026-09-11
+- CAUSALITY_NOTES=publication H.15 ~16:00 ET → valeur(t) utilisable à partir de t+1 (lag conservateur +1 jour appliqué)
+- REVISION_RISK=LOW (taux au comptant peu révisés ; trous = jours fériés, ffill documenté)
+
+### DS12 — Taux directeurs officiels (FRED)
+
+- DFEDTARU (Fed target upper, daily, daté par effective date) ; ECBDFR (ECB deposit rate, daily) ; BOERUKM (BoE Bank Rate, monthly steps)
+- CAUSALITY_NOTES=+1 jour de disponibilité appliqué uniformément ; pas de révision (séries en paliers)
+- REVISION_RISK=NONE
+
+### DS13 — Taux BoJ (table de décisions officielles encodée)
+
+- SOURCE=dates de décision BoJ (annonces officielles) : 2010-10-05 0.10%, 2016-01-29 −0.10%, 2024-03-19 0.10%, 2024-07-31 0.25%, 2025-01-24 0.50%
+- ASSUMPTION=proxy « policy rate » (complementary/deposit) ; paliers post-2024 non utilisés en Discovery (2010-2018) — seuls 2010-10-05 et 2016-01-29 affectent la fenêtre Discovery
+- REVISION_RISK=NONE (paliers)
+
+### DS14 — Calendrier FOMC avec heures de publication
+
+- SOURCE=federalreserve.gov/monetarypolicy/fomccalendars.htm (2021+) + fomchistorical{2010..2020}.htm + page de CHAQUE communiqué (« For release at H:MM EST/EDT »)
+- FICHIER=data_raw/official/fomc_decisions.json — 131 décisions 2011-2026, 91 avec heure exacte parsée ; pré-2015 = « For immediate release » (pas d'heure publiée → exclus des études intraday)
+- REVISION_RISK=NONE ; CAUSALITY_NOTES=heure de publication officielle, aucune surprise macro utilisée

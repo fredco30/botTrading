@@ -16,6 +16,7 @@ import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import p000_lib as P  # noqa: E402
+import phenomena_screen as P_NOT_SCREEN  # noqa: E402  (causal_exec_returns / naive_split)
 
 
 def make_day_df(day_utc_midnight, bars, tz="UTC"):
@@ -306,6 +307,150 @@ class TestVWAPVariant(unittest.TestCase):
             self.assertGreater(ev_vwap[0].level, 100.1)
             self.assertEqual(ev_vwap[0].variant, "VWAP")
         self.assertTrue(len(ev_level) >= 0)
+
+
+class TestRunningDayExtremes(unittest.TestCase):
+    def _two_day_df(self):
+        # day1 09:00-09:10 UTC: high 10.0 ; day2 09:00-09:10 UTC: low 9.0
+        idx = pd.to_datetime([
+            "2020-07-15 09:00", "2020-07-15 09:05",
+            "2020-07-16 09:00", "2020-07-16 09:05"], utc=True)
+        df = pd.DataFrame({"open": [100.,100.,100.,100.],
+                           "high": [101.,100.5,100.2,100.1],
+                           "low":  [ 99., 99.5, 98.0, 98.5],
+                           "close":[100.,100.,100.,100.],
+                           "volume":[10.]*4}, index=idx)
+        return df
+
+    def test_first_bar_of_day_gets_nan_not_previous_extreme(self):
+        hi, lo = P.running_day_extremes(self._two_day_df(), "UTC")
+        self.assertTrue(pd.isna(hi.iloc[0]))
+        self.assertTrue(pd.isna(lo.iloc[0]))
+        # day 2 first bar must NOT carry day 1 extreme (bug regression)
+        self.assertTrue(pd.isna(hi.iloc[2]))
+        self.assertTrue(pd.isna(lo.iloc[2]))
+        # day 1 second bar knows day 1 first bar extreme
+        self.assertEqual(hi.iloc[1], 101.0)
+        # day 2 second bar knows only day 2 first bar
+        self.assertEqual(hi.iloc[3], 100.2)
+        self.assertEqual(lo.iloc[3], 98.0)
+
+
+class TestTrimGapGuard(unittest.TestCase):
+    def test_trim_never_worse_than_fill_on_gap_entry(self):
+        # long entry GAPS above the pre-entry day high (old HOD): the trim
+        # must execute AT FILL (0 PnL on the trimmed fraction), never at the
+        # stale lower level.
+        rows = [
+            (930, 100.05, 100.30, 100.04, 100.25, 10.0),  # confirm (day high 100.30)
+            (935, 100.28, 100.32, 100.09, 100.15, 10.0),  # tap (day high 100.32)
+            (940, 100.35, 100.40, 100.30, 100.36, 10.0),  # gap entry: fill 100.35 > tgt 100.32 -> trim at fill
+            (945, 100.36, 100.38, 100.34, 100.37, 10.0),  # runner holds
+        ]
+        df = build_us_day("2020-07-15", flat_premarket(100.0), rows)
+        ev = P.detect_us_events(df)
+        self.assertEqual(len(ev), 1)
+        tr = P.simulate_strategy(df, ev, 0.0, P.ET, 1600)[0]
+        # entry fill 100.35 (gap open), trim AT FILL = 0.0, runner EOD at 100.37
+        expected = 0.5 * (100.35 - 100.35) + 0.5 * (100.37 - 100.35)
+        self.assertAlmostEqual(tr.gross, expected, places=9)
+        # regression guard: the old buggy trim at the stale 100.32 level would
+        # have produced 0.5*(100.32-100.35) + 0.5*(0.02) = -0.005
+        self.assertGreaterEqual(tr.gross, 0.0)
+
+
+class TestCausalExecReturns(unittest.TestCase):
+    def _df(self, idx, base=1.0):
+        n = len(idx)
+        return pd.DataFrame({"open": [base] * n, "high": [base] * n,
+                             "low": [base] * n, "close": [base] * n,
+                             "volume": [1.0] * n}, index=pd.DatetimeIndex(idx))
+
+    def test_pip_size_usdjpy_vs_eurusd_same_economic_move(self):
+        # same 10-pip economic move on both instruments -> 10 pips reported
+        idx = pd.date_range("2015-06-01 00:00", periods=40, freq="15min")
+        df_eur = self._df(idx, 1.1000)
+        df_jpy = self._df(idx, 110.00)
+        # EURUSD: open[5] = 1.1010 (10 pips up from open[0..4])
+        df_eur.iloc[5:, df_eur.columns.get_loc("open")] = 1.1010
+        # USDJPY: open[5] = 110.10 (10 JPY-pips up: pip = 0.01)
+        df_jpy.iloc[5:, df_jpy.columns.get_loc("open")] = 110.10
+        ex = np.zeros(40); ex[0] = 1.0     # long executed at bar 0 open
+        rets_eur = P_NOT_SCREEN.causal_exec_returns(df_eur, ex, (5,), 0.0001)
+        rets_jpy = P_NOT_SCREEN.causal_exec_returns(df_jpy, ex, (5,), 0.01)
+        self.assertAlmostEqual(rets_eur["ret"].iloc[0], 10.0, places=6)
+        self.assertAlmostEqual(rets_jpy["ret"].iloc[0], 10.0, places=6)
+
+    def test_entry_ts_is_execution_bar_not_future_bar(self):
+        idx = pd.date_range("2015-06-01 00:00", periods=40, freq="15min")
+        df = self._df(idx, 1.1000)
+        df.iloc[10:, df.columns.get_loc("open")] = 1.1050
+        ex = np.zeros(40); ex[0] = 1.0
+        rets = P_NOT_SCREEN.causal_exec_returns(df, ex, (10,), 0.0001)
+        self.assertEqual(rets["entry_ts"].iloc[0], idx[0])          # execution bar
+        self.assertNotEqual(rets["entry_ts"].iloc[0], idx[10])      # NOT the future bar
+
+    def test_no_discovery_candidate_uses_future_window(self):
+        # execution just before the Discovery end whose horizon crosses into
+        # 2019 must be dropped; the kept event must have future_ts < hi
+        idx = pd.date_range("2018-12-31 00:00", periods=400, freq="15min")
+        df = self._df(idx, 1.1000)
+        ex = np.zeros(400)
+        ex[95] = 1.0     # executed 2018-12-31 23:45 ; +16 bars -> 2019-01-01 03:45
+        ex[10] = 1.0     # executed 2018-12-31 02:30 ; +16 bars stays in 2018
+        lo, hi = P_NOT_SCREEN.naive_split("DISCOVERY")
+        rets = P_NOT_SCREEN.causal_exec_returns(df, ex, (16,), 0.0001,
+                                                split=(lo, hi))
+        kept = list(rets["entry_ts"])
+        self.assertIn(idx[10], kept)
+        self.assertNotIn(idx[95], kept)
+
+
+class TestValidationGate(unittest.TestCase):
+    def test_v1_v2_locked_until_authorized(self):
+        import gate as G
+        with self.assertRaises(G.ValidationGateError):
+            G.window("V1")
+        with self.assertRaises(G.ValidationGateError):
+            G.window("V2")
+        self.assertEqual(G.window("DISCOVERY")[0].year, 2010)
+        # unknown splits never pass
+        with self.assertRaises(G.ValidationGateError):
+            G.window("OOS_PROTECTED")
+        # authorize V1 -> allowed (this test's own scope; no data touched)
+        try:
+            G.authorize("V1", "unit-test: locking mechanism only, no data read")
+            self.assertEqual(G.window("V1")[0].year, 2019)
+        finally:
+            G._AUTHORIZED.discard("V1")
+
+
+class TestCrossMarketCausalLag(unittest.TestCase):
+    """Phase 2 helper: follower must be priced at its first open at/after the
+    leader's information moment (leader close of bar i -> follower open i+1)."""
+
+    def test_follower_entry_is_after_leader_close(self):
+        idx = pd.date_range("2015-06-01 00:00", periods=30, freq="5min",
+                            tz="UTC")
+        df = pd.DataFrame({"open": 1.0, "high": 1.0, "low": 1.0,
+                           "close": 1.0, "volume": 1.0}, index=idx)
+        leader_ts = [idx[5]]
+        import phase2_lib as Q2
+        rets = Q2.follower_returns(df, leader_ts, [1], (1,), 0.0001)
+        self.assertEqual(rets["entry_ts"].iloc[0], idx[6])   # open i+1, not i
+
+    def test_dst_mismatch_week_london_before_ny(self):
+        # Week of 2020-03-09: US already on EDT, UK still on GMT. London open
+        # 08:00 London = 08:00 UTC ; NY open 09:30 New York = 13:30 UTC.
+        lon_open = pd.Timestamp("2020-03-09 08:00", tz="Europe/London")
+        ny_open = pd.Timestamp("2020-03-09 09:30", tz="America/New_York")
+        self.assertEqual(lon_open.tz_convert("UTC").hour, 8)
+        self.assertEqual(ny_open.tz_convert("UTC").hour, 13)
+        self.assertLess(lon_open.tz_convert("UTC"),
+                        ny_open.tz_convert("UTC"))
+        # synchronized-DST week (April): London 07:00 UTC, NY 13:30 UTC
+        lon_open2 = pd.Timestamp("2020-04-06 08:00", tz="Europe/London")
+        self.assertEqual(lon_open2.tz_convert("UTC").hour, 7)
 
 
 class TestOOSProtection(unittest.TestCase):

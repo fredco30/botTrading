@@ -1,10 +1,11 @@
-# P000 — VIDEO STRATEGY REPORT (phenomena-discovery-v1)
+# P000 — VIDEO STRATEGY REPORT (phenomena-discovery-v1, audit fix v2)
 
 Source : https://youtu.be/tLEcVa1FxzM — PBInvesting, « This ONLY
 One-Trade-Per-Day Strategy Works Everyday For Me » (18:14, 2026-07-26).
 Règles reconstruites : video_strategy_spec.md (transcript archivé).
-Marché original : actions US ; testé sur proxy index S&P 500 CFD
-(USA500IDXUSD, 2011-09-19 → 2026-04-08, hors OOS). Résultats bruts :
+Marché original : actions US (P000_ORIGINAL — DATA_BLOCKED) ; expérience
+réalisée : proxy index S&P 500 CFD (USA500IDXUSD, 2011-09-19 → 2026-04-08,
+hors OOS) = P000_PROXY_SP500_CFD. Résultats bruts :
 video_strategy_results.json ; réplication : p000_replication_usatech.json.
 
 ## 1. Ce qui a été testé
@@ -58,15 +59,20 @@ signature que P021/P008 (traces de microstructure). À 30-120 min ≈ 0
 STRATEGY net à NORMAL : négatif 3/3 paires sur Discovery et V1/V2.
 → VIDEO_STRATEGY_TRANSFER_TO_FX = NOT_PROMISING.
 
-## 6. VERDICTS
+## 6. VERDICTS (classification corrigée — audit fix v2)
 
-VIDEO_STRATEGY_RAW_EDGE=INCONCLUSIVE
- (Discovery plat aux horizons utiles ; positif V1/V2 mais instable, non répliqué cross-marché)
-VIDEO_STRATEGY_NET_EDGE=NO
- (net ≤ 0 à NORMAL sur Discovery ; ≈0 V1 ; +0.43 V2 fragile au coût STRESS)
-VIDEO_STRATEGY_ROBUST=NO
- (échec Discovery, échec coût STRESS, échec réplication USATECH Discovery/V1)
-VIDEO_STRATEGY_TRANSFER_TO_FX=NOT_PROMISING
+P000_ORIGINAL_EDGE=INCONCLUSIVE_DATA_BLOCKED
+ (la stratégie réelle sur actions/ETF US n'a PAS pu être testée : aucune
+ source publique sans clé d'historique 5-min pre-market actions. Les
+ résultats ci-dessous portent sur le PROXY et ne valent PAS pour le marché
+ original.)
+
+P000_PROXY_SP500_CFD_EDGE=NO_ROBUST_EDGE_FOUND
+ (RAW: Discovery plat aux horizons utiles, V1/V2 positifs mais instables et
+ non répliqués cross-marché ; NET: ≤ 0 à NORMAL sur Discovery, ≈0 V1,
+ +0.43 V2 fragile au coût STRESS ; ROBUST: NON)
+
+P000_TRANSFER_FX=NOT_PROMISING
  (gross 5 min < coûts ; inversion de signe GBPUSD V2)
 
 ## 7. Ce que la vidéo a de réel (et ce qui n'est pas démontré)

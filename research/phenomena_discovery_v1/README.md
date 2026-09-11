@@ -5,13 +5,18 @@ Pipeline scientifique : PHENOMENON → SIGNAL → VALIDATION → STRATEGY.
 Priorité absolue : **P000** = stratégie de la vidéo fournie par l'utilisateur,
 reconstruite EXTERNALLY_PREREGISTERED puis testée sans optimisation.
 
-## Verdict en une ligne
+## Verdict en une ligne (mis à jour Phase 2)
 
-**FINAL_VERDICT = NO_ROBUST_PHENOMENON_FOUND_IN_V1_SEARCH_SPACE** — la
-stratégie de la vidéo n'a pas d'edge net robuste sur son marché (proxy S&P
-500) ni en transposition FX ; aucun des 16 phénomènes testés en Discovery ne
-franchit le gate ; 1 candidat anti-edge (Donchian M15 gross-négatif 3/3) mais
-son inversion n'est pas net-positive ni stable → 0 survivant.
+**PHASE 1 : NO_ROBUST_PHENOMENON_FOUND_AMONG_TESTED_SUBSET** — P000 :
+P000_ORIGINAL_EDGE=INCONCLUSIVE_DATA_BLOCKED (marché actions US réel non
+testable sans données), P000_PROXY_SP500_CFD_EDGE=NO_ROBUST_EDGE_FOUND,
+P000_TRANSFER_FX=NOT_PROMISING. 1 candidat anti-edge (Donchian M15
+gross-négatif 3/3 en pips corrigés) mais inversion sous les coûts → 0
+survivant. **PHASE 2** : 10 familles causales supplémentaires
+(cross-pair, taux/carry, gold-JPY, fix, month-end, FOMC, PDH/PDL,
+NY-overlap, compression) — voir phase2_report.md et gate_audit.log.
+Correction d'audit : les résultats V1/V2 de P029 produits avant le gate sont
+marqués INVALID_FOR_FRESH_VALIDATION (P029_V1_V2_CONTAMINATED=YES).
 
 ## Contenu
 

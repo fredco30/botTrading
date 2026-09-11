@@ -88,6 +88,44 @@ def atr(df, n=96):
     return tr.rolling(n).mean()
 
 
+
+def causal_exec_returns(df, ex_side, horizons, pip, split=None):
+    """Causal execution returns for a shifted signal array (to_executable_side
+    convention: ex_side[i] != 0 means EXECUTION at the open of bar i).
+
+    * pip scaling via the instrument pip size (USDJPY = 0.01, not 0.0001);
+    * entry_ts = df.index[i] (the real execution bar), target = df.index[i+h];
+    * split=(lo,hi): execution must satisfy lo <= entry_ts < hi AND the
+      future_ts = df.index[i+h] must be strictly < hi (no 2019 price may feed
+      a Discovery candidate).
+    """
+    o = df["open"].to_numpy()
+    n = len(df)
+    rows = []
+    for hh in horizons:
+        last = n - 1 - hh
+        if last < 1:
+            continue
+        idx = np.where(ex_side[:last + 1] != 0)[0]
+        for i in idx:
+            if split is not None:
+                if not (split[0] <= df.index[i] < split[1]):
+                    continue
+                if not (df.index[i + hh] < split[1]):
+                    continue
+            rows.append({"entry_ts": df.index[i],
+                         "side": int(np.sign(ex_side[i])),
+                         "h": hh,
+                         "ret": ex_side[i] * (o[i + hh] - o[i]) / pip})
+    return pd.DataFrame(rows)
+
+
+def naive_split(name):
+    """Discovery bounds as naive timestamps (repo M15 data is naive)."""
+    lo, hi = P.SPLITS[name]
+    return lo.tz_localize(None), hi.tz_localize(None)
+
+
 # ---------------------------------------------------------------------------
 # Screens
 # ---------------------------------------------------------------------------
@@ -357,26 +395,14 @@ def screen_anti_edge_ma_cross(sym):
     """P028: EMA5/EMA20 cross M15 -> GROSS forward expectancy (anti-edge)."""
     import h1h4_lib as H
     df = load_m15(sym)
-    side = H.f1_tsmom(df, 1)  # placeholder not used
     ef = H.ema(df["close"], 5)
     es = H.ema(df["close"], 20)
     up = (ef > es) & (ef.shift() <= es.shift())
     dn = (ef < es) & (ef.shift() >= es.shift())
-    lo, hi = P.SPLITS["DISCOVERY"]
-    lo_n, hi_n = lo.tz_localize(None), hi.tz_localize(None)   # M15 CSV is naive (MT4 server time)
-    m = (df.index >= lo_n) & (df.index < hi_n)
-    side = np.where(up & m, 1, np.where(dn & m, -1, 0)).astype(np.int8)
+    side = np.where(up, 1, np.where(dn, -1, 0)).astype(np.int8)
     ex = H.to_executable_side(side)  # causal: execute at next bar open
-    o = df["open"].to_numpy()
-    rows = []
-    for hh in (4, 8, 16):
-        base = o[:-hh]
-        fwd = o[hh:]
-        ev = ex[:len(base)] != 0
-        r = np.sign(ex[:len(base)]) * (fwd - base) / 0.0001
-        rows.append(pd.DataFrame({"h": hh, "ret": r[ev], "side": np.sign(ex[:len(base)])[ev],
-                                  "entry_ts": df.index[hh:len(base) + hh][ev]}))
-    rets = pd.concat(rows)
+    rets = causal_exec_returns(df, ex, (4, 8, 16), P.PIP[sym],
+                               split=naive_split("DISCOVERY"))
     return {f"h{hh*15}m": stat_block(rets[rets["h"] == hh]) for hh in (4, 8, 16)}
 
 
@@ -384,23 +410,10 @@ def screen_anti_edge_donchian(sym):
     """P029: Donchian 48 M15 cross -> GROSS forward expectancy (anti-edge)."""
     import h1h4_lib as H
     df = load_m15(sym)
-    lo, hi = P.SPLITS["DISCOVERY"]
-    lo_n, hi_n = lo.tz_localize(None), hi.tz_localize(None)
-    m = (df.index >= lo_n) & (df.index < hi_n)
     side = H.f2_donchian(df, 48)
-    side = side * m
     ex = H.to_executable_side(side)
-    o = df["open"].to_numpy()
-    rows = []
-    for hh in (8, 16, 32):
-        base = o[:-hh]
-        fwd = o[hh:]
-        ev = ex[:len(base)] != 0
-        r = np.sign(ex[:len(base)]) * (fwd - base) / 0.0001
-        rows.append(pd.DataFrame({"h": hh, "ret": r[ev],
-                                  "side": np.sign(ex[:len(base)])[ev],
-                                  "entry_ts": df.index[hh:len(base) + hh][ev]}))
-    rets = pd.concat(rows)
+    rets = causal_exec_returns(df, ex, (8, 16, 32), P.PIP[sym],
+                               split=naive_split("DISCOVERY"))
     return {f"h{hh*15}m": stat_block(rets[rets["h"] == hh]) for hh in (8, 16, 32)}
 
 
