@@ -1,35 +1,48 @@
 # VALIDATION_1 — candidats gelés sur 2019-01-01 → 2022-12-31
 
-Aucun paramètre modifié après DISCOVERY. Événements générés une seule fois
-sur l'historique complet (features strictement passées), puis filtrés par
-date de décision dans la fenêtre — les indicateurs ne redémarrent pas
-artificiellement.
+> ⚠️ **INVALIDATED_BY_DOUBLE_EXECUTION_SHIFT** : la première version de ce
+> rapport (commit d460acb) mesurait la validation avec un double décalage
+> d'exécution (shift dans `evaluate_window` + shift dans `event_returns`),
+> incohérent avec DISCOVERY (un seul shift). Ces chiffres sont invalidés et
+> remplacés ci-dessous par le rerun corrigé (mêmes candidats gelés, mêmes
+> règles, aucun retuning). L'historique Git conserve la version invalide.
+
+Convention corrigée : les générateurs produisent le signal brut sur la
+barre dont la clôture le rend connu ; `event_returns()` applique LE
+seul décalage d'exécution (close[i] → open[i+1]). Garanti par les tests
+de parité DISCOVERY/VALIDATION (`TestExecutionShiftParity`).
 
 ## C1 — F6 mean reversion H1 (SMA 20, z 1.5, horizon 12h)
 
-| | N | MEAN pips | après LOW | après NORMAL | après STRESS | WIN |
-|---|---:|---:|---:|---:|---:|---:|
-| Agrégat | 5 419 | −1.67 | −2.67 | **−3.67** | −5.17 | 49.3 % |
-| EURUSD | 1 856 | −2.28 | −3.28 | −4.28 | −5.78 | 48.0 % |
-| GBPUSD | 1 843 | −2.85 | −3.85 | −4.85 | −6.35 | 49.3 % |
-| USDJPY | 1 720 | +0.27 | −0.73 | −1.73 | −3.23 | 50.9 % |
+| | N | MEAN pips | après LOW | après NORMAL | après STRESS | WIN | EX99 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Agrégat | 5 420 | −1.88 | −2.88 | **−3.88** | −5.38 | 49.4 % | −5.39 |
+| EURUSD | 1 857 | −1.99 | −2.99 | −3.99 | −5.49 | 48.6 % | −4.32 |
+| GBPUSD | 1 843 | −3.18 | −4.18 | −5.18 | −6.68 | 49.1 % | −6.91 |
+| USDJPY | 1 720 | −0.37 | −1.37 | −2.37 | −3.87 | 50.6 % | −4.71 |
 
-**GATE : FAIL** — l'effet DISCOVERY (+1.30) s'inverse complètement
-(0/3 paires positives, mean hors outliers −5.16). L'effet de
-mean-reversion 2010-2018 était un artifact de période.
+**GATE : FAIL** (`AFTER_NORMAL > 0` violé : −3.88 ; `PAIRS_POS = 0/3`).
+L'effet DISCOVERY (+1.30) s'inverse complètement — inchangé dans sa
+substance par rapport au run invalide : l'effet de mean-reversion
+2010-2018 était un artifact de période.
 
 ## C2 — F5 vol-compression breakout H1 (L 40, ratio 0.85, horizon 12h)
 
-| | N | MEAN pips | après LOW | après NORMAL | après STRESS | WIN |
-|---|---:|---:|---:|---:|---:|---:|
-| Agrégat | 308 | +2.67 | +1.67 | **+0.67** | −0.83 | 50.7 % |
-| EURUSD | 86 | +3.72 | +2.72 | +1.72 | +0.22 | 45.4 % |
-| GBPUSD | 110 | −0.45 | −1.45 | −2.45 | −3.95 | 49.1 % |
-| USDJPY | 112 | +4.94 | +3.94 | +2.94 | +1.44 | 56.3 % |
+| | N | MEAN pips | après LOW | après NORMAL | après STRESS | WIN | EX99 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Agrégat | 308 | +3.01 | +2.01 | **+1.01** | −0.49 | 53.3 % | +1.03 |
+| EURUSD | 86 | +1.51 | +0.51 | −0.49 | −1.99 | 47.7 % | +0.36 |
+| GBPUSD | 110 | −1.06 | −2.06 | −3.06 | −4.56 | 53.6 % | −3.66 |
+| USDJPY | 112 | +8.16 | +7.16 | +6.16 | +4.66 | 57.1 % | +5.25 |
 
-**GATE : PASS (de justesse)** — agrégat positif après NORMAL (+0.67),
-2/3 paires ne contredisent pas (GBPUSD légèrement négatif), pas
-d'effondrement complet, N = 308 (limite basse), mécanisme économiquement
-plausible (compression de volatilité → breakout directionnel).
+**GATE : FAIL** — `PAIRS_POS = 1/3` (critère existant : ≥ 2/3 paires ne
+contredisent pas). L'agrégat reste positif après NORMAL (+1.01), mais
+porté par USDJPY seul ; EURUSD et GBPUSD sont négatifs. N = 308 (limite).
 
-→ Un seul candidat passe vers VALIDATION_2 (≤ 3 autorisés).
+## Portes de passage
+
+```
+C1 : GATE FAIL → n'entre pas en VALIDATION_2
+C2 : GATE FAIL → n'entre pas en VALIDATION_2
+Aucun candidat n'atteint VALIDATION_2 après correction du double-shift.
+```

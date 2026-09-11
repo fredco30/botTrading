@@ -115,5 +115,58 @@ class TestCausality(unittest.TestCase):
         self.assertAlmostEqual(r_short[0], -10.0, places=6)
 
 
+class TestExecutionShiftParity(unittest.TestCase):
+    """Regression tests for the double-execution-shift bug (V1/V2 rerun).
+
+    Contract: family generators emit the RAW signal at the bar whose close
+    makes it known (index k).  Exactly ONE shift converts it to an event
+    executable at open[k+1] — never k+2 — and the DISCOVERY measurement
+    path (run_screen.study) and the VALIDATION path (pipeline.event_returns)
+    must produce identical events and returns for the same raw signal.
+    """
+
+    def _frame(self, n=300, seed=11):
+        rng = np.random.default_rng(seed)
+        closes = list(np.round(1.1000 + np.cumsum(rng.normal(0, 0.0008, n)), 5))
+        return aggregate(bars_to_frame(m15_bars(closes)), "1h")
+
+    def test_raw_signal_executes_next_bar_never_two_bars(self):
+        df = self._frame()
+        raw = np.zeros(len(df), dtype=np.int8)
+        k = 10
+        raw[k] = 1                                    # signal known at close[k]
+        ex = to_executable_side(raw)
+        self.assertEqual(np.where(ex == 1)[0].tolist(), [k + 1])
+        # applying the shift twice (the old bug) would land on k+2
+        ex_twice = to_executable_side(ex)
+        self.assertEqual(np.where(ex_twice == 1)[0].tolist(), [k + 2])
+        from pipeline import event_returns
+        _, _, ts = event_returns(df, raw, 1, 0.0001,
+                                 df.index.min(), df.index.max() + pd.Timedelta(hours=1))
+        self.assertEqual(len(ts), 1)
+        self.assertEqual(pd.Timestamp(ts[0]), df.index[k + 1])   # k+1, NEVER k+2
+
+    def test_discovery_and_validation_paths_agree(self):
+        from pipeline import event_returns
+        from run_screen import study
+        df = self._frame(n=400, seed=23)
+        raw = np.zeros(len(df), dtype=np.int8)
+        raw[::3] = 1                                  # periodic long signals
+        raw[6::6] = -1                                # interleaved shorts
+        horizon = 2
+        pip = 0.0001
+        # DISCOVERY path: run_screen.study owns the single shift
+        rows = study(df, raw, [horizon], pip)
+        self.assertEqual(len(rows), 1)
+        # VALIDATION path: pipeline.event_returns owns the single shift
+        r, sign, ts = event_returns(df, raw, horizon, pip,
+                                    df.index.min(), df.index.max() + pd.Timedelta(hours=1))
+        self.assertEqual(rows[0]["N"], len(r))
+        self.assertEqual(rows[0]["N"], len(ts))
+        self.assertAlmostEqual(rows[0]["MEAN"], float(np.mean(r)), places=9)
+        self.assertAlmostEqual(rows[0]["MEDIAN"], float(np.median(r)), places=9)
+        self.assertAlmostEqual(rows[0]["WIN"], float(np.mean(r > 0)), places=12)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

@@ -41,13 +41,22 @@ retouche). Détail dans les fichiers ci-dessous.
    uniquement. Les critères §13 (≥2/3 paires positives après
    NORMAL_COST, robuste aux outliers, ≥4/9 années) laissent **2
    candidats** sur 484 lignes.
-3. VALIDATION_1 (2019-2022) : la mean-reversion H1 s'effondre (−3.67
-   pips après NORMAL) ; la vol-compression breakout passe de justesse
-   (+0.67).
-4. VALIDATION_2 (2023 → 2026-04-08) : la vol-compression breakout retombe
-   à −0.41 après NORMAL (et ≈ 0 hors outliers) → rejet.
+3. VALIDATION_1 (2019-2022), rerun corrigé : la mean-reversion H1 reste
+   effondrée (−3.88 pips après NORMAL, 0/3 paires) ; la vol-compression
+   breakout reste positive en agrégat (+1.01) mais portée par USDJPY seul
+   (1/3 paires) → gate FAIL.
+4. VALIDATION_2 (2023 → 2026-04-08) : **non exécutée** — aucun candidat
+   n'a passé la gate V1 corrigée. (Le run initial, invalidé par un bug de
+   double décalage d'exécution, avait fait entrer C2 en V2 avec −0.41.)
+   Décompte corrigé : 42 configurations de stratégie uniques,
+   126 évaluations config×paire.
 5. Pyramide : **non testée** — la condition `BASE_EDGE_POSITIVE` (candidat
    survivant aux trois phases) n'a jamais été remplie.
+6. Un bug de double décalage d'exécution (V1/V2) a été détecté en revue,
+   corrigé et verrouillé par des tests de parité
+   (`TestExecutionShiftParity`) : RAW signal à l'index k → exécution à
+   k+1, jamais k+2 ; les chemins DISCOVERY et VALIDATION produisent des
+   événements et des rendements identiques sur le même signal.
 
 ## Reproduction
 

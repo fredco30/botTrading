@@ -59,11 +59,17 @@ def load_h4(pair):
     return load(pair, "H4")
 
 
-def event_returns(df, side, horizon, pip, start, end):
-    """Returns array of signed pips for events with decision ts in [start,end)."""
+def event_returns(df, raw_side, horizon, pip, start, end):
+    """Signed pips (decision ts in [start,end)) for a RAW signal side.
+
+    RAW side: marked at the bar whose CLOSE makes the signal known.
+    THIS function applies THE ONLY execution shift of the validation
+    path (close[i] -> executable at open[i+1]).  Callers must pass the
+    raw generator output — never a pre-shifted side.
+    """
     opens = df["open"].values
     n = len(opens)
-    side_exec = to_executable_side(side)          # causal execution
+    side_exec = to_executable_side(raw_side)   # THE one execution shift
     idx = np.where(side_exec != 0)[0]
     if len(idx) == 0:
         return np.array([]), np.array([]), np.array([])
@@ -212,14 +218,18 @@ def main():
 
 
 def evaluate_window(c, frames, start, end):
-    """Frozen candidate evaluation restricted to a decision-time window."""
+    """Frozen candidate evaluation restricted to a decision-time window.
+
+    Passes the RAW generator side to event_returns(), which owns THE
+    single execution shift.  (A previous version shifted here AND inside
+    event_returns -> double shift, invalidating the first V1/V2 run.)
+    """
     per_pair = {}
     rets_all = []
     for pair in PAIRS:
         df = frames[(pair, c["tf"])]
-        side = to_executable_side(side_for(pair, c["tf"], c["family"],
-                                           c["params"], frames))
-        r, sign, ts = event_returns(df, side, c["horizon"], PIP_SIZE[pair],
+        raw_side = side_for(pair, c["tf"], c["family"], c["params"], frames)
+        r, sign, ts = event_returns(df, raw_side, c["horizon"], PIP_SIZE[pair],
                                     start, end)
         per_pair[pair] = stats(r)
         per_pair[pair]["years"] = year_stability(r, ts)

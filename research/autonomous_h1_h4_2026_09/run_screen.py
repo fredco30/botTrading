@@ -35,7 +35,11 @@ def load(pair, tf, end):
     return df[df.index < end]
 
 
-def study(df, side, horizons, pip):
+def study(df, raw_side, horizons, pip):
+    """raw_side = RAW generator output (signal known at its close).
+    THE single execution shift of the DISCOVERY path is applied here.
+    """
+    side = to_executable_side(raw_side)
     opens = df["open"].values
     years = df.index.year.values
     rows = []
@@ -129,7 +133,6 @@ def main():
                                                 ema_h4=params["ema_h4"])
                 else:
                     side = FAMILY_FN[family](df_full, **params)
-                side = to_executable_side(side)  # CAUSAL: execute next-bar open
                 for row in study(df_full, side, horizons, pip):
                     all_rows.append({"family": family, "tf": tf, "pair": pair,
                                      "params": json.dumps(params), **row})

@@ -1,31 +1,28 @@
-# VALIDATION_2 — candidat gelé sur 2023-01-01 → 2026-04-08
+# VALIDATION_2 — 2023-01-01 → 2026-04-09 (exclusif)
 
-Testé UNE FOIS, sans aucune modification. C'est la dernière porte interne
-avant l'OOS.
+> ⚠️ **INVALIDATED_BY_DOUBLE_EXECUTION_SHIFT** : la première version de ce
+> rapport testait C2 sur VALIDATION_2 avec le double décalage d'exécution
+> (−0.41 pips après NORMAL). Ces chiffres sont invalidés.
 
-## C2 — F5 vol-compression breakout H1 (L 40, ratio 0.85, horizon 12h)
+## État après correction
 
-| | N | MEAN pips | après LOW | après NORMAL | après STRESS | WIN |
-|---|---:|---:|---:|---:|---:|---:|
-| Agrégat | 285 | +1.59 | +0.59 | **−0.41** | −1.91 | 52.6 % |
-| EURUSD | 80 | +3.10 | +2.10 | +1.10 | −0.40 | 53.8 % |
-| GBPUSD | 81 | −1.51 | −2.51 | −3.51 | −5.01 | 50.6 % |
-| USDJPY | 124 | +2.64 | +1.64 | +0.64 | −0.86 | 53.2 % |
+Après le rerun corrigé (un seul décalage d'exécution, convention unifiée,
+testée par `TestExecutionShiftParity`) :
 
-Moyenne hors top-1 % des gains : **+0.01 pip** — l'intégralité de
-l'espérance brute tient dans quelques trades.
-
-## Verdict
+- **C1 — F6 mean reversion H1** : GATE VALIDATION_1 FAIL (−3.88 pips après
+  NORMAL, 0/3 paires) → n'entre pas en VALIDATION_2.
+- **C2 — F5 vol-compression breakout H1** : GATE VALIDATION_1 FAIL
+  (`PAIRS_POS = 1/3`, le seul porteur étant USDJPY) → n'entre pas en
+  VALIDATION_2.
 
 ```
-C2 : REJECT — AFTER_NORMAL = −0.41 pip (< 0), MEAN_EX99 ≈ 0, GBPUSD négatif.
+VALIDATION_2 : NON EXÉCUTÉE — aucun candidat gelé n'a passé la gate V1 corrigée.
 ```
 
-Le candidat ne survit pas à VALIDATION_2. Il ne se dégage **aucun
-candidat robuste** de la mission H1/H4 multi-paires.
+Conformément à la mission (§6 : « uniquement pour les candidats qui
+passent le gate V1 corrigé » ; §11 CAS B), la mission s'arrête au
+verdict :
 
-Portrait-robot de l'échec (cohérent avec la mission M15 précédente) :
-les effets détectés en DISCOVERY (2010-2018) étaient soit des artefacts
-de période (mean-reversion, effondrée dès 2019-2022), soit des effets
-réels mais d'amplitude inférieure aux coûts (vol-compression breakout :
-+1.6 pip brut → −0.4 pip net en 2023-2026).
+```
+NO_ROBUST_H1_H4_MULTIPAIR_EDGE_FOUND
+```
