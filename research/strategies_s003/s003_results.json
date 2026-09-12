@@ -1,0 +1,99 @@
+{
+  "N_TRADES": 1395,
+  "TRADE_RATE": 1.0,
+  "TRADES_PER_YEAR": 155.0,
+  "GROSS_MEAN_PIPS": 0.267,
+  "NET_NORMAL_MEAN_PIPS": -1.733,
+  "NET_STRESS_MEAN_PIPS": -3.733,
+  "MEDIAN_NET": -6.8,
+  "WIN_RATE": 0.438,
+  "AVG_WIN": 40.874,
+  "AVG_LOSS": -34.938,
+  "PROFIT_FACTOR_NORMAL": 0.912,
+  "EXPECTANCY_R_NORMAL": -0.0395,
+  "TOTAL_NET_PIPS": -2417.35,
+  "MAX_DRAWDOWN_PIPS": 3248.45,
+  "MAX_CONSECUTIVE_LOSSES": 12,
+  "POSITIVE_YEARS": 3,
+  "BY_YEAR": {
+    "2010": {
+      "N": 121,
+      "NET_PIPS": 277.75,
+      "MEAN_NET": 2.295,
+      "PF": 1.087
+    },
+    "2011": {
+      "N": 133,
+      "NET_PIPS": -777.9,
+      "MEAN_NET": -5.849,
+      "PF": 0.821
+    },
+    "2012": {
+      "N": 156,
+      "NET_PIPS": 252.15,
+      "MEAN_NET": 1.616,
+      "PF": 1.083
+    },
+    "2013": {
+      "N": 167,
+      "NET_PIPS": -708.0,
+      "MEAN_NET": -4.24,
+      "PF": 0.772
+    },
+    "2014": {
+      "N": 167,
+      "NET_PIPS": -480.1,
+      "MEAN_NET": -2.875,
+      "PF": 0.809
+    },
+    "2015": {
+      "N": 152,
+      "NET_PIPS": -251.45,
+      "MEAN_NET": -1.654,
+      "PF": 0.926
+    },
+    "2016": {
+      "N": 150,
+      "NET_PIPS": -306.5,
+      "MEAN_NET": -2.043,
+      "PF": 0.873
+    },
+    "2017": {
+      "N": 167,
+      "NET_PIPS": 93.45,
+      "MEAN_NET": 0.56,
+      "PF": 1.04
+    },
+    "2018": {
+      "N": 182,
+      "NET_PIPS": -516.75,
+      "MEAN_NET": -2.839,
+      "PF": 0.831
+    }
+  },
+  "REMOVE_BEST_1_PERCENT_NET_MEAN": -3.078,
+  "CI95_MEAN_NET_NORMAL": [
+    -4.025,
+    0.588
+  ],
+  "N_COMPRESSION_EVENTS": 1799,
+  "SKIPPED_OVERLAP_EVENTS": 275,
+  "CLASSIFICATION": "S003_DISCOVERY_REJECT",
+  "P034_DEFINITION_REUSED": true,
+  "P034_PARAMETERS_CHANGED": "NO",
+  "P034_5M_EVENT_IDENTITY": "PASS",
+  "ORIGINAL_P034_EVENT_COUNT": 1799,
+  "GATE_CHECKS": {
+    "NET_NORMAL_MEAN_PIPS>2": false,
+    "PF>=1.20": false,
+    "EXPECTANCY_R>0.10": false,
+    "POSITIVE_YEARS>=6": false,
+    "REMOVE_BEST_1PCT>0": false,
+    "TOTAL_NET>0": false
+  },
+  "FAIL_FAST_TRIGGERS": {
+    "NET_NORMAL<=0": true,
+    "PF<=1.0": true,
+    "REMOVE_BEST_1PCT<=0": true
+  }
+}
