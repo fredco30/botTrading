@@ -48,6 +48,10 @@ def main():
     ps = V.paired_stats(mat)
     yb = V.year_block_ci(mat, years)
     sr = np.sort(pooled_net)[::-1]
+    # REMOVE_BEST_* = MEAN after removing the best 1/3 events (audit fix:
+    # the previous code reported the 2nd/4th best ordinal VALUES instead)
+    remove_best = round(float(sr[1:].mean()), 2) if len(sr) > 1 else None
+    remove_best3 = round(float(sr[3:].mean()), 2) if len(sr) > 3 else None
     by_year_gross = {int(y): round(float(pooled_gross[years == y].mean()), 2)
                      for y in sorted(set(years))}
     by_year_net = {int(y): round(float(pooled_net[years == y].mean()), 2)
@@ -61,8 +65,6 @@ def main():
 
     pairs_gross_positive = int(sum(1 for s in V.PAIRS
                                    if table[f"{s}_GROSS"].mean() > 0))
-    remove_best = round(float(sr[1]), 2)
-    remove_best3 = round(float(sr[3]), 2) if len(sr) > 3 else None
     classification = V.frozen_classify(
         pooled_net_normal=float(pooled_net.mean()),
         pairs_gross_positive=pairs_gross_positive,
@@ -115,6 +117,57 @@ def main():
 
     with open(os.path.join(HERE, "p013r_v1_results.json"), "w", encoding="utf-8") as f:
         json.dump(results, f, indent=1, default=str)
+
+    # automated report (audit v6: no manual number transcription — the
+    # markdown is rendered from the SAME results dict as the JSON)
+    report = f"""# P013R V1 REPORT — frozen validation (first V1 opening)
+
+Pré-enregistrement : P013R_V1_FROZEN_SPEC.md (commit 1, AVANT tout accès
+données V1). Autorisation V1 journalisée via gate.py. V2 et OOS : jamais
+accédées. Règle gelée : dernier jour FX ouvré, LONG XJPY, close → close du
+jour de marché suivant, NORMAL 2 pips / STRESS 4 pips, pooling équipondéré
+sur dates communes.
+
+## Résultats (V1 = 2019-01-01 → 2023-01-01, N={results['N_COMMON']} events communs)
+
+| Métrique | Valeur |
+|---|---|
+| USDJPY / EURJPY / GBPJPY GROSS | {results['USDJPY_GROSS']} / {results['EURJPY_GROSS']} / {results['GBPJPY_GROSS']} pips ({results['PER_PAIR'] and sum(1 for s in V.PAIRS if results['PER_PAIR'][s]['gross_mean'] > 0)}/3 positifs) |
+| POOLED_GROSS | {results['POOLED_GROSS']} pips |
+| POOLED_NET_NORMAL | **{results['POOLED_NET_NORMAL']} pips** |
+| POOLED_NET_STRESS | {results['POOLED_NET_STRESS']} pips |
+| PAIRED_CI95_GROSS | {results['PAIRED_CI95_GROSS']} |
+| PAIRED_CI95_NET_NORMAL | {results['PAIRED_CI95_NET_NORMAL']} |
+| PAIRED_P_GROSS / P_NET_NORMAL | {results['PAIRED_P_GROSS']} / {results['PAIRED_P_NET_NORMAL']} |
+| MEDIAN_GROSS / NET_NORMAL | {results['MEDIAN_GROSS']} / {results['MEDIAN_NET_NORMAL']} |
+| WIN_RATE_GROSS / NET_NORMAL | {results['WIN_RATE_GROSS']} / {results['WIN_RATE_NET_NORMAL']} |
+| REMOVE_BEST_EVENT_NET_NORMAL | {results['REMOVE_BEST_EVENT_NET_NORMAL']} |
+| REMOVE_BEST_3_EVENTS_NET_NORMAL | {results['REMOVE_BEST_3_EVENTS_NET_NORMAL']} |
+| BY_YEAR_NET_NORMAL | {results['BY_YEAR_POOLED_NET_NORMAL']} |
+| POSITIVE_YEARS_NET_NORMAL | {results['POSITIVE_YEARS_NET_NORMAL']} |
+| YEAR_BLOCK_CI95_GROSS / NET_NORMAL | {results['YEAR_BLOCK_CI95_GROSS']} / {results['YEAR_BLOCK_CI95_NET_NORMAL']} |
+| Censure frontière | événement déc. 2022 (entrée 2022-12-30) CENSURÉ sur les 3 paires |
+
+## VERDICT (critères gelés — P013R_V1_FROZEN_SPEC.md)
+
+**{results['V1_CLASSIFICATION']}**
+
+POOLED_NET_NORMAL = {results['POOLED_NET_NORMAL']} ≤ 0 et
+{sum(1 for s in V.PAIRS if results['PER_PAIR'][s]['gross_mean'] > 0)}/3 paires
+gross positives : deux critères structurels échoués indépendamment. Aucun
+sauvetage, aucune variante, aucun filtre (par exemple « éviter 2022 »,
+année 2022 : {results['BY_YEAR_POOLED_NET_NORMAL'].get(2022)} pips nets) n'est autorisé ou tenté.
+
+## Conséquence
+
+V1_REJECT → P013R rejeté au stade V1 selon les critères figés. V2 non
+ouverte (décision de revue humaine uniquement). La branche Discovery
+(research/phenomena-discovery-v1) n'a pas été modifiée.
+
+V2_ACCESSED=NO ; OOS_ACCESSED=NO.
+"""
+    with open(os.path.join(HERE, "P013R_V1_REPORT.md"), "w", encoding="utf-8") as f:
+        f.write(report)
     print(json.dumps({k: results[k] for k in (
         "N_COMMON", "POOLED_GROSS", "POOLED_NET_NORMAL", "POOLED_NET_STRESS",
         "PAIRED_CI95_GROSS", "PAIRED_CI95_NET_NORMAL", "PAIRED_P_GROSS",
