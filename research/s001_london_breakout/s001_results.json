@@ -1,0 +1,113 @@
+{
+  "strategy": "S001_GBPUSD_LONDON_ASIAN_RANGE_BREAKOUT",
+  "window": "2010-01-01 -> 2019-01-01 EXCLUSIVE (discovery)",
+  "n_days_with_range": 2621,
+  "n_time_fallback": 0,
+  "first_bar": "2010-01-01 00:00:00+00:00",
+  "last_bar": "2018-12-31 23:55:00+00:00",
+  "n_bars": 674496,
+  "n_trades": 2183,
+  "trades_per_year": 242.56,
+  "gross_mean_pips": -1.3205,
+  "net_normal_mean_pips": -3.3205,
+  "net_stress_mean_pips": -5.3205,
+  "median_net_pips": -5.4,
+  "win_rate": 0.4292,
+  "avg_win_pips": 27.862,
+  "avg_loss_pips": -26.7698,
+  "profit_factor_normal": 0.7827,
+  "expectancy_r_normal": -0.0786,
+  "total_net_pips": -7248.55,
+  "max_drawdown_pips": 8042.6,
+  "max_consecutive_losses": 12,
+  "positive_years": 2,
+  "n_years": 9,
+  "by_year": [
+    {
+      "year": 2010,
+      "n": 242,
+      "net_pips": -2359.0,
+      "mean_net": -9.7479,
+      "profit_factor": 0.6018
+    },
+    {
+      "year": 2011,
+      "n": 236,
+      "net_pips": -842.15,
+      "mean_net": -3.5684,
+      "profit_factor": 0.8239
+    },
+    {
+      "year": 2012,
+      "n": 244,
+      "net_pips": -848.8,
+      "mean_net": -3.4787,
+      "profit_factor": 0.723
+    },
+    {
+      "year": 2013,
+      "n": 237,
+      "net_pips": 236.8,
+      "mean_net": 0.9992,
+      "profit_factor": 1.0866
+    },
+    {
+      "year": 2014,
+      "n": 247,
+      "net_pips": -1293.3,
+      "mean_net": -5.236,
+      "profit_factor": 0.6063
+    },
+    {
+      "year": 2015,
+      "n": 238,
+      "net_pips": -955.8,
+      "mean_net": -4.016,
+      "profit_factor": 0.727
+    },
+    {
+      "year": 2016,
+      "n": 243,
+      "net_pips": -942.7,
+      "mean_net": -3.8794,
+      "profit_factor": 0.7599
+    },
+    {
+      "year": 2017,
+      "n": 243,
+      "net_pips": -471.45,
+      "mean_net": -1.9401,
+      "profit_factor": 0.8474
+    },
+    {
+      "year": 2018,
+      "n": 253,
+      "net_pips": 227.85,
+      "mean_net": 0.9006,
+      "profit_factor": 1.0748
+    }
+  ],
+  "remove_best_1_percent_net_mean": -4.2559,
+  "ci95_mean_net_normal": [
+    -4.7429,
+    -1.9118
+  ],
+  "reason_counts": {
+    "TIME_1200": 1307,
+    "STOP": 596,
+    "TARGET": 280
+  },
+  "direction_counts": {
+    "LONG": 1093,
+    "SHORT": 1090
+  },
+  "criteria": {
+    "c1_mean_gt_2": false,
+    "c2_pf_ge_1_20": false,
+    "c3_expectancy_gt_0_10R": false,
+    "c4_positive_years_ge_6": false,
+    "c5_remove_best_gt_0": false,
+    "c6_total_net_gt_0": false
+  },
+  "classification": "S001_DISCOVERY_REJECT"
+}
