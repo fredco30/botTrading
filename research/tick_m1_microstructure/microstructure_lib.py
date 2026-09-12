@@ -64,15 +64,18 @@ def load_month_padded(pdir, symbol, year, month):
     end = int((pd.Timestamp(f"{year:04d}-{month:02d}-01T00:00:00Z")
                + pd.offsets.MonthBegin(1)).value)  # first day of next month
     parts = []
-    # previous-month tail (context for causal features)
-    if month == 1:
-        assert_month_in_discovery(year - 1, 12)
-        prev = _read_partition(pdir, symbol, year - 1, 12)
-    else:
-        prev = _read_partition(pdir, symbol, year, month - 1)
-    if prev is not None:
-        prev = prev[prev["timestamp_utc"].astype("int64") >= start - PAD_NS]
-        parts.append(prev)
+    # previous-month tail (context for causal features); none exists for the
+    # very first discovery month (2009-12 is outside the window and never read)
+    has_prev = not (year == 2010 and month == 1)
+    if has_prev:
+        if month == 1:
+            assert_month_in_discovery(year - 1, 12)
+            prev = _read_partition(pdir, symbol, year - 1, 12)
+        else:
+            prev = _read_partition(pdir, symbol, year, month - 1)
+        if prev is not None:
+            prev = prev[prev["timestamp_utc"].astype("int64") >= start - PAD_NS]
+            parts.append(prev)
     cur = _read_partition(pdir, symbol, year, month)
     if cur is not None:
         parts.append(cur)
