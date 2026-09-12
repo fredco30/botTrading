@@ -8,15 +8,23 @@ reconstruite EXTERNALLY_PREREGISTERED puis testée sans optimisation.
 ## Verdict en une ligne (mis à jour Phase 2)
 
 **PHASE 1 : NO_ROBUST_PHENOMENON_FOUND_AMONG_TESTED_SUBSET** — P000 :
-P000_ORIGINAL_EDGE=INCONCLUSIVE_DATA_BLOCKED (marché actions US réel non
-testable sans données), P000_PROXY_SP500_CFD_EDGE=NO_ROBUST_EDGE_FOUND,
-P000_TRANSFER_FX=NOT_PROMISING. 1 candidat anti-edge (Donchian M15
-gross-négatif 3/3 en pips corrigés) mais inversion sous les coûts → 0
-survivant. **PHASE 2** : 10 familles causales supplémentaires
-(cross-pair, taux/carry, gold-JPY, fix, month-end, FOMC, PDH/PDL,
-NY-overlap, compression) — voir phase2_report.md et gate_audit.log.
-Correction d'audit : les résultats V1/V2 de P029 produits avant le gate sont
-marqués INVALID_FOR_FRESH_VALIDATION (P029_V1_V2_CONTAMINATED=YES).
+P000_ORIGINAL_EDGE=INCONCLUSIVE_DATA_BLOCKED, P000_PROXY_SP500_CFD_EDGE=
+NO_ROBUST_EDGE_FOUND, P000_TRANSFER_FX=NOT_PROMISING ; anti-edge P029 :
+gross-négatif 3/3 (pips corrigés) mais inversion sous les coûts, et ses
+V1/V2 historiques sont INVALID_FOR_FRESH_VALIDATION (contaminés).
+
+**PHASE 2 + CORRECTIONS FINALES (audit v3)** : 10 familles causales testées
+(Discovery seulement, V1/V2 verrouillées par gate.py). Corrections : P034
+(bug de fenêtre future — résultat invalidé, SECOND_ORDER_CANDIDATE=NO),
+P032 (DST + prix d'entrée, N=24 période 2016-2018), P004 (machine d'états
+reclaim), P025 (définitions de signaux), P026 (lag DGS2), P020 (convention
+open aux bornes). **Candidat limite : P013R** — réplication JPY-cross
+pré-enregistrée du month-end : EURJPY +15.1 pips (p=.041), pooled +9.0
+gross / +7.0 net (p=.053), 3/3 paires positives au gross ; V1 NON ouverte
+(préservée pour revue humaine).
+
+**FINAL_VERDICT = NO_VALIDATED_PHENOMENON_AFTER_PHASE2** — voir
+phase2_correction_report.md et p013r_replication.json.
 
 ## Contenu
 

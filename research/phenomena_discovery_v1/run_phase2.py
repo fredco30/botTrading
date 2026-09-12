@@ -59,9 +59,17 @@ def main(only=None):
     run("P034_COMPRESSION_EURUSD", lambda: Q.p034_compression("EURUSD"))
     run("P034_COMPRESSION_USDJPY", lambda: Q.p034_compression("USDJPY"))
 
-    with open(os.path.join(HERE, "phase2_results.json"), "w", encoding="utf-8") as f:
-        json.dump(results, f, indent=1, default=str)
-    print("WROTE phase2_results.json")
+    out_path = os.path.join(HERE, "phase2_results.json")
+    merged = {}
+    if os.path.exists(out_path) and not only:
+        os.replace(out_path, out_path + ".bak")   # full pass: fresh start
+    elif os.path.exists(out_path):
+        with open(out_path, encoding="utf-8") as f:
+            merged = json.load(f)                 # partial run: merge, keep others
+    merged.update(results)
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(merged, f, indent=1, default=str)
+    print(f"WROTE phase2_results.json ({len(merged)} screens)")
 
 
 if __name__ == "__main__":

@@ -154,41 +154,21 @@ def _dgs2():
 
 def p026_us2y(shock_bp=3.0):
     """DGS2(t) is published after 16:00 ET on day t -> usable from day t+1.
-    Signal: delta2y(t); reaction: USDJPY close(t+1) -> close(t+1+H)."""
+
+    Audit fix: signal day = FIRST FX MARKET DAY with index >= t + 1 calendar
+    day (the old `> t + 1 day` skipped the eligible day, e.g. Monday -> 
+    Wednesday). d2_change is stored on each event at construction (no
+    retroactive -1/-2 day lookup)."""
     s = _dgs2()
     d2 = s.diff().dropna()
     px = _daily_close("USDJPY")
-    rows = []
-    for t, dv in d2.items():
-        # decision usable at the open of the NEXT trading day after t;
-        # skip if the FX series does not actually cover that day (e.g. rate
-        # history predates the FX data)
-        nxt = px.index[px.index > t + pd.Timedelta(days=1)]
-        if not len(nxt) or (nxt[0] - t).days > 7:
-            continue
-        t_exec = nxt[0]
-        for H, hh in ((1, 1), (5, 5)):
-            tgt = px.index[px.index >= t_exec + pd.Timedelta(days=H)]
-            if not len(tgt):
-                continue
-            rows.append({"entry_ts": t_exec, "side": int(np.sign(dv)),
-                         "h": hh,
-                         "ret": int(np.sign(dv)) * (px[tgt[0]] - px[t_exec])})
-    rd = pd.DataFrame(rows)
+    rd = us2y_events(d2, px)
     out = {}
     for hh in (1, 5):
-        sub = rd[rd["h"] == hh]
-        out[f"ALL_h{hh}d"] = ev_stats(sub, 1.0)          # % not pips: scale via /pip below
-    # scale to JPY pips for readability
-    for hh in (1, 5):
         sub = rd[rd["h"] == hh].copy()
-        sub["ret"] = sub["ret"] / 0.01
+        sub["ret"] = sub["ret"] / 0.01          # JPY pips
         out[f"PIPS_h{hh}d"] = ev_stats(sub)
-        shk = sub[sub["ret"].abs() > 0].copy()
-        dmap = {t: dv for t, dv in d2.items()}
-        sub["d2"] = [dmap.get(t - pd.Timedelta(days=1), dmap.get(t - pd.Timedelta(days=2), np.nan))
-                     for t in sub["entry_ts"]]
-        strong = sub[sub["d2"].abs() >= shock_bp / 100.0]   # DGS2 is in %
+        strong = sub[sub["d2_change"].abs() >= shock_bp / 100.0]   # DGS2 is in %
         out[f"SHOCK{shock_bp:.0f}bp_h{hh}d"] = ev_stats(strong)
     return out
 
@@ -222,42 +202,49 @@ def _boj():
 
 def p025_carry(sym_pair, diff_series, horizons=(1, 5, 20)):
     """diff_series: policy-rate differential (high-yield currency = base).
-    Signal variants (<=3 configs): sign(diff); sign(delta20(diff));
-    carry+momentum alignment. Reaction: FX close-to-close forward returns."""
+
+    Signal definitions (audit fix):
+      s_level:     every day, direction = sign(differential);
+      s_delta:     EVENT ONLY when the differential actually changed after the
+                   causal lag (delta != 0), direction = sign(delta);
+      s_carrymom:  EVENT ONLY when sign(carry) == sign(20d momentum), direction
+                   = carry side; no alignment -> NO EVENT.
+    Reaction: FX close-to-close forward returns (1d/5d/20d)."""
     px = _daily_close(sym_pair)
     diff = diff_series.reindex(px.index).ffill()
     if diff.index.tz is None:
         diff.index = diff.index.tz_localize("UTC")
     diff = diff.shift(1)                      # +1 day availability lag
-    rets = px.diff()
     mom20 = px.diff(20)
-    rows = []
-    for t in px.index[21:]:
+    events = {"s_level": [], "s_delta": [], "s_carrymom": []}
+    idx = px.index
+    for k in range(21, len(px)):
+        t = idx[k]
         dv = diff.get(t, np.nan)
         mom = mom20.get(t, np.nan)
         if np.isnan(dv) or np.isnan(mom):
             continue
         for H in horizons:
-            j = px.index.get_indexer([t])[0] + H
+            j = k + H
             if j >= len(px):
                 continue
-            dv_prev = diff.get(px.index[max(0, j - H - 21)], np.nan)
             fwd = float(px.iloc[j] - px.iloc[j - H])
-            rows.append({"entry_ts": t, "h": H, "side": int(np.sign(dv)),
-                         "s_level": int(np.sign(dv)) * fwd,
-                         "s_delta": (int(np.sign(dv - dv_prev)) * fwd
-                                     if not np.isnan(dv_prev) else 0.0),
-                         "s_carrymom": (int(np.sign(dv)) if np.sign(dv) ==
-                                        np.sign(float(mom)) else
-                                        -int(np.sign(dv))) * fwd})
-    rd = pd.DataFrame(rows)
+            events["s_level"].append((t, H, int(np.sign(dv)), fwd))
+            dv_prev = diff.get(idx[k - 1], np.nan)
+            delta = dv - dv_prev
+            if not np.isnan(delta) and delta != 0:
+                events["s_delta"].append((t, H, int(np.sign(delta)), fwd))
+            if np.sign(dv) == np.sign(mom):
+                events["s_carrymom"].append((t, H, int(np.sign(dv)), fwd))
     pip = PIP[sym_pair]
     out = {}
-    for key in ("s_level", "s_delta", "s_carrymom"):
+    for key, evs in events.items():
         for H in horizons:
-            sub = rd[rd["h"] == H].copy()
-            sub["ret"] = sub[key] / pip
-            out[f"{key}_h{H}d"] = ev_stats(sub)
+            rows = [{"entry_ts": t, "side": s, "ret": s * fwd / pip}
+                    for t, hh, s, fwd in evs if hh == H]
+            rd = pd.DataFrame(rows)
+            out[f"{key}_h{H}d"] = ev_stats(rd)
+            out[f"{key}_h{H}d"]["N_EVENTS_DAYS"] = int(len({r["entry_ts"] for r in rows}))
     return out
 
 
@@ -299,11 +286,18 @@ def p027_gold_jpy(z_gate=2.0, horizons=(1, 3, 6, 12)):
 # P020 — London 16:00 fix (pre-drift / post-reversal / month-end amplification)
 # ---------------------------------------------------------------------------
 def p020_london_fix(sym="EURUSD"):
+    """London 16:00 fix study (convention documented — audit fix):
+
+    a 5m bar labelled 16:00 covers [16:00, 16:05); its CLOSE is the 16:05
+    price. Boundary prices are therefore taken as the OPEN of the bar whose
+    label equals the boundary time (= last executable price at/before the
+    boundary). pre-fix = open(13:00) -> open(16:00) ; post-fix =
+    open(16:00) -> open(18:00). Fixed windows a priori, no retuning."""
     df = discovery(load(sym))
     lon = df.index.tz_convert("Europe/London")
     hm = np.asarray(lon.hour * 100 + lon.minute)
     day = np.asarray(lon.date)
-    c = df["close"].to_numpy()
+    o = df["open"].to_numpy()
     month_last2 = _month_last2_days(set(day))
     rows = []
     for d in np.unique(day):
@@ -313,8 +307,8 @@ def p020_london_fix(sym="EURUSD"):
         i1800 = np.where(m & (hm == 1800))[0]
         if not (len(i1300) and len(i1600) and len(i1800)):
             continue
-        pre = float(c[i1600[0]] - c[i1300[0]])
-        post = float(c[i1800[0]] - c[i1600[0]])
+        pre = float(o[i1600[0]] - o[i1300[0]])
+        post = float(o[i1800[0]] - o[i1600[0]])
         rows.append({"day": d, "pre": pre, "post_signed": post,
                      "post_fade": (-np.sign(pre) if pre != 0 else 0) * post,
                      "month_end": d in month_last2})
@@ -341,6 +335,7 @@ def p020_london_fix(sym="EURUSD"):
         "MONTH_END": float(me["pip"].mean()), "NORMAL": float(no["pip"].mean()),
         "N_ME": int(len(me)), "N_NORMAL": int(len(no))}
     return out
+
 
 
 def _month_last2_days(all_days):
@@ -388,49 +383,63 @@ def p013_month_end(sym="EURUSD"):
 # ---------------------------------------------------------------------------
 # P032 — post-FOMC (exact release timestamps from the Fed pages)
 # ---------------------------------------------------------------------------
+def fed_tz_offset(tz_name):
+    """'EST' -> '-05:00', 'EDT' -> '-04:00' (fixed offsets; pytz rejects the
+    DST names). Anything else raises."""
+    return {"EST": "-05:00", "EDT": "-04:00"}[tz_name]
+
+
 def p032_fomc(syms=("EURUSD", "USDJPY", "GBPUSD")):
+    """Post-FOMC event study with EXACT published release timestamps.
+
+    Audit fixes: (1) the parsed tz field (EST/EDT) is honored — a 14:00 EDT
+    release is 18:00 UTC, not 19:00; (2) ENTRY = the first bar OPEN whose
+    timestamp >= release_ts (executable price; the old code used the CLOSE of
+    the reaction bar). R0_30 = open(t+30m) - entry_open ;
+    R30_120 = open(t+120m) - open(t+30m) ; NEXTDAY = open(t+24h) - entry_open.
+    Events without an official release time are never fabricated."""
     path = os.path.join(OFFICIAL, "fomc_decisions.json")
     evs = json.load(open(path))
     out = {}
     for sym in syms:
         df = discovery(load(sym))
-        o = df["open"]
-        c = df["close"]
-        et = df.index.tz_convert("America/New_York")
+        o = df["open"].to_numpy()
         rows = []
+        years_used = set()
         for e in evs:
             if not e.get("release_time"):
                 continue
             h, m = e["release_time"].split(":")
-            tz = e.get("tz") or "EST"
-            rel = pd.Timestamp(f"{e['date']} {h}:{m}", tz="EST").tz_convert("UTC")
+            tz_name = e.get("tz") or "EST"
+            rel = pd.Timestamp(f"{e['date']} {h}:{m}",
+                               tz=fed_tz_offset(tz_name)).tz_convert("UTC")
             if not (DISC[0] <= rel < DISC[1]):
                 continue
-            pos = df.index.searchsorted(rel)
-            if pos == 0 or pos + 24 >= len(df):
+            pos = int(df.index.searchsorted(rel))   # first bar open >= release
+            if pos == 0 or pos + 288 >= len(df):
                 continue
-            def px(k):
-                return float(c.iloc[k])
-            p0 = px(pos)
-            i30 = min(pos + 6, len(df) - 1)
-            i120 = min(pos + 24, len(df) - 1)
             rows.append({"release": rel,
-                         "r0_30m": (px(i30) - p0),
-                         "r30_120m": (px(i120) - px(i30)),
-                         "r_nextday": float(c.iloc[min(pos + 288, len(df) - 1)] - p0)})
+                         "r0_30": float(o[pos + 6] - o[pos]),
+                         "r30_120": float(o[pos + 24] - o[pos + 6]),
+                         "r_nextday": float(o[pos + 288] - o[pos])})
+            years_used.add(e["date"][:4])
         rd = pd.DataFrame(rows)
         pip = PIP[sym]
         out[sym] = {
             "N": int(len(rd)),
-            "R0_30M_PIPS": float(rd["r0_30m"].mean() / pip) if len(rd) else None,
-            "R30_120M_PIPS": float(rd["r30_120m"].mean() / pip) if len(rd) else None,
+            "PERIOD": f"{min(years_used)}-{max(years_used)}" if years_used else "n/a",
+            "R0_30M_PIPS": float(rd["r0_30"].mean() / pip) if len(rd) else None,
+            "R30_120M_PIPS": float(rd["r30_120"].mean() / pip) if len(rd) else None,
             "R_NEXTDAY_PIPS": float(rd["r_nextday"].mean() / pip) if len(rd) else None,
             "CONTINUATION_s0_30_to_30_120": float(
-                (np.sign(rd["r0_30m"]) * rd["r30_120m"]).mean() / pip) if len(rd) else None,
-            "ABS_R0_30M_PIPS": float(rd["r0_30m"].abs().mean() / pip) if len(rd) else None,
+                (np.sign(rd["r0_30"]) * rd["r30_120"]).mean() / pip) if len(rd) else None,
+            "ABS_R0_30M_PIPS": float(rd["r0_30"].abs().mean() / pip) if len(rd) else None,
         }
     out["_NOTE"] = ("release times parsed from official Fed press-release pages "
-                    "('For release at ...'); no surprise data; event-time study only")
+                    "('For release at ... EST/EDT', tz honored); entry = first "
+                    "bar OPEN at/after release; exact times exist only from "
+                    "2016 onward (pre-2015 statements say 'For immediate "
+                    "release'); event-time study, no surprise data")
     return out
 
 
@@ -438,6 +447,14 @@ def p032_fomc(syms=("EURUSD", "USDJPY", "GBPUSD")):
 # P004 — previous day high/low (first touch / break / failed break / reclaim)
 # ---------------------------------------------------------------------------
 def p004_pdh_pdl(sym="EURUSD", back_inside_bars=6):
+    """Previous-day H/L state machine (audit fix — explicit states):
+
+    BREAK_PDH:   first close > PDH                     -> event side +1
+    FAILED_PDH:  after BREAK, close < PDH within
+                 `back_inside_bars` of the break bar   -> event side -1
+    RECLAIM_PDH: after FAILED, first close > PDH again -> event side +1 (LONG)
+    Symmetric for PDL (BREAK -1 / FAILED +1 / RECLAIM -1 SHORT).
+    One event per type per day."""
     df = discovery(load(sym))
     day_num = np.asarray(df.index.view("int64") // 86_400_000_000_000)
     uniq, first = np.unique(day_num, return_index=True)
@@ -455,44 +472,12 @@ def p004_pdh_pdl(sym="EURUSD", back_inside_bars=6):
         if (d - 1) not in day_slice:
             continue
         j_s, j_e = day_slice[d - 1]
-        prev_slice = slice(j_s, j_e)
         if j_e - j_s < 24:
             continue
-        pdh = float(h[prev_slice].max())
-        pdl = float(l[prev_slice].min())
-        fired = set()
-        above = below = False
-        above_bar = below_bar = -10**9
-        failed_up = failed_dn = False
-        for i in range(i_s, i_e):
-            if not sess[i]:
-                continue
-            if "touch_PDH" not in fired and h[i] >= pdh:
-                fired.add("touch_PDH"); events.append((df.index[i], -1, "touch_PDH"))
-            if "touch_PDL" not in fired and l[i] <= pdl:
-                fired.add("touch_PDL"); events.append((df.index[i], 1, "touch_PDL"))
-            if not above and c[i] > pdh:
-                above = True; above_bar = i
-                if "break_PDH" not in fired:
-                    fired.add("break_PDH"); events.append((df.index[i], 1, "break_PDH"))
-            elif above and c[i] < pdh and i > above_bar:
-                if not failed_up and "break_PDH" in fired and                         "failed_PDH" not in fired and i - above_bar <= back_inside_bars:
-                    failed_up = True
-                    fired.add("failed_PDH"); events.append((df.index[i], -1, "failed_PDH"))
-                elif failed_up and "reclaim_PDH" not in fired:
-                    fired.add("reclaim_PDH"); events.append((df.index[i], 1, "reclaim_PDH"))
-                above = False
-            if not below and c[i] < pdl:
-                below = True; below_bar = i
-                if "break_PDL" not in fired:
-                    fired.add("break_PDL"); events.append((df.index[i], -1, "break_PDL"))
-            elif below and c[i] > pdl and i > below_bar:
-                if not failed_dn and "break_PDL" in fired and                         "failed_PDL" not in fired and i - below_bar <= back_inside_bars:
-                    failed_dn = True
-                    fired.add("failed_PDL"); events.append((df.index[i], 1, "failed_PDL"))
-                elif failed_dn and "reclaim_PDL" not in fired:
-                    fired.add("reclaim_PDL"); events.append((df.index[i], -1, "reclaim_PDL"))
-                below = False
+        pdh = float(h[j_s:j_e].max())
+        pdl = float(l[j_s:j_e].min())
+        events += pdh_pdl_walk(i_s, i_e, c, h, l, sess, pdh, pdl,
+                               back_inside_bars, df.index)
     o = df["open"].to_numpy()
     res = {}
     by_kind = {}
@@ -563,17 +548,89 @@ def p006_ny_overlap(sym="EURUSD"):
 # ---------------------------------------------------------------------------
 # P034 — range compression -> forward volatility expansion (SECOND ORDER)
 # ---------------------------------------------------------------------------
-def p034_compression(sym="EURUSD", ratios=(0.6, 0.7)):
+def future_rolling_range(high, low, fwd_bars):
+    """TRUE forward range: for each i, max(high[i+1 : i+1+fwd_bars]) -
+    min(low[i+1 : i+1+fwd_bars]) (the whole FUTURE window, not the single bar
+    fwd_bars later). Last fwd_bars rows are NaN."""
+    fhigh = high.rolling(fwd_bars).max().shift(-fwd_bars)
+    flow = low.rolling(fwd_bars).min().shift(-fwd_bars)
+    return fhigh - flow
+
+
+def us2y_events(d2, px):
+    """Pure mapping: DGS2 diff day t -> first FX market day >= t+1 calendar
+    day, with d2_change stored on the event."""
+    px_pos = {ts: i for i, ts in enumerate(px.index)}
+    rows = []
+    for t, dv in d2.items():
+        elig = px.index[px.index >= t + pd.Timedelta(days=1)]
+        if not len(elig) or (elig[0] - t).days > 7:
+            continue
+        t_exec = elig[0]
+        k = px_pos[t_exec]
+        for H in (1, 5):
+            j = k + H
+            if j >= len(px):
+                continue
+            rows.append({"entry_ts": t_exec, "side": int(np.sign(dv)),
+                         "h": H, "d2_change": float(dv),
+                         "ret": int(np.sign(dv)) * (px.iloc[j] - px.iloc[k])})
+    return pd.DataFrame(rows)
+
+
+def pdh_pdl_walk(i_s, i_e, c, h, l, sess, pdh, pdl, back, idx):
+    """One-day PDH/PDL state machine (pure): NONE -> BROKEN -> FAILED ->
+    RECLAIMED per side. Events: break (+1 PDH / -1 PDL), failed (-1 PDH /
+    +1 PDL), reclaim (+1 PDH LONG / -1 PDL SHORT)."""
+    events = []
+    st_up = st_dn = "NONE"
+    brk_up = brk_dn = -10**9
+    for i in range(i_s, i_e):
+        if not sess[i]:
+            continue
+        if st_up != "RECLAIMED":
+            if c[i] > pdh:
+                if st_up == "NONE":
+                    st_up = "BROKEN"; brk_up = i
+                    events.append((idx[i], 1, "break_PDH"))
+                elif st_up == "FAILED":
+                    st_up = "RECLAIMED"
+                    events.append((idx[i], 1, "reclaim_PDH"))
+            elif c[i] < pdh and st_up == "BROKEN" and i - brk_up <= back:
+                st_up = "FAILED"
+                events.append((idx[i], -1, "failed_PDH"))
+        if st_dn != "RECLAIMED":
+            if c[i] < pdl:
+                if st_dn == "NONE":
+                    st_dn = "BROKEN"; brk_dn = i
+                    events.append((idx[i], -1, "break_PDL"))
+                elif st_dn == "FAILED":
+                    st_dn = "RECLAIMED"
+                    events.append((idx[i], -1, "reclaim_PDL"))
+            elif c[i] > pdl and st_dn == "BROKEN" and i - brk_dn <= back:
+                st_dn = "FAILED"
+                events.append((idx[i], 1, "failed_PDL"))
+    return events
+
+
+
+def p034_compression(sym="EURUSD", ratios=(0.6, 0.7), fwd_bars=144):
+    """Forward 12h range = max(high[i+1:i+1+fwd_bars]) - min(low[i+1:i+1+fwd_bars]):
+    the TRUE rolling future window (audit fix: the old shift(-144) measured the
+    range of the single bar 12h later). The whole future window must stay
+    inside Discovery (events near the window end are dropped)."""
     df = discovery(load(sym))
     hi12 = df["high"].rolling(144).max() - df["low"].rolling(144).min()
     med = hi12.rolling(30 * 288, min_periods=5000).median()
     comp = hi12 / med
-    fwd_range = (df["high"].shift(-144) - df["low"].shift(-144))
-    base_med = float(np.nanmedian(fwd_range))
+    fwd_range = future_rolling_range(df["high"], df["low"], fwd_bars)
+    n = len(df)
+    base_med = float(np.nanmedian(fwd_range[: n - fwd_bars]))
     out = {"BASELINE_FWD_12H_RANGE_PIPS": base_med / PIP[sym]}
     for r in ratios:
         m = (comp < r).to_numpy()
         m[:5000] = False
+        m[n - fwd_bars:] = False          # future window must stay in Discovery
         prev = np.concatenate(([False], m[:-1]))
         m &= ~prev
         vals = fwd_range[m] / PIP[sym]

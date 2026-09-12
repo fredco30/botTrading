@@ -55,7 +55,8 @@ SPLITS = {
 
 US_COSTS = {"LOW": 0.5, "NORMAL": 1.0, "STRESS": 2.5}     # index points, RT
 FX_COSTS = {"LOW": 1.0, "NORMAL": 2.0, "STRESS": 3.5}     # pips, RT
-PIP = {"EURUSD": 0.0001, "GBPUSD": 0.0001, "USDJPY": 0.01}
+PIP = {"EURUSD": 0.0001, "GBPUSD": 0.0001, "USDJPY": 0.01,
+       "EURJPY": 0.01, "GBPJPY": 0.01}
 
 PM_START_ET = (4, 0)
 RTH_START_ET = (9, 30)

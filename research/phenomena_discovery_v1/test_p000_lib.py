@@ -408,7 +408,9 @@ class TestCausalExecReturns(unittest.TestCase):
 
 class TestValidationGate(unittest.TestCase):
     def test_v1_v2_locked_until_authorized(self):
+        import tempfile
         import gate as G
+        G.LOG = os.path.join(tempfile.gettempdir(), "gate_audit_unit_test.log")
         with self.assertRaises(G.ValidationGateError):
             G.window("V1")
         with self.assertRaises(G.ValidationGateError):
@@ -451,6 +453,142 @@ class TestCrossMarketCausalLag(unittest.TestCase):
         # synchronized-DST week (April): London 07:00 UTC, NY 13:30 UTC
         lon_open2 = pd.Timestamp("2020-04-06 08:00", tz="Europe/London")
         self.assertEqual(lon_open2.tz_convert("UTC").hour, 7)
+
+
+class TestPhase2Fixes(unittest.TestCase):
+    """Final-correction tests (P034 / P032 / P004 / P025 / P026)."""
+
+    def test_p034_true_future_window_range(self):
+        from phase2_lib import future_rolling_range
+        n = 300
+        high = pd.Series([10.0] * n)
+        low = pd.Series([9.0] * n)
+        # a KNOWN expansion inside the future window of bar 0: bars 1..144
+        high.iloc[1:145] = 12.0
+        low.iloc[1:145] = 8.0
+        # extremes strictly INSIDE the window so a single-bar-at-144 reading errs
+        high.iloc[50] = 13.0
+        low.iloc[80] = 7.0
+        fr = future_rolling_range(high, low, 144)
+        self.assertAlmostEqual(float(fr.iloc[0]), 13.0 - 7.0, places=9)
+        # last fwd_bars rows must be NaN (no complete future window)
+        self.assertTrue(pd.isna(fr.iloc[-1]))
+        self.assertTrue(pd.isna(fr.iloc[n - 144]))
+        self.assertFalse(pd.isna(fr.iloc[n - 145]))
+
+    def test_fomc_est_and_edt_conversion(self):
+        from phase2_lib import fed_tz_offset
+        est = pd.Timestamp("2016-01-27 14:00",
+                           tz=fed_tz_offset("EST")).tz_convert("UTC")
+        edt = pd.Timestamp("2016-03-16 14:00",
+                           tz=fed_tz_offset("EDT")).tz_convert("UTC")
+        self.assertEqual(est.hour, 19)   # 14:00 EST -> 19:00 UTC
+        self.assertEqual(edt.hour, 18)   # 14:00 EDT -> 18:00 UTC
+
+    def test_fomc_entry_is_first_open_at_or_after_release(self):
+        idx = pd.date_range("2016-01-27 14:00", periods=40, freq="5min",
+                            tz="America/New_York")
+        rel = pd.Timestamp("2016-01-27 14:02", tz="EST").tz_convert("America/New_York")
+        pos = int(idx.searchsorted(rel))
+        self.assertEqual(idx[pos], idx[1])          # 14:05 bar
+        self.assertGreaterEqual(idx[pos], rel)
+        rel2 = pd.Timestamp("2016-01-27 14:00", tz="EST").tz_convert("America/New_York")
+        self.assertEqual(idx[int(idx.searchsorted(rel2))], idx[0])
+
+    def _pdh_day(self):
+        idx = pd.DatetimeIndex([pd.Timestamp("2015-06-01 09:00", tz="UTC") +
+                                pd.Timedelta(minutes=5 * i) for i in range(6)])
+        c = np.array([100.0, 111.0, 105.0, 112.0, 104.0, 101.0])
+        h = np.maximum(c, 100.0) + 0.5
+        l = np.minimum(c, 100.0) - 0.5
+        sess = np.array([True] * 6)
+        return idx, c, h, l, sess
+
+    def test_pdh_break_failed_reclaim(self):
+        from phase2_lib import pdh_pdl_walk
+        idx, c, h, l, sess = self._pdh_day()
+        ev = pdh_pdl_walk(0, 6, c, h, l, sess, pdh=110.0, pdl=1.0,
+                          back=6, idx=idx)
+        kinds = [(k, s, t) for t, s, k in ev if "PDH" in k]
+        self.assertEqual([k for k, _, _ in kinds],
+                         ["break_PDH", "failed_PDH", "reclaim_PDH"])
+        self.assertEqual([s for _, s, _ in kinds], [1, -1, 1])  # reclaim LONG
+        self.assertEqual(kinds[2][2], idx[3])
+
+    def test_pdl_break_failed_reclaim(self):
+        from phase2_lib import pdh_pdl_walk
+        idx, c, h, l, sess = self._pdh_day()
+        ev = pdh_pdl_walk(0, 6, c, h, l, sess, pdh=500.0, pdl=105.0,
+                          back=6, idx=idx)
+        kinds = [(k, s, t) for t, s, k in ev if "PDL" in k]
+        # closes 100,111,105,112,104,101 vs PDL=105:
+        # 100<105 break; 111>105 failed; 112>105 (still FAILED, no event);
+        # 104<105 reclaim -> SHORT
+        self.assertEqual([k for k, _, _ in kinds],
+                         ["break_PDL", "failed_PDL", "reclaim_PDL"])
+        self.assertEqual([s for _, s, _ in kinds], [-1, 1, -1])
+
+    def _carry_fixture(self):
+        idx = pd.date_range("2015-01-01", periods=60, freq="D", tz="UTC")
+        px = pd.Series(np.linspace(1.0, 1.1, 60), index=idx)   # uptrend
+        diff = pd.Series(0.5, index=idx)                        # constant carry
+        diff.iloc[30:] = 0.8                     # one permanent change (1 event)
+        return px, diff
+
+    def test_p025_delta_event_only(self):
+        import phase2_lib as Q
+        px, diff = self._carry_fixture()
+        orig = Q._daily_close
+        Q._daily_close = lambda sym: px
+        try:
+            out = Q.p025_carry("EURUSD", diff)
+        finally:
+            Q._daily_close = orig
+        self.assertEqual(out["s_delta_h1d"]["N_EVENTS_DAYS"], 1)
+        self.assertGreater(out["s_level_h1d"]["N_EVENTS_DAYS"], 10)
+
+    def test_p025_carrymom_event_only_when_aligned(self):
+        import phase2_lib as Q
+        px, diff = self._carry_fixture()
+        orig = Q._daily_close
+        Q._daily_close = lambda sym: px
+        try:
+            out = Q.p025_carry("EURUSD", diff)
+        finally:
+            Q._daily_close = orig
+        # pure uptrend -> momentum always positive; carry positive => every
+        # eligible day is an aligned event with direction = carry (+1)
+        self.assertEqual(out["s_carrymom_h1d"]["N_EVENTS_DAYS"],
+                         out["s_level_h1d"]["N_EVENTS_DAYS"])
+        self.assertGreater(out["s_carrymom_h1d"]["N_LONG"], 0)
+        self.assertEqual(out["s_carrymom_h1d"]["N_SHORT"], 0)
+
+    def _us2y_fixture(self):
+        d2_idx = pd.to_datetime(["2015-01-05", "2015-01-09"], utc=True)
+        d2 = pd.Series([0.05, -0.03], index=d2_idx)   # in %
+        fx_idx = pd.bdate_range("2015-01-05", periods=15, tz="UTC")
+        px = pd.Series(np.linspace(110.0, 111.0, 15), index=fx_idx)
+        return d2, px
+
+    def test_p026_monday_diff_eligible_tuesday(self):
+        from phase2_lib import us2y_events
+        d2, px = self._us2y_fixture()
+        rows = us2y_events(d2, px)
+        mon = [r for r in rows.to_dict("records") if r["d2_change"] == 0.05]
+        self.assertTrue(mon)
+        self.assertTrue(all(r["entry_ts"].date() ==
+                            pd.Timestamp("2015-01-06").date() for r in mon))
+
+    def test_p026_friday_diff_eligible_next_market_day(self):
+        from phase2_lib import us2y_events
+        d2, px = self._us2y_fixture()
+        rows = us2y_events(d2, px)
+        fri = [r for r in rows.to_dict("records")
+               if r["d2_change"] == -0.03 and r["h"] == 1]
+        self.assertEqual(len(fri), 1)
+        self.assertEqual(fri[0]["entry_ts"].date(),
+                         pd.Timestamp("2015-01-12").date())   # Friday -> Monday
+
 
 
 class TestOOSProtection(unittest.TestCase):
