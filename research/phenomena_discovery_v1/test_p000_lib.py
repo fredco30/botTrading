@@ -591,6 +591,38 @@ class TestPhase2Fixes(unittest.TestCase):
 
 
 
+class TestPairedBootstrap(unittest.TestCase):
+    """Dependence audit: when pairs are perfectly correlated, the paired
+    (row-unit) bootstrap must preserve the co-movement — its uncertainty is
+    strictly larger than the (now superseded) per-pair independent bootstrap."""
+
+    def test_perfect_correlation_preserved_and_uncertainty_not_understated(self):
+        from phase2_lib import paired_bootstrap_means
+        rng = np.random.default_rng(0)
+        base = rng.normal(5.0, 10.0, 60)          # one economic event series
+        mat = np.column_stack([base, base, base])  # 3 pairs, PERFECT corr
+        paired = paired_bootstrap_means(mat, 2000, 42)
+        # independent resampling (superseded approach): each column resampled
+        # on its own, then averaged
+        rng2 = np.random.default_rng(42)
+        indep = np.empty(2000)
+        for b in range(2000):
+            cols = [base[rng2.integers(0, 60, 60)] for _ in range(3)]
+            indep[b] = np.mean(cols)
+        # same mean level (both are MC estimates of mean(base); they differ
+        # only by Monte-Carlo noise, not by construction)
+        self.assertAlmostEqual(float(np.mean(paired)),
+                               float(np.mean(indep)), delta=0.1)
+        # but the paired bootstrap does NOT divide the uncertainty by ~sqrt(3)
+        self.assertGreater(float(np.std(paired)),
+                           1.3 * float(np.std(indep)))
+        # and it preserves the cross-pair correlation of any single draw
+        sel = rng.integers(0, 60, 60)
+        drawn = mat[sel]
+        self.assertAlmostEqual(float(np.corrcoef(drawn[:, 0], drawn[:, 1])[0, 1]),
+                               1.0, places=9)
+
+
 class TestOOSProtection(unittest.TestCase):
     def test_load_5m_rejects_oos_data(self):
         # direct check of the protection constants (parquet itself not loaded)

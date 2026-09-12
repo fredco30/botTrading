@@ -102,3 +102,45 @@ FINAL_VERDICT=NO_VALIDATED_PHENOMENON_AFTER_PHASE2
 n'a été lancée : phénomène non validé, décision réservée à la revue humaine.)
 
 OOS_ACCESSED=NO ; TESTS=96 verts ; CI=PASS ; PR #19 mise à jour, non mergée.
+
+
+## 10. P013R — AUDIT DE DÉPENDANCE (avant toute décision V1)
+
+Faiblesse corrigée : l'ancien bootstrap pooled resamplait les 3 paires
+INDÉPENDAMMENT alors que les événements partagent les mêmes month-ends, la
+devise JPY et des rendements corrélés (ρ = 0.60 USDJPY/EURJPY, 0.62
+USDJPY/GBPJPY, 0.72 EURJPY/GBPJPY) → incertitude artificiellement réduite.
+ANCIEN POOLED BOOTSTRAP : SUPERSEDED_BY_PAIRED_BOOTSTRAP (valeurs historiques
+conservées dans p013r_replication.json, plus aucune valeur de preuve).
+
+Table événementielle commune (p013r_dependence_audit.json) : N=107 month-ends
+où les 3 paires ont une observation causalement valide (calendrier de chaque
+paire respecté — un bug d'alignement inter-calendriers a été détecté et
+corrigé lors de la construction).
+
+Résultats (règle INCHANGÉE, Discovery 2010-2018) :
+
+| Métrique | Valeur |
+|---|---|
+| PAIRED_POOLED_GROSS | +8.97 pips |
+| PAIRED_POOLED_NET_NORMAL | +6.97 pips |
+| PAIRED_POOLED_NET_STRESS (4 pips) | +4.97 pips |
+| PAIRED_CI95_GROSS / NET | [−4.64, +22.13] / [−6.64, +20.13] |
+| PAIRED_P_GROSS / P_NET | 0.169 / 0.307 |
+| YEAR_BLOCK_CI95_GROSS / NET | [−4.23, +20.61] / [−6.23, +18.61] |
+| MEDIAN_GROSS / NET | +12.43 / +10.43 |
+| WIN_RATE_GROSS / NET | 0.598 / 0.570 |
+| REMOVE_BEST_EVENT_NET | +5.22 |
+| REMOVE_BEST_3_EVENTS_NET | +2.04 |
+| POSITIVE_YEARS_GROSS / NET | 7/9 / 5/9 |
+
+La correction de dépendance fait exactement ce qui était suspecté : elle
+élargit l'incertitude (p gross 0.053 → 0.169 ; l'IC95 net croise zéro).
+Critères de classement : 5/6 remplis (seul le CI apparié excluant zéro
+échoue) → **P013R_DISCOVERY_CLASSIFICATION = P013R_DISCOVERY_WEAK**
+(effet positif, net de coûts NORMAL et STRESS, robuste au retrait des 3
+meilleurs événements, mais fragile statistiquement : IC croisant zéro,
+5/9 années nettes positives).
+
+V1_ACCESSED=NO ; V2_ACCESSED=NO ; OOS_ACCESSED=NO. Décision d'ouverture V1
+réservée à la revue humaine sur la base de cette classification WEAK.

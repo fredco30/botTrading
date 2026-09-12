@@ -73,7 +73,9 @@
    18.28
   ],
   "POOLED_P_GROSS": 0.053,
-  "PAIRS_POSITIVE_GROSS": "3/3"
+  "PAIRS_POSITIVE_GROSS": "3/3",
+  "STATUS": "SUPERSEDED_BY_PAIRED_BOOTSTRAP",
+  "NOTE": "per-pair independent resampling understates family uncertainty (same month-end dates, shared JPY, correlated returns); superseded by the dependence audit (p013r_dependence_audit.json). Historical values kept."
  },
  "_RULE": "PREREGISTERED (ledger P013R, registered BEFORE computation): last FX trading day of month, LONG XJPY, close-to-next-close, NORMAL 2 pips, Discovery 2010-2018, bootstrap 2000 seed 42; equal-weight pooling; DISCOVERY ONLY \u2014 V1/V2 remain locked"
 }

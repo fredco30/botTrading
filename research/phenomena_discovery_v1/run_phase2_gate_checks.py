@@ -163,7 +163,120 @@ def part_b_p013r():
                     "last FX trading day of month, LONG XJPY, close-to-next-close, "
                     "NORMAL 2 pips, Discovery 2010-2018, bootstrap 2000 seed 42; "
                     "equal-weight pooling; DISCOVERY ONLY — V1/V2 remain locked")
+    res["POOLED_EQUAL_WEIGHT"]["STATUS"] = "SUPERSEDED_BY_PAIRED_BOOTSTRAP"
+    res["POOLED_EQUAL_WEIGHT"]["NOTE"] = ("per-pair independent resampling "
+        "understates family uncertainty (same month-end dates, shared JPY, "
+        "correlated returns); superseded by the dependence audit "
+        "(p013r_dependence_audit.json). Historical values kept.")
     return res
+
+
+
+
+def part_c_dependence_audit(cost_normal=2.0, cost_stress=4.0):
+    """P013R family inference on the COMMON event table (audit v4).
+
+    One row per common month-end event (dates valid for ALL three pairs);
+    paired bootstrap resamples whole rows; year-block bootstrap resamples
+    calendar years as blocks. The rule is UNCHANGED (same P013R definition,
+    NORMAL 2 pips, Discovery 2010-2018)."""
+    pairs = ("USDJPY", "EURJPY", "GBPJPY")
+    ret_by_date = {}
+    for sym in pairs:
+        # each pair uses ITS OWN daily calendar for its last-trading-day and
+        # next-day return; the common table then keeps only dates valid for
+        # all three (causal alignment — never index one pair with another
+        # pair's calendar)
+        px, day, last1_pair = month_end_split(sym, n_last=1)
+        rets = {}
+        for i in range(len(px) - 1):
+            if day[i] in last1_pair:
+                rets[day[i]] = float(px.iloc[i + 1] - px.iloc[i]) / Q.PIP[sym]
+        ret_by_date[sym] = rets
+    common = sorted(set(ret_by_date[pairs[0]])
+                    & set(ret_by_date[pairs[1]])
+                    & set(ret_by_date[pairs[2]]))
+    dates = common
+    mat = np.array([[ret_by_date[s][d] for s in pairs] for d in dates])
+    years = np.array([d.year for d in dates])
+    pooled_gross = mat.mean(axis=1)
+    pooled_net = pooled_gross - cost_normal
+    pooled_stress = pooled_gross - cost_stress
+
+    pb_gross = Q.paired_bootstrap_means(mat, 2000, 42)
+    pb_net = pb_gross - cost_normal
+    yb_gross = Q.year_block_bootstrap_means(mat, years, 2000, 42)
+    yb_net = yb_gross - cost_normal
+
+    def ci(a):
+        return [round(float(np.percentile(a, 2.5)), 2),
+                round(float(np.percentile(a, 97.5)), 2)]
+
+    def pval(a):
+        return round(2 * min(float(np.mean(a <= 0)), float(np.mean(a >= 0))), 3)
+
+    sr = np.sort(pooled_gross)[::-1]
+    srn = np.sort(pooled_net)[::-1]
+    yrs_u = np.unique(years)
+    by_year_gross = {int(y): round(float(pooled_gross[years == y].mean()), 2)
+                     for y in yrs_u}
+    by_year_net = {int(y): round(float(pooled_net[years == y].mean()), 2)
+                   for y in yrs_u}
+    corr = np.corrcoef(mat, rowvar=False)
+    out = {
+        "PROTOCOL": ("dependence audit: common month-end event table, paired "
+                     "bootstrap (rows resampled as units, 2000, seed 42) + "
+                     "year-block bootstrap; rule UNCHANGED; Discovery only"),
+        "N_COMMON": int(len(dates)),
+        "EVENT_DATES_RANGE": f"{dates[0]} -> {dates[-1]}",
+        "PAIR_CORRELATIONS": {"_ORDER": list(pairs),
+                              "_MATRIX": np.round(corr, 3).tolist()},
+        "USDJPY_GROSS": round(float(mat[:, 0].mean()), 2),
+        "EURJPY_GROSS": round(float(mat[:, 1].mean()), 2),
+        "GBPJPY_GROSS": round(float(mat[:, 2].mean()), 2),
+        "PAIRS_GROSS_POSITIVE": f"{int((mat.mean(axis=0) > 0).sum())}/3",
+        "PAIRED_POOLED_GROSS": round(float(pooled_gross.mean()), 2),
+        "PAIRED_POOLED_NET_NORMAL": round(float(pooled_net.mean()), 2),
+        "PAIRED_POOLED_NET_STRESS": round(float(pooled_stress.mean()), 2),
+        "PAIRED_CI95_GROSS": ci(pb_gross),
+        "PAIRED_CI95_NET": ci(pb_net),
+        "PAIRED_P_GROSS": pval(pb_gross),
+        "PAIRED_P_NET": pval(pb_net),
+        "YEAR_BLOCK_GROSS_MEAN": round(float(yb_gross.mean()), 2),
+        "YEAR_BLOCK_NET_MEAN": round(float(yb_net.mean()), 2),
+        "YEAR_BLOCK_CI95_GROSS": ci(yb_gross),
+        "YEAR_BLOCK_CI95_NET": ci(yb_net),
+        "MEDIAN_GROSS": round(float(np.median(pooled_gross)), 2),
+        "MEDIAN_NET": round(float(np.median(pooled_net)), 2),
+        "WIN_RATE_GROSS": round(float((pooled_gross > 0).mean()), 3),
+        "WIN_RATE_NET": round(float((pooled_net > 0).mean()), 3),
+        "REMOVE_BEST_EVENT_GROSS": round(float(sr[1:].mean()), 2),
+        "REMOVE_BEST_EVENT_NET": round(float(srn[1:].mean()), 2),
+        "REMOVE_BEST_3_EVENTS_GROSS": round(float(sr[3:].mean()), 2),
+        "REMOVE_BEST_3_EVENTS_NET": round(float(srn[3:].mean()), 2),
+        "BY_YEAR_POOLED_GROSS": by_year_gross,
+        "BY_YEAR_POOLED_NET": by_year_net,
+        "POSITIVE_YEARS_GROSS": f"{sum(1 for v in by_year_gross.values() if v > 0)}/{len(by_year_gross)}",
+        "POSITIVE_YEARS_NET": f"{sum(1 for v in by_year_net.values() if v > 0)}/{len(by_year_net)}",
+    }
+    # classification per mission criteria (no magic p threshold)
+    crit = {
+        "pooled_gross_gt_0": pooled_gross.mean() > 0,
+        "pooled_net_normal_gt_0": pooled_net.mean() > 0,
+        "pairs_2of3_positive": (mat.mean(axis=0) > 0).sum() >= 2,
+        "majority_years_net_positive": sum(1 for v in by_year_net.values() if v > 0) > len(by_year_net) / 2,
+        "remove_best3_net_gt_0": float(sr[3:].mean() - cost_normal) > 0
+        if False else float(srn[3:].mean()) > 0,
+        "paired_ci_excludes_0_net": ci(pb_net)[0] > 0 or ci(pb_net)[1] < 0,
+    }
+    out["CRITERIA"] = {k: bool(v) for k, v in crit.items()}
+    if all(crit.values()):
+        out["P013R_DISCOVERY_CLASSIFICATION"] = "P013R_DISCOVERY_STRONG"
+    elif pooled_gross.mean() > 0 and pooled_net.mean() > 0:
+        out["P013R_DISCOVERY_CLASSIFICATION"] = "P013R_DISCOVERY_WEAK"
+    else:
+        out["P013R_DISCOVERY_CLASSIFICATION"] = "P013R_REJECT"
+    return out
 
 
 if __name__ == "__main__":
@@ -183,3 +296,16 @@ if __name__ == "__main__":
         print(f"  P013R {sym}: N={v['N']} GROSS={v['GROSS_MEAN_PIPS']} NET={v['NET_NORMAL_PIPS']} "
               f"CI={v['CI95_GROSS']} p={v['BOOT_P_GROSS']} pos_years={v['POSITIVE_YEARS_GROSS']}")
     print("  POOLED:", b["POOLED_EQUAL_WEIGHT"])
+    c = part_c_dependence_audit()
+    with open(os.path.join(HERE, "p013r_dependence_audit.json"), "w", encoding="utf-8") as f:
+        json.dump(c, f, indent=1, default=str)
+    print("WROTE p013r_dependence_audit.json")
+    for k in ("N_COMMON", "PAIRED_POOLED_GROSS", "PAIRED_POOLED_NET_NORMAL",
+              "PAIRED_POOLED_NET_STRESS", "PAIRED_CI95_GROSS", "PAIRED_CI95_NET",
+              "PAIRED_P_GROSS", "PAIRED_P_NET", "YEAR_BLOCK_CI95_GROSS",
+              "YEAR_BLOCK_CI95_NET", "MEDIAN_GROSS", "MEDIAN_NET",
+              "WIN_RATE_NET", "REMOVE_BEST_EVENT_NET",
+              "REMOVE_BEST_3_EVENTS_NET", "POSITIVE_YEARS_NET",
+              "PAIR_CORRELATIONS", "CRITERIA",
+              "P013R_DISCOVERY_CLASSIFICATION"):
+        print(f"  {k}: {c[k]}")

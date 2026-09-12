@@ -614,6 +614,44 @@ def pdh_pdl_walk(i_s, i_e, c, h, l, sess, pdh, pdl, back, idx):
 
 
 
+def paired_bootstrap_means(event_matrix, n_boot=2000, seed=42):
+    """FAMILY-INFERENCE bootstrap for a common event table.
+
+    event_matrix: ndarray (n_events, n_pairs) — one ROW per common event,
+    one COLUMN per instrument. Each draw resamples whole ROWS (events), so
+    the cross-pair dependence structure is preserved exactly. Returns the
+    array of bootstrap means of the equal-weight pooled series.
+    (The previous per-pair independent resampling is superseded — it
+    understates uncertainty when pairs are correlated.)"""
+    m = np.asarray(event_matrix, dtype=float)
+    n = m.shape[0]
+    pooled = m.mean(axis=1)
+    rng = np.random.default_rng(seed)
+    out = np.empty(n_boot)
+    for b in range(n_boot):
+        sel = rng.integers(0, n, n)
+        out[b] = pooled[sel].mean()
+    return out
+
+
+def year_block_bootstrap_means(event_matrix, year_ids, n_boot=2000, seed=42):
+    """Year-block bootstrap: resample CALENDAR YEARS as blocks (all their
+    month-end events, all pairs together) to preserve regimes, cross-pair
+    correlation and temporal structure."""
+    m = np.asarray(event_matrix, dtype=float)
+    years = np.asarray(year_ids)
+    uniq = np.unique(years)
+    pooled = m.mean(axis=1)
+    rng = np.random.default_rng(seed)
+    out = np.empty(n_boot)
+    for b in range(n_boot):
+        pick = rng.choice(uniq, size=len(uniq), replace=True)
+        mask = np.zeros(len(m), dtype=bool)
+        for y in pick:
+            mask |= (years == y)
+        out[b] = pooled[mask].mean()
+    return out
+
 def p034_compression(sym="EURUSD", ratios=(0.6, 0.7), fwd_bars=144):
     """Forward 12h range = max(high[i+1:i+1+fwd_bars]) - min(low[i+1:i+1+fwd_bars]):
     the TRUE rolling future window (audit fix: the old shift(-144) measured the
