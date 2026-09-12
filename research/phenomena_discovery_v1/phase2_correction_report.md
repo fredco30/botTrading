@@ -127,7 +127,7 @@ Résultats (règle INCHANGÉE, Discovery 2010-2018) :
 | PAIRED_POOLED_NET_STRESS (4 pips) | +4.97 pips |
 | PAIRED_CI95_GROSS / NET | [−4.64, +22.13] / [−6.64, +20.13] |
 | PAIRED_P_GROSS / P_NET | 0.169 / 0.307 |
-| YEAR_BLOCK_CI95_GROSS / NET | [−4.23, +20.61] / [−6.23, +18.61] |
+| YEAR_BLOCK_CI95_GROSS / NET | [−5.26, +24.29] / [−7.26, +22.29] (audit v5 : bug de déduplication des années tirées corrigé — la multiplicité des blocs compte désormais ; ancien CI [−4.23, +20.61] / [−6.23, +18.61] invalidé) |
 | MEDIAN_GROSS / NET | +12.43 / +10.43 |
 | WIN_RATE_GROSS / NET | 0.598 / 0.570 |
 | REMOVE_BEST_EVENT_NET | +5.22 |
@@ -144,3 +144,22 @@ meilleurs événements, mais fragile statistiquement : IC croisant zéro,
 
 V1_ACCESSED=NO ; V2_ACCESSED=NO ; OOS_ACCESSED=NO. Décision d'ouverture V1
 réservée à la revue humaine sur la base de cette classification WEAK.
+
+
+## 11. P013R — YEAR-BLOCK BOOTSTRAP FINAL FIX (audit v5)
+
+BUG CONFIRMÉ : `year_block_bootstrap_means` construisait un masque booléen
+(`mask |= years == y`) qui DÉDUPLIQUAIT les années tirées en double — la
+multiplicité des blocs était perdue. CORRECTION : les blocs tirés sont
+CONCATÉNÉS dans l'ordre du tirage (une année tirée k fois contribue k fois)
+; n_boot=2000, seed=42 inchangés ; test synthétique obligatoire ajouté
+(tirage YEAR_C, YEAR_C, YEAR_A → (100+100−100)/3 = +33.3, et l'ancienne
+logique booléenne donnait bien 0 — le test échoue avec l'ancien code).
+
+RECALCUL (uniquement les stats year-block) :
+YEAR_BLOCK_GROSS_MEAN +8.85 / NET_MEAN +6.85 ;
+CI95_GROSS [−5.26, +24.29] ; CI95_NET [−7.26, +22.29] (CI légèrement plus
+large, cohérent avec la multiplicité restaurée).
+TOUTES les métriques appariées et de robustesse : bit-identiques (aucun
+nouveau bug révélé). CLASSIFICATION : P013R_DISCOVERY_WEAK inchangée
+(fondée sur les critères figés, le CI apparié restant le critère limitant).

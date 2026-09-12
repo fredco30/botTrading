@@ -634,22 +634,28 @@ def paired_bootstrap_means(event_matrix, n_boot=2000, seed=42):
     return out
 
 
+def _year_block_sample_mean(pooled, years, pick):
+    """Mean of the CONCATENATED blocks for one draw. A year drawn k times
+    contributes k copies of its events (the old boolean-mask implementation
+    deduplicated repeats and lost the multiplicity — bug fixed)."""
+    blocks = [pooled[years == y] for y in pick]
+    return float(np.concatenate(blocks).mean())
+
+
 def year_block_bootstrap_means(event_matrix, year_ids, n_boot=2000, seed=42):
     """Year-block bootstrap: resample CALENDAR YEARS as blocks (all their
     month-end events, all pairs together) to preserve regimes, cross-pair
-    correlation and temporal structure."""
+    correlation and temporal structure. Years are drawn WITH replacement and
+    repeated draws genuinely repeat the block (no mask deduplication)."""
     m = np.asarray(event_matrix, dtype=float)
     years = np.asarray(year_ids)
     uniq = np.unique(years)
-    pooled = m.mean(axis=1)
+    pooled = m if m.ndim == 1 else m.mean(axis=1)
     rng = np.random.default_rng(seed)
     out = np.empty(n_boot)
     for b in range(n_boot):
         pick = rng.choice(uniq, size=len(uniq), replace=True)
-        mask = np.zeros(len(m), dtype=bool)
-        for y in pick:
-            mask |= (years == y)
-        out[b] = pooled[mask].mean()
+        out[b] = _year_block_sample_mean(pooled, years, pick)
     return out
 
 def p034_compression(sym="EURUSD", ratios=(0.6, 0.7), fwd_bars=144):

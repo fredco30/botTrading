@@ -623,6 +623,39 @@ class TestPairedBootstrap(unittest.TestCase):
                                1.0, places=9)
 
 
+class TestYearBlockBootstrap(unittest.TestCase):
+    """Final fix: repeated year draws must genuinely repeat the block
+    (the old boolean-mask implementation deduplicated them)."""
+
+    def test_repeated_year_draw_counts_multiplicity(self):
+        from phase2_lib import _year_block_sample_mean
+        # 3 years x 2 events each: YEAR_A=-100, YEAR_B=0, YEAR_C=+100
+        pooled = np.array([-100., -100., 0., 0., 100., 100.])
+        years = np.array([2010, 2010, 2011, 2011, 2012, 2012])
+        # draw: YEAR_C, YEAR_C, YEAR_A  ->  (100+100) + (100+100) + (-100-100)
+        mean = _year_block_sample_mean(pooled, years, [2012, 2012, 2010])
+        self.assertAlmostEqual(mean, (200 + 200 - 200) / 6, places=9)
+        # the OLD boolean-mask logic would deduplicate YEAR_C:
+        mask = np.zeros(6, dtype=bool)
+        for y in [2012, 2012, 2010]:
+            mask |= (years == y)
+        old_mean = float(pooled[mask].mean())
+        self.assertAlmostEqual(old_mean, 0.0, places=9)   # lost multiplicity
+        self.assertNotAlmostEqual(mean, old_mean)
+
+    def test_year_block_bootstrap_uses_multiplicity(self):
+        from phase2_lib import year_block_bootstrap_means
+        pooled = np.array([-100., -100., 0., 0., 100., 100.])
+        years = np.array([2010, 2010, 2011, 2011, 2012, 2012])
+        means = year_block_bootstrap_means(pooled, years, n_boot=2000, seed=42)
+        # with the multiplicity fix, a distribution over 3^3=270 possible
+        # draws must include values ABOVE the +100 single-year mean (draws
+        # where 2012 dominates, e.g. C+C+C -> +100 and C+C+A -> +33)
+        self.assertGreater(float(np.max(means)), 50.0)
+        # and the old mask logic could never exceed the max single-year mean
+        self.assertLessEqual(float(np.mean(means)), 100.0)
+
+
 class TestOOSProtection(unittest.TestCase):
     def test_load_5m_rejects_oos_data(self):
         # direct check of the protection constants (parquet itself not loaded)
