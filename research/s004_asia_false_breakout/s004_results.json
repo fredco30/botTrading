@@ -1,0 +1,96 @@
+{
+  "N_BREAKOUTS": 2064,
+  "N_FALSE_BREAKOUTS": 1197,
+  "FALSE_BREAKOUT_RATE": 0.5799,
+  "N_TRADES": 1180,
+  "TRADES_PER_YEAR": 131.11,
+  "GROSS_MEAN_PIPS": 0.221,
+  "NET_NORMAL_MEAN_PIPS": -1.779,
+  "NET_STRESS_MEAN_PIPS": -3.779,
+  "MEDIAN_NET": -5.0,
+  "WIN_RATE": 0.4653,
+  "AVG_WIN": 10.942,
+  "AVG_LOSS": -12.848,
+  "PROFIT_FACTOR_NORMAL": 0.741,
+  "EXPECTANCY_R_NORMAL": -0.1426,
+  "TOTAL_NET_PIPS": -2099.8,
+  "MAX_DRAWDOWN_PIPS": -2104.7,
+  "MAX_CONSECUTIVE_LOSSES": 9,
+  "BY_YEAR": {
+    "2010": {
+      "N": 141,
+      "NET_PIPS": -281.85,
+      "MEAN_NET": -1.999,
+      "PF": 0.806
+    },
+    "2011": {
+      "N": 129,
+      "NET_PIPS": -386.9,
+      "MEAN_NET": -2.999,
+      "PF": 0.723
+    },
+    "2012": {
+      "N": 133,
+      "NET_PIPS": -110.0,
+      "MEAN_NET": -0.827,
+      "PF": 0.874
+    },
+    "2013": {
+      "N": 131,
+      "NET_PIPS": -194.5,
+      "MEAN_NET": -1.485,
+      "PF": 0.749
+    },
+    "2014": {
+      "N": 130,
+      "NET_PIPS": -200.6,
+      "MEAN_NET": -1.543,
+      "PF": 0.659
+    },
+    "2015": {
+      "N": 125,
+      "NET_PIPS": -140.3,
+      "MEAN_NET": -1.122,
+      "PF": 0.83
+    },
+    "2016": {
+      "N": 134,
+      "NET_PIPS": -54.6,
+      "MEAN_NET": -0.407,
+      "PF": 0.919
+    },
+    "2017": {
+      "N": 131,
+      "NET_PIPS": -516.25,
+      "MEAN_NET": -3.941,
+      "PF": 0.395
+    },
+    "2018": {
+      "N": 126,
+      "NET_PIPS": -214.8,
+      "MEAN_NET": -1.705,
+      "PF": 0.68
+    }
+  },
+  "POSITIVE_YEARS": 0,
+  "REMOVE_BEST_1_PERCENT_NET_MEAN": -2.245,
+  "CI95_MEAN_NET_NORMAL": [
+    -2.622,
+    -0.957
+  ],
+  "GATE_PROMISING": false,
+  "FAIL_FAST_REJECT": true,
+  "CLASSIFICATION": "S004_DISCOVERY_REJECT",
+  "REASON_STATS": {
+    "N_BREAKOUTS_SCAN": 2064,
+    "N_DAYS_WITH_RANGE": 2620,
+    "exit_reasons": {
+      "STOP": 614,
+      "TARGET": 566
+    },
+    "side_counts": {
+      "LONG": 621,
+      "SHORT": 559
+    }
+  }
+}
