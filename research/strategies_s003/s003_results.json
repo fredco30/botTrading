@@ -1,0 +1,97 @@
+{
+  "N_TRADES": 1350,
+  "TRADE_RATE": 1.0,
+  "TRADES_PER_YEAR": 150.0,
+  "GROSS_MEAN_PIPS": 0.611,
+  "NET_NORMAL_MEAN_PIPS": -1.389,
+  "NET_STRESS_MEAN_PIPS": -3.389,
+  "MEDIAN_NET": -8.3,
+  "WIN_RATE": 0.4393,
+  "AVG_WIN": 40.343,
+  "AVG_LOSS": -34.08,
+  "PROFIT_FACTOR_NORMAL": 0.927,
+  "EXPECTANCY_R_NORMAL": -0.0411,
+  "TOTAL_NET_PIPS": -1875.25,
+  "MAX_DRAWDOWN_PIPS": 2496.5,
+  "MAX_CONSECUTIVE_LOSSES": 11,
+  "POSITIVE_YEARS": 4,
+  "BY_YEAR": {
+    "2010": {
+      "N": 119,
+      "NET_PIPS": 92.85,
+      "MEAN_NET": 0.78,
+      "PF": 1.031
+    },
+    "2011": {
+      "N": 131,
+      "NET_PIPS": -977.05,
+      "MEAN_NET": -7.458,
+      "PF": 0.763
+    },
+    "2012": {
+      "N": 152,
+      "NET_PIPS": 177.15,
+      "MEAN_NET": 1.165,
+      "PF": 1.056
+    },
+    "2013": {
+      "N": 162,
+      "NET_PIPS": -460.2,
+      "MEAN_NET": -2.841,
+      "PF": 0.838
+    },
+    "2014": {
+      "N": 167,
+      "NET_PIPS": -516.25,
+      "MEAN_NET": -3.091,
+      "PF": 0.795
+    },
+    "2015": {
+      "N": 146,
+      "NET_PIPS": 103.35,
+      "MEAN_NET": 0.708,
+      "PF": 1.034
+    },
+    "2016": {
+      "N": 143,
+      "NET_PIPS": -189.65,
+      "MEAN_NET": -1.326,
+      "PF": 0.914
+    },
+    "2017": {
+      "N": 154,
+      "NET_PIPS": 443.1,
+      "MEAN_NET": 2.877,
+      "PF": 1.236
+    },
+    "2018": {
+      "N": 176,
+      "NET_PIPS": -548.55,
+      "MEAN_NET": -3.117,
+      "PF": 0.814
+    }
+  },
+  "REMOVE_BEST_1_PERCENT_NET_MEAN": -2.701,
+  "CI95_MEAN_NET_NORMAL": [
+    -3.649,
+    0.997
+  ],
+  "N_COMPRESSION_EVENTS": 1605,
+  "SKIPPED_OVERLAP_EVENTS": 172,
+  "CLASSIFICATION": "S003_DISCOVERY_REJECT",
+  "P034_DEFINITION_REUSED": true,
+  "P034_PARAMETERS_CHANGED": "NO",
+  "GATE_CHECKS": {
+    "NET_NORMAL_MEAN_PIPS>2": false,
+    "PF>=1.20": false,
+    "EXPECTANCY_R>0.10": false,
+    "POSITIVE_YEARS>=6": false,
+    "REMOVE_BEST_1PCT>0": false,
+    "TOTAL_NET>0": false
+  },
+  "FAIL_FAST_TRIGGERS": {
+    "NET_NORMAL<=0": true,
+    "PF<=1.0": true,
+    "REMOVE_BEST_1PCT<=0": true
+  }
+}
