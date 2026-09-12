@@ -32,7 +32,9 @@ SCHEDULED_STATEMENTS = [
     ("2019", "2019-01-30"), ("2019", "2019-03-20"), ("2019", "2019-05-01"),
     ("2019", "2019-06-19"), ("2019", "2019-07-31"), ("2019", "2019-09-18"),
     ("2019", "2019-10-30"), ("2019", "2019-12-11"),
-    ("2020", "2020-01-29"), ("2020", "2020-03-15"),  # réunion programmée mars 17-18 tenue en visio le 15
+    ("2020", "2020-01-29"),
+    # 2020-03-15 EXCLU: la Fed classe officiellement le 15 mars comme
+    # réunion NON programmée; la réunion programmée mars 17-18 est annulée.
     ("2020", "2020-04-29"), ("2020", "2020-06-10"), ("2020", "2020-07-29"),
     ("2020", "2020-09-16"), ("2020", "2020-11-05"), ("2020", "2020-12-16"),
     ("2021", "2021-01-27"), ("2021", "2021-03-17"), ("2021", "2021-04-28"),
@@ -119,10 +121,12 @@ def build_table(events, bars_by_pair):
     df = pd.DataFrame(rows)
     for pair in PAIRS:
         direction = np.sign(df[f"{pair}_INITIAL_30M"])
-        gross = df[f"{pair}_CONT_30_120_GROSS"]
-        df[f"{pair}_NET_NORMAL"] = direction * gross - COST_NORMAL_PIPS
-        df[f"{pair}_NET_STRESS"] = direction * gross - COST_STRESS_PIPS
-    df["POOLED_GROSS"] = df[[f"{p}_CONT_30_120_GROSS" for p in PAIRS]].mean(axis=1)
+        # CONT_30_120_GROSS est le mouvement de prix signé; le gross
+        # STRATÉGIE applique la direction choisie à T30 (aucune info future).
+        df[f"{pair}_STRATEGY_GROSS"] = direction * df[f"{pair}_CONT_30_120_GROSS"]
+        df[f"{pair}_NET_NORMAL"] = df[f"{pair}_STRATEGY_GROSS"] - COST_NORMAL_PIPS
+        df[f"{pair}_NET_STRESS"] = df[f"{pair}_STRATEGY_GROSS"] - COST_STRESS_PIPS
+    df["POOLED_GROSS"] = df[[f"{p}_STRATEGY_GROSS" for p in PAIRS]].mean(axis=1)
     df["POOLED_NET_NORMAL"] = df[[f"{p}_NET_NORMAL" for p in PAIRS]].mean(axis=1)
     df["POOLED_NET_STRESS"] = df[[f"{p}_NET_STRESS" for p in PAIRS]].mean(axis=1)
     return df

@@ -110,3 +110,35 @@ def test_remove_best_true_mean_after_removal():
                       "GBPUSD_NET_NORMAL": [0] * 3})
     res = L.classify(t)
     assert abs(res["REMOVE_BEST_EVENT_NET_NORMAL"] - 3.0) < 1e-12
+
+
+# --- cohérence POOLED: gross STRATÉGIE signé, NET = GROSS - coût ------------
+def test_pooled_gross_is_strategy_gross_and_net_coherent():
+    # initial EURUSD +10 (LONG), continuation prix +20 → strategy gross +20
+    # initial USDJPY -10 (SHORT), continuation prix +20 → strategy gross -20
+    t = pd.DataFrame({
+        "EURUSD_INITIAL_30M": [10.0], "USDJPY_INITIAL_30M": [-10.0],
+        "GBPUSD_INITIAL_30M": [10.0],
+        "EURUSD_CONT_30_120_GROSS": [20.0], "USDJPY_CONT_30_120_GROSS": [20.0],
+        "GBPUSD_CONT_30_120_GROSS": [-30.0]})
+    for pair in L.PAIRS:
+        direction = np.sign(t[f"{pair}_INITIAL_30M"])
+        t[f"{pair}_STRATEGY_GROSS"] = direction * t[f"{pair}_CONT_30_120_GROSS"]
+        t[f"{pair}_NET_NORMAL"] = t[f"{pair}_STRATEGY_GROSS"] - L.COST_NORMAL_PIPS
+        t[f"{pair}_NET_STRESS"] = t[f"{pair}_STRATEGY_GROSS"] - L.COST_STRESS_PIPS
+    t["POOLED_GROSS"] = t[[f"{p}_STRATEGY_GROSS" for p in L.PAIRS]].mean(axis=1)
+    t["POOLED_NET_NORMAL"] = t[[f"{p}_NET_NORMAL" for p in L.PAIRS]].mean(axis=1)
+    t["POOLED_NET_STRESS"] = t[[f"{p}_NET_STRESS" for p in L.PAIRS]].mean(axis=1)
+    # strategy gross = (20 - 20 - 30)/3 = -10 (et non le brut non signé 70/3)
+    assert abs(t["POOLED_GROSS"].iloc[0] + 10.0) < 1e-9
+    assert abs(t["POOLED_NET_NORMAL"].iloc[0]
+               - (t["POOLED_GROSS"].iloc[0] - L.COST_NORMAL_PIPS)) < 1e-9
+    assert abs(t["POOLED_NET_STRESS"].iloc[0]
+               - (t["POOLED_GROSS"].iloc[0] - L.COST_STRESS_PIPS)) < 1e-9
+
+
+def test_no_unscheduled_2020_03_15():
+    assert ("2020", "2020-03-15") not in L.SCHEDULED_STATEMENTS
+    dates = [d for _, d in L.SCHEDULED_STATEMENTS]
+    assert len(dates) == len(set(dates))
+    assert len(dates) == 31
