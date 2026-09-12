@@ -31,3 +31,5 @@ jobs:
         run: python -m unittest discover -s research/phenomena_discovery_v1 -p "test_*.py" -v
       - name: Run P013R V1 validation suites (synthetic only)
         run: python -m unittest discover -s research/p013r_v1_validation -p "test_*.py" -v
+      - name: Run S001 London-breakout suites (synthetic only)
+        run: python -m unittest discover -s research/s001_london_breakout -p "test_*.py" -v
