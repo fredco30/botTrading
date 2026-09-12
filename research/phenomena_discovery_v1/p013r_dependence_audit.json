@@ -1,0 +1,97 @@
+{
+ "PROTOCOL": "dependence audit: common month-end event table, paired bootstrap (rows resampled as units, 2000, seed 42) + year-block bootstrap; rule UNCHANGED; Discovery only",
+ "N_COMMON": 107,
+ "EVENT_DATES_RANGE": "2010-01-29 -> 2018-11-30",
+ "PAIR_CORRELATIONS": {
+  "_ORDER": [
+   "USDJPY",
+   "EURJPY",
+   "GBPJPY"
+  ],
+  "_MATRIX": [
+   [
+    1.0,
+    0.599,
+    0.622
+   ],
+   [
+    0.599,
+    1.0,
+    0.723
+   ],
+   [
+    0.622,
+    0.723,
+    1.0
+   ]
+  ]
+ },
+ "USDJPY_GROSS": 9.78,
+ "EURJPY_GROSS": 15.06,
+ "GBPJPY_GROSS": 2.06,
+ "PAIRS_GROSS_POSITIVE": "3/3",
+ "PAIRED_POOLED_GROSS": 8.97,
+ "PAIRED_POOLED_NET_NORMAL": 6.97,
+ "PAIRED_POOLED_NET_STRESS": 4.97,
+ "PAIRED_CI95_GROSS": [
+  -4.64,
+  22.13
+ ],
+ "PAIRED_CI95_NET": [
+  -6.64,
+  20.13
+ ],
+ "PAIRED_P_GROSS": 0.169,
+ "PAIRED_P_NET": 0.307,
+ "YEAR_BLOCK_GROSS_MEAN": 8.85,
+ "YEAR_BLOCK_NET_MEAN": 6.85,
+ "YEAR_BLOCK_CI95_GROSS": [
+  -5.26,
+  24.29
+ ],
+ "YEAR_BLOCK_CI95_NET": [
+  -7.26,
+  22.29
+ ],
+ "MEDIAN_GROSS": 12.43,
+ "MEDIAN_NET": 10.43,
+ "WIN_RATE_GROSS": 0.579,
+ "WIN_RATE_NET": 0.57,
+ "REMOVE_BEST_EVENT_GROSS": 7.22,
+ "REMOVE_BEST_EVENT_NET": 5.22,
+ "REMOVE_BEST_3_EVENTS_GROSS": 4.04,
+ "REMOVE_BEST_3_EVENTS_NET": 2.04,
+ "BY_YEAR_POOLED_GROSS": {
+  "2010": 53.29,
+  "2011": -15.22,
+  "2012": -16.26,
+  "2013": 38.89,
+  "2014": 3.73,
+  "2015": -6.84,
+  "2016": -5.44,
+  "2017": 13.98,
+  "2018": 15.06
+ },
+ "BY_YEAR_POOLED_NET": {
+  "2010": 51.29,
+  "2011": -17.22,
+  "2012": -18.26,
+  "2013": 36.89,
+  "2014": 1.73,
+  "2015": -8.84,
+  "2016": -7.44,
+  "2017": 11.98,
+  "2018": 13.06
+ },
+ "POSITIVE_YEARS_GROSS": "5/9",
+ "POSITIVE_YEARS_NET": "5/9",
+ "CRITERIA": {
+  "pooled_gross_gt_0": true,
+  "pooled_net_normal_gt_0": true,
+  "pairs_2of3_positive": true,
+  "majority_years_net_positive": true,
+  "remove_best3_net_gt_0": true,
+  "paired_ci_excludes_0_net": false
+ },
+ "P013R_DISCOVERY_CLASSIFICATION": "P013R_DISCOVERY_WEAK"
+}

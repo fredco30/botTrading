@@ -1,0 +1,81 @@
+{
+ "USDJPY": {
+  "N": 107,
+  "GROSS_MEAN_PIPS": 9.78,
+  "NET_NORMAL_PIPS": 7.78,
+  "CI95_GROSS": [
+   -0.68,
+   20.62
+  ],
+  "BOOT_P_GROSS": 0.066,
+  "POSITIVE_YEARS_GROSS": "7/9",
+  "BY_YEAR_GROSS": {
+   "2010": 16.9,
+   "2011": 7.8,
+   "2012": -14.1,
+   "2013": 34.4,
+   "2014": 8.3,
+   "2015": 11.7,
+   "2016": -17.8,
+   "2017": 33.1,
+   "2018": 8.4
+  }
+ },
+ "EURJPY": {
+  "N": 107,
+  "GROSS_MEAN_PIPS": 15.06,
+  "NET_NORMAL_PIPS": 13.06,
+  "CI95_GROSS": [
+   0.86,
+   28.93
+  ],
+  "BOOT_P_GROSS": 0.041,
+  "POSITIVE_YEARS_GROSS": "7/9",
+  "BY_YEAR_GROSS": {
+   "2010": 76.6,
+   "2011": -21.6,
+   "2012": -12.2,
+   "2013": 38.3,
+   "2014": 9.0,
+   "2015": 12.9,
+   "2016": 16.0,
+   "2017": 4.1,
+   "2018": 17.6
+  }
+ },
+ "GBPJPY": {
+  "N": 107,
+  "GROSS_MEAN_PIPS": 2.06,
+  "NET_NORMAL_PIPS": 0.06,
+  "CI95_GROSS": [
+   -18.74,
+   23.34
+  ],
+  "BOOT_P_GROSS": 0.851,
+  "POSITIVE_YEARS_GROSS": "3/9",
+  "BY_YEAR_GROSS": {
+   "2010": 72.0,
+   "2011": -22.5,
+   "2012": -21.6,
+   "2013": 35.5,
+   "2014": -3.3,
+   "2015": -41.5,
+   "2016": -15.4,
+   "2017": -0.8,
+   "2018": 21.9
+  }
+ },
+ "POOLED_EQUAL_WEIGHT": {
+  "POOLED_GROSS": 8.97,
+  "POOLED_NET_NORMAL": 6.97,
+  "POOLED_CI95_GROSS": [
+   -0.19,
+   18.28
+  ],
+  "POOLED_P_GROSS": 0.053,
+  "PAIRS_POSITIVE_GROSS": "3/3",
+  "STATUS": "SUPERSEDED_BY_PAIRED_BOOTSTRAP",
+  "NOTE": "per-pair independent resampling understates family uncertainty (same month-end dates, shared JPY, correlated returns); superseded by the dependence audit (p013r_dependence_audit.json). Historical values kept."
+ },
+ "_RULE": "PREREGISTERED (ledger P013R, registered BEFORE computation): last FX trading day of month, LONG XJPY, close-to-next-close, NORMAL 2 pips, Discovery 2010-2018, bootstrap 2000 seed 42; equal-weight pooling; DISCOVERY ONLY \u2014 V1/V2 remain locked"
+}

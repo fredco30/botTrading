@@ -27,3 +27,7 @@ jobs:
         run: python -m unittest discover -s . -p "test_*.py" -v
       - name: Run H1/H4 research suites (synthetic only)
         run: python -m unittest discover -s research/autonomous_h1_h4_2026_09 -p "test_*.py" -v
+      - name: Run P000 phenomena-discovery suites (synthetic only)
+        run: python -m unittest discover -s research/phenomena_discovery_v1 -p "test_*.py" -v
+      - name: Run P013R V1 validation suites (synthetic only)
+        run: python -m unittest discover -s research/p013r_v1_validation -p "test_*.py" -v

@@ -1,0 +1,90 @@
+{
+ "PROTOCOL": "P013R V1 frozen validation; criteria frozen in P013R_V1_FROZEN_SPEC.md BEFORE this run; paired bootstrap 2000/seed42; year-block (fixed) 2000/seed42; V2 and OOS never accessed",
+ "V1_AUTHORIZED_REASON": "P013R frozen validation authorized after human review; Discovery frozen at ddcb8e9470e5bb689844ccff8a8fbac13e53f4a2",
+ "N_COMMON": 47,
+ "EVENTS_RANGE": "2019-01-31 -> 2022-11-30",
+ "CENSORED_FRONTIER_EVENTS": [
+  {
+   "pair": "USDJPY",
+   "entry_date": "2022-12-30",
+   "exit_would_be": "first trading day of 2023 (> V1_END)",
+   "status": "CENSORED"
+  },
+  {
+   "pair": "EURJPY",
+   "entry_date": "2022-12-30",
+   "exit_would_be": "first trading day of 2023 (> V1_END)",
+   "status": "CENSORED"
+  },
+  {
+   "pair": "GBPJPY",
+   "entry_date": "2022-12-30",
+   "exit_would_be": "first trading day of 2023 (> V1_END)",
+   "status": "CENSORED"
+  }
+ ],
+ "PER_PAIR": {
+  "USDJPY": {
+   "gross_mean": -7.24,
+   "net_normal_mean": -9.24,
+   "net_stress_mean": -11.24,
+   "win_rate_net_normal": 0.468
+  },
+  "EURJPY": {
+   "gross_mean": -5.82,
+   "net_normal_mean": -7.82,
+   "net_stress_mean": -9.82,
+   "win_rate_net_normal": 0.489
+  },
+  "GBPJPY": {
+   "gross_mean": -11.59,
+   "net_normal_mean": -13.59,
+   "net_stress_mean": -15.59,
+   "win_rate_net_normal": 0.489
+  }
+ },
+ "USDJPY_GROSS": -7.24,
+ "EURJPY_GROSS": -5.82,
+ "GBPJPY_GROSS": -11.59,
+ "POOLED_GROSS": -8.22,
+ "POOLED_NET_NORMAL": -10.22,
+ "POOLED_NET_STRESS": -12.22,
+ "PAIRED_CI95_GROSS": [
+  -24.12,
+  6.93
+ ],
+ "PAIRED_CI95_NET_NORMAL": [
+  -26.12,
+  4.93
+ ],
+ "PAIRED_P_GROSS": 0.301,
+ "PAIRED_P_NET_NORMAL": 0.205,
+ "MEDIAN_GROSS": 2.67,
+ "MEDIAN_NET_NORMAL": 0.67,
+ "WIN_RATE_GROSS": 0.511,
+ "WIN_RATE_NET_NORMAL": 0.511,
+ "REMOVE_BEST_EVENT_NET_NORMAL": -12.13,
+ "REMOVE_BEST_3_EVENTS_NET_NORMAL": -16.15,
+ "BY_YEAR_POOLED_GROSS": {
+  "2019": -1.16,
+  "2020": -0.25,
+  "2021": -2.98,
+  "2022": -30.32
+ },
+ "BY_YEAR_POOLED_NET_NORMAL": {
+  "2019": -3.16,
+  "2020": -2.25,
+  "2021": -4.98,
+  "2022": -32.32
+ },
+ "POSITIVE_YEARS_NET_NORMAL": "0/4",
+ "YEAR_BLOCK_CI95_GROSS": [
+  -22.55,
+  -0.7
+ ],
+ "YEAR_BLOCK_CI95_NET_NORMAL": [
+  -24.55,
+  -2.7
+ ],
+ "V1_CLASSIFICATION": "V1_REJECT"
+}
