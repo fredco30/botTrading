@@ -84,3 +84,18 @@ CI95 (2000 bootstrap, seed 42) informative only.
 Fail fast → S003_DISCOVERY_REJECT if NET_NORMAL_MEAN ≤ 0 OR
 PROFIT_FACTOR_NORMAL ≤ 1.0 OR REMOVE_BEST_1_PERCENT_NET_MEAN ≤ 0.
 No re-tuning of any parameter after the verdict.
+
+## Addendum — FINAL P034 5M IDENTITY FIX (mandated, post-verdict)
+
+After the first reject, the event detection was corrected to the EXACT P034
+5m rule: run-start = comp[i] < 0.60 AND comp[i-1] >= 0.60 on the 5m series
+(144-bar rolling range, 30*288 median, warmup 5000, Discovery frontier).
+EVENT_KNOWN_TIME = event bar ts + 5min; HIGH/LOW frozen over the same
+trailing 144 5m bars; the H1 strategy then starts at the first H1 bar fully
+closed after EVENT_KNOWN_TIME. Raw event count = 1799, exactly equal to the
+published P034 COMP<0.60 N (phase2_results.json) → P034_5M_EVENT_IDENTITY=PASS.
+No other rule changed. Verdict recomputed once: still S003_DISCOVERY_REJECT.
+Note: P034's original fwd-range tail exclusion (last 144 bars) applied to its
+forward measurement only; S003 does not measure forward ranges, so no tail
+exclusion is applied — this affects only events in the final hours of
+Discovery and no raw event count was excluded (1799 = 1799).

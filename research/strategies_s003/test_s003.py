@@ -21,7 +21,7 @@ def synth(compressed_bars, breakout_bars, tail_bars=0, tail_price=1.1020,
           breakout_price=1.1020):
     """40d of +-30 pip oscillation (hi12 ~ 60 pips) -> 13h compressed
     oscillation (hi12 ~ 0.4 pips, comp ~ 0.007) -> breakout -> tail."""
-    prices = [1.1030, 1.0970] * (BASE_DAYS * 288 // 2)
+    prices = [1.1015, 1.0985] * (BASE_DAYS * 288 // 2)
     prices += [1.10002, 1.09998] * (compressed_bars // 2)
     prices += [breakout_price] * breakout_bars
     prices += [tail_price] * tail_bars
@@ -31,7 +31,7 @@ def synth(compressed_bars, breakout_bars, tail_bars=0, tail_price=1.1020,
 def events_and_h1(df5):
     hi12, comp = S.p034_compression_5m(df5)
     h1 = S.h1_bars(df5)
-    return S.compression_events(df5, hi12, comp, h1), h1
+    return S.compression_events(df5, hi12, comp), h1
 
 
 def test_p034_compression_identical_to_original():
@@ -56,14 +56,24 @@ def test_p034_compression_identical_to_original():
     fwd = P2.future_rolling_range(disc["high"], disc["low"], 144)
     base = float(np.nanmedian(fwd[: len(disc) - 144])) / S.PIP
     assert abs(base - 62.5) < 0.1, f"baseline {base} != 62.5"
-    print("ok P034 compression identical + baseline 62.5 pips")
+    # P034_5M_EVENT_IDENTITY: raw run-start events must match exactly
+    raw_ref = int(ref.sum())
+    hi12, comp = S.p034_compression_5m(df5)
+    ev = S.compression_events(df5, hi12, comp)
+    assert len(ev) == raw_ref, (len(ev), raw_ref)
+    for kt, ch, cl, i5 in ev[:50] + ev[-50:]:
+        j0 = i5 - 144 + 1
+        assert df5.index[i5] + pd.Timedelta(minutes=5) == kt
+        assert ch == df5["high"].iloc[j0:i5 + 1].max()
+        assert cl == df5["low"].iloc[j0:i5 + 1].min()
+    print(f"ok P034_5M_EVENT_IDENTITY: {len(ev)} 5m run-start events == original {raw_ref}")
 
 
 def test_h1_causal_and_signal_timing():
     df5 = synth(13 * 12, 12, tail_bars=12)
     ev, h1 = events_and_h1(df5)
     assert ev, "no compression event generated"
-    T, chigh, clow = ev[-1]
+    T, chigh, clow = ev[-1][0], ev[-1][1], ev[-1][2]
     assert chigh > 1.10 and clow < 1.10  # frozen range spans the oscillation
     trades, _ = S.simulate(ev, h1)
     assert len(trades) == 1
@@ -82,14 +92,14 @@ def test_short_stop_target_timeexit_stopfirst_gap():
              ("time", [(200, 1.0985)])]                      # nowhere -> time
     for kind, segs in cases:
         n_flat = 2 * 288
-        prices = [1.1030, 1.0970] * (40 * 288 // 2)
+        prices = [1.1015, 1.0985] * (40 * 288 // 2)
         prices += [1.10002, 1.09998] * (13 * 12 // 2)
         prices += [1.0980] * 12
         for nbars, px in segs:
             prices += [px] * nbars
         ev, h1 = events_and_h1(mk5(prices))
         trades, _ = S.simulate(ev, h1)
-        last = [t for t in trades if t["comp_ts"] == ev[-1][0]][0]
+        last = [t for t in trades if t["comp_known"] == ev[0][0]][0]
         assert last["side"] == -1
         assert last["reason"] == kind.upper(), (kind, last)
         if kind == "stop":
@@ -100,17 +110,17 @@ def test_short_stop_target_timeexit_stopfirst_gap():
 
 
 def test_stop_first_and_gap_through_stop():
-    # LONG: signal 1.1020 -> entry 1.1025 (open), stop ~1.09998, risk 25.2p,
-    # target ~1.10628. Exit bar touches BOTH (high 1.1065 then low 1.0990):
+    # LONG: signal 1.1020 -> entry 1.1025 (open), stop 1.0985, risk 40p,
+    # target 1.1085. Exit bar touches BOTH (high 1.1065 then low 1.0990):
     # STOP-FIRST must win despite the target also being hit.
-    prices = [1.1030, 1.0970] * (40 * 288 // 2)
+    prices = [1.1015, 1.0985] * (40 * 288 // 2)
     prices += [1.10002, 1.09998] * (13 * 12 // 2)
     prices += [1.1020] * 12        # signal bar
     prices += [1.1025] * 12        # entry bar
-    prices += [1.1065] * 6 + [1.0990] * 6   # target touched, then stop
+    prices += [1.1090] * 6 + [1.0980] * 6   # target touched, then stop
     ev, h1 = events_and_h1(mk5(prices))
     trades, _ = S.simulate(ev, h1)
-    tr = [t for t in trades if t["comp_ts"] == ev[-1][0]][0]
+    tr = [t for t in trades if t["comp_known"] == ev[0][0]][0]
     assert tr["reason"] == "STOP" and tr["gross_pips"] < 0, tr
 
     # adverse gap: exit bar OPENS below the LONG stop -> fill at real open,
@@ -118,7 +128,7 @@ def test_stop_first_and_gap_through_stop():
     prices2 = prices.copy()
     prices2[-12:] = [1.0950] * 12
     ev2, h1b = events_and_h1(mk5(prices2))
-    trb = [t for t in S.simulate(ev2, h1b)[0] if t["comp_ts"] == ev2[-1][0]][0]
+    trb = [t for t in S.simulate(ev2, h1b)[0] if t["comp_known"] == ev2[0][0]][0]
     assert trb["reason"] == "STOP" and trb["gross_pips"] < -trb["risk_pips"], trb
     print("ok stop-first same-bar priority + adverse gap at real open")
 

@@ -59,42 +59,46 @@ def p034_compression_5m(df5):
     return hi12, comp
 
 
-def compression_events(df5, hi12, comp, h1):
-    """H1-sampled P034 events: comp < RATIO at H1 close T (comp taken at the
-    last 5m bar closed by T), run-start vs the previous H1 close. Returns
-    list of (T, compression_high, compression_low) with P034's 144-bar
-    trailing range as the frozen range."""
-    pos = {ts: i for i, ts in enumerate(df5.index)}
-    events, prev_flag = [], False
-    for T, h1row in h1.iterrows():
-        i = pos.get(T - pd.Timedelta(minutes=5))  # last 5m bar closed by T
-        if i is None or i < max(WIN, WARMUP):
-            prev_flag = False
-            continue
-        c = comp.iloc[i]
-        flag = bool(np.isfinite(c) and c < RATIO)
-        if flag and not prev_flag:
-            j0 = i - WIN + 1
-            events.append((T, float(df5["high"].iloc[j0:i + 1].max()),
-                           float(df5["low"].iloc[j0:i + 1].min())))
-        prev_flag = flag
+def compression_events(df5, hi12, comp):
+    """P034 events EXACTLY on the 5m series (identity with
+    phase2_lib.p034_compression): run-start = comp[i] < RATIO AND
+    comp[i-1] >= RATIO, warmup/WIN bar, Discovery frontier. The event is
+    known only at the CLOSE of the triggering 5m bar:
+    EVENT_KNOWN_TIME = ts + 5min. HIGH/LOW frozen over the same trailing
+    144 5m bars. Returns list of (known_time, chigh, clow, bar_index)."""
+    comp_v = comp.to_numpy()
+    flag = comp_v < RATIO
+    flag[:WARMUP] = False  # P034 warmup (covers the 144-bar rolling too)
+    flag &= ~np.concatenate(([False], flag[:-1]))
+    flag &= np.isfinite(comp_v)
+    # Discovery frontier: event bar itself must be inside Discovery
+    in_disc = (df5.index >= DISC_START) & (df5.index < DISC_END)
+    flag &= in_disc
+    events = []
+    for i in np.flatnonzero(flag):
+        j0 = i - WIN + 1
+        events.append((df5.index[i] + pd.Timedelta(minutes=5),
+                       float(df5["high"].iloc[j0:i + 1].max()),
+                       float(df5["low"].iloc[j0:i + 1].min()), i))
     return events
 
 
 def simulate(events, h1):
-    """One position at a time; frozen entry/stop/target/time-exit rules."""
-    idx = {ts: i for i, ts in enumerate(h1.index)}
+    """One position at a time; frozen entry/stop/target/time-exit rules.
+    Events arrive as (known_time, chigh, clow, i5); the first H1 bar fully
+    closed AFTER known_time starts the 12h breakout search."""
     trades, skipped_overlap = [], 0
-    in_pos_until = None  # entry bar ts of the open position
+    in_pos_until = None  # exit ts of the open position
 
-    for (T, chigh, clow) in events:
-        e = idx[T] + 1  # first H1 bar after the compression close
-        if in_pos_until is not None and T <= in_pos_until:
+    for (known_time, chigh, clow, i5) in events:
+        e = int(np.searchsorted(h1.index, known_time - pd.Timedelta(hours=1),
+                                side="right"))
+        if in_pos_until is not None and known_time <= in_pos_until:
             skipped_overlap += 1
             continue
-        # breakout search: H1 bars CLOSED within 12h after the compression
+        # breakout search: H1 bars CLOSED within 12h after the event is known
         signal = None
-        while e < len(h1) and h1.index[e] + pd.Timedelta(hours=1) <= T + BREAKOUT_WINDOW:
+        while e < len(h1) and h1.index[e] + pd.Timedelta(hours=1) <= known_time + BREAKOUT_WINDOW:
             row = h1.iloc[e]
             if row.close > chigh:
                 signal = (e, +1); break
@@ -151,7 +155,7 @@ def simulate(events, h1):
                        "gross_pips": gross_pips,
                        "net_normal": gross_pips - COST_NORMAL,
                        "net_stress": gross_pips - COST_STRESS,
-                       "comp_ts": T})
+                       "comp_known": known_time})
     return trades, skipped_overlap
 
 
@@ -210,7 +214,7 @@ def run():
     df5 = load_5m_discovery()
     hi12, comp = p034_compression_5m(df5)
     h1 = h1_bars(df5)
-    events = compression_events(df5, hi12, comp, h1)
+    events = compression_events(df5, hi12, comp)
     trades, skipped = simulate(events, h1)
     m, tdf = metrics(trades)
     m["N_COMPRESSION_EVENTS"] = len(events)
