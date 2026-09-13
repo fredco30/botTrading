@@ -1,0 +1,352 @@
+{
+ "ZFH1": {
+  "instrument_id": "894679",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFH2": {
+  "instrument_id": "51040",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFH3": {
+  "instrument_id": "855988",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFH4": {
+  "instrument_id": "661700",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFH5": {
+  "instrument_id": "762979",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFH6": {
+  "instrument_id": "764660",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFH7": {
+  "instrument_id": "679655",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFH8": {
+  "instrument_id": "599339",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFH9": {
+  "instrument_id": "541152",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFM1": {
+  "instrument_id": "822298",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFM2": {
+  "instrument_id": "465961",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFM3": {
+  "instrument_id": "386123",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFM4": {
+  "instrument_id": "292403",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFM5": {
+  "instrument_id": "752981",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFM6": {
+  "instrument_id": "582141",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFM7": {
+  "instrument_id": "620517",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFM8": {
+  "instrument_id": "103676",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFU0": {
+  "instrument_id": "604699",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFU1": {
+  "instrument_id": "9789",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFU2": {
+  "instrument_id": "568618",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFU3": {
+  "instrument_id": "657418",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFU4": {
+  "instrument_id": "861321",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFU5": {
+  "instrument_id": "206018",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFU6": {
+  "instrument_id": "427389",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFU7": {
+  "instrument_id": "134745",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFU8": {
+  "instrument_id": "164760",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFZ0": {
+  "instrument_id": "460018",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFZ1": {
+  "instrument_id": "812215",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFZ2": {
+  "instrument_id": "197568",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFZ3": {
+  "instrument_id": "484352",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFZ4": {
+  "instrument_id": "116721",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFZ5": {
+  "instrument_id": "454264",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFZ6": {
+  "instrument_id": "547699",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFZ7": {
+  "instrument_id": "306580",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZFZ8": {
+  "instrument_id": "99995",
+  "min_price_increment": 0.0078125,
+  "symbol": "ZF"
+ },
+ "ZNH1": {
+  "instrument_id": "83568",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNH2": {
+  "instrument_id": "745944",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNH3": {
+  "instrument_id": "896125",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNH4": {
+  "instrument_id": "381207",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNH5": {
+  "instrument_id": "42281",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNH6": {
+  "instrument_id": "72174",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNH7": {
+  "instrument_id": "208387",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNH8": {
+  "instrument_id": "525443",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNH9": {
+  "instrument_id": "98159",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNM1": {
+  "instrument_id": "116177",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNM2": {
+  "instrument_id": "328264",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNM3": {
+  "instrument_id": "619999",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNM4": {
+  "instrument_id": "617542",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNM5": {
+  "instrument_id": "752340",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNM6": {
+  "instrument_id": "771901",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNM7": {
+  "instrument_id": "353160",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNM8": {
+  "instrument_id": "615592",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNU0": {
+  "instrument_id": "816003",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNU1": {
+  "instrument_id": "133520",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNU2": {
+  "instrument_id": "585392",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNU3": {
+  "instrument_id": "400198",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNU4": {
+  "instrument_id": "241710",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNU5": {
+  "instrument_id": "326771",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNU6": {
+  "instrument_id": "732065",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNU7": {
+  "instrument_id": "357060",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNU8": {
+  "instrument_id": "799743",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNZ0": {
+  "instrument_id": "44395",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNZ1": {
+  "instrument_id": "578198",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNZ2": {
+  "instrument_id": "720496",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNZ3": {
+  "instrument_id": "780401",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNZ4": {
+  "instrument_id": "354456",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNZ5": {
+  "instrument_id": "184597",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNZ6": {
+  "instrument_id": "120107",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNZ7": {
+  "instrument_id": "793429",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ },
+ "ZNZ8": {
+  "instrument_id": "480218",
+  "min_price_increment": 0.015625,
+  "symbol": "ZN"
+ }
+}

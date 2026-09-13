@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install research dependencies (numpy/pandas/pyarrow — no broker, no data)
-        run: pip install numpy pandas pyarrow
+        run: pip install numpy pandas pyarrow pytest
       - name: Run root research suites (synthetic only)
         run: python -m unittest discover -s . -p "test_*.py" -v
       - name: Run H1/H4 research suites (synthetic only)
@@ -35,3 +35,7 @@ jobs:
         run: python -m unittest discover -s research/tick_m1_microstructure -p "test_*.py" -v
       - name: Run MTF-M1 tick-execution suites (synthetic only)
         run: python -m unittest discover -s research/mtf_m1_tick_execution -p "test_*.py" -v
+      - name: Run RATES-EVENT-HIRES-M1 TBBO suites (synthetic only)
+        run: python -m pytest research/rates_event_hires_m1 -p no:cacheprovider -v
+      - name: Run RATES-LAG-M0 suites (synthetic only)
+        run: python -m unittest discover -s research/rates_lag_m0 -p "test_*.py" -v

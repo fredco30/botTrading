@@ -17,8 +17,6 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 
-import databento as db
-
 sys.path.insert(0, str(Path(__file__).parent))
 from tbbo_lib import (  # noqa: E402
     CONTINUOUS, DATASET, SCHEMA, SYMBOLS,
@@ -75,7 +73,8 @@ def key_for(event: Event, symbol: str) -> str:
     return f"{event.event_id}:{symbol}"
 
 
-def build_client(key: str) -> db.Historical:
+def build_client(key: str):
+    import databento as db  # lazy: keeps this module importable without the SDK (CI)
     return db.Historical(key=key)
 
 
@@ -179,6 +178,7 @@ def download_all(client: db.Historical, events: list[Event], roll: RollMap,
                 dataset=DATASET, start=ev.window_start, end=ev.window_end,
                 symbols=[CONTINUOUS[sym]], stype_in="continuous", schema=SCHEMA,
                 path=out)
+        import databento as db  # lazy: keeps this module importable without the SDK (CI)
         store = db.DBNStore.from_file(out)
         df = store.to_df()
         df = df.reset_index()
