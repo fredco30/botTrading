@@ -1,0 +1,7 @@
+{
+ "audit": "RATES-LAG-M0 independent audit (H30)",
+ "n_audited": 40,
+ "n_exact": 40,
+ "mismatches": [],
+ "verdict": "PASS"
+}
