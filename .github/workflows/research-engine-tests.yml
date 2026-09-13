@@ -37,3 +37,5 @@ jobs:
         run: python -m unittest discover -s research/mtf_m1_tick_execution -p "test_*.py" -v
       - name: Run MACRO-TICK-M0 macro-event suites (synthetic only)
         run: python -m unittest discover -s research/macro_tick_m0 -p "test_*.py" -v
+      - name: Run MACRO-TICK-M1 event-strategy suites (synthetic only)
+        run: python -m unittest discover -s research/macro_tick_m1_event_strategies -p "test_*.py" -v
