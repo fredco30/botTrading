@@ -1,0 +1,101 @@
+{
+ "2010": {
+  "nhits": 28,
+  "sample": [
+   " ~ \t ~ \t\tInflation & Prices ~ \t\tConsumer Price Index ~ \t\tProducer Price Indexes ~ \t\tImport/Export Price Indexes",
+   "              Release Calendar ~ \t\t\t  By News Release ~ \t\t\t\t\t\t ~                             Consumer Price Index  ~                             Employment Cost Index  ~                             Employment Situation ",
+   "\t\t\t\t\t\t ~                             Consumer Price Index  ~                             Employment Cost Index  ~                             Employment Situation  ~                             Job Openings and Labor Turnover   ~                             Producer Price Index ",
+   " ~ Friday, January 08, 2010 ~ 08:30 AM ~ Employment Situation for December 2009 ~  ~ Tuesday, January 12, 2010"
+  ],
+  "status": 200,
+  "tz": "All times on calendar are Eastern Time"
+ },
+ "2011": {
+  "nhits": 28,
+  "sample": [
+   " ~ \t ~ \t\tInflation & Prices ~ \t\tConsumer Price Index ~ \t\tProducer Price Indexes ~ \t\tImport/Export Price Indexes",
+   "              Release Calendar ~ \t\t\t  By News Release ~ \t\t\t\t\t\t ~                             Consumer Price Index  ~                             Employment Cost Index  ~                             Employment Situation ",
+   "\t\t\t\t\t\t ~                             Consumer Price Index  ~                             Employment Cost Index  ~                             Employment Situation  ~                             Job Openings and Labor Turnover   ~                             Producer Price Index ",
+   " ~ Friday, January 07, 2011 ~ 08:30 AM ~ Employment Situation for December 2010 ~  ~ Tuesday, January 11, 2011"
+  ],
+  "status": 200,
+  "tz": "All times on calendar are Eastern Time"
+ },
+ "2012": {
+  "nhits": 28,
+  "sample": [
+   " ~ \t ~ \t\tInflation & Prices ~ \t\tConsumer Price Index ~ \t\tProducer Price Indexes ~ \t\tImport/Export Price Indexes",
+   "              Release Calendar ~ \t\t\t  By News Release ~ \t\t\t\t\t\t ~                             Consumer Price Index  ~                             Employment Cost Index  ~                             Employment Situation ",
+   "\t\t\t\t\t\t ~                             Consumer Price Index  ~                             Employment Cost Index  ~                             Employment Situation  ~                             Job Openings and Labor Turnover   ~                             Producer Price Index ",
+   " ~ Friday, January 06, 2012 ~ 08:30 AM ~ Employment Situation for December 2011 ~  ~ Tuesday, January 10, 2012"
+  ],
+  "status": 200,
+  "tz": "All times on calendar are Eastern Time"
+ },
+ "2013": {
+  "nhits": 28,
+  "sample": [
+   " ~ \t ~ \t\tInflation & Prices ~ \t\tConsumer Price Index ~ \t\tProducer Price Indexes ~ \t\tImport/Export Price Indexes",
+   "              Release Calendar ~ \t\t\t  By News Release ~ \t\t\t\t\t\t ~                             Consumer Price Index  ~                             Employment Cost Index  ~                             Employment Situation ",
+   "\t\t\t\t\t\t ~                             Consumer Price Index  ~                             Employment Cost Index  ~                             Employment Situation  ~                             Job Openings and Labor Turnover   ~                             Producer Price Index ",
+   " ~ Friday, January 04, 2013 ~ 08:30 AM ~ Employment Situation for December 2012 ~  ~ Tuesday, January 08, 2013"
+  ],
+  "status": 200,
+  "tz": "All times on calendar are Eastern Time"
+ },
+ "2014": {
+  "nhits": 28,
+  "sample": [
+   " ~ \t ~ \t\tInflation & Prices ~ \t\tConsumer Price Index ~ \t\tProducer Price Indexes ~ \t\tImport/Export Price Indexes",
+   "              Release Calendar ~ \t\t\t  By News Release ~ \t\t\t\t\t\t ~                             Consumer Price Index  ~                             Employment Cost Index  ~                             Employment Situation ",
+   "\t\t\t\t\t\t ~                             Consumer Price Index  ~                             Employment Cost Index  ~                             Employment Situation  ~                             Job Openings and Labor Turnover   ~                             Producer Price Index ",
+   " ~ Friday, January 10, 2014 ~ 08:30 AM ~ Employment Situation for December 2013 ~  ~ Tuesday, January 14, 2014"
+  ],
+  "status": 200,
+  "tz": "All times on calendar are Eastern Time"
+ },
+ "2015": {
+  "nhits": 28,
+  "sample": [
+   " ~ \t ~ \t\tInflation & Prices ~ \t\tConsumer Price Index ~ \t\tProducer Price Indexes ~ \t\tImport/Export Price Indexes",
+   "              Release Calendar ~ \t\t\t  By News Release ~ \t\t\t\t\t\t ~                             Consumer Price Index  ~                             Employment Cost Index  ~                             Employment Situation ",
+   "\t\t\t\t\t\t ~                             Consumer Price Index  ~                             Employment Cost Index  ~                             Employment Situation  ~                             Job Openings and Labor Turnover   ~                             Producer Price Index ",
+   "     ~       Friday, January 09, 2015 ~       08:30 AM ~       Employment Situation for December 2014 ~      ~     "
+  ],
+  "status": 200,
+  "tz": "All times on calendar are Eastern Time"
+ },
+ "2016": {
+  "nhits": 28,
+  "sample": [
+   " ~ \t ~ \t\tInflation & Prices ~ \t\tConsumer Price Index ~ \t\tProducer Price Indexes ~ \t\tImport/Export Price Indexes",
+   "              Release Calendar ~ \t\t\t  By News Release ~ \t\t\t\t\t\t ~                             Consumer Price Index  ~                             Employment Cost Index  ~                             Employment Situation ",
+   "\t\t\t\t\t\t ~                             Consumer Price Index  ~                             Employment Cost Index  ~                             Employment Situation  ~                             Job Openings and Labor Turnover   ~                             Producer Price Index ",
+   "     ~       Friday, January 08, 2016 ~       08:30 AM ~       Employment Situation for December 2015 ~      ~     "
+  ],
+  "status": 200,
+  "tz": null
+ },
+ "2017": {
+  "nhits": 28,
+  "sample": [
+   " ~ \t ~ \t\tInflation & Prices ~ \t\tConsumer Price Index ~ \t\tProducer Price Indexes ~ \t\tImport/Export Price Indexes",
+   "              Release Calendar ~ \t\t\t  By News Release ~ \t\t\t\t\t\t ~                             Consumer Price Index  ~                             Employment Cost Index  ~                             Employment Situation ",
+   "\t\t\t\t\t\t ~                             Consumer Price Index  ~                             Employment Cost Index  ~                             Employment Situation  ~                             Job Openings and Labor Turnover   ~                             Producer Price Index ",
+   "     ~       Friday, January 06, 2017 ~       08:30 AM ~       Employment Situation for December 2016 ~      ~     "
+  ],
+  "status": 200,
+  "tz": null
+ },
+ "2018": {
+  "nhits": 28,
+  "sample": [
+   " ~ \t ~ \t\tInflation & Prices ~ \t\tConsumer Price Index ~ \t\tProducer Price Indexes ~ \t\tImport/Export Price Indexes",
+   "              Release Calendar ~ \t\t\t  By News Release ~ \t\t\t\t\t\t ~                             Consumer Price Index  ~                             Employment Cost Index  ~                             Employment Situation ",
+   "\t\t\t\t\t\t ~                             Consumer Price Index  ~                             Employment Cost Index  ~                             Employment Situation  ~                             Job Openings and Labor Turnover   ~                             Producer Price Index ",
+   "     ~       Friday, January 05, 2018 ~       08:30 AM ~       Employment Situation for December 2017 ~      ~     "
+  ],
+  "status": 200,
+  "tz": "All times on calendar are Eastern Time"
+ }
+}
