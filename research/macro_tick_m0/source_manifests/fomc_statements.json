@@ -1,0 +1,1345 @@
+[
+ {
+  "date": "2010-01-27",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20100127a.htm",
+  "title": "Federal Reserve Board - FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "The Committee will maintain the target range for the federal funds rate at 0 to 1/4 percent and continues to anticipate that economic conditions, including low rates of resource utilization, subdued inflation trends, and stable inflation expectations, are likely to warrant exceptionally low levels o"
+   }
+  ]
+ },
+ {
+  "date": "2010-03-16",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20100316a.htm",
+  "title": "Federal Reserve Board - FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "The Committee will maintain the target range for the federal funds rate at 0 to 1/4 percent and continues to anticipate that economic conditions, including low rates of resource utilization, subdued inflation trends, and stable inflation expectations, are likely to warrant exceptionally low levels o"
+   }
+  ]
+ },
+ {
+  "date": "2010-04-28",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20100428a.htm",
+  "title": "Federal Reserve Board - FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "The Committee will maintain the target range for the federal funds rate at 0 to 1/4 percent and continues to anticipate that economic conditions, including low rates of resource utilization, subdued inflation trends, and stable inflation expectations, are likely to warrant exceptionally low levels o"
+   }
+  ]
+ },
+ {
+  "date": "2010-05-09",
+  "kind": "unscheduled_intermeeting",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20100509a.htm",
+  "title": "Federal Reserve Board - FOMC statement: Federal Reserve, European Central Bank, Bank of Canada, Bank of England, and Swiss National Bank announce reestablishment of temporary U.S. dollar liquidity swap facilities",
+  "release_time_hhmm_official": "21:15",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 9:15 p.m. EDT",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": []
+ },
+ {
+  "date": "2010-06-23",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20100623a.htm",
+  "title": "Federal Reserve Board - FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "The Committee will maintain the target range for the federal funds rate at 0 to 1/4 percent and continues to anticipate that economic conditions, including low rates of resource utilization, subdued inflation trends, and stable inflation expectations, are likely to warrant exceptionally low levels o"
+   }
+  ]
+ },
+ {
+  "date": "2010-08-10",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20100810a.htm",
+  "title": "Federal Reserve Board - FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "The Committee will maintain the target range for the federal funds rate at 0 to 1/4 percent and continues to anticipate that economic conditions, including low rates of resource utilization, subdued inflation trends, and stable inflation expectations, are likely to warrant exceptionally low levels o"
+   }
+  ]
+ },
+ {
+  "date": "2010-09-21",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20100921a.htm",
+  "title": "Federal Reserve Board - FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "The Committee will maintain the target range for the federal funds rate at 0 to 1/4 percent and continues to anticipate that economic conditions, including low rates of resource utilization, subdued inflation trends, and stable inflation expectations, are likely to warrant exceptionally low levels f"
+   }
+  ]
+ },
+ {
+  "date": "2010-11-03",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20101103a.htm",
+  "title": "Federal Reserve Board - FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "The Committee will maintain the target range for the federal funds rate at 0 to 1/4 percent and continues to anticipate that economic conditions, including low rates of resource utilization, subdued inflation trends, and stable inflation expectations, are likely to warrant exceptionally low levels f"
+   }
+  ]
+ },
+ {
+  "date": "2010-12-14",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20101214a.htm",
+  "title": "Federal Reserve Board - FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "The Committee will maintain the target range for the federal funds rate at 0 to 1/4 percent and continues to anticipate that economic conditions, including low rates of resource utilization, subdued inflation trends, and stable inflation expectations, are likely to warrant exceptionally low levels f"
+   }
+  ]
+ },
+ {
+  "date": "2011-01-26",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20110126a.htm",
+  "title": "Federal Reserve Board - FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "The Committee will maintain the target range for the federal funds rate at 0 to 1/4 percent and continues to anticipate that economic conditions, including low rates of resource utilization, subdued inflation trends, and stable inflation expectations, are likely to warrant exceptionally low levels f"
+   }
+  ]
+ },
+ {
+  "date": "2011-03-15",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20110315a.htm",
+  "title": "Federal Reserve Board - FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "The Committee will maintain the target range for the federal funds rate at 0 to 1/4 percent and continues to anticipate that economic conditions, including low rates of resource utilization, subdued inflation trends, and stable inflation expectations, are likely to warrant exceptionally low levels f"
+   }
+  ]
+ },
+ {
+  "date": "2011-04-27",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20110427a.htm",
+  "title": "Federal Reserve Board - FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "The Committee will maintain the target range for the federal funds rate at 0 to 1/4 percent and continues to anticipate that economic conditions, including low rates of resource utilization, subdued inflation trends, and stable inflation expectations, are likely to warrant exceptionally low levels f"
+   }
+  ]
+ },
+ {
+  "date": "2011-06-22",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20110622a.htm",
+  "title": "Federal Reserve Board - FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "&#160;However, the Committee will continue to pay close attention to the evolution of inflation and inflation expectations.&#160; To promote the ongoing economic recovery and to help ensure that inflation, over time, is at levels consistent with its mandate, the Committee decided today to keep the t"
+   }
+  ]
+ },
+ {
+  "date": "2011-08-09",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20110809a.htm",
+  "title": "Federal Reserve Board - FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "To promote the ongoing economic recovery and to help ensure that inflation, over time, is at levels consistent with its mandate, the Committee decided today to keep the target range for the federal funds rate at 0 to 1/4 percent."
+   }
+  ]
+ },
+ {
+  "date": "2011-09-21",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20110921a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "The Committee also decided to keep the target range for the federal funds rate at 0 to 1/4 percent and currently anticipates that economic conditions--including low rates of resource utilization and a subdued outlook for inflation over the medium run--are likely to warrant exceptionally low levels f"
+   }
+  ]
+ },
+ {
+  "date": "2011-11-02",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20111102a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "The Committee also decided to keep the target range for the federal funds rate at 0 to 1/4 percent and currently anticipates that economic conditions--including low rates of resource utilization and a subdued outlook for inflation over the medium run--are likely to warrant exceptionally low levels f"
+   }
+  ]
+ },
+ {
+  "date": "2011-12-13",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20111213a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "The Committee also decided to keep the target range for the federal funds rate at 0 to 1/4 percent and currently anticipates that economic conditions--including low rates of resource utilization and a subdued outlook for inflation over the medium run--are likely to warrant exceptionally low levels f"
+   }
+  ]
+ },
+ {
+  "date": "2012-01-25",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20120125a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "To support a stronger economic recovery and to help ensure that inflation, over time, is at levels consistent with the dual mandate, the Committee expects to maintain a highly accommodative stance for monetary policy.&#160; In particular, the Committee decided today to keep the target range for the "
+   }
+  ]
+ },
+ {
+  "date": "2012-03-13",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20120313a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "In particular, the Committee decided today to keep the target range for the federal funds rate at 0 to 1/4 percent and currently anticipates that economic conditions--including low rates of resource utilization and a subdued outlook for inflation over the medium run--are likely to warrant exceptiona"
+   }
+  ]
+ },
+ {
+  "date": "2012-04-25",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20120425a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "In particular, the Committee decided today to keep the target range for the federal funds rate at 0 to 1/4 percent and currently anticipates that economic conditions--including low rates of resource utilization and a subdued outlook for inflation over the medium run--are likely to warrant exceptiona"
+   }
+  ]
+ },
+ {
+  "date": "2012-06-20",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20120620a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "In particular, the Committee decided today to keep the target range for the federal funds rate at 0 to 1/4 percent and currently anticipates that economic conditions--including low rates of resource utilization and a subdued outlook for inflation over the medium run--are likely to warrant exceptiona"
+   }
+  ]
+ },
+ {
+  "date": "2012-08-01",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20120801a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "In particular, the Committee decided today to keep the target range for the federal funds rate at 0 to 1/4 percent and currently anticipates that economic conditions--including low rates of resource utilization and a subdued outlook for inflation over the medium run--are likely to warrant exceptiona"
+   }
+  ]
+ },
+ {
+  "date": "2012-09-13",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20120913a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "In particular, the Committee also decided today to keep the target range for the federal funds rate at 0 to 1/4 percent and currently anticipates that exceptionally low levels for the federal funds rate are likely to be warranted at least through mid-2015."
+   }
+  ]
+ },
+ {
+  "date": "2012-10-24",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20121024a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "To support continued progress toward maximum employment and price stability, the Committee expects that a highly accommodative stance of monetary policy will remain appropriate for a considerable time after the economic recovery strengthens.&#160; In particular, the Committee also decided today to k"
+   }
+  ]
+ },
+ {
+  "date": "2012-12-12",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20121212a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "12:30",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "In particular, the Committee decided to keep the target range for the federal funds rate at 0 to 1/4 percent and currently anticipates that this exceptionally low range for the federal funds rate will be appropriate at least as long as the unemployment rate remains above 6-1/2 percent, inflation bet"
+   }
+  ]
+ },
+ {
+  "date": "2013-01-30",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20130130a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "14:00",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "In particular, the Committee decided to keep the target range for the federal funds rate at 0 to 1/4 percent and currently anticipates that this exceptionally low range for the federal funds rate will be appropriate at least as long as the unemployment rate remains above 6-1/2 percent, inflation bet"
+   }
+  ]
+ },
+ {
+  "date": "2013-03-20",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20130320a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "same_release_package_page_b",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "To support continued progress toward maximum employment and price stability, the Committee expects that a highly accommodative stance of monetary policy will remain appropriate for a considerable time after the asset purchase program ends and the economic recovery strengthens.&#160; In particular, t"
+   }
+  ]
+ },
+ {
+  "date": "2013-05-01",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20130501a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "14:00",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "In particular, the Committee decided to keep the target range for the federal funds rate at 0 to 1/4 percent and currently anticipates that this exceptionally low range for the federal funds rate will be appropriate at least as long as the unemployment rate remains above 6-1/2 percent, inflation bet"
+   }
+  ]
+ },
+ {
+  "date": "2013-06-19",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20130619a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "same_release_package_page_b",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "In particular, the Committee decided to keep the target range for the federal funds rate at 0 to 1/4 percent and currently anticipates that this exceptionally low range for the federal funds rate will be appropriate at least as long as the unemployment rate remains above 6-1/2 percent, inflation bet"
+   }
+  ]
+ },
+ {
+  "date": "2013-07-31",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20130731a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "14:00",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "In particular, the Committee decided to keep the target range for the federal funds rate at 0 to 1/4 percent and currently anticipates that this exceptionally low range for the federal funds rate will be appropriate at least as long as the unemployment rate remains above 6-1/2 percent, inflation bet"
+   }
+  ]
+ },
+ {
+  "date": "2013-09-18",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20130918a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "same_release_package_page_b",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "In particular, the Committee decided to keep the target range for the federal funds rate at 0 to 1/4 percent and currently anticipates that this exceptionally low range for the federal funds rate will be appropriate at least as long as the unemployment rate remains above 6-1/2 percent, inflation bet"
+   }
+  ]
+ },
+ {
+  "date": "2013-10-30",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20131030a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "14:00",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "In particular, the Committee decided to keep the target range for the federal funds rate at 0 to 1/4 percent and currently anticipates that this exceptionally low range for the federal funds rate will be appropriate at least as long as the unemployment rate remains above 6-1/2 percent, inflation bet"
+   }
+  ]
+ },
+ {
+  "date": "2013-12-18",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20131218a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EST",
+  "release_line_raw": "For release at 2:00 p.m. EST",
+  "release_time_source": "same_release_package_page_b",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "The Committee also reaffirmed its expectation that the current exceptionally low target range for the federal funds rate of 0 to 1/4 percent will be appropriate at least as long as the unemployment rate remains above 6-1/2 percent, inflation between one and two years ahead is projected to be no more"
+   }
+  ]
+ },
+ {
+  "date": "2014-01-29",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20140129a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "14:00",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "The Committee also reaffirmed its expectation that the current exceptionally low target range for the federal funds rate of 0 to 1/4 percent will be appropriate at least as long as the unemployment rate remains above 6-1/2 percent, inflation between one and two years ahead is projected to be no more"
+   }
+  ]
+ },
+ {
+  "date": "2014-03-19",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20140319a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "same_release_package_page_b",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "In determining how long to maintain the current 0 to 1/4 percent target range for the federal funds rate, the Committee will assess progress--both realized and expected--toward its objectives of maximum employment and 2 percent inflation."
+   }
+  ]
+ },
+ {
+  "date": "2014-04-30",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20140430a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "14:00",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "In determining how long to maintain the current 0 to 1/4 percent target range for the federal funds rate, the Committee will assess progress--both realized and expected--toward its objectives of maximum employment and 2 percent inflation."
+   }
+  ]
+ },
+ {
+  "date": "2014-06-18",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20140618a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "same_release_package_page_b",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "In determining how long to maintain the current 0 to 1/4 percent target range for the federal funds rate, the Committee will assess progress--both realized and expected--toward its objectives of maximum employment and 2 percent inflation."
+   }
+  ]
+ },
+ {
+  "date": "2014-07-30",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20140730a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "14:00",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "In determining how long to maintain the current 0 to 1/4 percent target range for the federal funds rate, the Committee will assess progress--both realized and expected--toward its objectives of maximum employment and 2 percent inflation."
+   }
+  ]
+ },
+ {
+  "date": "2014-09-17",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20140917a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "same_release_package_page_b",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "In determining how long to maintain the current 0 to 1/4 percent target range for the federal funds rate, the Committee will assess progress--both realized and expected--toward its objectives of maximum employment and 2 percent inflation."
+   }
+  ]
+ },
+ {
+  "date": "2014-10-29",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20141029a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "14:00",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "To support continued progress toward maximum employment and price stability, the Committee today reaffirmed its view that the current 0 to 1/4 percent target range for the federal funds rate remains appropriate."
+   },
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "The Committee anticipates, based on its current assessment, that it likely will be appropriate to maintain the 0 to 1/4 percent target range for the federal funds rate for a considerable time following the end of its asset purchase program this month, especially if projected inflation continues to r"
+   }
+  ]
+ },
+ {
+  "date": "2014-12-17",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20141217a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EST",
+  "release_line_raw": "For release at 2:00 p.m. EST",
+  "release_time_source": "same_release_package_page_b",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "To support continued progress toward maximum employment and price stability, the Committee today reaffirmed its view that the current 0 to 1/4 percent target range for the federal funds rate remains appropriate."
+   },
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "The Committee sees this guidance as consistent with its previous statement that it likely will be appropriate to maintain the 0 to 1/4 percent target range for the federal funds rate for a considerable time following the end of its asset purchase program in October, especially if projected inflation"
+   }
+  ]
+ },
+ {
+  "date": "2015-01-28",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20150128a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "14:00",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "To support continued progress toward maximum employment and price stability, the Committee today reaffirmed its view that the current 0 to 1/4 percent target range for the federal funds rate remains appropriate.&#160; In determining how long to maintain this target range, the Committee will assess p"
+   }
+  ]
+ },
+ {
+  "date": "2015-03-18",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20150318a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "same_release_package_page_b",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "To support continued progress toward maximum employment and price stability, the Committee today reaffirmed its view that the current 0 to 1/4 percent target range for the federal funds rate remains appropriate."
+   }
+  ]
+ },
+ {
+  "date": "2015-04-29",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20150429a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "14:00",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "To support continued progress toward maximum employment and price stability, the Committee today reaffirmed its view that the current 0 to 1/4 percent target range for the federal funds rate remains appropriate."
+   }
+  ]
+ },
+ {
+  "date": "2015-06-17",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20150617a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "14:00",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "To support continued progress toward maximum employment and price stability, the Committee today reaffirmed its view that the current 0 to 1/4 percent target range for the federal funds rate remains appropriate."
+   }
+  ]
+ },
+ {
+  "date": "2015-07-29",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20150729a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "14:00",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "To support continued progress toward maximum employment and price stability, the Committee today reaffirmed its view that the current 0 to 1/4 percent target range for the federal funds rate remains appropriate."
+   }
+  ]
+ },
+ {
+  "date": "2015-09-17",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20150917a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "same_release_package_page_b",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "To support continued progress toward maximum employment and price stability, the Committee today reaffirmed its view that the current 0 to 1/4 percent target range for the federal funds rate remains appropriate."
+   }
+  ]
+ },
+ {
+  "date": "2015-10-28",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20151028a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": null,
+  "release_tz_label": null,
+  "release_line_raw": null,
+  "release_time_source": null,
+  "conventional_time_hhmm_non_official": "14:00",
+  "target_ranges_in_text": [
+   {
+    "low": 0.0,
+    "high": 0.25,
+    "sentence": "To support continued progress toward maximum employment and price stability, the Committee today reaffirmed its view that the current 0 to 1/4 percent target range for the federal funds rate remains appropriate."
+   }
+  ]
+ },
+ {
+  "date": "2015-12-16",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20151216a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EST",
+  "release_line_raw": "For release at 2:00 p.m. EST",
+  "release_time_source": "same_release_package_page_b",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.25,
+    "high": 0.5,
+    "sentence": "Given the economic outlook, and recognizing the time it takes for policy actions to affect future economic outcomes, the Committee decided to raise the target range for the federal funds rate to 1/4 to 1/2 percent."
+   }
+  ]
+ },
+ {
+  "date": "2016-01-27",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20160127a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EST",
+  "release_line_raw": "For release at 2:00 p.m. EST",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.25,
+    "high": 0.5,
+    "sentence": "Given the economic outlook, the Committee decided to maintain the target range for the federal funds rate at 1/4 to 1/2 percent."
+   }
+  ]
+ },
+ {
+  "date": "2016-03-16",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20160316a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.25,
+    "high": 0.5,
+    "sentence": "Against this backdrop, the Committee decided to maintain the target range for the federal funds rate at 1/4 to 1/2 percent."
+   },
+   {
+    "low": 0.5,
+    "high": 0.75,
+    "sentence": "George, who preferred at this meeting to raise the target range for the federal funds rate to 1/2 to 3/4 percent."
+   }
+  ]
+ },
+ {
+  "date": "2016-04-27",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20160427a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.25,
+    "high": 0.5,
+    "sentence": "Against this backdrop, the Committee decided to maintain the target range for the federal funds rate at 1/4 to 1/2 percent."
+   },
+   {
+    "low": 0.5,
+    "high": 0.75,
+    "sentence": "George, who preferred at this meeting to raise the target range for the federal funds rate to 1/2 to 3/4 percent."
+   }
+  ]
+ },
+ {
+  "date": "2016-06-15",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20160615a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.25,
+    "high": 0.5,
+    "sentence": "Against this backdrop, the Committee decided to maintain the target range for the federal funds rate at 1/4 to 1/2 percent."
+   }
+  ]
+ },
+ {
+  "date": "2016-07-27",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20160727a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.25,
+    "high": 0.5,
+    "sentence": "Against this backdrop, the Committee decided to maintain the target range for the federal funds rate at 1/4 to 1/2 percent."
+   },
+   {
+    "low": 0.5,
+    "high": 0.75,
+    "sentence": "George, who preferred at this meeting to raise the target range for the federal funds rate to 1/2 to 3/4 percent."
+   }
+  ]
+ },
+ {
+  "date": "2016-09-21",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20160921a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.25,
+    "high": 0.5,
+    "sentence": "Against this backdrop, the Committee decided to maintain the target range for the federal funds rate at 1/4 to 1/2 percent."
+   },
+   {
+    "low": 0.5,
+    "high": 0.75,
+    "sentence": "Mester, and Eric Rosengren, each of whom preferred at this meeting to raise the target range for the federal funds rate to 1/2 to 3/4 percent."
+   }
+  ]
+ },
+ {
+  "date": "2016-11-02",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20161102a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.25,
+    "high": 0.5,
+    "sentence": "Against this backdrop, the Committee decided to maintain the target range for the federal funds rate at 1/4 to 1/2 percent."
+   },
+   {
+    "low": 0.5,
+    "high": 0.75,
+    "sentence": "Mester, each of whom preferred at this meeting to raise the target range for the federal funds rate to 1/2 to 3/4 percent."
+   }
+  ]
+ },
+ {
+  "date": "2016-12-14",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20161214a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EST",
+  "release_line_raw": "For release at 2:00 p.m. EST",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.5,
+    "high": 0.75,
+    "sentence": "In view of realized and expected labor market conditions and inflation, the Committee decided to raise the target range for the federal funds rate to 1/2 to 3/4 percent."
+   }
+  ]
+ },
+ {
+  "date": "2017-02-01",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20170201a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EST",
+  "release_line_raw": "For release at 2:00 p.m. EST",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.5,
+    "high": 0.75,
+    "sentence": "In view of realized and expected labor market conditions and inflation, the Committee decided to maintain the target range for the federal funds rate at 1/2 to 3/4 percent."
+   }
+  ]
+ },
+ {
+  "date": "2017-03-15",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20170315a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.75,
+    "high": 1.0,
+    "sentence": "In view of realized and expected labor market conditions and inflation, the Committee decided to raise the target range for the federal funds rate to 3/4 to 1 percent."
+   }
+  ]
+ },
+ {
+  "date": "2017-05-03",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20170503a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 0.75,
+    "high": 1.0,
+    "sentence": "In view of realized and expected labor market conditions and inflation, the Committee decided to maintain the target range for the federal funds rate at 3/4 to 1 percent."
+   }
+  ]
+ },
+ {
+  "date": "2017-06-14",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20170614a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 1.0,
+    "high": 1.25,
+    "sentence": "In view of realized and expected labor market conditions and inflation, the Committee decided to raise the target range for the federal funds rate to 1 to 1-1/4 percent."
+   }
+  ]
+ },
+ {
+  "date": "2017-07-26",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20170726a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 1.0,
+    "high": 1.25,
+    "sentence": "In view of realized and expected labor market conditions and inflation, the Committee decided to maintain the target range for the federal funds rate at 1 to 1-1/4 percent."
+   }
+  ]
+ },
+ {
+  "date": "2017-09-20",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20170920a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 1.0,
+    "high": 1.25,
+    "sentence": "In view of realized and expected labor market conditions and inflation, the Committee decided to maintain the target range for the federal funds rate at 1 to 1-1/4 percent."
+   }
+  ]
+ },
+ {
+  "date": "2017-11-01",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20171101a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 1.0,
+    "high": 1.25,
+    "sentence": "In view of realized and expected labor market conditions and inflation, the Committee decided to maintain the target range for the federal funds rate at 1 to 1-1/4 percent."
+   }
+  ]
+ },
+ {
+  "date": "2017-12-13",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20171213a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EST",
+  "release_line_raw": "For release at 2:00 p.m. EST",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 1.25,
+    "high": 1.5,
+    "sentence": "In view of realized and expected labor market conditions and inflation, the Committee decided to raise the target range for the federal funds rate to 1-1/4 to 1-1/2 percent."
+   }
+  ]
+ },
+ {
+  "date": "2018-01-31",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20180131a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EST",
+  "release_line_raw": "For release at 2:00 p.m. EST",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 1.25,
+    "high": 1.5,
+    "sentence": "In view of realized and expected labor market conditions and inflation, the Committee decided to maintain the target range for the federal funds rate at 1-1/4 to 1-1/2 percent."
+   }
+  ]
+ },
+ {
+  "date": "2018-03-21",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20180321a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 1.5,
+    "high": 1.75,
+    "sentence": "In view of realized and expected labor market conditions and inflation, the Committee decided to raise the target range for the federal funds rate to 1-1/2 to 1-3/4 percent."
+   }
+  ]
+ },
+ {
+  "date": "2018-05-02",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20180502a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 1.5,
+    "high": 1.75,
+    "sentence": "In view of realized and expected labor market conditions and inflation, the Committee decided to maintain the target range for the federal funds rate at 1-1/2 to 1-3/4 percent."
+   }
+  ]
+ },
+ {
+  "date": "2018-06-13",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20180613a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 1.75,
+    "high": 2.0,
+    "sentence": "In view of realized and expected labor market conditions and inflation, the Committee decided to raise the target range for the federal funds rate to 1-3/4 to 2 percent."
+   }
+  ]
+ },
+ {
+  "date": "2018-08-01",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20180801a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 1.75,
+    "high": 2.0,
+    "sentence": "In view of realized and expected labor market conditions and inflation, the Committee decided to maintain the target range for the federal funds rate at 1-3/4 to 2 percent."
+   }
+  ]
+ },
+ {
+  "date": "2018-09-26",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20180926a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EDT",
+  "release_line_raw": "For release at 2:00 p.m. EDT",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 2.0,
+    "high": 2.25,
+    "sentence": "In view of realized and expected labor market conditions and inflation, the Committee decided to raise the target range for the federal funds rate to 2 to 2-1/4 percent."
+   }
+  ]
+ },
+ {
+  "date": "2018-11-08",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20181108a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EST",
+  "release_line_raw": "For release at 2:00 p.m. EST",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 2.0,
+    "high": 2.25,
+    "sentence": "In view of realized and expected labor market conditions and inflation, the Committee decided to maintain the target range for the federal funds rate at 2 to 2-1/4 percent."
+   }
+  ]
+ },
+ {
+  "date": "2018-12-19",
+  "kind": "scheduled",
+  "statement_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20181219a.htm",
+  "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+  "release_time_hhmm_official": "14:00",
+  "release_tz_label": "EST",
+  "release_line_raw": "For release at 2:00 p.m. EST",
+  "release_time_source": "statement_page",
+  "conventional_time_hhmm_non_official": null,
+  "target_ranges_in_text": [
+   {
+    "low": 2.25,
+    "high": 2.5,
+    "sentence": "In view of realized and expected labor market conditions and inflation, the Committee decided to raise the target range for the federal funds rate to 2-1/4 to 2-1/2 percent."
+   }
+  ]
+ }
+]

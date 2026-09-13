@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 data_raw/*
 !data_raw/official/
+
+# MACRO_TICK_M0 local fetch artifacts
+research/macro_tick_m0/data_raw/
