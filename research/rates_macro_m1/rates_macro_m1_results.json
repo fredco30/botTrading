@@ -1,0 +1,194 @@
+{
+ "spec": "RATES_MACRO_M1_FROZEN_SPEC",
+ "base_head": "7c63937670e30a5cfb41362455700b233917d43b",
+ "macro_source_sha": "f89623096e36a12a98f3aaa23f1217dc245bfa9745cc46d4a6c1b6b4e3a2e418",
+ "discovery": {
+  "start": "2010-06-07",
+  "end_exclusive": "2019-01-01"
+ },
+ "events_nfp": 102,
+ "events_cpi": 103,
+ "events_total": 205,
+ "events_rate_valid": 192,
+ "qualifying_rate_shocks": 142,
+ "zt_available_pct": 0.7746,
+ "zt_confirm_pct": 0.7113,
+ "strategies": {
+  "A": {
+   "n_trades": 135,
+   "n_gap_invalid": 0,
+   "net_mean_pips": 0.1022,
+   "net_median_pips": -4.8,
+   "total_net_pips": 13.8,
+   "win_rate": 0.4148,
+   "avg_win": 24.9982,
+   "avg_loss": -17.5456,
+   "profit_factor": 1.01,
+   "expectancy_r": 0.0264,
+   "max_drawdown_pips": 243.2,
+   "max_consecutive_losses": 5,
+   "positive_years": 4,
+   "years_eligible": 9,
+   "by_year": {
+    "2010": {
+     "n": 10,
+     "total_net": -17.7,
+     "mean_net": -1.77
+    },
+    "2011": {
+     "n": 12,
+     "total_net": -38.8,
+     "mean_net": -3.2333
+    },
+    "2012": {
+     "n": 11,
+     "total_net": 9.1,
+     "mean_net": 0.8273
+    },
+    "2013": {
+     "n": 16,
+     "total_net": 94.9,
+     "mean_net": 5.9312
+    },
+    "2014": {
+     "n": 19,
+     "total_net": -100.2,
+     "mean_net": -5.2737
+    },
+    "2015": {
+     "n": 18,
+     "total_net": 140.2,
+     "mean_net": 7.7889
+    },
+    "2016": {
+     "n": 18,
+     "total_net": 70.7,
+     "mean_net": 3.9278
+    },
+    "2017": {
+     "n": 20,
+     "total_net": -63.0,
+     "mean_net": -3.15
+    },
+    "2018": {
+     "n": 11,
+     "total_net": -81.4,
+     "mean_net": -7.4
+    }
+   },
+   "remove_best_1pct_mean": -0.9887,
+   "stress_025_mean": -0.3978,
+   "stress_050_mean": -0.8978,
+   "stress_100_mean": -1.8978,
+   "nfp_n": 79,
+   "cpi_n": 56,
+   "nfp_mean": -1.5835,
+   "cpi_mean": 2.4804,
+   "nfp_pf": 0.8785,
+   "cpi_pf": 1.3896,
+   "ci95_lo": -4.392,
+   "ci95_hi": 4.4697,
+   "exits": {
+    "STOP": 66,
+    "TARGET": 27,
+    "TIME": 42
+   },
+   "zf_score_mean": 12.9435,
+   "zn_score_mean": 11.1779,
+   "zt_available_pct": 0.7746,
+   "zt_confirm_pct": 0.7113,
+   "ci_positive": "NO",
+   "verdict": "REJECT",
+   "strategy_id": "RATES_A_1M_REPRICING_CONTINUATION"
+  },
+  "B": {
+   "n_trades": 13,
+   "n_gap_invalid": 0,
+   "net_mean_pips": -0.6846,
+   "net_median_pips": -2.9,
+   "total_net_pips": -8.9,
+   "win_rate": 0.3077,
+   "avg_win": 10.825,
+   "avg_loss": -5.8,
+   "profit_factor": 0.8295,
+   "expectancy_r": -0.1559,
+   "max_drawdown_pips": 19.3,
+   "max_consecutive_losses": 3,
+   "positive_years": 2,
+   "years_eligible": 3,
+   "by_year": {
+    "2010": {
+     "n": 3,
+     "total_net": -1.9,
+     "mean_net": -0.6333
+    },
+    "2011": {
+     "n": 2,
+     "total_net": 4.0,
+     "mean_net": 2.0
+    },
+    "2012": {
+     "n": 3,
+     "total_net": 0.3,
+     "mean_net": 0.1
+    },
+    "2013": {
+     "n": 0
+    },
+    "2014": {
+     "n": 0
+    },
+    "2015": {
+     "n": 3,
+     "total_net": 2.0,
+     "mean_net": 0.6667
+    },
+    "2016": {
+     "n": 0
+    },
+    "2017": {
+     "n": 1,
+     "total_net": -2.7,
+     "mean_net": -2.7
+    },
+    "2018": {
+     "n": 1,
+     "total_net": -10.6,
+     "mean_net": -10.6
+    }
+   },
+   "remove_best_1pct_mean": -2.15,
+   "stress_025_mean": -1.1846,
+   "stress_050_mean": -1.6846,
+   "stress_100_mean": -2.6846,
+   "nfp_n": 8,
+   "cpi_n": 5,
+   "nfp_mean": 1.3875,
+   "cpi_mean": -4.0,
+   "nfp_pf": 1.4336,
+   "cpi_pf": 0.2481,
+   "ci95_lo": -4.8317,
+   "ci95_hi": 4.3081,
+   "exits": {
+    "STOP": 9,
+    "TARGET": 4,
+    "TIME": 0
+   },
+   "zf_score_mean": 12.9435,
+   "zn_score_mean": 11.1779,
+   "zt_available_pct": 0.7746,
+   "zt_confirm_pct": 0.7113,
+   "ci_positive": "NO",
+   "verdict": "REJECT",
+   "strategy_id": "RATES_B_FX_LAG"
+  },
+  "C": {
+   "n_trades": 0,
+   "n_gap_invalid": 0,
+   "verdict": "REJECT",
+   "zf_score_mean": 12.9435,
+   "zn_score_mean": 11.1779,
+   "strategy_id": "RATES_C_FX_DISAGREEMENT_REVERSION"
+  }
+ }
+}

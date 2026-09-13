@@ -1,0 +1,45 @@
+{
+ "independent_of_lib": true,
+ "trades_audited": {
+  "A": 12,
+  "B": 13,
+  "C": 0
+ },
+ "events_audited": {
+  "A": [
+   "MACRO-CPI-201005",
+   "MACRO-NFP-201006",
+   "MACRO-NFP-201007",
+   "MACRO-CPI-201007",
+   "MACRO-NFP-201008",
+   "MACRO-CPI-201008",
+   "MACRO-NFP-201010",
+   "MACRO-CPI-201010",
+   "MACRO-NFP-201011",
+   "MACRO-CPI-201011",
+   "MACRO-NFP-201012",
+   "MACRO-NFP-201101"
+  ],
+  "B": [
+   "MACRO-CPI-201007",
+   "MACRO-CPI-201008",
+   "MACRO-NFP-201011",
+   "MACRO-NFP-201105",
+   "MACRO-CPI-201111",
+   "MACRO-NFP-201202",
+   "MACRO-CPI-201202",
+   "MACRO-NFP-201207",
+   "MACRO-CPI-201412",
+   "MACRO-NFP-201502",
+   "MACRO-NFP-201504",
+   "MACRO-NFP-201704",
+   "MACRO-NFP-201802"
+  ],
+  "C": []
+ },
+ "checks_passed": 500,
+ "checks_failed": 0,
+ "failures": [],
+ "minimum_30_checks": true,
+ "verdict": "AUDIT_PASS"
+}
