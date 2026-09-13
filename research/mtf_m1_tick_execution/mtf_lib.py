@@ -21,6 +21,11 @@ TF_NS = {"M15": 900 * NS, "H1": 3600 * NS, "H4": 14400 * NS}
 LATENCY_NS = 250 * 1_000_000          # frozen: 250 ms
 NO_FILL_WINDOW_NS = 3600 * NS         # frozen: entry search bound 1 hour
 GAP_NS = 3600 * NS                    # frozen: data-gap threshold 1 hour
+# Implementation precision for the frozen INVALID_STOP rule ("stop not beyond
+# entry in the correct direction"): prices live on a 1e-5 grid and mid stops
+# on a 5e-6 grid, so the smallest geometric entry-stop distance is 0.05 pip.
+# Anything below that is floating-point noise on the SAME price, not a stop.
+MIN_RISK_PIPS = 0.05
 DISCOVERY_START_NS = int(pd.Timestamp("2010-01-01T00:00:00Z").value)
 DISCOVERY_END_NS = int(pd.Timestamp("2019-01-01T00:00:00Z").value)  # HARD CUT
 YEARS = list(range(2010, 2019))       # 9 discovery years
@@ -497,40 +502,42 @@ def run_discovery_pass(all_events, store, gap_starts,
     events = sorted(all_events, key=lambda e: (e["decision_ns"], e["kind"]))
     last_exit = {}
     trades = []
-    counts = {"NO_FILL": 0, "NO_FILL_GAP": 0, "INVALID_STOP": 0,
-              "NO_TRADE_TARGET_CROSSED": 0, "SKIPPED_HARD_END": 0,
-              "UNRESOLVED": 0}
+    counts = {k: {"NO_FILL": 0, "NO_FILL_GAP": 0, "INVALID_STOP": 0,
+                  "NO_TRADE_TARGET_CROSSED": 0, "SKIPPED_HARD_END": 0,
+                  "UNRESOLVED": 0, "IGNORED_WHILE_OPEN": 0}
+              for k in ("A", "B", "C")}
     for ev in events:
         kind = ev["kind"]
         d = ev["decision_ns"]
         if d >= discovery_end_ns or d < DISCOVERY_START_NS:
             continue
         if kind in last_exit and d < last_exit[kind]:
+            counts[kind]["IGNORED_WHILE_OPEN"] += 1
             continue                      # frozen: ignore signals while open
         side = ev["side"]
         ts, bid, ask = store.get_range(d + LATENCY_NS,
                                        d + NO_FILL_WINDOW_NS + 1)
         rr = resolve_entry(ts, bid, ask, d, side, gap_starts)
         if rr["status"] != "FILLED":
-            counts[rr["status"]] += 1
+            counts[kind][rr["status"]] += 1
             continue
         entry_ts = rr["fill_ts"]
         entry = rr["price"]
         T = ev["T_ns"]
         if entry_ts + T >= discovery_end_ns:
-            counts["SKIPPED_HARD_END"] += 1
+            counts[kind]["SKIPPED_HARD_END"] += 1
             continue
         if kind == "A":
             stop = ev["stop_price"]
             if (side == 1 and stop >= entry) or (side == -1 and stop <= entry):
-                counts["INVALID_STOP"] += 1
+                counts[kind]["INVALID_STOP"] += 1
                 continue
             risk = abs(entry - stop)
             target = entry + side * ev["r_mult"] * risk
         elif kind == "B":
             atr = ev["atr"]
             if not atr > 0:
-                counts["INVALID_STOP"] += 1
+                counts[kind]["INVALID_STOP"] += 1
                 continue
             risk = ev["sl_mult"] * atr
             stop = entry - side * risk
@@ -538,26 +545,51 @@ def run_discovery_pass(all_events, store, gap_starts,
         else:  # C
             atr = ev["atr"]
             if not atr > 0:
-                counts["INVALID_STOP"] += 1
+                counts[kind]["INVALID_STOP"] += 1
                 continue
-            risk = abs(entry - (entry - side * ev["sl_mult"] * atr))
-            stop = entry - side * ev["sl_mult"] * atr
+            risk = ev["sl_mult"] * atr
+            stop = entry - side * risk
             target = ev["target_price"]
             if (side == 1 and entry >= target) or (side == -1 and entry <= target):
-                counts["NO_TRADE_TARGET_CROSSED"] += 1
+                counts[kind]["NO_TRADE_TARGET_CROSSED"] += 1
                 continue
-        end_bound = min(entry_ts + T + NS, discovery_end_ns)
-        ts, bid, ask = store.get_range(entry_ts, end_bound)
-        k = int(np.searchsorted(ts, entry_ts, side="left"))
+        if risk / PIP < MIN_RISK_PIPS:
+            counts[kind]["INVALID_STOP"] += 1   # stop at entry price ± fp noise
+            continue
+        # The tick window MUST extend past the time-exit timestamp: if the
+        # market is closed exactly at entry+T (weekend / holiday), the first
+        # tick at/after it lies further ahead, and the TIME exit must find it.
+        # 4 days covers weekend + longest known gap; grow if ever needed.
+        pad = 4 * 86400 * NS
+        while True:
+            end_bound = min(entry_ts + T + NS + pad, discovery_end_ns)
+            ts, bid, ask = store.get_range(entry_ts, end_bound)
+            k = int(np.searchsorted(ts, entry_ts, side="left"))
+            j_time = int(np.searchsorted(ts, entry_ts + T, side="left"))
+            if j_time < len(ts) or end_bound >= discovery_end_ns:
+                break
+            pad *= 4
         if k >= len(ts) or ts[k] != entry_ts:
-            counts["UNRESOLVED"] += 1
+            counts[kind]["UNRESOLVED"] += 1
             continue
         entry_mid = float((bid[k] + ask[k]) / 2.0)
         last_tick = (int(ts[-1]), float(bid[-1]), float(ask[-1]))
         res = resolve_trade(ts, bid, ask, side, k, entry_ts, stop, target,
                             entry_ts + T, gap_starts, last_tick)
         if res["status"] == "UNRESOLVED":
-            counts["UNRESOLVED"] += 1
+            counts[kind]["UNRESOLVED"] += 1
+            continue
+        if res["status"] == "DATA_GAP_INVALID":
+            # excluded from all main metrics; occupancy ends at gap onset
+            trades.append({
+                "kind": kind, "side": int(side), "decision_ns": int(d),
+                "entry_ts": int(entry_ts), "entry": float(entry),
+                "exit_ts": int(res["gap_ts"]), "exit_reason": "DATA_GAP_INVALID",
+                "exit_price": float("nan"), "stop": float(stop),
+                "target": float(target), "risk_pips": float(risk / PIP),
+                "net_pips": float("nan"), "gross_mid_pips": float("nan"),
+                "year": int(pd.Timestamp(entry_ts, tz="UTC").year)})
+            last_exit[kind] = int(res["gap_ts"])
             continue
         exit_px = res["exit_price"]
         if "exit_idx" in res and res["exit_idx"] is not None:

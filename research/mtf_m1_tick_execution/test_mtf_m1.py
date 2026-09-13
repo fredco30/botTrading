@@ -396,7 +396,7 @@ class TestDiscoveryPass(unittest.TestCase):
                "target_price": 1.1050, "T_ns": 12 * H}]
         trades, counts = L.run_discovery_pass(ev, store, np.array([], dtype=np.int64))
         self.assertEqual(len(trades), 0)
-        self.assertEqual(counts["SKIPPED_HARD_END"], 1)  # fill+12h crosses 2019
+        self.assertEqual(counts["C"]["SKIPPED_HARD_END"], 1)  # fill+12h crosses 2019
 
     def test_c_target_crossed_at_entry_no_trade(self):
         t0 = ns("2016-05-02T00:00:00Z")
@@ -405,7 +405,7 @@ class TestDiscoveryPass(unittest.TestCase):
                "sl_mult": 1.0, "target_price": 1.1001, "T_ns": 12 * H}]
         trades, counts = L.run_discovery_pass(ev, store, np.array([], dtype=np.int64))
         self.assertEqual(len(trades), 0)
-        self.assertEqual(counts["NO_TRADE_TARGET_CROSSED"], 1)
+        self.assertEqual(counts["C"]["NO_TRADE_TARGET_CROSSED"], 1)
 
     def test_a_invalid_stop_not_beyond_entry(self):
         t0 = ns("2016-05-02T00:00:00Z")
@@ -414,7 +414,34 @@ class TestDiscoveryPass(unittest.TestCase):
                "stop_price": 1.1005, "r_mult": 2.0, "T_ns": 24 * H}]
         trades, counts = L.run_discovery_pass(ev, store, np.array([], dtype=np.int64))
         self.assertEqual(len(trades), 0)
-        self.assertEqual(counts["INVALID_STOP"], 1)
+        self.assertEqual(counts["A"]["INVALID_STOP"], 1)
+
+    def test_a_stop_at_entry_fp_noise_is_invalid(self):
+        t0 = ns("2016-05-02T00:00:00Z")
+        store = self._store(t0)
+        # stop 1e-12 below the entry price: floating-point noise, not a stop
+        ev = [{"kind": "A", "decision_ns": t0 + H, "side": 1,
+               "stop_price": 1.1002 - 1e-12, "r_mult": 2.0, "T_ns": 24 * H}]
+        trades, counts = L.run_discovery_pass(ev, store, np.array([], dtype=np.int64))
+        self.assertEqual(len(trades), 0)
+        self.assertEqual(counts["A"]["INVALID_STOP"], 1)
+
+    def test_time_exit_over_weekend_is_not_gap_invalid(self):
+        """Regression: time exit falling inside a weekend closure must resolve
+        as TIME at the first tick after the reopen, NOT DATA_GAP_INVALID."""
+        fri = ns("2016-06-10T20:00:00Z")            # Friday 20:00
+        sun = ns("2016-06-12T22:00:00Z")            # Sunday reopen
+        ts = np.concatenate([fri + np.arange(0, 7200) * NS,     # Fri 20:00-22:00
+                             sun + np.arange(0, 3600) * NS])    # Sun 22:00-23:00
+        bid = np.full(len(ts), 1.1000)
+        ask = bid + 0.0002
+        store = ArrayStore(ts, bid, ask)
+        ev = [{"kind": "C", "decision_ns": fri, "side": 1, "atr": 0.0010,
+               "sl_mult": 1.0, "target_price": 1.1050, "T_ns": 12 * H}]
+        trades, counts = L.run_discovery_pass(ev, store, np.array([], dtype=np.int64))
+        self.assertEqual(len(trades), 1)
+        self.assertEqual(trades[0]["exit_reason"], "TIME")
+        self.assertEqual(trades[0]["exit_ts"], int(sun))   # first tick >= due
 
     def test_b_uses_atr_stop_and_2r_target(self):
         t0 = ns("2016-05-02T00:00:00Z")

@@ -28,12 +28,15 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 def load_bars(ddir, tf):
     df = pd.read_parquet(os.path.join(ddir, f"bars_{tf}.parquet"))
     keep = ~df["gap_flag"].to_numpy(dtype=bool)     # frozen: drop gap bars
-    bar = {k: df[k].to_numpy() for k in ("start_ns", "open", "high", "low",
-                                         "close", "n_ticks")}
+    bar = {("start" if k == "start_ns" else k): df[k].to_numpy()
+           for k in ("start_ns", "open", "high", "low", "close", "n_ticks")}
     bar = {k: v[keep] for k, v in bar.items()}
-    bar["close_ts"] = bar["start_ns"] + mtf_lib.TF_NS[tf]
-    if len(bar["start_ns"]) and bar["close_ts"][-1] >= mtf_lib.DISCOVERY_END_NS:
-        raise AssertionError("bar close at/after the 2019 hard cut")
+    bar["close_ts"] = bar["start"] + mtf_lib.TF_NS[tf]
+    # bar LABELS must sit inside Discovery; the final grid bar may CLOSE
+    # exactly at the 2019-01-01 hard cut — it can never produce a decision
+    # (run_discovery_pass refuses decision_ns >= DISCOVERY_END).
+    if len(bar["start"]) and bar["start"][-1] >= mtf_lib.DISCOVERY_END_NS:
+        raise AssertionError("bar label at/after the 2019 hard cut")
     return bar
 
 
@@ -58,8 +61,8 @@ def main():
     m15 = load_bars(ddir, "M15")
     h1 = load_bars(ddir, "H1")
     h4 = load_bars(ddir, "H4")
-    print(f"bars: M15={len(m15['start_ns'])} H1={len(h1['start_ns'])} "
-          f"H4={len(h4['start_ns'])} ({time.time()-t0:.1f}s)")
+    print(f"bars: M15={len(m15["start"])} H1={len(h1["start"])} "
+          f"H4={len(h4["start"])} ({time.time()-t0:.1f}s)")
 
     t0 = time.time()
     ema20_h1 = mtf_lib.ema(h1["close"], 20)
@@ -95,7 +98,7 @@ def main():
         "discovery": "2010-01-01T00:00:00Z .. 2019-01-01T00:00:00Z (exclusive)",
         "n_gaps": len(gaps),
         "n_ticks": 208_003_917,
-        "bars": {tf: int(len(b["start_ns"])) for tf, b in
+        "bars": {tf: int(len(b["start"])) for tf, b in
                  (("M15", m15), ("H1", h1), ("H4", h4))},
         "signals": {k: len(v) for k, v in (("A", ev_a), ("B", ev_b), ("C", ev_c))},
         "latency_ms": 250, "bootstrap": "2000x seed42 percentile",
@@ -105,7 +108,7 @@ def main():
                        ("B", "MTF_B_TREND_BREAKOUT"),
                        ("C", "MTF_C_RANGE_REVERSION")):
         kt = [t for t in trades if t["kind"] == kind]
-        m = mtf_lib.strategy_metrics(kt, counts)
+        m = mtf_lib.strategy_metrics(kt, counts[kind])
         m["id"] = name
         results[kind] = m
         summary[kind] = m
@@ -123,6 +126,8 @@ def main():
     results["FINAL_STATUS"] = ("STOP_FOR_HUMAN_REVIEW" if passing
                                else "NO_MTF_CANDIDATE")
     results["STRATEGIES_PASSING_GATE"] = passing
+    with open(os.path.join(HERE, "mtf_m1_trades.json"), "w") as f:
+        json.dump(trades, f, indent=1, default=float)
     with open(args.out, "w") as f:
         json.dump(results, f, indent=2, default=float)
     print(f"\nFINAL_STATUS = {results['FINAL_STATUS']} "
