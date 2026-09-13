@@ -21,8 +21,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install research dependencies (numpy/pandas — no broker, no data)
-        run: pip install numpy pandas
+      - name: Install research dependencies (numpy/pandas/pyarrow — no broker, no data)
+        run: pip install numpy pandas pyarrow
       - name: Run root research suites (synthetic only)
         run: python -m unittest discover -s . -p "test_*.py" -v
       - name: Run H1/H4 research suites (synthetic only)
@@ -31,3 +31,5 @@ jobs:
         run: python -m unittest discover -s research/phenomena_discovery_v1 -p "test_*.py" -v
       - name: Run P013R V1 validation suites (synthetic only)
         run: python -m unittest discover -s research/p013r_v1_validation -p "test_*.py" -v
+      - name: Run TICK-M1 microstructure suites (synthetic only)
+        run: python -m unittest discover -s research/tick_m1_microstructure -p "test_*.py" -v
