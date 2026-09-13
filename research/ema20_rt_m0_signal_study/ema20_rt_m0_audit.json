@@ -1,0 +1,5564 @@
+{
+ "independent_code_path": true,
+ "engine_events": 15623,
+ "audit_events": 15623,
+ "n_detail_verified": 24,
+ "n_detail_ok": 24,
+ "years_covered": [
+  2010,
+  2011,
+  2012,
+  2013,
+  2014,
+  2015,
+  2016,
+  2017,
+  2018
+ ],
+ "counts_engine": {
+  "N_RECLAIM_BARS": 15624,
+  "N_RECLAIMS": 15624,
+  "N_RETESTS": 15623,
+  "N_INVALIDATED_BEFORE_RETEST": 0,
+  "N_NO_FILL": 5,
+  "N_UNRESOLVED_AT_END": 1
+ },
+ "counts_audit": {
+  "N_RECLAIM_BARS": 15624,
+  "N_RECLAIMS": 15624,
+  "N_RETESTS": 15623,
+  "N_INVALIDATED_BEFORE_RETEST": 0,
+  "N_NO_FILL": 5,
+  "N_UNRESOLVED_AT_END": 1
+ },
+ "counts_match": {
+  "N_RECLAIM_BARS": true,
+  "N_RECLAIMS": true,
+  "N_RETESTS": true,
+  "N_INVALIDATED_BEFORE_RETEST": true,
+  "N_NO_FILL": true,
+  "N_UNRESOLVED_AT_END": true
+ },
+ "mismatches": [],
+ "ALL_MATCH": true,
+ "detail": [
+  {
+   "event_index": 0,
+   "year": 2010,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1262309400000000000,
+     "audit": 1262309400000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.4329800000000001,
+     "audit": 1.4329800000000001,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.4329443712288215,
+     "audit": 1.4329443712288215,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1262309400901000000,
+     "audit": 1262309400901000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.43275,
+     "audit": 1.43275,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.4329443712288215,
+     "audit": 1.4329443712288215,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.4329800000000001,
+     "audit": 1.4329800000000001,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 0,
+     "audit": 0,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 0.015016666666666666,
+     "audit": 0.015016666666666666,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1262309408559000000,
+     "audit": 1262309408559000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.43263,
+     "audit": 1.43263,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.432575,
+     "audit": 1.432575,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1262310313812000000,
+      "audit": 1262310313812000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.43277,
+      "audit": 1.43277,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.43286,
+      "audit": 1.43286,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 1.40000000000029,
+      "audit": 1.40000000000029,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 2.8500000000009074,
+      "audit": 2.8500000000009074,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1262311210534000000,
+      "audit": 1262311210534000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.43261,
+      "audit": 1.43261,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.4327,
+      "audit": 1.4327,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -0.20000000000131024,
+      "audit": -0.20000000000131024,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 1.2500000000015277,
+      "audit": 1.2500000000015277,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1262313013553000000,
+      "audit": 1262313013553000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.43281,
+      "audit": 1.43281,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.4328599999999998,
+      "audit": 1.4328599999999998,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 1.7999999999984695,
+      "audit": 1.7999999999984695,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 2.849999999998687,
+      "audit": 2.849999999998687,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1262316609058000000,
+      "audit": 1262316609058000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.4327,
+      "audit": 1.4327,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.43274,
+      "audit": 1.43274,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 0.700000000000145,
+      "audit": 0.700000000000145,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 1.6499999999997073,
+      "audit": 1.6499999999997073,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1262323815165000000,
+      "audit": 1262323815165000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.43214,
+      "audit": 1.43214,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.4321899999999999,
+      "audit": 1.4321899999999999,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -4.900000000001015,
+      "audit": -4.900000000001015,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -3.8500000000007972,
+      "audit": -3.8500000000007972,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 679,
+   "year": 2010,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1274348700000000000,
+     "audit": 1274348700000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.23878,
+     "audit": 1.23878,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.2382109503096108,
+     "audit": 1.2382109503096108,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1274348903023000000,
+     "audit": 1274348903023000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.238115,
+     "audit": 1.238115,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.2382109503096108,
+     "audit": 1.2382109503096108,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.238285,
+     "audit": 1.238285,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 0,
+     "audit": 0,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 3.3837166666666665,
+     "audit": 3.3837166666666665,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1274348905452000000,
+     "audit": 1274348905452000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.23805,
+     "audit": 1.23805,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.2380300000000002,
+     "audit": 1.2380300000000002,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1274349805478000000,
+      "audit": 1274349805478000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.23506,
+      "audit": 1.23506,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.235105,
+      "audit": 1.235105,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -29.90000000000048,
+      "audit": -29.90000000000048,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -29.250000000002885,
+      "audit": -29.250000000002885,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1274350707453000000,
+      "audit": 1274350707453000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.23532,
+      "audit": 1.23532,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.23536,
+      "audit": 1.23536,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -27.300000000001212,
+      "audit": -27.300000000001212,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -26.700000000001722,
+      "audit": -26.700000000001722,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1274352505766000000,
+      "audit": 1274352505766000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.23246,
+      "audit": 1.23246,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.2325,
+      "audit": 1.2325,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -55.899999999999835,
+      "audit": -55.899999999999835,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -55.30000000000257,
+      "audit": -55.30000000000257,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1274356106914000000,
+      "audit": 1274356106914000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.23297,
+      "audit": 1.23297,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.233015,
+      "audit": 1.233015,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -50.80000000000195,
+      "audit": -50.80000000000195,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -50.15000000000214,
+      "audit": -50.15000000000214,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1274363307113000000,
+      "audit": 1274363307113000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.23463,
+      "audit": 1.23463,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.234665,
+      "audit": 1.234665,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -34.20000000000201,
+      "audit": -34.20000000000201,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -33.65000000000284,
+      "audit": -33.65000000000284,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 1358,
+   "year": 2010,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1285890300000000000,
+     "audit": 1285890300000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.3627799999999999,
+     "audit": 1.3627799999999999,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.3626176876473213,
+     "audit": 1.3626176876473213,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1285890301453000000,
+     "audit": 1285890301453000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.36261,
+     "audit": 1.36261,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.3626176876473213,
+     "audit": 1.3626176876473213,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.3627799999999999,
+     "audit": 1.3627799999999999,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 0,
+     "audit": 0,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 0.024216666666666668,
+     "audit": 0.024216666666666668,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1285890317599000000,
+     "audit": 1285890317599000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.36254,
+     "audit": 1.36254,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.3624900000000002,
+     "audit": 1.3624900000000002,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1285891223481000000,
+      "audit": 1285891223481000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.36283,
+      "audit": 1.36283,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.36287,
+      "audit": 1.36287,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 2.8999999999990145,
+      "audit": 2.8999999999990145,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 3.7999999999982492,
+      "audit": 3.7999999999982492,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1285892132248000000,
+      "audit": 1285892132248000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.36464,
+      "audit": 1.36464,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.36468,
+      "audit": 1.36468,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 20.999999999999908,
+      "audit": 20.999999999999908,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 21.899999999996922,
+      "audit": 21.899999999996922,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1285893932359000000,
+      "audit": 1285893932359000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.36553,
+      "audit": 1.36553,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.36558,
+      "audit": 1.36558,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 29.89999999999826,
+      "audit": 29.89999999999826,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 30.89999999999815,
+      "audit": 30.89999999999815,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1285897524400000000,
+      "audit": 1285897524400000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.36512,
+      "audit": 1.36512,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.36518,
+      "audit": 1.36518,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 25.799999999998047,
+      "audit": 25.799999999998047,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 26.89999999999859,
+      "audit": 26.89999999999859,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1285904720502000000,
+      "audit": 1285904720502000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.36555,
+      "audit": 1.36555,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.365605,
+      "audit": 1.365605,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 30.09999999999957,
+      "audit": 30.09999999999957,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 31.14999999999757,
+      "audit": 31.14999999999757,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 2037,
+   "year": 2011,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1299095100000000000,
+     "audit": 1299095100000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.385985,
+     "audit": 1.385985,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.3859537667219162,
+     "audit": 1.3859537667219162,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1299095166760000000,
+     "audit": 1299095166760000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.385945,
+     "audit": 1.385945,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.3859537667219162,
+     "audit": 1.3859537667219162,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.385955,
+     "audit": 1.385955,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 0,
+     "audit": 0,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 1.1126666666666667,
+     "audit": 1.1126666666666667,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1299095167309000000,
+     "audit": 1299095167309000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.38598,
+     "audit": 1.38598,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.38593,
+     "audit": 1.38593,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1299096069240000000,
+      "audit": 1299096069240000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.38584,
+      "audit": 1.38584,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.385895,
+      "audit": 1.385895,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -1.40000000000029,
+      "audit": -1.40000000000029,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -0.3500000000000725,
+      "audit": -0.3500000000000725,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1299096976131000000,
+      "audit": 1299096976131000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.38588,
+      "audit": 1.38588,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.38593,
+      "audit": 1.38593,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -0.9999999999998899,
+      "audit": -0.9999999999998899,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 0.0,
+      "audit": 0.0,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1299098767364000000,
+      "audit": 1299098767364000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.38665,
+      "audit": 1.38665,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.3866999999999998,
+      "audit": 1.3866999999999998,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 6.699999999999484,
+      "audit": 6.699999999999484,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 7.699999999997154,
+      "audit": 7.699999999997154,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1299102367922000000,
+      "audit": 1299102367922000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.38668,
+      "audit": 1.38668,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.38673,
+      "audit": 1.38673,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 6.999999999999229,
+      "audit": 6.999999999999229,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 7.999999999999119,
+      "audit": 7.999999999999119,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1299109571563000000,
+      "audit": 1299109571563000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.38655,
+      "audit": 1.38655,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.3866049999999999,
+      "audit": 1.3866049999999999,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 5.699999999999594,
+      "audit": 5.699999999999594,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 6.749999999997591,
+      "audit": 6.749999999997591,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 2716,
+   "year": 2011,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1311598800000000000,
+     "audit": 1311598800000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.43767,
+     "audit": 1.43767,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.4374111476131781,
+     "audit": 1.4374111476131781,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1311599373138000000,
+     "audit": 1311599373138000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.43739,
+     "audit": 1.43739,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.4374111476131781,
+     "audit": 1.4374111476131781,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.43742,
+     "audit": 1.43742,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 0,
+     "audit": 0,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 9.5523,
+     "audit": 9.5523,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1311599373467000000,
+     "audit": 1311599373467000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.43739,
+     "audit": 1.43739,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.437355,
+     "audit": 1.437355,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1311600274078000000,
+      "audit": 1311600274078000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.43656,
+      "audit": 1.43656,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.436595,
+      "audit": 1.436595,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -8.299999999998864,
+      "audit": -8.299999999998864,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -7.599999999998719,
+      "audit": -7.599999999998719,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1311601173533000000,
+      "audit": 1311601173533000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.43591,
+      "audit": 1.43591,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.43593,
+      "audit": 1.43593,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -14.799999999999258,
+      "audit": -14.799999999999258,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -14.250000000000096,
+      "audit": -14.250000000000096,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1311602973559000000,
+      "audit": 1311602973559000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.43491,
+      "audit": 1.43491,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.43493,
+      "audit": 1.43493,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -24.800000000000377,
+      "audit": -24.800000000000377,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -24.249999999998995,
+      "audit": -24.249999999998995,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1311606574057000000,
+      "audit": 1311606574057000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.43434,
+      "audit": 1.43434,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.43438,
+      "audit": 1.43438,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -30.49999999999997,
+      "audit": -30.49999999999997,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -29.7499999999995,
+      "audit": -29.7499999999995,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1311613774674000000,
+      "audit": 1311613774674000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.43779,
+      "audit": 1.43779,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.437835,
+      "audit": 1.437835,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 3.9999999999995595,
+      "audit": 3.9999999999995595,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 4.8000000000003595,
+      "audit": 4.8000000000003595,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 3396,
+   "year": 2011,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1323318600000000000,
+     "audit": 1323318600000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.34037,
+     "audit": 1.34037,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.3402711058548626,
+     "audit": 1.3402711058548626,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1323318622325000000,
+     "audit": 1323318622325000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.340265,
+     "audit": 1.340265,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.3402711058548626,
+     "audit": 1.3402711058548626,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.340285,
+     "audit": 1.340285,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 0,
+     "audit": 0,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 0.3720833333333333,
+     "audit": 0.3720833333333333,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1323318623165000000,
+     "audit": 1323318623165000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.34032,
+     "audit": 1.34032,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.340285,
+     "audit": 1.340285,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1323319536818000000,
+      "audit": 1323319536818000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.34043,
+      "audit": 1.34043,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.340465,
+      "audit": 1.340465,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 1.100000000000545,
+      "audit": 1.100000000000545,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 1.80000000000069,
+      "audit": 1.80000000000069,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1323320424436000000,
+      "audit": 1323320424436000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.34058,
+      "audit": 1.34058,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.340605,
+      "audit": 1.340605,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 2.60000000000149,
+      "audit": 2.60000000000149,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 3.20000000000098,
+      "audit": 3.20000000000098,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1323322224645000000,
+      "audit": 1323322224645000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.34018,
+      "audit": 1.34018,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.3401999999999998,
+      "audit": 1.3401999999999998,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -1.40000000000029,
+      "audit": -1.40000000000029,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -0.8500000000011276,
+      "audit": -0.8500000000011276,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1323325826947000000,
+      "audit": 1323325826947000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.34078,
+      "audit": 1.34078,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.34081,
+      "audit": 1.34081,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 4.60000000000127,
+      "audit": 4.60000000000127,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 5.250000000001087,
+      "audit": 5.250000000001087,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1323333024199000000,
+      "audit": 1323333024199000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.34229,
+      "audit": 1.34229,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.342325,
+      "audit": 1.342325,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 19.700000000000273,
+      "audit": 19.700000000000273,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 20.400000000000418,
+      "audit": 20.400000000000418,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 4075,
+   "year": 2012,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1335495600000000000,
+     "audit": 1335495600000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.320435,
+     "audit": 1.320435,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.3201859814647663,
+     "audit": 1.3201859814647663,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1335495845437000000,
+     "audit": 1335495845437000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.320185,
+     "audit": 1.320185,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.3201859814647663,
+     "audit": 1.3201859814647663,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.3201999999999998,
+     "audit": 1.3201999999999998,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 0,
+     "audit": 0,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 4.090616666666667,
+     "audit": 4.090616666666667,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1335495845874000000,
+     "audit": 1335495845874000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.32024,
+     "audit": 1.32024,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.3201900000000002,
+     "audit": 1.3201900000000002,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1335496746916000000,
+      "audit": 1335496746916000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.32003,
+      "audit": 1.32003,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.3200850000000002,
+      "audit": 1.3200850000000002,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -2.100000000000435,
+      "audit": -2.100000000000435,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -1.0500000000002174,
+      "audit": -1.0500000000002174,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1335497665833000000,
+      "audit": 1335497665833000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.32021,
+      "audit": 1.32021,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.32027,
+      "audit": 1.32027,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -0.2999999999997449,
+      "audit": -0.2999999999997449,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 0.7999999999985796,
+      "audit": 0.7999999999985796,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1335499446399000000,
+      "audit": 1335499446399000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.32008,
+      "audit": 1.32008,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.3201299999999998,
+      "audit": 1.3201299999999998,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -1.6000000000016001,
+      "audit": -1.6000000000016001,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -0.6000000000039307,
+      "audit": -0.6000000000039307,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1335503046045000000,
+      "audit": 1335503046045000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.31831,
+      "audit": 1.31831,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.31837,
+      "audit": 1.31837,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -19.299999999999873,
+      "audit": -19.299999999999873,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -18.20000000000155,
+      "audit": -18.20000000000155,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1335510246000000000,
+      "audit": 1335510246000000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.31623,
+      "audit": 1.31623,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.316275,
+      "audit": 1.316275,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -40.10000000000069,
+      "audit": -40.10000000000069,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -39.15000000000113,
+      "audit": -39.15000000000113,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 4754,
+   "year": 2012,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1348465500000000000,
+     "audit": 1348465500000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.2954050000000001,
+     "audit": 1.2954050000000001,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.295144229172496,
+     "audit": 1.295144229172496,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1348465507387000000,
+     "audit": 1348465507387000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.29513,
+     "audit": 1.29513,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.295144229172496,
+     "audit": 1.295144229172496,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.29516,
+     "audit": 1.29516,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 0,
+     "audit": 0,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 0.12311666666666667,
+     "audit": 0.12311666666666667,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1348465507898000000,
+     "audit": 1348465507898000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.29513,
+     "audit": 1.29513,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.2951,
+     "audit": 1.2951,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1348466410538000000,
+      "audit": 1348466410538000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.29457,
+      "audit": 1.29457,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.294605,
+      "audit": 1.294605,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -5.599999999998939,
+      "audit": -5.599999999998939,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -4.949999999999122,
+      "audit": -4.949999999999122,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1348467307930000000,
+      "audit": 1348467307930000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.29429,
+      "audit": 1.29429,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.29434,
+      "audit": 1.29434,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -8.399999999999519,
+      "audit": -8.399999999999519,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -7.599999999998719,
+      "audit": -7.599999999998719,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1348469109189000000,
+      "audit": 1348469109189000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.29424,
+      "audit": 1.29424,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.29427,
+      "audit": 1.29427,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -8.899999999998354,
+      "audit": -8.899999999998354,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -8.299999999998864,
+      "audit": -8.299999999998864,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1348472707925000000,
+      "audit": 1348472707925000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.29638,
+      "audit": 1.29638,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.29641,
+      "audit": 1.29641,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 12.500000000001954,
+      "audit": 12.500000000001954,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 13.100000000001444,
+      "audit": 13.100000000001444,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1348479911345000000,
+      "audit": 1348479911345000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.29149,
+      "audit": 1.29149,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.29152,
+      "audit": 1.29152,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -36.399999999998656,
+      "audit": -36.399999999998656,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -35.799999999999166,
+      "audit": -35.799999999999166,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 5433,
+   "year": 2013,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1360549800000000000,
+     "audit": 1360549800000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.33711,
+     "audit": 1.33711,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.3370732191198966,
+     "audit": 1.3370732191198966,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1360554698726000000,
+     "audit": 1360554698726000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.3372,
+     "audit": 1.3372,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.3372111645915603,
+     "audit": 1.3372111645915603,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.337215,
+     "audit": 1.337215,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 5,
+     "audit": 5,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 81.64543333333333,
+     "audit": 81.64543333333333,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1360554699036000000,
+     "audit": 1360554699036000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.33719,
+     "audit": 1.33719,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.33716,
+     "audit": 1.33716,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1360555600517000000,
+      "audit": 1360555600517000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.33714,
+      "audit": 1.33714,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.33717,
+      "audit": 1.33717,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -0.5000000000010552,
+      "audit": -0.5000000000010552,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 0.10000000000065512,
+      "audit": 0.10000000000065512,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1360556502901000000,
+      "audit": 1360556502901000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.33687,
+      "audit": 1.33687,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.3369,
+      "audit": 1.3369,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -3.20000000000098,
+      "audit": -3.20000000000098,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -2.5999999999992696,
+      "audit": -2.5999999999992696,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1360558300322000000,
+      "audit": 1360558300322000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.33697,
+      "audit": 1.33697,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.3369900000000001,
+      "audit": 1.3369900000000001,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -2.20000000000109,
+      "audit": -2.20000000000109,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -1.6999999999978144,
+      "audit": -1.6999999999978144,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1360561909000000000,
+      "audit": 1360561909000000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.33763,
+      "audit": 1.33763,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.33766,
+      "audit": 1.33766,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 4.3999999999999595,
+      "audit": 4.3999999999999595,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 5.00000000000167,
+      "audit": 5.00000000000167,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "GAP_INVALID",
+      "audit": "GAP_INVALID",
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 6112,
+   "year": 2013,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1372633200000000000,
+     "audit": 1372633200000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.301345,
+     "audit": 1.301345,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.3012894478542945,
+     "audit": 1.3012894478542945,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1372633244307000000,
+     "audit": 1372633244307000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.301285,
+     "audit": 1.301285,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.3012894478542945,
+     "audit": 1.3012894478542945,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.3013,
+     "audit": 1.3013,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 0,
+     "audit": 0,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 0.73845,
+     "audit": 0.73845,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1372633247657000000,
+     "audit": 1372633247657000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.30131,
+     "audit": 1.30131,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.301295,
+     "audit": 1.301295,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1372634181694000000,
+      "audit": 1372634181694000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.30096,
+      "audit": 1.30096,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.30097,
+      "audit": 1.30097,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -3.5000000000007248,
+      "audit": -3.5000000000007248,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -3.2500000000013074,
+      "audit": -3.2500000000013074,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1372635059052000000,
+      "audit": 1372635059052000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.30093,
+      "audit": 1.30093,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.300945,
+      "audit": 1.300945,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -3.8000000000004697,
+      "audit": -3.8000000000004697,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -3.5000000000007248,
+      "audit": -3.5000000000007248,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1372636848275000000,
+      "audit": 1372636848275000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.3008,
+      "audit": 1.3008,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.3008199999999999,
+      "audit": 1.3008199999999999,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -5.1000000000001044,
+      "audit": -5.1000000000001044,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -4.750000000002252,
+      "audit": -4.750000000002252,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1372640451151000000,
+      "audit": 1372640451151000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.30134,
+      "audit": 1.30134,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.301355,
+      "audit": 1.301355,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 0.2999999999997449,
+      "audit": 0.2999999999997449,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 0.5999999999994898,
+      "audit": 0.5999999999994898,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1372647656733000000,
+      "audit": 1372647656733000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.30233,
+      "audit": 1.30233,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.30234,
+      "audit": 1.30234,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 10.200000000000209,
+      "audit": 10.200000000000209,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 10.449999999999626,
+      "audit": 10.449999999999626,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 6792,
+   "year": 2013,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1384838100000000000,
+     "audit": 1384838100000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.351115,
+     "audit": 1.351115,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.3509907675905417,
+     "audit": 1.3509907675905417,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1384838207258000000,
+     "audit": 1384838207258000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.3509799999999998,
+     "audit": 1.3509799999999998,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.3509907675905417,
+     "audit": 1.3509907675905417,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.351075,
+     "audit": 1.351075,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 0,
+     "audit": 0,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 1.7876333333333334,
+     "audit": 1.7876333333333334,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1384838207561000000,
+     "audit": 1384838207561000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.351,
+     "audit": 1.351,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.350995,
+     "audit": 1.350995,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1384839108819000000,
+      "audit": 1384839108819000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.35088,
+      "audit": 1.35088,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.3509,
+      "audit": 1.3509,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -1.1999999999989797,
+      "audit": -1.1999999999989797,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -0.9499999999995623,
+      "audit": -0.9499999999995623,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1384840012133000000,
+      "audit": 1384840012133000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.35088,
+      "audit": 1.35088,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.350895,
+      "audit": 1.350895,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -1.1999999999989797,
+      "audit": -1.1999999999989797,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -0.9999999999998899,
+      "audit": -0.9999999999998899,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1384841808852000000,
+      "audit": 1384841808852000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.35092,
+      "audit": 1.35092,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.35093,
+      "audit": 1.35093,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -0.8000000000008001,
+      "audit": -0.8000000000008001,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -0.6499999999998174,
+      "audit": -0.6499999999998174,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1384845410428000000,
+      "audit": 1384845410428000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.35169,
+      "audit": 1.35169,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.351705,
+      "audit": 1.351705,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 6.900000000000794,
+      "audit": 6.900000000000794,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 7.099999999999884,
+      "audit": 7.099999999999884,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1384852612875000000,
+      "audit": 1384852612875000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.35146,
+      "audit": 1.35146,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.35147,
+      "audit": 1.35147,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 4.60000000000127,
+      "audit": 4.60000000000127,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 4.750000000000032,
+      "audit": 4.750000000000032,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 7471,
+   "year": 2014,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1396467900000000000,
+     "audit": 1396467900000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.37652,
+     "audit": 1.37652,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.3765119135109674,
+     "audit": 1.3765119135109674,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1396467904764000000,
+     "audit": 1396467904764000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.3765100000000001,
+     "audit": 1.3765100000000001,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.3765119135109674,
+     "audit": 1.3765119135109674,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.376515,
+     "audit": 1.376515,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 0,
+     "audit": 0,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 0.0794,
+     "audit": 0.0794,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1396467911349000000,
+     "audit": 1396467911349000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.37652,
+     "audit": 1.37652,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.3765100000000001,
+     "audit": 1.3765100000000001,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1396468813535000000,
+      "audit": 1396468813535000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.37643,
+      "audit": 1.37643,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.376455,
+      "audit": 1.376455,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -0.8999999999992347,
+      "audit": -0.8999999999992347,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -0.5500000000013827,
+      "audit": -0.5500000000013827,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1396469712970000000,
+      "audit": 1396469712970000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.37633,
+      "audit": 1.37633,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.3763450000000002,
+      "audit": 1.3763450000000002,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -1.8999999999991246,
+      "audit": -1.8999999999991246,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -1.6499999999997073,
+      "audit": -1.6499999999997073,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1396471515597000000,
+      "audit": 1396471515597000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.37659,
+      "audit": 1.37659,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.376595,
+      "audit": 1.376595,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 0.700000000000145,
+      "audit": 0.700000000000145,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 0.8499999999989072,
+      "audit": 0.8499999999989072,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1396475141723000000,
+      "audit": 1396475141723000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.37657,
+      "audit": 1.37657,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.3765800000000001,
+      "audit": 1.3765800000000001,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 0.5000000000010552,
+      "audit": 0.5000000000010552,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 0.700000000000145,
+      "audit": 0.700000000000145,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1396482372782000000,
+      "audit": 1396482372782000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.37662,
+      "audit": 1.37662,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.37663,
+      "audit": 1.37663,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 0.9999999999998899,
+      "audit": 0.9999999999998899,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 1.1999999999989797,
+      "audit": 1.1999999999989797,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 8150,
+   "year": 2014,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1408353300000000000,
+     "audit": 1408353300000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.33902,
+     "audit": 1.33902,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.338884986946044,
+     "audit": 1.338884986946044,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1408353316611000000,
+     "audit": 1408353316611000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.33888,
+     "audit": 1.33888,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.338884986946044,
+     "audit": 1.338884986946044,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.3388849999999999,
+     "audit": 1.3388849999999999,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 0,
+     "audit": 0,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 0.27685,
+     "audit": 0.27685,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1408353317222000000,
+     "audit": 1408353317222000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.33889,
+     "audit": 1.33889,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.33888,
+     "audit": 1.33888,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1408354226616000000,
+      "audit": 1408354226616000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.33896,
+      "audit": 1.33896,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.33897,
+      "audit": 1.33897,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 0.700000000000145,
+      "audit": 0.700000000000145,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 0.8999999999992347,
+      "audit": 0.8999999999992347,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1408355118687000000,
+      "audit": 1408355118687000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.33911,
+      "audit": 1.33911,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.3391199999999999,
+      "audit": 1.3391199999999999,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 2.20000000000109,
+      "audit": 2.20000000000109,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 2.3999999999979593,
+      "audit": 2.3999999999979593,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1408356917709000000,
+      "audit": 1408356917709000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.33922,
+      "audit": 1.33922,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.3392300000000001,
+      "audit": 1.3392300000000001,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 3.300000000001635,
+      "audit": 3.300000000001635,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 3.5000000000007248,
+      "audit": 3.5000000000007248,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1408360520098000000,
+      "audit": 1408360520098000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.33894,
+      "audit": 1.33894,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.33895,
+      "audit": 1.33895,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 0.5000000000010552,
+      "audit": 0.5000000000010552,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 0.700000000000145,
+      "audit": 0.700000000000145,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1408367718385000000,
+      "audit": 1408367718385000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.33833,
+      "audit": 1.33833,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.33834,
+      "audit": 1.33834,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -5.599999999998939,
+      "audit": -5.599999999998939,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -5.399999999999849,
+      "audit": -5.399999999999849,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 8829,
+   "year": 2015,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1421372700000000000,
+     "audit": 1421372700000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.162825,
+     "audit": 1.162825,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.1624878978408253,
+     "audit": 1.1624878978408253,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1421372864540000000,
+     "audit": 1421372864540000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.1624750000000001,
+     "audit": 1.1624750000000001,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.1624878978408253,
+     "audit": 1.1624878978408253,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.162505,
+     "audit": 1.162505,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 0,
+     "audit": 0,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 2.7423333333333333,
+     "audit": 2.7423333333333333,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1421372864844000000,
+     "audit": 1421372864844000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.16248,
+     "audit": 1.16248,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.1624599999999998,
+     "audit": 1.1624599999999998,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1421373765040000000,
+      "audit": 1421373765040000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.16299,
+      "audit": 1.16299,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.163,
+      "audit": 1.163,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 5.1000000000001044,
+      "audit": 5.1000000000001044,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 5.40000000000207,
+      "audit": 5.40000000000207,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1421374664877000000,
+      "audit": 1421374664877000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.16347,
+      "audit": 1.16347,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.16349,
+      "audit": 1.16349,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 9.900000000000464,
+      "audit": 9.900000000000464,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 10.300000000000864,
+      "audit": 10.300000000000864,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1421376465098000000,
+      "audit": 1421376465098000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.16346,
+      "audit": 1.16346,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.1634799999999998,
+      "audit": 1.1634799999999998,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 9.799999999999809,
+      "audit": 9.799999999999809,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 10.200000000000209,
+      "audit": 10.200000000000209,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1421380066279000000,
+      "audit": 1421380066279000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.16416,
+      "audit": 1.16416,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.1641750000000002,
+      "audit": 1.1641750000000002,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 16.80000000000126,
+      "audit": 16.80000000000126,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 17.15000000000355,
+      "audit": 17.15000000000355,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1421387271273000000,
+      "audit": 1421387271273000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.16318,
+      "audit": 1.16318,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.16321,
+      "audit": 1.16321,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 7.0000000000014495,
+      "audit": 7.0000000000014495,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 7.500000000002505,
+      "audit": 7.500000000002505,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 9509,
+   "year": 2015,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1433507400000000000,
+     "audit": 1433507400000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.126225,
+     "audit": 1.126225,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.1239915131928835,
+     "audit": 1.1239915131928835,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1433507401695000000,
+     "audit": 1433507401695000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.11697,
+     "audit": 1.11697,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.1239915131928835,
+     "audit": 1.1239915131928835,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.1274899999999999,
+     "audit": 1.1274899999999999,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 0,
+     "audit": 0,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 0.02825,
+     "audit": 0.02825,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1433507401961000000,
+     "audit": 1433507401961000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.11716,
+     "audit": 1.11716,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.117095,
+     "audit": 1.117095,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1433508302120000000,
+      "audit": 1433508302120000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.11002,
+      "audit": 1.11002,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.11003,
+      "audit": 1.11003,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -71.39999999999924,
+      "audit": -71.39999999999924,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -70.64999999999877,
+      "audit": -70.64999999999877,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1433509202171000000,
+      "audit": 1433509202171000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.10961,
+      "audit": 1.10961,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.1096300000000001,
+      "audit": 1.1096300000000001,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -75.49999999999945,
+      "audit": -75.49999999999945,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -74.64999999999833,
+      "audit": -74.64999999999833,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1433511001994000000,
+      "audit": 1433511001994000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.10624,
+      "audit": 1.10624,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.10625,
+      "audit": 1.10625,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -109.2000000000004,
+      "audit": -109.2000000000004,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -108.44999999999993,
+      "audit": -108.44999999999993,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1433514601969000000,
+      "audit": 1433514601969000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.11083,
+      "audit": 1.11083,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.1108449999999999,
+      "audit": 1.1108449999999999,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -63.299999999999464,
+      "audit": -63.299999999999464,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -62.50000000000089,
+      "audit": -62.50000000000089,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1433521801974000000,
+      "audit": 1433521801974000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.11041,
+      "audit": 1.11041,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.110425,
+      "audit": 1.110425,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -67.50000000000034,
+      "audit": -67.50000000000034,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -66.69999999999953,
+      "audit": -66.69999999999953,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 10188,
+   "year": 2015,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1446522300000000000,
+     "audit": 1446522300000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.101435,
+     "audit": 1.101435,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.101352349587167,
+     "audit": 1.101352349587167,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1446522310610000000,
+     "audit": 1446522310610000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.10135,
+     "audit": 1.10135,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.101352349587167,
+     "audit": 1.101352349587167,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.101365,
+     "audit": 1.101365,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 0,
+     "audit": 0,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 0.17683333333333334,
+     "audit": 0.17683333333333334,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1446522319871000000,
+     "audit": 1446522319871000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.10136,
+     "audit": 1.10136,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.10134,
+     "audit": 1.10134,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1446523244432000000,
+      "audit": 1446523244432000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.10153,
+      "audit": 1.10153,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.101545,
+      "audit": 1.101545,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 1.7000000000000348,
+      "audit": 1.7000000000000348,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 2.0500000000001073,
+      "audit": 2.0500000000001073,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1446524120697000000,
+      "audit": 1446524120697000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.10176,
+      "audit": 1.10176,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.101775,
+      "audit": 1.101775,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 4.00000000000178,
+      "audit": 4.00000000000178,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 4.349999999999632,
+      "audit": 4.349999999999632,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1446525920346000000,
+      "audit": 1446525920346000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.10196,
+      "audit": 1.10196,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.1019800000000002,
+      "audit": 1.1019800000000002,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 6.00000000000156,
+      "audit": 6.00000000000156,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 6.40000000000196,
+      "audit": 6.40000000000196,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1446529521635000000,
+      "audit": 1446529521635000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.10185,
+      "audit": 1.10185,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.1018599999999998,
+      "audit": 1.1018599999999998,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 4.900000000001015,
+      "audit": 4.900000000001015,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 5.199999999998539,
+      "audit": 5.199999999998539,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1446536720092000000,
+      "audit": 1446536720092000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.1022,
+      "audit": 1.1022,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.102205,
+      "audit": 1.102205,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 8.40000000000174,
+      "audit": 8.40000000000174,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 8.650000000001157,
+      "audit": 8.650000000001157,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 10867,
+   "year": 2016,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1458609300000000000,
+     "audit": 1458609300000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.1243150000000002,
+     "audit": 1.1243150000000002,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.1240620204771732,
+     "audit": 1.1240620204771732,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1458609973463000000,
+     "audit": 1458609973463000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.124055,
+     "audit": 1.124055,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.1240620204771732,
+     "audit": 1.1240620204771732,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.12408,
+     "audit": 1.12408,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 0,
+     "audit": 0,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 11.224383333333334,
+     "audit": 11.224383333333334,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1458609974172000000,
+     "audit": 1458609974172000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.12403,
+     "audit": 1.12403,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.124025,
+     "audit": 1.124025,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1458610879894000000,
+      "audit": 1458610879894000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.12403,
+      "audit": 1.12403,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.12404,
+      "audit": 1.12404,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 0.0,
+      "audit": 0.0,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 0.14999999999876223,
+      "audit": 0.14999999999876223,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1458611778461000000,
+      "audit": 1458611778461000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.12378,
+      "audit": 1.12378,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.12379,
+      "audit": 1.12379,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -2.500000000000835,
+      "audit": -2.500000000000835,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -2.349999999999852,
+      "audit": -2.349999999999852,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1458613575842000000,
+      "audit": 1458613575842000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.12413,
+      "audit": 1.12413,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.1241349999999999,
+      "audit": 1.1241349999999999,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 0.9999999999998899,
+      "audit": 0.9999999999998899,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 1.0999999999983245,
+      "audit": 1.0999999999983245,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1458617174267000000,
+      "audit": 1458617174267000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.12521,
+      "audit": 1.12521,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.1252300000000002,
+      "audit": 1.1252300000000002,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 11.799999999999589,
+      "audit": 11.799999999999589,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 12.050000000001226,
+      "audit": 12.050000000001226,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1458624374672000000,
+      "audit": 1458624374672000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.12476,
+      "audit": 1.12476,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.1247699999999998,
+      "audit": 1.1247699999999998,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 7.299999999998974,
+      "audit": 7.299999999998974,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 7.449999999997736,
+      "audit": 7.449999999997736,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 11546,
+   "year": 2016,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1469748600000000000,
+     "audit": 1469748600000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.1081750000000001,
+     "audit": 1.1081750000000001,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.1078262449849718,
+     "audit": 1.1078262449849718,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1469750897047000000,
+     "audit": 1469750897047000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.1079050000000001,
+     "audit": 1.1079050000000001,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.1079091937405325,
+     "audit": 1.1079091937405325,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.10791,
+     "audit": 1.10791,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 2,
+     "audit": 2,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 38.28411666666667,
+     "audit": 38.28411666666667,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1469750897305000000,
+     "audit": 1469750897305000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.10791,
+     "audit": 1.10791,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.1078899999999998,
+     "audit": 1.1078899999999998,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1469751797609000000,
+      "audit": 1469751797609000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.10751,
+      "audit": 1.10751,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.107535,
+      "audit": 1.107535,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -3.9999999999995595,
+      "audit": -3.9999999999995595,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -3.549999999998832,
+      "audit": -3.549999999998832,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1469752698343000000,
+      "audit": 1469752698343000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.10778,
+      "audit": 1.10778,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.107805,
+      "audit": 1.107805,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -1.2999999999996348,
+      "audit": -1.2999999999996348,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -0.8499999999989072,
+      "audit": -0.8499999999989072,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1469754497558000000,
+      "audit": 1469754497558000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.10816,
+      "audit": 1.10816,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.10818,
+      "audit": 1.10818,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 2.500000000000835,
+      "audit": 2.500000000000835,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 2.900000000001235,
+      "audit": 2.900000000001235,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1469758097387000000,
+      "audit": 1469758097387000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.10799,
+      "audit": 1.10799,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.108015,
+      "audit": 1.108015,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 0.8000000000008001,
+      "audit": 0.8000000000008001,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 1.2500000000015277,
+      "audit": 1.2500000000015277,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1469765297483000000,
+      "audit": 1469765297483000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.1086,
+      "audit": 1.1086,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.108625,
+      "audit": 1.108625,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 6.900000000000794,
+      "audit": 6.900000000000794,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 7.350000000001522,
+      "audit": 7.350000000001522,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 12225,
+   "year": 2016,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1482321600000000000,
+     "audit": 1482321600000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.04066,
+     "audit": 1.04066,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.040410929275663,
+     "audit": 1.040410929275663,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1482336053836000000,
+     "audit": 1482336053836000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.043105,
+     "audit": 1.043105,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.0431139442381547,
+     "audit": 1.0431139442381547,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.0431599999999999,
+     "audit": 1.0431599999999999,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 16,
+     "audit": 16,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 240.89726666666667,
+     "audit": 240.89726666666667,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1482336054110000000,
+     "audit": 1482336054110000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.0431,
+     "audit": 1.0431,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.043095,
+     "audit": 1.043095,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1482336954120000000,
+      "audit": 1482336954120000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.04307,
+      "audit": 1.04307,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.04308,
+      "audit": 1.04308,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -0.2999999999997449,
+      "audit": -0.2999999999997449,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -0.15000000000098268,
+      "audit": -0.15000000000098268,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1482337854112000000,
+      "audit": 1482337854112000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.04252,
+      "audit": 1.04252,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.042525,
+      "audit": 1.042525,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -5.800000000000249,
+      "audit": -5.800000000000249,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -5.700000000001815,
+      "audit": -5.700000000001815,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1482339654870000000,
+      "audit": 1482339654870000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.04279,
+      "audit": 1.04279,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.042795,
+      "audit": 1.042795,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -3.0999999999981043,
+      "audit": -3.0999999999981043,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -3.00000000000189,
+      "audit": -3.00000000000189,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1482343255752000000,
+      "audit": 1482343255752000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.04288,
+      "audit": 1.04288,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.042885,
+      "audit": 1.042885,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -2.1999999999988695,
+      "audit": -2.1999999999988695,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -2.100000000000435,
+      "audit": -2.100000000000435,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1482350460251000000,
+      "audit": 1482350460251000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.04261,
+      "audit": 1.04261,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.0426199999999999,
+      "audit": 1.0426199999999999,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -4.899999999998794,
+      "audit": -4.899999999998794,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -4.750000000002252,
+      "audit": -4.750000000002252,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 12905,
+   "year": 2017,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1495426500000000000,
+     "audit": 1495426500000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.119375,
+     "audit": 1.119375,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.1193551297724786,
+     "audit": 1.1193551297724786,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1495426724641000000,
+     "audit": 1495426724641000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.119355,
+     "audit": 1.119355,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.1193551297724786,
+     "audit": 1.1193551297724786,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.1193650000000002,
+     "audit": 1.1193650000000002,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 0,
+     "audit": 0,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 3.7440166666666665,
+     "audit": 3.7440166666666665,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1495426729847000000,
+     "audit": 1495426729847000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.11938,
+     "audit": 1.11938,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.11936,
+     "audit": 1.11936,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1495427630987000000,
+      "audit": 1495427630987000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.11939,
+      "audit": 1.11939,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.11941,
+      "audit": 1.11941,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 0.10000000000065512,
+      "audit": 0.10000000000065512,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 0.5000000000010552,
+      "audit": 0.5000000000010552,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1495428536435000000,
+      "audit": 1495428536435000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.11892,
+      "audit": 1.11892,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.118925,
+      "audit": 1.118925,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -4.60000000000127,
+      "audit": -4.60000000000127,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -4.349999999999632,
+      "audit": -4.349999999999632,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1495430331049000000,
+      "audit": 1495430331049000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.11904,
+      "audit": 1.11904,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.119055,
+      "audit": 1.119055,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -3.4000000000000696,
+      "audit": -3.4000000000000696,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -3.049999999999997,
+      "audit": -3.049999999999997,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1495433930720000000,
+      "audit": 1495433930720000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.11939,
+      "audit": 1.11939,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.11941,
+      "audit": 1.11941,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 0.10000000000065512,
+      "audit": 0.10000000000065512,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 0.5000000000010552,
+      "audit": 0.5000000000010552,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1495441129975000000,
+      "audit": 1495441129975000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.1174,
+      "audit": 1.1174,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.11741,
+      "audit": 1.11741,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -19.800000000000928,
+      "audit": -19.800000000000928,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -19.499999999998963,
+      "audit": -19.499999999998963,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 13584,
+   "year": 2017,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1508291100000000000,
+     "audit": 1508291100000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.17718,
+     "audit": 1.17718,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.1769760634887834,
+     "audit": 1.1769760634887834,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1508291429593000000,
+     "audit": 1508291429593000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.176975,
+     "audit": 1.176975,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.1769760634887834,
+     "audit": 1.1769760634887834,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.1770049999999999,
+     "audit": 1.1770049999999999,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 0,
+     "audit": 0,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 5.493216666666667,
+     "audit": 5.493216666666667,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1508291430264000000,
+     "audit": 1508291430264000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.177,
+     "audit": 1.177,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.176995,
+     "audit": 1.176995,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1508292331822000000,
+      "audit": 1508292331822000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.17714,
+      "audit": 1.17714,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.1771500000000001,
+      "audit": 1.1771500000000001,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 1.40000000000029,
+      "audit": 1.40000000000029,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 1.5500000000012726,
+      "audit": 1.5500000000012726,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1508293230490000000,
+      "audit": 1508293230490000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.17734,
+      "audit": 1.17734,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.1773500000000001,
+      "audit": 1.1773500000000001,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 3.4000000000000696,
+      "audit": 3.4000000000000696,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 3.5500000000010523,
+      "audit": 3.5500000000010523,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1508295037265000000,
+      "audit": 1508295037265000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.17724,
+      "audit": 1.17724,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.1772550000000002,
+      "audit": 1.1772550000000002,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 2.4000000000001798,
+      "audit": 2.4000000000001798,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 2.60000000000149,
+      "audit": 2.60000000000149,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1508298655453000000,
+      "audit": 1508298655453000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.17705,
+      "audit": 1.17705,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.17706,
+      "audit": 1.17706,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 0.4999999999988347,
+      "audit": 0.4999999999988347,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 0.6499999999998174,
+      "audit": 0.6499999999998174,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1508305834470000000,
+      "audit": 1508305834470000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.1763,
+      "audit": 1.1763,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.176315,
+      "audit": 1.176315,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -7.0000000000014495,
+      "audit": -7.0000000000014495,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -6.800000000000139,
+      "audit": -6.800000000000139,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 14263,
+   "year": 2018,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1520514000000000000,
+     "audit": 1520514000000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.24102,
+     "audit": 1.24102,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.2387294513111016,
+     "audit": 1.2387294513111016,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1520516917871000000,
+     "audit": 1520516917871000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.2395200000000002,
+     "audit": 1.2395200000000002,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.2396258402486604,
+     "audit": 1.2396258402486604,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.2397399999999998,
+     "audit": 1.2397399999999998,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 3,
+     "audit": 3,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 48.63118333333333,
+     "audit": 48.63118333333333,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1520516918255000000,
+     "audit": 1520516918255000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.23964,
+     "audit": 1.23964,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.23962,
+     "audit": 1.23962,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1520517818628000000,
+      "audit": 1520517818628000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.23963,
+      "audit": 1.23963,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.2396449999999999,
+      "audit": 1.2396449999999999,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -0.10000000000065512,
+      "audit": -0.10000000000065512,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 0.24999999999941735,
+      "audit": 0.24999999999941735,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1520518718487000000,
+      "audit": 1520518718487000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.23992,
+      "audit": 1.23992,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.239935,
+      "audit": 1.239935,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 2.7999999999983594,
+      "audit": 2.7999999999983594,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 3.1500000000006523,
+      "audit": 3.1500000000006523,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1520520518465000000,
+      "audit": 1520520518465000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.2376,
+      "audit": 1.2376,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.237615,
+      "audit": 1.237615,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -20.400000000000418,
+      "audit": -20.400000000000418,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -20.050000000000345,
+      "audit": -20.050000000000345,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1520524118765000000,
+      "audit": 1520524118765000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.23332,
+      "audit": 1.23332,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.2333349999999998,
+      "audit": 1.2333349999999998,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -63.20000000000103,
+      "audit": -63.20000000000103,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -62.85000000000096,
+      "audit": -62.85000000000096,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1520531318305000000,
+      "audit": 1520531318305000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.23132,
+      "audit": 1.23132,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.23133,
+      "audit": 1.23133,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -83.20000000000104,
+      "audit": -83.20000000000104,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -82.89999999999908,
+      "audit": -82.89999999999908,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 14942,
+   "year": 2018,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1533263400000000000,
+     "audit": 1533263400000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.1586750000000001,
+     "audit": 1.1586750000000001,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.1586572134122215,
+     "audit": 1.1586572134122215,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1533263416992000000,
+     "audit": 1533263416992000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.158645,
+     "audit": 1.158645,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.1586572134122215,
+     "audit": 1.1586572134122215,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.158665,
+     "audit": 1.158665,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 0,
+     "audit": 0,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 0.2832,
+     "audit": 0.2832,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1533263417580000000,
+     "audit": 1533263417580000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.15866,
+     "audit": 1.15866,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.158645,
+     "audit": 1.158645,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1533264328484000000,
+      "audit": 1533264328484000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.15858,
+      "audit": 1.15858,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.15859,
+      "audit": 1.15859,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -0.8000000000008001,
+      "audit": -0.8000000000008001,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -0.5499999999991623,
+      "audit": -0.5499999999991623,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1533265217745000000,
+      "audit": 1533265217745000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.15877,
+      "audit": 1.15877,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.1587800000000001,
+      "audit": 1.1587800000000001,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 1.100000000000545,
+      "audit": 1.100000000000545,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 1.3500000000021828,
+      "audit": 1.3500000000021828,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1533267022211000000,
+      "audit": 1533267022211000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.15899,
+      "audit": 1.15899,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.159,
+      "audit": 1.159,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 3.2999999999994145,
+      "audit": 3.2999999999994145,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 3.5500000000010523,
+      "audit": 3.5500000000010523,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1533270619135000000,
+      "audit": 1533270619135000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.15892,
+      "audit": 1.15892,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.158935,
+      "audit": 1.158935,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 2.5999999999992696,
+      "audit": 2.5999999999992696,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 2.900000000001235,
+      "audit": 2.900000000001235,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1533277819079000000,
+      "audit": 1533277819079000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.15792,
+      "audit": 1.15792,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.157925,
+      "audit": 1.157925,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -7.399999999999629,
+      "audit": -7.399999999999629,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -7.199999999998319,
+      "audit": -7.199999999998319,
+      "match": true
+     }
+    }
+   }
+  },
+  {
+   "event_index": 15622,
+   "year": 2018,
+   "all_fields_match": true,
+   "fields": {
+    "reclaim_ts": {
+     "engine": 1546279200000000000,
+     "audit": 1546279200000000000,
+     "match": true
+    },
+    "reclaim_close": {
+     "engine": 1.14517,
+     "audit": 1.14517,
+     "match": true
+    },
+    "ema_at_reclaim": {
+     "engine": 1.1446578351422165,
+     "audit": 1.1446578351422165,
+     "match": true
+    },
+    "retest_ts": {
+     "engine": 1546280240772000000,
+     "audit": 1546280240772000000,
+     "match": true
+    },
+    "retest_mid": {
+     "engine": 1.144665,
+     "audit": 1.144665,
+     "match": true
+    },
+    "active_ema_at_retest": {
+     "engine": 1.1446956603667673,
+     "audit": 1.1446956603667673,
+     "match": true
+    },
+    "prev_mid_at_retest": {
+     "engine": 1.1447150000000001,
+     "audit": 1.1447150000000001,
+     "match": true
+    },
+    "bars_reclaim_to_retest": {
+     "engine": 1,
+     "audit": 1,
+     "match": true
+    },
+    "minutes_reclaim_to_retest": {
+     "engine": 17.3462,
+     "audit": 17.3462,
+     "match": true
+    },
+    "entry_status": {
+     "engine": "FILLED",
+     "audit": "FILLED",
+     "match": true
+    },
+    "entry_ts": {
+     "engine": 1546280247186000000,
+     "audit": 1546280247186000000,
+     "match": true
+    },
+    "entry_ask": {
+     "engine": 1.14464,
+     "audit": 1.14464,
+     "match": true
+    },
+    "entry_mid": {
+     "engine": 1.144635,
+     "audit": 1.144635,
+     "match": true
+    },
+    "H15": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1546281154178000000,
+      "audit": 1546281154178000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.14459,
+      "audit": 1.14459,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.1446,
+      "audit": 1.1446,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -0.5000000000010552,
+      "audit": -0.5000000000010552,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -0.3500000000000725,
+      "audit": -0.3500000000000725,
+      "match": true
+     }
+    },
+    "H30": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1546282051200000000,
+      "audit": 1546282051200000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.14444,
+      "audit": 1.14444,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.144445,
+      "audit": 1.144445,
+      "match": true
+     },
+     "net_pips": {
+      "engine": -2.000000000002,
+      "audit": -2.000000000002,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": -1.900000000001345,
+      "audit": -1.900000000001345,
+      "match": true
+     }
+    },
+    "H60": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1546283849855000000,
+      "audit": 1546283849855000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.14498,
+      "audit": 1.14498,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.145005,
+      "audit": 1.145005,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 3.4000000000000696,
+      "audit": 3.4000000000000696,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 3.6999999999998145,
+      "audit": 3.6999999999998145,
+      "match": true
+     }
+    },
+    "H120": {
+     "status": {
+      "engine": "OK",
+      "audit": "OK",
+      "match": true
+     },
+     "exit_ts": {
+      "engine": 1546287448261000000,
+      "audit": 1546287448261000000,
+      "match": true
+     },
+     "exit_bid": {
+      "engine": 1.14595,
+      "audit": 1.14595,
+      "match": true
+     },
+     "exit_mid": {
+      "engine": 1.14599,
+      "audit": 1.14599,
+      "match": true
+     },
+     "net_pips": {
+      "engine": 13.099999999999223,
+      "audit": 13.099999999999223,
+      "match": true
+     },
+     "mid_pips": {
+      "engine": 13.549999999999951,
+      "audit": 13.549999999999951,
+      "match": true
+     }
+    },
+    "H240": {
+     "status": {
+      "engine": "NOT_MEASURABLE",
+      "audit": "NOT_MEASURABLE",
+      "match": true
+     }
+    }
+   }
+  }
+ ]
+}
