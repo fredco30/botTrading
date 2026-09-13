@@ -1,0 +1,763 @@
+{
+  "meta": {
+    "spec": "EMA20_RT_M0_FROZEN_SPEC.md (this branch, commit BEFORE outcomes)",
+    "base_head": "def3a943dfdd9ee0c59249080e5c1318815b11ae",
+    "data_root": "E:\\ResearchData\\botTrading\\ticks",
+    "discovery": "2010-01-01T00:00:00Z .. 2019-01-01T00:00:00Z (exclusive)",
+    "symbol": "EURUSD",
+    "n_gaps": 102,
+    "bars_m15": 223970,
+    "latency_ms": 250,
+    "no_fill_window_s": 60,
+    "horizons_min": [
+      15,
+      30,
+      60,
+      120,
+      240
+    ],
+    "bootstrap": "2000x seed42 percentile",
+    "short_side_tested": "NO"
+  },
+  "counts": {
+    "N_RECLAIM_BARS": 15624,
+    "N_RECLAIMS": 15624,
+    "N_RETESTS": 15623,
+    "N_INVALIDATED_BEFORE_RETEST": 0,
+    "N_NO_FILL": 5,
+    "N_UNRESOLVED_AT_END": 1
+  },
+  "MEDIAN_RECLAIM_TO_RETEST_BARS": 0.0,
+  "MEDIAN_RECLAIM_TO_RETEST_MINUTES": 7.128,
+  "horizons": {
+    "15": {
+      "N": 15615,
+      "MEAN_MID_RETURN_PIPS": 0.1893,
+      "MEDIAN_MID_RETURN_PIPS": 0.25,
+      "MEAN_EXECUTABLE_NET_PIPS": -0.3738,
+      "MEDIAN_EXECUTABLE_NET_PIPS": -0.2,
+      "WIN_RATE_NET": 0.4685,
+      "STD": 7.9839,
+      "STANDARD_ERROR": 0.0639,
+      "CI95_LO": -0.4963,
+      "CI95_HI": -0.2531,
+      "POSITIVE_YEARS": 1,
+      "BY_YEAR": {
+        "2010": {
+          "N": 1758,
+          "MEAN_NET": 0.6332,
+          "MEDIAN_NET": 0.3,
+          "WIN_RATE": 0.5188
+        },
+        "2011": {
+          "N": 1755,
+          "MEAN_NET": -1.2701,
+          "MEDIAN_NET": -1.0,
+          "WIN_RATE": 0.4308
+        },
+        "2012": {
+          "N": 1726,
+          "MEAN_NET": -0.9504,
+          "MEDIAN_NET": -0.85,
+          "WIN_RATE": 0.4195
+        },
+        "2013": {
+          "N": 1757,
+          "MEAN_NET": -0.3998,
+          "MEDIAN_NET": -0.2,
+          "WIN_RATE": 0.4758
+        },
+        "2014": {
+          "N": 1766,
+          "MEAN_NET": -0.2137,
+          "MEDIAN_NET": -0.1,
+          "WIN_RATE": 0.4626
+        },
+        "2015": {
+          "N": 1708,
+          "MEAN_NET": -0.4535,
+          "MEDIAN_NET": -0.2,
+          "WIN_RATE": 0.4865
+        },
+        "2016": {
+          "N": 1802,
+          "MEAN_NET": -0.2625,
+          "MEDIAN_NET": -0.1,
+          "WIN_RATE": 0.4806
+        },
+        "2017": {
+          "N": 1655,
+          "MEAN_NET": -0.2394,
+          "MEDIAN_NET": -0.1,
+          "WIN_RATE": 0.4816
+        },
+        "2018": {
+          "N": 1688,
+          "MEAN_NET": -0.2118,
+          "MEDIAN_NET": -0.3,
+          "WIN_RATE": 0.4597
+        }
+      },
+      "REMOVE_BEST_1_PERCENT_NET_MEAN": -0.7015,
+      "STATUS_COUNTS": {
+        "N": 15615,
+        "n_not_measurable": 0,
+        "n_gap_invalid": 3
+      }
+    },
+    "30": {
+      "N": 15608,
+      "MEAN_MID_RETURN_PIPS": 0.2913,
+      "MEDIAN_MID_RETURN_PIPS": 0.3,
+      "MEAN_EXECUTABLE_NET_PIPS": -0.2739,
+      "MEDIAN_EXECUTABLE_NET_PIPS": -0.2,
+      "WIN_RATE_NET": 0.4795,
+      "STD": 10.9496,
+      "STANDARD_ERROR": 0.0876,
+      "CI95_LO": -0.4407,
+      "CI95_HI": -0.0899,
+      "POSITIVE_YEARS": 1,
+      "BY_YEAR": {
+        "2010": {
+          "N": 1758,
+          "MEAN_NET": 1.1754,
+          "MEDIAN_NET": 0.5,
+          "WIN_RATE": 0.5222
+        },
+        "2011": {
+          "N": 1755,
+          "MEAN_NET": -1.5338,
+          "MEDIAN_NET": -1.0,
+          "WIN_RATE": 0.4439
+        },
+        "2012": {
+          "N": 1726,
+          "MEAN_NET": -0.7331,
+          "MEDIAN_NET": -0.7,
+          "WIN_RATE": 0.4473
+        },
+        "2013": {
+          "N": 1753,
+          "MEAN_NET": -0.4565,
+          "MEDIAN_NET": -0.2,
+          "WIN_RATE": 0.4701
+        },
+        "2014": {
+          "N": 1763,
+          "MEAN_NET": -0.1186,
+          "MEDIAN_NET": -0.2,
+          "WIN_RATE": 0.4804
+        },
+        "2015": {
+          "N": 1708,
+          "MEAN_NET": -0.1854,
+          "MEDIAN_NET": 0.15,
+          "WIN_RATE": 0.5064
+        },
+        "2016": {
+          "N": 1802,
+          "MEAN_NET": -0.4196,
+          "MEDIAN_NET": -0.4,
+          "WIN_RATE": 0.4634
+        },
+        "2017": {
+          "N": 1655,
+          "MEAN_NET": -0.0911,
+          "MEDIAN_NET": -0.1,
+          "WIN_RATE": 0.4876
+        },
+        "2018": {
+          "N": 1688,
+          "MEAN_NET": -0.09,
+          "MEDIAN_NET": 0.0,
+          "WIN_RATE": 0.4959
+        }
+      },
+      "REMOVE_BEST_1_PERCENT_NET_MEAN": -0.7292,
+      "STATUS_COUNTS": {
+        "N": 15608,
+        "n_not_measurable": 0,
+        "n_gap_invalid": 10
+      }
+    },
+    "60": {
+      "N": 15594,
+      "MEAN_MID_RETURN_PIPS": 0.3208,
+      "MEDIAN_MID_RETURN_PIPS": 0.35,
+      "MEAN_EXECUTABLE_NET_PIPS": -0.2449,
+      "MEDIAN_EXECUTABLE_NET_PIPS": -0.2,
+      "WIN_RATE_NET": 0.4873,
+      "STD": 15.8252,
+      "STANDARD_ERROR": 0.1267,
+      "CI95_LO": -0.4858,
+      "CI95_HI": -0.0014,
+      "POSITIVE_YEARS": 2,
+      "BY_YEAR": {
+        "2010": {
+          "N": 1758,
+          "MEAN_NET": 1.0715,
+          "MEDIAN_NET": 0.3,
+          "WIN_RATE": 0.5063
+        },
+        "2011": {
+          "N": 1755,
+          "MEAN_NET": -1.285,
+          "MEDIAN_NET": -0.7,
+          "WIN_RATE": 0.4752
+        },
+        "2012": {
+          "N": 1725,
+          "MEAN_NET": -0.6414,
+          "MEDIAN_NET": -0.6,
+          "WIN_RATE": 0.462
+        },
+        "2013": {
+          "N": 1753,
+          "MEAN_NET": -0.5082,
+          "MEDIAN_NET": 0.1,
+          "WIN_RATE": 0.5009
+        },
+        "2014": {
+          "N": 1753,
+          "MEAN_NET": -0.0337,
+          "MEDIAN_NET": -0.1,
+          "WIN_RATE": 0.4843
+        },
+        "2015": {
+          "N": 1707,
+          "MEAN_NET": -0.006,
+          "MEDIAN_NET": 0.0,
+          "WIN_RATE": 0.4985
+        },
+        "2016": {
+          "N": 1802,
+          "MEAN_NET": -0.581,
+          "MEDIAN_NET": -0.2,
+          "WIN_RATE": 0.4845
+        },
+        "2017": {
+          "N": 1653,
+          "MEAN_NET": -0.2054,
+          "MEDIAN_NET": -0.2,
+          "WIN_RATE": 0.4846
+        },
+        "2018": {
+          "N": 1688,
+          "MEAN_NET": 0.003,
+          "MEDIAN_NET": -0.2,
+          "WIN_RATE": 0.4893
+        }
+      },
+      "REMOVE_BEST_1_PERCENT_NET_MEAN": -0.9143,
+      "STATUS_COUNTS": {
+        "N": 15594,
+        "n_not_measurable": 0,
+        "n_gap_invalid": 24
+      }
+    },
+    "120": {
+      "N": 15564,
+      "MEAN_MID_RETURN_PIPS": 0.3401,
+      "MEDIAN_MID_RETURN_PIPS": 0.4,
+      "MEAN_EXECUTABLE_NET_PIPS": -0.2322,
+      "MEDIAN_EXECUTABLE_NET_PIPS": -0.1,
+      "WIN_RATE_NET": 0.4933,
+      "STD": 21.7338,
+      "STANDARD_ERROR": 0.1742,
+      "CI95_LO": -0.5703,
+      "CI95_HI": 0.1181,
+      "POSITIVE_YEARS": 2,
+      "BY_YEAR": {
+        "2010": {
+          "N": 1756,
+          "MEAN_NET": 1.2529,
+          "MEDIAN_NET": 0.1,
+          "WIN_RATE": 0.5023
+        },
+        "2011": {
+          "N": 1755,
+          "MEAN_NET": -0.7719,
+          "MEDIAN_NET": -0.4,
+          "WIN_RATE": 0.4929
+        },
+        "2012": {
+          "N": 1721,
+          "MEAN_NET": -0.9152,
+          "MEDIAN_NET": -0.4,
+          "WIN_RATE": 0.4852
+        },
+        "2013": {
+          "N": 1748,
+          "MEAN_NET": -0.0619,
+          "MEDIAN_NET": 0.1,
+          "WIN_RATE": 0.5011
+        },
+        "2014": {
+          "N": 1744,
+          "MEAN_NET": -0.2194,
+          "MEDIAN_NET": 0.0,
+          "WIN_RATE": 0.4954
+        },
+        "2015": {
+          "N": 1704,
+          "MEAN_NET": -0.6492,
+          "MEDIAN_NET": -0.4,
+          "WIN_RATE": 0.4888
+        },
+        "2016": {
+          "N": 1801,
+          "MEAN_NET": -0.7373,
+          "MEDIAN_NET": -0.2,
+          "WIN_RATE": 0.4842
+        },
+        "2017": {
+          "N": 1648,
+          "MEAN_NET": -0.0888,
+          "MEDIAN_NET": -0.1,
+          "WIN_RATE": 0.4933
+        },
+        "2018": {
+          "N": 1687,
+          "MEAN_NET": 0.111,
+          "MEDIAN_NET": -0.1,
+          "WIN_RATE": 0.4967
+        }
+      },
+      "REMOVE_BEST_1_PERCENT_NET_MEAN": -1.1156,
+      "STATUS_COUNTS": {
+        "N": 15564,
+        "n_not_measurable": 0,
+        "n_gap_invalid": 54
+      }
+    },
+    "240": {
+      "N": 15499,
+      "MEAN_MID_RETURN_PIPS": 0.4978,
+      "MEDIAN_MID_RETURN_PIPS": 0.45,
+      "MEAN_EXECUTABLE_NET_PIPS": -0.0965,
+      "MEDIAN_EXECUTABLE_NET_PIPS": -0.1,
+      "WIN_RATE_NET": 0.4965,
+      "STD": 30.3488,
+      "STANDARD_ERROR": 0.2438,
+      "CI95_LO": -0.5909,
+      "CI95_HI": 0.3836,
+      "POSITIVE_YEARS": 5,
+      "BY_YEAR": {
+        "2010": {
+          "N": 1749,
+          "MEAN_NET": 1.4839,
+          "MEDIAN_NET": 0.6,
+          "WIN_RATE": 0.5094
+        },
+        "2011": {
+          "N": 1755,
+          "MEAN_NET": 0.0258,
+          "MEDIAN_NET": -0.9,
+          "WIN_RATE": 0.49
+        },
+        "2012": {
+          "N": 1716,
+          "MEAN_NET": -1.2656,
+          "MEDIAN_NET": -0.5,
+          "WIN_RATE": 0.4924
+        },
+        "2013": {
+          "N": 1733,
+          "MEAN_NET": 0.0954,
+          "MEDIAN_NET": 0.0,
+          "WIN_RATE": 0.4986
+        },
+        "2014": {
+          "N": 1720,
+          "MEAN_NET": -0.3252,
+          "MEDIAN_NET": -0.35,
+          "WIN_RATE": 0.486
+        },
+        "2015": {
+          "N": 1703,
+          "MEAN_NET": -1.1332,
+          "MEDIAN_NET": -0.6,
+          "WIN_RATE": 0.495
+        },
+        "2016": {
+          "N": 1800,
+          "MEAN_NET": 0.1936,
+          "MEDIAN_NET": 0.0,
+          "WIN_RATE": 0.4983
+        },
+        "2017": {
+          "N": 1641,
+          "MEAN_NET": 0.2995,
+          "MEDIAN_NET": 0.0,
+          "WIN_RATE": 0.4991
+        },
+        "2018": {
+          "N": 1682,
+          "MEAN_NET": -0.2856,
+          "MEDIAN_NET": 0.0,
+          "WIN_RATE": 0.4994
+        }
+      },
+      "REMOVE_BEST_1_PERCENT_NET_MEAN": -1.3098,
+      "STATUS_COUNTS": {
+        "N": 15499,
+        "n_not_measurable": 1,
+        "n_gap_invalid": 118
+      }
+    }
+  },
+  "non_overlap_4h": {
+    "15": {
+      "N": 7478,
+      "MEAN_MID_RETURN_PIPS": 0.2328,
+      "MEDIAN_MID_RETURN_PIPS": 0.3,
+      "MEAN_EXECUTABLE_NET_PIPS": -0.344,
+      "MEDIAN_EXECUTABLE_NET_PIPS": -0.2,
+      "WIN_RATE_NET": 0.4757,
+      "STD": 7.6878,
+      "STANDARD_ERROR": 0.0889,
+      "CI95_LO": -0.5209,
+      "CI95_HI": -0.1709,
+      "POSITIVE_YEARS": 1,
+      "BY_YEAR": {
+        "2010": {
+          "N": 833,
+          "MEAN_NET": 0.872,
+          "MEDIAN_NET": 0.7,
+          "WIN_RATE": 0.5342
+        },
+        "2011": {
+          "N": 847,
+          "MEAN_NET": -1.3229,
+          "MEDIAN_NET": -1.1,
+          "WIN_RATE": 0.4238
+        },
+        "2012": {
+          "N": 827,
+          "MEAN_NET": -1.014,
+          "MEDIAN_NET": -1.0,
+          "WIN_RATE": 0.4148
+        },
+        "2013": {
+          "N": 837,
+          "MEAN_NET": -0.5441,
+          "MEDIAN_NET": -0.2,
+          "WIN_RATE": 0.4743
+        },
+        "2014": {
+          "N": 822,
+          "MEAN_NET": -0.2243,
+          "MEDIAN_NET": -0.1,
+          "WIN_RATE": 0.4745
+        },
+        "2015": {
+          "N": 836,
+          "MEAN_NET": -0.3788,
+          "MEDIAN_NET": -0.2,
+          "WIN_RATE": 0.4916
+        },
+        "2016": {
+          "N": 839,
+          "MEAN_NET": -0.1864,
+          "MEDIAN_NET": 0.0,
+          "WIN_RATE": 0.4899
+        },
+        "2017": {
+          "N": 815,
+          "MEAN_NET": -0.2291,
+          "MEDIAN_NET": -0.1,
+          "WIN_RATE": 0.4883
+        },
+        "2018": {
+          "N": 822,
+          "MEAN_NET": -0.0489,
+          "MEDIAN_NET": 0.0,
+          "WIN_RATE": 0.4903
+        }
+      },
+      "REMOVE_BEST_1_PERCENT_NET_MEAN": -0.6599
+    },
+    "30": {
+      "N": 7476,
+      "MEAN_MID_RETURN_PIPS": 0.2608,
+      "MEDIAN_MID_RETURN_PIPS": 0.4,
+      "MEAN_EXECUTABLE_NET_PIPS": -0.3184,
+      "MEDIAN_EXECUTABLE_NET_PIPS": -0.1,
+      "WIN_RATE_NET": 0.4845,
+      "STD": 10.7712,
+      "STANDARD_ERROR": 0.1246,
+      "CI95_LO": -0.5637,
+      "CI95_HI": -0.0819,
+      "POSITIVE_YEARS": 3,
+      "BY_YEAR": {
+        "2010": {
+          "N": 833,
+          "MEAN_NET": 1.0429,
+          "MEDIAN_NET": 0.3,
+          "WIN_RATE": 0.515
+        },
+        "2011": {
+          "N": 847,
+          "MEAN_NET": -2.0749,
+          "MEDIAN_NET": -1.0,
+          "WIN_RATE": 0.4534
+        },
+        "2012": {
+          "N": 827,
+          "MEAN_NET": -0.9528,
+          "MEDIAN_NET": -0.6,
+          "WIN_RATE": 0.4547
+        },
+        "2013": {
+          "N": 837,
+          "MEAN_NET": -0.2501,
+          "MEDIAN_NET": -0.1,
+          "WIN_RATE": 0.4815
+        },
+        "2014": {
+          "N": 820,
+          "MEAN_NET": -0.1821,
+          "MEDIAN_NET": -0.1,
+          "WIN_RATE": 0.489
+        },
+        "2015": {
+          "N": 836,
+          "MEAN_NET": -0.025,
+          "MEDIAN_NET": 0.3,
+          "WIN_RATE": 0.512
+        },
+        "2016": {
+          "N": 839,
+          "MEAN_NET": -0.6249,
+          "MEDIAN_NET": -0.5,
+          "WIN_RATE": 0.4577
+        },
+        "2017": {
+          "N": 815,
+          "MEAN_NET": 0.0595,
+          "MEDIAN_NET": -0.1,
+          "WIN_RATE": 0.4798
+        },
+        "2018": {
+          "N": 822,
+          "MEAN_NET": 0.1848,
+          "MEDIAN_NET": 0.3,
+          "WIN_RATE": 0.5182
+        }
+      },
+      "REMOVE_BEST_1_PERCENT_NET_MEAN": -0.7545
+    },
+    "60": {
+      "N": 7471,
+      "MEAN_MID_RETURN_PIPS": 0.1958,
+      "MEDIAN_MID_RETURN_PIPS": 0.3,
+      "MEAN_EXECUTABLE_NET_PIPS": -0.381,
+      "MEDIAN_EXECUTABLE_NET_PIPS": -0.3,
+      "WIN_RATE_NET": 0.4825,
+      "STD": 15.8618,
+      "STANDARD_ERROR": 0.1835,
+      "CI95_LO": -0.7382,
+      "CI95_HI": -0.0365,
+      "POSITIVE_YEARS": 3,
+      "BY_YEAR": {
+        "2010": {
+          "N": 833,
+          "MEAN_NET": 0.6906,
+          "MEDIAN_NET": 0.0,
+          "WIN_RATE": 0.497
+        },
+        "2011": {
+          "N": 847,
+          "MEAN_NET": -1.5973,
+          "MEDIAN_NET": -0.6,
+          "WIN_RATE": 0.4734
+        },
+        "2012": {
+          "N": 826,
+          "MEAN_NET": -0.637,
+          "MEDIAN_NET": -0.9,
+          "WIN_RATE": 0.4516
+        },
+        "2013": {
+          "N": 837,
+          "MEAN_NET": -0.7971,
+          "MEDIAN_NET": -0.3,
+          "WIN_RATE": 0.4851
+        },
+        "2014": {
+          "N": 816,
+          "MEAN_NET": -0.132,
+          "MEDIAN_NET": -0.15,
+          "WIN_RATE": 0.4816
+        },
+        "2015": {
+          "N": 836,
+          "MEAN_NET": 0.0697,
+          "MEDIAN_NET": 0.3,
+          "WIN_RATE": 0.5096
+        },
+        "2016": {
+          "N": 839,
+          "MEAN_NET": -0.9597,
+          "MEDIAN_NET": -0.5,
+          "WIN_RATE": 0.4601
+        },
+        "2017": {
+          "N": 815,
+          "MEAN_NET": 0.0275,
+          "MEDIAN_NET": -0.2,
+          "WIN_RATE": 0.4883
+        },
+        "2018": {
+          "N": 822,
+          "MEAN_NET": -0.0524,
+          "MEDIAN_NET": 0.0,
+          "WIN_RATE": 0.4964
+        }
+      },
+      "REMOVE_BEST_1_PERCENT_NET_MEAN": -1.0612
+    },
+    "120": {
+      "N": 7457,
+      "MEAN_MID_RETURN_PIPS": 0.2939,
+      "MEDIAN_MID_RETURN_PIPS": 0.4,
+      "MEAN_EXECUTABLE_NET_PIPS": -0.2897,
+      "MEDIAN_EXECUTABLE_NET_PIPS": -0.2,
+      "WIN_RATE_NET": 0.4927,
+      "STD": 21.8244,
+      "STANDARD_ERROR": 0.2527,
+      "CI95_LO": -0.7937,
+      "CI95_HI": 0.2046,
+      "POSITIVE_YEARS": 3,
+      "BY_YEAR": {
+        "2010": {
+          "N": 832,
+          "MEAN_NET": 0.7829,
+          "MEDIAN_NET": -0.2,
+          "WIN_RATE": 0.494
+        },
+        "2011": {
+          "N": 847,
+          "MEAN_NET": -0.675,
+          "MEDIAN_NET": -0.1,
+          "WIN_RATE": 0.4959
+        },
+        "2012": {
+          "N": 826,
+          "MEAN_NET": -0.7966,
+          "MEDIAN_NET": -0.5,
+          "WIN_RATE": 0.4794
+        },
+        "2013": {
+          "N": 834,
+          "MEAN_NET": -0.6882,
+          "MEDIAN_NET": -0.35,
+          "WIN_RATE": 0.4856
+        },
+        "2014": {
+          "N": 812,
+          "MEAN_NET": -0.1534,
+          "MEDIAN_NET": 0.3,
+          "WIN_RATE": 0.516
+        },
+        "2015": {
+          "N": 835,
+          "MEAN_NET": -0.2529,
+          "MEDIAN_NET": -0.4,
+          "WIN_RATE": 0.491
+        },
+        "2016": {
+          "N": 838,
+          "MEAN_NET": -1.1189,
+          "MEDIAN_NET": -0.4,
+          "WIN_RATE": 0.4749
+        },
+        "2017": {
+          "N": 811,
+          "MEAN_NET": 0.2022,
+          "MEDIAN_NET": -0.1,
+          "WIN_RATE": 0.4994
+        },
+        "2018": {
+          "N": 822,
+          "MEAN_NET": 0.1232,
+          "MEDIAN_NET": 0.0,
+          "WIN_RATE": 0.4988
+        }
+      },
+      "REMOVE_BEST_1_PERCENT_NET_MEAN": -1.2107
+    },
+    "240": {
+      "N": 7426,
+      "MEAN_MID_RETURN_PIPS": 0.6824,
+      "MEDIAN_MID_RETURN_PIPS": 0.55,
+      "MEAN_EXECUTABLE_NET_PIPS": 0.0788,
+      "MEDIAN_EXECUTABLE_NET_PIPS": 0.0,
+      "WIN_RATE_NET": 0.4995,
+      "STD": 30.1114,
+      "STANDARD_ERROR": 0.3494,
+      "CI95_LO": -0.5845,
+      "CI95_HI": 0.777,
+      "POSITIVE_YEARS": 4,
+      "BY_YEAR": {
+        "2010": {
+          "N": 829,
+          "MEAN_NET": 1.7678,
+          "MEDIAN_NET": 0.5,
+          "WIN_RATE": 0.509
+        },
+        "2011": {
+          "N": 847,
+          "MEAN_NET": 1.066,
+          "MEDIAN_NET": 0.1,
+          "WIN_RATE": 0.5006
+        },
+        "2012": {
+          "N": 823,
+          "MEAN_NET": -1.243,
+          "MEDIAN_NET": -0.4,
+          "WIN_RATE": 0.4933
+        },
+        "2013": {
+          "N": 827,
+          "MEAN_NET": -0.2508,
+          "MEDIAN_NET": -0.2,
+          "WIN_RATE": 0.4933
+        },
+        "2014": {
+          "N": 802,
+          "MEAN_NET": -0.1146,
+          "MEDIAN_NET": 0.0,
+          "WIN_RATE": 0.4975
+        },
+        "2015": {
+          "N": 835,
+          "MEAN_NET": -0.5332,
+          "MEDIAN_NET": 0.5,
+          "WIN_RATE": 0.509
+        },
+        "2016": {
+          "N": 837,
+          "MEAN_NET": -0.852,
+          "MEDIAN_NET": -0.8,
+          "WIN_RATE": 0.4791
+        },
+        "2017": {
+          "N": 807,
+          "MEAN_NET": 0.7198,
+          "MEDIAN_NET": 0.3,
+          "WIN_RATE": 0.5081
+        },
+        "2018": {
+          "N": 819,
+          "MEAN_NET": 0.1421,
+          "MEDIAN_NET": 0.2,
+          "WIN_RATE": 0.5055
+        }
+      },
+      "REMOVE_BEST_1_PERCENT_NET_MEAN": -1.1128
+    }
+  },
+  "GATE_PASSING_HORIZONS": [],
+  "FINAL_STATUS": "NO_EMA20_RT_SIGNAL"
+}

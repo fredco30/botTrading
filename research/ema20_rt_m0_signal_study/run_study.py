@@ -127,7 +127,8 @@ def main():
     slim = []
     for e in events:
         s = {k: v for k, v in e.items() if k != "horizons"}
-        s["horizons"] = {str(h): e["horizons"][h] for h in R.HORIZON_MIN}
+        s["horizons"] = {str(h): e["horizons"][h] for h in R.HORIZON_MIN
+                         if h in e["horizons"]}
         slim.append(R.strip_raw(s))
     with open(os.path.join(HERE, "ema20_rt_m0_events.json"), "w") as f:
         json.dump(slim, f, indent=1, default=float)
