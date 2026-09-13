@@ -76,11 +76,14 @@ def align_event(cache: MonthCache, ts_utc: datetime) -> dict:
         j = cache.index_for(nb)
         if j is not None and len(j):
             candidates.append(j)
-    combined = pd.DatetimeIndex([])
-    for c in candidates:
-        if len(c):
+    parts = [c for c in candidates if len(c)]
+    if not parts:
+        combined = pd.DatetimeIndex([])
+    else:
+        combined = parts[0]
+        for c in parts[1:]:
             combined = combined.append(c)
-    combined = combined.sort_values()
+        combined = combined.sort_values()
     res = M.find_tick_neighbors(combined, ts_utc,
                                 pre_window_s=PRE_W, post_window_s=POST_W)
     pre_lag = res["pre_tick_lag_ms"]

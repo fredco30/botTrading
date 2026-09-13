@@ -108,16 +108,42 @@ before the release instant, first tick at or after it, and both lags in ms.
 | Metric | Value |
 |---|---|
 | Events | 289 |
-| Aligned (first executable tick ≤ 5 s) | **283 (97.9%)** |
+| Aligned (first executable tick ≤ 5 s) | **286 (99.0%)** |
 | First tick beyond 5 s | 3 |
-| Events inside tick-source data gaps | 3 |
+| Events inside tick-source data gaps | 0 |
 | Median / max aligned post-tick lag | 206 ms / 4,898 ms |
 
-Documented exceptions:
-* **Tick-source gap (2018-06):** the source parquet for June 2018 contains only
-  2018-06-04 → 2018-06-08, so `MACRO-NFP-201805`, `MACRO-CPI-201805`,
-  `MACRO-FOMC-20180613` cannot be aligned. Coverage audit:
-  `data/tick_store_month_coverage.csv`.
+### 4a. June 2018 partition repair (data repair only)
+
+The original run found `year=2018/month=06` contained only 2018-06-04 → 2018-06-08
+(474,506 ticks) — a stale partition inherited from the TICK-M0 June sample rebuild.
+Mechanical repair performed on 2026-09-13 (same branch/PR, nothing else touched):
+
+* RAW check: raw hourly store already held 718/720 June files; all 219 zero-byte
+  hours are legitimate market-closed weekend/no-tick hours. The 2 genuinely missing
+  files (Sat 2018-06-16 19h, Sun 2018-06-17 07h) were fetched with the resumable
+  TICK-M1 Dukascopy downloader — the server confirmed both hours contain **no ticks**
+  (0-byte markers). No previously present hour was re-downloaded.
+* Rebuild: `year=2018/month=06` rebuilt **only** from validated raw hours via the
+  TICK-M1 `build_parquet.py --force` (decode-time TICK-M0 strict validation:
+  corruption, monotonicity, hour bounds, ASK ≥ BID, volumes, price plausibility;
+  501 ok / 219 empty / 0 missing / 0 absent / 0 corrupt).
+* Consistency: June 4-8 subset reproduces the TICK-M0 reference **exactly** —
+  474,506 ticks, tick-identical to the previous partition on all 7 columns, and
+  5-minute BID bars identical (1,404 bars, max abs diff 0.0).
+* Full June coverage: **FIRST_TICK 2018-06-01T00:00:00.434Z, LAST_TICK
+  2018-06-29T20:59:56.236Z, N_TICKS_JUNE 2,153,217, TRADING_DAYS_PRESENT 25**
+  (21 weekdays + 4 Sunday-evening opens), month-level monotone/ASK-BID/NaN checks pass.
+
+Previously unalignable events, now aligned (no returns computed, lags only):
+
+| Event | Pre-tick lag | Post-tick lag | Status |
+|---|---|---|---|
+| MACRO-NFP-201805 | 36 ms | 120 ms | ALIGNED |
+| MACRO-CPI-201805 | 2 ms | 488 ms | ALIGNED |
+| MACRO-FOMC-20180613 | 85 ms | 19 ms | ALIGNED |
+
+Remaining documented exceptions (unchanged by the repair):
 * **Sparse-feed moments (2010-2012 era):** `MACRO-NFP-201002` (+7.3 s),
   `MACRO-CPI-201003` (+6.0 s), `MACRO-FOMC-20121024` (+7.4 s) — no tick within 5 s
   at release (thin data moments, not missing files; neighbors exist seconds away).
@@ -132,7 +158,7 @@ Documented exceptions:
 | CPI first-release vintages | ≥ 90% | 100% (108/108 headline, 108/108 core) | PASS |
 | FOMC timestamps | ≥ 95% exact **or explicit documented blocker** | 48.6% exact-or-package (36/74 incl. unscheduled); blocker documented (§2) | PASS with documented blocker |
 | FOMC rate decisions | — (best effort, no guessing) | 98.6% resolved, cross-checked vs DFEDTARU | PASS |
-| Tick alignment | ≥ 95% without unresolved gaps | 97.9% (6 exceptions, all documented) | PASS |
+| Tick alignment | ≥ 95% without unresolved gaps | 99.0% (3 exceptions, all documented) | PASS |
 
 **`MACRO_TICK_M0_PASS`** (FOMC timestamps: documented-blocker clause; values complete).
 
@@ -167,7 +193,9 @@ licensed feed (Econoday/Bloomberg/LSEG tier); the dataset's `event_id` +
 * Missing source pages: 2 non-meeting Fed candidate pages rejected by title check
   (one 404, one non-FOMC statement); no missing BLS archive pages.
 * ALFRED vintage mismatch: 0 of 327 vintages (column-name validated).
-* Events during tick-data gaps: 3 (June 2018 source gap, listed above).
+* Events during tick-data gaps: 0 (the June 2018 stale partition was repaired — §4a;
+  raw store was verified complete before any download, and only the 2 missing
+  weekend hours — both confirmed no-tick — were fetched).
 * FOMC DATE_ONLY: 37 events (documented blocker, §2).
 
 ## 8. Reproduction
