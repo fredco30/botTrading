@@ -1,0 +1,7720 @@
+[
+ {
+  "event_id": "MACRO-NFP-200912",
+  "family": "NFP",
+  "t0_ns": 1262957400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.854999999999721,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 4.854999999999721,
+  "shock": {
+   "status": "OK",
+   "p0": 1.4289,
+   "p0_ts": 1262957399506000000,
+   "p30": 1.430185,
+   "p30_ts": 1262957430742000000,
+   "shock_pips": 12.849999999999806
+  },
+  "shock_score": 2.6467559217302874,
+  "qualifying": true,
+  "p0": 1.4289,
+  "p30": 1.430185,
+  "shock_pips": 12.849999999999806
+ },
+ {
+  "event_id": "MACRO-CPI-200912",
+  "family": "CPI",
+  "t0_ns": 1263562200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.982500000001665,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.982500000001665,
+  "shock": {
+   "status": "OK",
+   "p0": 1.4373,
+   "p0_ts": 1263562198629000000,
+   "p30": 1.437625,
+   "p30_ts": 1263562230092000000,
+   "shock_pips": 3.249999999999087
+  },
+  "shock_score": 0.8160703075951609,
+  "qualifying": false,
+  "p0": 1.4373,
+  "p30": 1.437625,
+  "shock_pips": 3.249999999999087
+ },
+ {
+  "event_id": "MACRO-NFP-201001",
+  "family": "NFP",
+  "t0_ns": 1265376600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 5.377499999999702,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 5.377499999999702,
+  "shock": {
+   "status": "OK",
+   "p0": 1.36924,
+   "p0_ts": 1265376598780000000,
+   "p30": 1.369745,
+   "p30_ts": 1265376630853000000,
+   "shock_pips": 5.049999999999777
+  },
+  "shock_score": 0.9390980939098199,
+  "qualifying": false,
+  "p0": 1.36924,
+  "p30": 1.369745,
+  "shock_pips": 5.049999999999777
+ },
+ {
+  "event_id": "MACRO-CPI-201001",
+  "family": "CPI",
+  "t0_ns": 1266586200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.609999999999114,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 4.609999999999114,
+  "shock": {
+   "status": "OK",
+   "p0": 1.35254,
+   "p0_ts": 1266586196811000000,
+   "p30": 1.352315,
+   "p30_ts": 1266586230665000000,
+   "shock_pips": -2.2500000000014175
+  },
+  "shock_score": 0.4880694143171041,
+  "qualifying": false,
+  "p0": 1.35254,
+  "p30": 1.352315,
+  "shock_pips": -2.2500000000014175
+ },
+ {
+  "event_id": "MACRO-NFP-201002",
+  "family": "NFP",
+  "t0_ns": 1267795800000000000,
+  "exclusion": "NOT_ALIGNED",
+  "setups": {}
+ },
+ {
+  "event_id": "MACRO-CPI-201002",
+  "family": "CPI",
+  "t0_ns": 1268915400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.064999999998763,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 4.064999999998763,
+  "shock": {
+   "status": "OK",
+   "p0": 1.3671,
+   "p0_ts": 1268915397370000000,
+   "p30": 1.3676949999999999,
+   "p30_ts": 1268915431259000000,
+   "shock_pips": 5.949999999999012
+  },
+  "shock_score": 1.4637146371465737,
+  "qualifying": false,
+  "p0": 1.3671,
+  "p30": 1.3676949999999999,
+  "shock_pips": 5.949999999999012
+ },
+ {
+  "event_id": "MACRO-NFP-201003",
+  "family": "NFP",
+  "t0_ns": 1270211400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.904999999998827,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 4.904999999998827,
+  "shock": {
+   "status": "OK",
+   "p0": 1.35507,
+   "p0_ts": 1270211396074000000,
+   "p30": 1.35644,
+   "p30_ts": 1270211430545000000,
+   "shock_pips": 13.700000000000934
+  },
+  "shock_score": 2.793068297656312,
+  "qualifying": true,
+  "p0": 1.35507,
+  "p30": 1.35644,
+  "shock_pips": 13.700000000000934
+ },
+ {
+  "event_id": "MACRO-CPI-201003",
+  "family": "CPI",
+  "t0_ns": 1271248200000000000,
+  "exclusion": "NOT_ALIGNED",
+  "setups": {}
+ },
+ {
+  "event_id": "MACRO-NFP-201004",
+  "family": "NFP",
+  "t0_ns": 1273235400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 5.654999999998078,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 5.654999999998078,
+  "shock": {
+   "status": "OK",
+   "p0": 1.2745600000000001,
+   "p0_ts": 1273235396713000000,
+   "p30": 1.2751700000000001,
+   "p30_ts": 1273235432552000000,
+   "shock_pips": 6.099999999999994
+  },
+  "shock_score": 1.0786914235193752,
+  "qualifying": false,
+  "p0": 1.2745600000000001,
+  "p30": 1.2751700000000001,
+  "shock_pips": 6.099999999999994
+ },
+ {
+  "event_id": "MACRO-CPI-201004",
+  "family": "CPI",
+  "t0_ns": 1274272200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 9.05249999999913,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 9.05249999999913,
+  "shock": {
+   "status": "OK",
+   "p0": 1.2236699999999998,
+   "p0_ts": 1274272195710000000,
+   "p30": 1.22353,
+   "p30_ts": 1274272232877000000,
+   "shock_pips": -1.3999999999980695
+  },
+  "shock_score": 0.15465341065984026,
+  "qualifying": false,
+  "p0": 1.2236699999999998,
+  "p30": 1.22353,
+  "shock_pips": -1.3999999999980695
+ },
+ {
+  "event_id": "MACRO-NFP-201005",
+  "family": "NFP",
+  "t0_ns": 1275654600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 10.242500000001485,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 10.242500000001485,
+  "shock": {
+   "status": "OK",
+   "p0": 1.20656,
+   "p0_ts": 1275654598644000000,
+   "p30": 1.205075,
+   "p30_ts": 1275654630752000000,
+   "shock_pips": -14.850000000001806
+  },
+  "shock_score": 1.4498413473272789,
+  "qualifying": false,
+  "p0": 1.20656,
+  "p30": 1.205075,
+  "shock_pips": -14.850000000001806
+ },
+ {
+  "event_id": "MACRO-CPI-201005",
+  "family": "CPI",
+  "t0_ns": 1276777800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.02749999999974,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 4.02749999999974,
+  "shock": {
+   "status": "OK",
+   "p0": 1.2361,
+   "p0_ts": 1276777796658000000,
+   "p30": 1.2354699999999998,
+   "p30_ts": 1276777831517000000,
+   "shock_pips": -6.300000000001305
+  },
+  "shock_score": 1.564245810056291,
+  "qualifying": false,
+  "p0": 1.2361,
+  "p30": 1.2354699999999998,
+  "shock_pips": -6.300000000001305
+ },
+ {
+  "event_id": "MACRO-NFP-201006",
+  "family": "NFP",
+  "t0_ns": 1278073800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 5.699999999999594,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 5.699999999999594,
+  "shock": {
+   "status": "OK",
+   "p0": 1.2551199999999998,
+   "p0_ts": 1278073797300000000,
+   "p30": 1.25508,
+   "p30_ts": 1278073831191000000,
+   "shock_pips": -0.3999999999981796
+  },
+  "shock_score": 0.07017543859617685,
+  "qualifying": false,
+  "p0": 1.2551199999999998,
+  "p30": 1.25508,
+  "shock_pips": -0.3999999999981796
+ },
+ {
+  "event_id": "MACRO-CPI-201006",
+  "family": "CPI",
+  "t0_ns": 1279283400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 5.699999999999594,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 5.699999999999594,
+  "shock": {
+   "status": "OK",
+   "p0": 1.29982,
+   "p0_ts": 1279283398187000000,
+   "p30": 1.3000099999999999,
+   "p30_ts": 1279283432025000000,
+   "shock_pips": 1.8999999999991246
+  },
+  "shock_score": 0.3333333333332035,
+  "qualifying": false,
+  "p0": 1.29982,
+  "p30": 1.3000099999999999,
+  "shock_pips": 1.8999999999991246
+ },
+ {
+  "event_id": "MACRO-NFP-201007",
+  "family": "NFP",
+  "t0_ns": 1281097800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.249999999998977,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 4.249999999998977,
+  "shock": {
+   "status": "OK",
+   "p0": 1.31759,
+   "p0_ts": 1281097798779000000,
+   "p30": 1.31771,
+   "p30_ts": 1281097831475000000,
+   "shock_pips": 1.1999999999989797
+  },
+  "shock_score": 0.2823529411762985,
+  "qualifying": false,
+  "p0": 1.31759,
+  "p30": 1.31771,
+  "shock_pips": 1.1999999999989797
+ },
+ {
+  "event_id": "MACRO-CPI-201007",
+  "family": "CPI",
+  "t0_ns": 1281702600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 5.977500000000413,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 5.977500000000413,
+  "shock": {
+   "status": "OK",
+   "p0": 1.2805300000000002,
+   "p0_ts": 1281702597282000000,
+   "p30": 1.28098,
+   "p30_ts": 1281702631935000000,
+   "shock_pips": 4.499999999998394
+  },
+  "shock_score": 0.7528230865743343,
+  "qualifying": false,
+  "p0": 1.2805300000000002,
+  "p30": 1.28098,
+  "shock_pips": 4.499999999998394
+ },
+ {
+  "event_id": "MACRO-NFP-201008",
+  "family": "NFP",
+  "t0_ns": 1283517000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "NO_BREAKOUT"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.577500000001122,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 4.577500000001122,
+  "shock": {
+   "status": "OK",
+   "p0": 1.28328,
+   "p0_ts": 1283516998189000000,
+   "p30": 1.2813400000000001,
+   "p30_ts": 1283517031806000000,
+   "shock_pips": -19.399999999998307
+  },
+  "shock_score": 4.238121245219782,
+  "qualifying": true,
+  "p0": 1.28328,
+  "p30": 1.2813400000000001,
+  "shock_pips": -19.399999999998307
+ },
+ {
+  "event_id": "MACRO-CPI-201008",
+  "family": "CPI",
+  "t0_ns": 1284726600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 7.5475000000003725,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 7.5475000000003725,
+  "shock": {
+   "status": "OK",
+   "p0": 1.30722,
+   "p0_ts": 1284726598926000000,
+   "p30": 1.30711,
+   "p30_ts": 1284726631394000000,
+   "shock_pips": -1.100000000000545
+  },
+  "shock_score": 0.1457436237165274,
+  "qualifying": false,
+  "p0": 1.30722,
+  "p30": 1.30711,
+  "shock_pips": -1.100000000000545
+ },
+ {
+  "event_id": "MACRO-NFP-201009",
+  "family": "NFP",
+  "t0_ns": 1286541000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 7.397500000000163,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 7.397500000000163,
+  "shock": {
+   "status": "OK",
+   "p0": 1.38833,
+   "p0_ts": 1286540998551000000,
+   "p30": 1.391155,
+   "p30_ts": 1286541032050000000,
+   "shock_pips": 28.249999999998554
+  },
+  "shock_score": 3.8188577222031674,
+  "qualifying": true,
+  "p0": 1.38833,
+  "p30": 1.391155,
+  "shock_pips": 28.249999999998554
+ },
+ {
+  "event_id": "MACRO-CPI-201009",
+  "family": "CPI",
+  "t0_ns": 1287145800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 8.720000000000393,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 8.720000000000393,
+  "shock": {
+   "status": "OK",
+   "p0": 1.4129999999999998,
+   "p0_ts": 1287145797916000000,
+   "p30": 1.41284,
+   "p30_ts": 1287145832292000000,
+   "shock_pips": -1.5999999999971593
+  },
+  "shock_score": 0.18348623853177604,
+  "qualifying": false,
+  "p0": 1.4129999999999998,
+  "p30": 1.41284,
+  "shock_pips": -1.5999999999971593
+ },
+ {
+  "event_id": "MACRO-NFP-201010",
+  "family": "NFP",
+  "t0_ns": 1288960200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 5.6275000000001185,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 5.6275000000001185,
+  "shock": {
+   "status": "OK",
+   "p0": 1.41046,
+   "p0_ts": 1288960197777000000,
+   "p30": 1.407545,
+   "p30_ts": 1288960230415000000,
+   "shock_pips": -29.15000000000001
+  },
+  "shock_score": 5.179920035539653,
+  "qualifying": true,
+  "p0": 1.41046,
+  "p30": 1.407545,
+  "shock_pips": -29.15000000000001
+ },
+ {
+  "event_id": "MACRO-CPI-201010",
+  "family": "CPI",
+  "t0_ns": 1290000600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.077499999998956,
+   "median_spread_pips": 0.8999999999992347,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.077499999998956,
+  "shock": {
+   "status": "OK",
+   "p0": 1.34936,
+   "p0_ts": 1290000599976000000,
+   "p30": 1.350655,
+   "p30_ts": 1290000630748000000,
+   "shock_pips": 12.950000000000461
+  },
+  "shock_score": 4.207961007312706,
+  "qualifying": true,
+  "p0": 1.34936,
+  "p30": 1.350655,
+  "shock_pips": 12.950000000000461
+ },
+ {
+  "event_id": "MACRO-NFP-201011",
+  "family": "NFP",
+  "t0_ns": 1291383000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.905000000000268,
+   "median_spread_pips": 0.9000000000014552,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.905000000000268,
+  "shock": {
+   "status": "OK",
+   "p0": 1.3253249999999999,
+   "p0_ts": 1291382999222000000,
+   "p30": 1.32622,
+   "p30_ts": 1291383030293000000,
+   "shock_pips": 8.950000000000902
+  },
+  "shock_score": 3.080895008605878,
+  "qualifying": true,
+  "p0": 1.3253249999999999,
+  "p30": 1.32622,
+  "shock_pips": 8.950000000000902
+ },
+ {
+  "event_id": "MACRO-CPI-201011",
+  "family": "CPI",
+  "t0_ns": 1292419800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.7600000000012064,
+   "median_spread_pips": 0.9999999999998899,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.7600000000012064,
+  "shock": {
+   "status": "OK",
+   "p0": 1.335855,
+   "p0_ts": 1292419799604000000,
+   "p30": 1.33498,
+   "p30_ts": 1292419830125000000,
+   "shock_pips": -8.749999999999591
+  },
+  "shock_score": 2.3271276595736126,
+  "qualifying": true,
+  "p0": 1.335855,
+  "p30": 1.33498,
+  "shock_pips": -8.749999999999591
+ },
+ {
+  "event_id": "MACRO-NFP-201012",
+  "family": "NFP",
+  "t0_ns": 1294407000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.310000000000256,
+   "median_spread_pips": 0.9999999999998899,
+   "n_buckets": 109
+  },
+  "noise_scale_pips": 4.310000000000256,
+  "shock": {
+   "status": "OK",
+   "p0": 1.295825,
+   "p0_ts": 1294406999316000000,
+   "p30": 1.296745,
+   "p30_ts": 1294407030075000000,
+   "shock_pips": 9.200000000000319
+  },
+  "shock_score": 2.1345707656612,
+  "qualifying": true,
+  "p0": 1.295825,
+  "p30": 1.296745,
+  "shock_pips": 9.200000000000319
+ },
+ {
+  "event_id": "MACRO-CPI-201012",
+  "family": "CPI",
+  "t0_ns": 1295011800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.227500000000051,
+   "median_spread_pips": 0.9999999999998899,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 4.227500000000051,
+  "shock": {
+   "status": "OK",
+   "p0": 1.3362,
+   "p0_ts": 1295011798268000000,
+   "p30": 1.3367499999999999,
+   "p30_ts": 1295011830616000000,
+   "shock_pips": 5.499999999998284
+  },
+  "shock_score": 1.3010053222940787,
+  "qualifying": false,
+  "p0": 1.3362,
+  "p30": 1.3367499999999999,
+  "shock_pips": 5.499999999998284
+ },
+ {
+  "event_id": "MACRO-NFP-201101",
+  "family": "NFP",
+  "t0_ns": 1296826200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.500000000000835,
+   "median_spread_pips": 0.9999999999998899,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.500000000000835,
+  "shock": {
+   "status": "OK",
+   "p0": 1.364585,
+   "p0_ts": 1296826195025000000,
+   "p30": 1.364785,
+   "p30_ts": 1296826230099000000,
+   "shock_pips": 1.9999999999997797
+  },
+  "shock_score": 0.7999999999996448,
+  "qualifying": false,
+  "p0": 1.364585,
+  "p30": 1.364785,
+  "shock_pips": 1.9999999999997797
+ },
+ {
+  "event_id": "MACRO-CPI-201101",
+  "family": "CPI",
+  "t0_ns": 1297949400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.4774999999996883,
+   "median_spread_pips": 0.8999999999992347,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.4774999999996883,
+  "shock": {
+   "status": "OK",
+   "p0": 1.356325,
+   "p0_ts": 1297949399861000000,
+   "p30": 1.355235,
+   "p30_ts": 1297949430874000000,
+   "shock_pips": -10.900000000000354
+  },
+  "shock_score": 4.399596367306448,
+  "qualifying": true,
+  "p0": 1.356325,
+  "p30": 1.355235,
+  "shock_pips": -10.900000000000354
+ },
+ {
+  "event_id": "MACRO-NFP-201102",
+  "family": "NFP",
+  "t0_ns": 1299245400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.354999999997664,
+   "median_spread_pips": 0.8999999999992347,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.354999999997664,
+  "shock": {
+   "status": "OK",
+   "p0": 1.395765,
+   "p0_ts": 1299245399909000000,
+   "p30": 1.396535,
+   "p30_ts": 1299245430398000000,
+   "shock_pips": 7.7000000000015945
+  },
+  "shock_score": 3.26963906582133,
+  "qualifying": true,
+  "p0": 1.395765,
+  "p30": 1.396535,
+  "shock_pips": 7.7000000000015945
+ },
+ {
+  "event_id": "MACRO-CPI-201102",
+  "family": "CPI",
+  "t0_ns": 1300365000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.22750000000116,
+   "median_spread_pips": 0.9000000000014552,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.22750000000116,
+  "shock": {
+   "status": "OK",
+   "p0": 1.401805,
+   "p0_ts": 1300364999520000000,
+   "p30": 1.4013849999999999,
+   "p30_ts": 1300365030396000000,
+   "shock_pips": -4.20000000000087
+  },
+  "shock_score": 1.3013168086752471,
+  "qualifying": false,
+  "p0": 1.401805,
+  "p30": 1.4013849999999999,
+  "shock_pips": -4.20000000000087
+ },
+ {
+  "event_id": "MACRO-NFP-201103",
+  "family": "NFP",
+  "t0_ns": 1301661000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.100000000000215,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 4.100000000000215,
+  "shock": {
+   "status": "OK",
+   "p0": 1.414675,
+   "p0_ts": 1301660999664000000,
+   "p30": 1.41333,
+   "p30_ts": 1301661030003000000,
+   "shock_pips": -13.449999999999296
+  },
+  "shock_score": 3.2804878048777053,
+  "qualifying": true,
+  "p0": 1.414675,
+  "p30": 1.41333,
+  "shock_pips": -13.449999999999296
+ },
+ {
+  "event_id": "MACRO-CPI-201103",
+  "family": "CPI",
+  "t0_ns": 1302870600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.237499999998782,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.237499999998782,
+  "shock": {
+   "status": "OK",
+   "p0": 1.44363,
+   "p0_ts": 1302870599988000000,
+   "p30": 1.444735,
+   "p30_ts": 1302870630081000000,
+   "shock_pips": 11.050000000001337
+  },
+  "shock_score": 3.41312741312911,
+  "qualifying": true,
+  "p0": 1.44363,
+  "p30": 1.444735,
+  "shock_pips": 11.050000000001337
+ },
+ {
+  "event_id": "MACRO-NFP-201104",
+  "family": "NFP",
+  "t0_ns": 1304685000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.0999999999981043,
+   "median_spread_pips": 0.8999999999992347,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.0999999999981043,
+  "shock": {
+   "status": "OK",
+   "p0": 1.45133,
+   "p0_ts": 1304684999356000000,
+   "p30": 1.449665,
+   "p30_ts": 1304685030352000000,
+   "shock_pips": -16.650000000000276
+  },
+  "shock_score": 5.370967741938857,
+  "qualifying": true,
+  "p0": 1.45133,
+  "p30": 1.449665,
+  "shock_pips": -16.650000000000276
+ },
+ {
+  "event_id": "MACRO-CPI-201104",
+  "family": "CPI",
+  "t0_ns": 1305289800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.4775000000006875,
+   "median_spread_pips": 0.8999999999992347,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.4775000000006875,
+  "shock": {
+   "status": "OK",
+   "p0": 1.42574,
+   "p0_ts": 1305289799546000000,
+   "p30": 1.426455,
+   "p30_ts": 1305289830200000000,
+   "shock_pips": 7.150000000000212
+  },
+  "shock_score": 2.8859737638741585,
+  "qualifying": true,
+  "p0": 1.42574,
+  "p30": 1.426455,
+  "shock_pips": 7.150000000000212
+ },
+ {
+  "event_id": "MACRO-NFP-201105",
+  "family": "NFP",
+  "t0_ns": 1307104200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.7775000000004324,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.7775000000004324,
+  "shock": {
+   "status": "OK",
+   "p0": 1.44974,
+   "p0_ts": 1307104199977000000,
+   "p30": 1.45102,
+   "p30_ts": 1307104230401000000,
+   "shock_pips": 12.799999999999478
+  },
+  "shock_score": 4.6084608460837035,
+  "qualifying": true,
+  "p0": 1.44974,
+  "p30": 1.45102,
+  "shock_pips": 12.799999999999478
+ },
+ {
+  "event_id": "MACRO-CPI-201105",
+  "family": "CPI",
+  "t0_ns": 1308141000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.9099999999990795,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.9099999999990795,
+  "shock": {
+   "status": "OK",
+   "p0": 1.428775,
+   "p0_ts": 1308140999562000000,
+   "p30": 1.428595,
+   "p30_ts": 1308141030046000000,
+   "shock_pips": -1.7999999999984695
+  },
+  "shock_score": 0.6185567010305976,
+  "qualifying": false,
+  "p0": 1.428775,
+  "p30": 1.428595,
+  "shock_pips": -1.7999999999984695
+ },
+ {
+  "event_id": "MACRO-NFP-201106",
+  "family": "NFP",
+  "t0_ns": 1310128200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.8549999999987192,
+   "median_spread_pips": 0.7999999999985796,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.8549999999987192,
+  "shock": {
+   "status": "OK",
+   "p0": 1.42544,
+   "p0_ts": 1310128199532000000,
+   "p30": 1.42609,
+   "p30_ts": 1310128230225000000,
+   "shock_pips": 6.500000000000394
+  },
+  "shock_score": 2.2767075306491455,
+  "qualifying": true,
+  "p0": 1.42544,
+  "p30": 1.42609,
+  "shock_pips": 6.500000000000394
+ },
+ {
+  "event_id": "MACRO-CPI-201106",
+  "family": "CPI",
+  "t0_ns": 1310733000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.7274999999999947,
+   "median_spread_pips": 0.7999999999985796,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.7274999999999947,
+  "shock": {
+   "status": "OK",
+   "p0": 1.4139400000000002,
+   "p0_ts": 1310732999929000000,
+   "p30": 1.41356,
+   "p30_ts": 1310733030322000000,
+   "shock_pips": -3.80000000000269
+  },
+  "shock_score": 1.0194500335352636,
+  "qualifying": false,
+  "p0": 1.4139400000000002,
+  "p30": 1.41356,
+  "shock_pips": -3.80000000000269
+ },
+ {
+  "event_id": "MACRO-NFP-201107",
+  "family": "NFP",
+  "t0_ns": 1312547400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.9925000000003985,
+   "median_spread_pips": 0.7999999999985796,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 4.9925000000003985,
+  "shock": {
+   "status": "OK",
+   "p0": 1.417585,
+   "p0_ts": 1312547399958000000,
+   "p30": 1.4190999999999998,
+   "p30_ts": 1312547430045000000,
+   "shock_pips": 15.14999999999711
+  },
+  "shock_score": 3.0345518277407915,
+  "qualifying": true,
+  "p0": 1.417585,
+  "p30": 1.4190999999999998,
+  "shock_pips": 15.14999999999711
+ },
+ {
+  "event_id": "MACRO-CPI-201107",
+  "family": "CPI",
+  "t0_ns": 1313670600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.787500000000387,
+   "median_spread_pips": 0.700000000000145,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.787500000000387,
+  "shock": {
+   "status": "OK",
+   "p0": 1.437275,
+   "p0_ts": 1313670599110000000,
+   "p30": 1.436615,
+   "p30_ts": 1313670630225000000,
+   "shock_pips": -6.6000000000010495
+  },
+  "shock_score": 1.7425742574258416,
+  "qualifying": false,
+  "p0": 1.437275,
+  "p30": 1.436615,
+  "shock_pips": -6.6000000000010495
+ },
+ {
+  "event_id": "MACRO-NFP-201108",
+  "family": "NFP",
+  "t0_ns": 1314966600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.25500000000145,
+   "median_spread_pips": 0.700000000000145,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.25500000000145,
+  "shock": {
+   "status": "OK",
+   "p0": 1.42606,
+   "p0_ts": 1314966599812000000,
+   "p30": 1.4258899999999999,
+   "p30_ts": 1314966630052000000,
+   "shock_pips": -1.7000000000022553
+  },
+  "shock_score": 0.7538802660759034,
+  "qualifying": false,
+  "p0": 1.42606,
+  "p30": 1.4258899999999999,
+  "shock_pips": -1.7000000000022553
+ },
+ {
+  "event_id": "MACRO-CPI-201108",
+  "family": "CPI",
+  "t0_ns": 1316089800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.559999999999896,
+   "median_spread_pips": 0.700000000000145,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.559999999999896,
+  "shock": {
+   "status": "OK",
+   "p0": 1.37927,
+   "p0_ts": 1316089799332000000,
+   "p30": 1.378555,
+   "p30_ts": 1316089830489000000,
+   "shock_pips": -7.150000000000212
+  },
+  "shock_score": 2.008426966292253,
+  "qualifying": true,
+  "p0": 1.37927,
+  "p30": 1.378555,
+  "shock_pips": -7.150000000000212
+ },
+ {
+  "event_id": "MACRO-NFP-201109",
+  "family": "NFP",
+  "t0_ns": 1317990600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.205000000001012,
+   "median_spread_pips": 0.7999999999985796,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.205000000001012,
+  "shock": {
+   "status": "OK",
+   "p0": 1.345405,
+   "p0_ts": 1317990599799000000,
+   "p30": 1.346405,
+   "p30_ts": 1317990630310000000,
+   "shock_pips": 10.000000000001119
+  },
+  "shock_score": 3.1201248049915633,
+  "qualifying": true,
+  "p0": 1.345405,
+  "p30": 1.346405,
+  "shock_pips": 10.000000000001119
+ },
+ {
+  "event_id": "MACRO-CPI-201109",
+  "family": "CPI",
+  "t0_ns": 1319027400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.805000000000502,
+   "median_spread_pips": 0.7999999999985796,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.805000000000502,
+  "shock": {
+   "status": "OK",
+   "p0": 1.38256,
+   "p0_ts": 1319027399529000000,
+   "p30": 1.383545,
+   "p30_ts": 1319027430060000000,
+   "shock_pips": 9.850000000000136
+  },
+  "shock_score": 2.5886990801573817,
+  "qualifying": true,
+  "p0": 1.38256,
+  "p30": 1.383545,
+  "shock_pips": 9.850000000000136
+ },
+ {
+  "event_id": "MACRO-NFP-201110",
+  "family": "NFP",
+  "t0_ns": 1320409800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 5.105000000000137,
+   "median_spread_pips": 0.7999999999985796,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 5.105000000000137,
+  "shock": {
+   "status": "OK",
+   "p0": 1.383295,
+   "p0_ts": 1320409799764000000,
+   "p30": 1.384315,
+   "p30_ts": 1320409830127000000,
+   "shock_pips": 10.200000000000209
+  },
+  "shock_score": 1.9980411361410255,
+  "qualifying": false,
+  "p0": 1.383295,
+  "p30": 1.384315,
+  "shock_pips": 10.200000000000209
+ },
+ {
+  "event_id": "MACRO-CPI-201110",
+  "family": "CPI",
+  "t0_ns": 1321450200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.710000000000768,
+   "median_spread_pips": 0.700000000000145,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 4.710000000000768,
+  "shock": {
+   "status": "OK",
+   "p0": 1.3492449999999998,
+   "p0_ts": 1321450199424000000,
+   "p30": 1.3493,
+   "p30_ts": 1321450233707000000,
+   "shock_pips": 0.5500000000013827
+  },
+  "shock_score": 0.11677282377946772,
+  "qualifying": false,
+  "p0": 1.3492449999999998,
+  "p30": 1.3493,
+  "shock_pips": 0.5500000000013827
+ },
+ {
+  "event_id": "MACRO-NFP-201111",
+  "family": "NFP",
+  "t0_ns": 1322832600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.877499999999756,
+   "median_spread_pips": 0.6999999999979245,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.877499999999756,
+  "shock": {
+   "status": "OK",
+   "p0": 1.35189,
+   "p0_ts": 1322832597882000000,
+   "p30": 1.35296,
+   "p30_ts": 1322832630151000000,
+   "shock_pips": 10.699999999999044
+  },
+  "shock_score": 2.7595099935524736,
+  "qualifying": true,
+  "p0": 1.35189,
+  "p30": 1.35296,
+  "shock_pips": 10.699999999999044
+ },
+ {
+  "event_id": "MACRO-CPI-201111",
+  "family": "CPI",
+  "t0_ns": 1324042200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.727500000000994,
+   "median_spread_pips": 0.700000000000145,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.727500000000994,
+  "shock": {
+   "status": "OK",
+   "p0": 1.30725,
+   "p0_ts": 1324042199981000000,
+   "p30": 1.30743,
+   "p30_ts": 1324042230817000000,
+   "shock_pips": 1.80000000000069
+  },
+  "shock_score": 0.48289738430589135,
+  "qualifying": false,
+  "p0": 1.30725,
+  "p30": 1.30743,
+  "shock_pips": 1.80000000000069
+ },
+ {
+  "event_id": "MACRO-NFP-201112",
+  "family": "NFP",
+  "t0_ns": 1325856600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.710000000000989,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.710000000000989,
+  "shock": {
+   "status": "OK",
+   "p0": 1.277815,
+   "p0_ts": 1325856599756000000,
+   "p30": 1.277625,
+   "p30_ts": 1325856630129000000,
+   "shock_pips": -1.8999999999991246
+  },
+  "shock_score": 0.7011070110695318,
+  "qualifying": false,
+  "p0": 1.277815,
+  "p30": 1.277625,
+  "shock_pips": -1.8999999999991246
+ },
+ {
+  "event_id": "MACRO-CPI-201112",
+  "family": "CPI",
+  "t0_ns": 1326979800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.7025000000008284,
+   "median_spread_pips": 0.7999999999985796,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.7025000000008284,
+  "shock": {
+   "status": "OK",
+   "p0": 1.291245,
+   "p0_ts": 1326979799940000000,
+   "p30": 1.291355,
+   "p30_ts": 1326979830566000000,
+   "shock_pips": 1.100000000000545
+  },
+  "shock_score": 0.2970965563809045,
+  "qualifying": false,
+  "p0": 1.291245,
+  "p30": 1.291355,
+  "shock_pips": 1.100000000000545
+ },
+ {
+  "event_id": "MACRO-NFP-201201",
+  "family": "NFP",
+  "t0_ns": 1328275800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.4500000000005073,
+   "median_spread_pips": 0.7999999999985796,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.4500000000005073,
+  "shock": {
+   "status": "OK",
+   "p0": 1.317055,
+   "p0_ts": 1328275799618000000,
+   "p30": 1.3177050000000001,
+   "p30_ts": 1328275830602000000,
+   "shock_pips": 6.500000000000394
+  },
+  "shock_score": 2.6530612244894076,
+  "qualifying": true,
+  "p0": 1.317055,
+  "p30": 1.3177050000000001,
+  "shock_pips": 6.500000000000394
+ },
+ {
+  "event_id": "MACRO-CPI-201201",
+  "family": "CPI",
+  "t0_ns": 1329485400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.210000000001045,
+   "median_spread_pips": 0.7999999999985796,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.210000000001045,
+  "shock": {
+   "status": "OK",
+   "p0": 1.317815,
+   "p0_ts": 1329485399304000000,
+   "p30": 1.317835,
+   "p30_ts": 1329485430141000000,
+   "shock_pips": 0.20000000000131024
+  },
+  "shock_score": 0.062305295950543654,
+  "qualifying": false,
+  "p0": 1.317815,
+  "p30": 1.317835,
+  "shock_pips": 0.20000000000131024
+ },
+ {
+  "event_id": "MACRO-NFP-201202",
+  "family": "NFP",
+  "t0_ns": 1331299800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.459999999999351,
+   "median_spread_pips": 0.700000000000145,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.459999999999351,
+  "shock": {
+   "status": "OK",
+   "p0": 1.319445,
+   "p0_ts": 1331299799726000000,
+   "p30": 1.3188,
+   "p30_ts": 1331299830098000000,
+   "shock_pips": -6.450000000000067
+  },
+  "shock_score": 2.6219512195129138,
+  "qualifying": true,
+  "p0": 1.319445,
+  "p30": 1.3188,
+  "shock_pips": -6.450000000000067
+ },
+ {
+  "event_id": "MACRO-CPI-201202",
+  "family": "CPI",
+  "t0_ns": 1331901000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.7274999999988836,
+   "median_spread_pips": 0.700000000000145,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.7274999999988836,
+  "shock": {
+   "status": "OK",
+   "p0": 1.308395,
+   "p0_ts": 1331900999706000000,
+   "p30": 1.308405,
+   "p30_ts": 1331901031174000000,
+   "shock_pips": 0.10000000000065512
+  },
+  "shock_score": 0.03666361136597472,
+  "qualifying": false,
+  "p0": 1.308395,
+  "p30": 1.308405,
+  "shock_pips": 0.10000000000065512
+ },
+ {
+  "event_id": "MACRO-NFP-201203",
+  "family": "NFP",
+  "t0_ns": 1333715400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.9600000000005162,
+   "median_spread_pips": 0.9999999999998899,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.9600000000005162,
+  "shock": {
+   "status": "OK",
+   "p0": 1.30539,
+   "p0_ts": 1333715399755000000,
+   "p30": 1.3061099999999999,
+   "p30_ts": 1333715430293000000,
+   "shock_pips": 7.199999999998319
+  },
+  "shock_score": 3.673469387753277,
+  "qualifying": true,
+  "p0": 1.30539,
+  "p30": 1.3061099999999999,
+  "shock_pips": 7.199999999998319
+ },
+ {
+  "event_id": "MACRO-CPI-201203",
+  "family": "CPI",
+  "t0_ns": 1334320200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.132499999999316,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.132499999999316,
+  "shock": {
+   "status": "OK",
+   "p0": 1.314695,
+   "p0_ts": 1334320199654000000,
+   "p30": 1.314495,
+   "p30_ts": 1334320230531000000,
+   "shock_pips": -1.9999999999997797
+  },
+  "shock_score": 0.6384676775738919,
+  "qualifying": false,
+  "p0": 1.314695,
+  "p30": 1.314495,
+  "shock_pips": -1.9999999999997797
+ },
+ {
+  "event_id": "MACRO-NFP-201204",
+  "family": "NFP",
+  "t0_ns": 1336134600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.9774999999984109,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.9774999999984109,
+  "shock": {
+   "status": "OK",
+   "p0": 1.3137,
+   "p0_ts": 1336134599823000000,
+   "p30": 1.314415,
+   "p30_ts": 1336134630078000000,
+   "shock_pips": 7.149999999997991
+  },
+  "shock_score": 3.6156763590410805,
+  "qualifying": true,
+  "p0": 1.3137,
+  "p30": 1.314415,
+  "shock_pips": 7.149999999997991
+ },
+ {
+  "event_id": "MACRO-CPI-201204",
+  "family": "CPI",
+  "t0_ns": 1337085000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.7025000000009385,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.7025000000009385,
+  "shock": {
+   "status": "OK",
+   "p0": 1.2842600000000002,
+   "p0_ts": 1337084999889000000,
+   "p30": 1.283875,
+   "p30_ts": 1337085030518000000,
+   "shock_pips": -3.8500000000007972
+  },
+  "shock_score": 1.4246068455132137,
+  "qualifying": false,
+  "p0": 1.2842600000000002,
+  "p30": 1.283875,
+  "shock_pips": -3.8500000000007972
+ },
+ {
+  "event_id": "MACRO-NFP-201205",
+  "family": "NFP",
+  "t0_ns": 1338553800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.2600000000004834,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.2600000000004834,
+  "shock": {
+   "status": "OK",
+   "p0": 1.232535,
+   "p0_ts": 1338553799988000000,
+   "p30": 1.2315399999999999,
+   "p30_ts": 1338553830300000000,
+   "shock_pips": -9.950000000000792
+  },
+  "shock_score": 4.402654867256046,
+  "qualifying": true,
+  "p0": 1.232535,
+  "p30": 1.2315399999999999,
+  "shock_pips": -9.950000000000792
+ },
+ {
+  "event_id": "MACRO-CPI-201205",
+  "family": "CPI",
+  "t0_ns": 1339677000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.214999999999856,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.214999999999856,
+  "shock": {
+   "status": "OK",
+   "p0": 1.255905,
+   "p0_ts": 1339676999793000000,
+   "p30": 1.2567050000000002,
+   "p30_ts": 1339677030033000000,
+   "shock_pips": 8.00000000000134
+  },
+  "shock_score": 2.4883359253504502,
+  "qualifying": true,
+  "p0": 1.255905,
+  "p30": 1.2567050000000002,
+  "shock_pips": 8.00000000000134
+ },
+ {
+  "event_id": "MACRO-NFP-201206",
+  "family": "NFP",
+  "t0_ns": 1341577800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.9649999999992174,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.9649999999992174,
+  "shock": {
+   "status": "OK",
+   "p0": 1.23776,
+   "p0_ts": 1341577799399000000,
+   "p30": 1.23732,
+   "p30_ts": 1341577830089000000,
+   "shock_pips": -4.3999999999999595
+  },
+  "shock_score": 1.4839797639126884,
+  "qualifying": false,
+  "p0": 1.23776,
+  "p30": 1.23732,
+  "shock_pips": -4.3999999999999595
+ },
+ {
+  "event_id": "MACRO-CPI-201206",
+  "family": "CPI",
+  "t0_ns": 1342528200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.3775000000010316,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.3775000000010316,
+  "shock": {
+   "status": "OK",
+   "p0": 1.2276150000000001,
+   "p0_ts": 1342528199764000000,
+   "p30": 1.227545,
+   "p30_ts": 1342528230254000000,
+   "shock_pips": -0.700000000000145
+  },
+  "shock_score": 0.2944269190325305,
+  "qualifying": false,
+  "p0": 1.2276150000000001,
+  "p30": 1.227545,
+  "shock_pips": -0.700000000000145
+ },
+ {
+  "event_id": "MACRO-NFP-201207",
+  "family": "NFP",
+  "t0_ns": 1343997000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.0775000000001773,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.0775000000001773,
+  "shock": {
+   "status": "OK",
+   "p0": 1.224425,
+   "p0_ts": 1343996999843000000,
+   "p30": 1.2233550000000002,
+   "p30_ts": 1343997030018000000,
+   "shock_pips": -10.699999999999044
+  },
+  "shock_score": 3.4768480909824295,
+  "qualifying": true,
+  "p0": 1.224425,
+  "p30": 1.2233550000000002,
+  "shock_pips": -10.699999999999044
+ },
+ {
+  "event_id": "MACRO-CPI-201207",
+  "family": "CPI",
+  "t0_ns": 1345033800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.1274999999993938,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.1274999999993938,
+  "shock": {
+   "status": "OK",
+   "p0": 1.22774,
+   "p0_ts": 1345033799189000000,
+   "p30": 1.2285650000000001,
+   "p30_ts": 1345033830417000000,
+   "shock_pips": 8.250000000000757
+  },
+  "shock_score": 3.877790834314034,
+  "qualifying": true,
+  "p0": 1.22774,
+  "p30": 1.2285650000000001,
+  "shock_pips": 8.250000000000757
+ },
+ {
+  "event_id": "MACRO-NFP-201208",
+  "family": "NFP",
+  "t0_ns": 1347021000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.332499999999737,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.332499999999737,
+  "shock": {
+   "status": "OK",
+   "p0": 1.271455,
+   "p0_ts": 1347020999581000000,
+   "p30": 1.2731,
+   "p30_ts": 1347021030064000000,
+   "shock_pips": 16.449999999998965
+  },
+  "shock_score": 7.052518756699173,
+  "qualifying": true,
+  "p0": 1.271455,
+  "p30": 1.2731,
+  "shock_pips": 16.449999999998965
+ },
+ {
+  "event_id": "MACRO-CPI-201208",
+  "family": "CPI",
+  "t0_ns": 1347625800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.114999999999201,
+   "median_spread_pips": 0.8000000000008001,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.114999999999201,
+  "shock": {
+   "status": "OK",
+   "p0": 1.3086250000000001,
+   "p0_ts": 1347625799932000000,
+   "p30": 1.309155,
+   "p30_ts": 1347625830114000000,
+   "shock_pips": 5.299999999999194
+  },
+  "shock_score": 1.7014446227931153,
+  "qualifying": false,
+  "p0": 1.3086250000000001,
+  "p30": 1.309155,
+  "shock_pips": 5.299999999999194
+ },
+ {
+  "event_id": "MACRO-NFP-201209",
+  "family": "NFP",
+  "t0_ns": 1349440200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.1375000000006796,
+   "median_spread_pips": 0.700000000000145,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.1375000000006796,
+  "shock": {
+   "status": "OK",
+   "p0": 1.300915,
+   "p0_ts": 1349440199795000000,
+   "p30": 1.302155,
+   "p30_ts": 1349440230046000000,
+   "shock_pips": 12.399999999999078
+  },
+  "shock_score": 5.801169590640999,
+  "qualifying": true,
+  "p0": 1.300915,
+  "p30": 1.302155,
+  "shock_pips": 12.399999999999078
+ },
+ {
+  "event_id": "MACRO-CPI-201209",
+  "family": "CPI",
+  "t0_ns": 1350390600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.9999999999995595,
+   "median_spread_pips": 0.5999999999994898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.9999999999995595,
+  "shock": {
+   "status": "OK",
+   "p0": 1.305395,
+   "p0_ts": 1350390599950000000,
+   "p30": 1.305635,
+   "p30_ts": 1350390630078000000,
+   "shock_pips": 2.4000000000001798
+  },
+  "shock_score": 0.600000000000111,
+  "qualifying": false,
+  "p0": 1.305395,
+  "p30": 1.305635,
+  "shock_pips": 2.4000000000001798
+ },
+ {
+  "event_id": "MACRO-NFP-201210",
+  "family": "NFP",
+  "t0_ns": 1351859400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.9275000000003037,
+   "median_spread_pips": 0.5999999999994898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.9275000000003037,
+  "shock": {
+   "status": "OK",
+   "p0": 1.2888199999999999,
+   "p0_ts": 1351859399982000000,
+   "p30": 1.28769,
+   "p30_ts": 1351859430009000000,
+   "shock_pips": -11.299999999998533
+  },
+  "shock_score": 5.862516212709081,
+  "qualifying": true,
+  "p0": 1.2888199999999999,
+  "p30": 1.28769,
+  "shock_pips": -11.299999999998533
+ },
+ {
+  "event_id": "MACRO-CPI-201210",
+  "family": "CPI",
+  "t0_ns": 1352986200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.7999999999996907,
+   "median_spread_pips": 0.5999999999994898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.7999999999996907,
+  "shock": {
+   "status": "OK",
+   "p0": 1.276155,
+   "p0_ts": 1352986199645000000,
+   "p30": 1.27597,
+   "p30_ts": 1352986230085000000,
+   "shock_pips": -1.849999999998797
+  },
+  "shock_score": 1.027777777777286,
+  "qualifying": false,
+  "p0": 1.276155,
+  "p30": 1.27597,
+  "shock_pips": -1.849999999998797
+ },
+ {
+  "event_id": "MACRO-NFP-201211",
+  "family": "NFP",
+  "t0_ns": 1354887000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.055000000000919,
+   "median_spread_pips": 0.5999999999994898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 4.055000000000919,
+  "shock": {
+   "status": "OK",
+   "p0": 1.291395,
+   "p0_ts": 1354886999889000000,
+   "p30": 1.290775,
+   "p30_ts": 1354887030271000000,
+   "shock_pips": -6.200000000000649
+  },
+  "shock_score": 1.5289765721329827,
+  "qualifying": false,
+  "p0": 1.291395,
+  "p30": 1.290775,
+  "shock_pips": -6.200000000000649
+ },
+ {
+  "event_id": "MACRO-CPI-201211",
+  "family": "CPI",
+  "t0_ns": 1355491800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.6425000000005463,
+   "median_spread_pips": 0.5999999999994898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.6425000000005463,
+  "shock": {
+   "status": "OK",
+   "p0": 1.30861,
+   "p0_ts": 1355491799728000000,
+   "p30": 1.30869,
+   "p30_ts": 1355491831690000000,
+   "shock_pips": 0.7999999999985796
+  },
+  "shock_score": 0.30274361400129207,
+  "qualifying": false,
+  "p0": 1.30861,
+  "p30": 1.30869,
+  "shock_pips": 0.7999999999985796
+ },
+ {
+  "event_id": "MACRO-NFP-201212",
+  "family": "NFP",
+  "t0_ns": 1357306200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.4824999999997206,
+   "median_spread_pips": 0.5000000000010552,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.4824999999997206,
+  "shock": {
+   "status": "OK",
+   "p0": 1.3011050000000002,
+   "p0_ts": 1357306199594000000,
+   "p30": 1.301725,
+   "p30_ts": 1357306230050000000,
+   "shock_pips": 6.199999999998429
+  },
+  "shock_score": 2.4974823766361034,
+  "qualifying": true,
+  "p0": 1.3011050000000002,
+  "p30": 1.301725,
+  "shock_pips": 6.199999999998429
+ },
+ {
+  "event_id": "MACRO-CPI-201212",
+  "family": "CPI",
+  "t0_ns": 1358343000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.815000000000457,
+   "median_spread_pips": 0.5999999999994898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 4.815000000000457,
+  "shock": {
+   "status": "OK",
+   "p0": 1.32717,
+   "p0_ts": 1358342999827000000,
+   "p30": 1.32764,
+   "p30_ts": 1358343030115000000,
+   "shock_pips": 4.699999999999704
+  },
+  "shock_score": 0.9761163032189529,
+  "qualifying": false,
+  "p0": 1.32717,
+  "p30": 1.32764,
+  "shock_pips": 4.699999999999704
+ },
+ {
+  "event_id": "MACRO-NFP-201301",
+  "family": "NFP",
+  "t0_ns": 1359725400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.332499999998516,
+   "median_spread_pips": 0.4999999999988347,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.332499999998516,
+  "shock": {
+   "status": "OK",
+   "p0": 1.363795,
+   "p0_ts": 1359725399966000000,
+   "p30": 1.36494,
+   "p30_ts": 1359725430306000000,
+   "shock_pips": 11.449999999999516
+  },
+  "shock_score": 4.90889603430088,
+  "qualifying": true,
+  "p0": 1.363795,
+  "p30": 1.36494,
+  "shock_pips": 11.449999999999516
+ },
+ {
+  "event_id": "MACRO-CPI-201301",
+  "family": "CPI",
+  "t0_ns": 1361453400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.637499999998293,
+   "median_spread_pips": 0.40000000000040004,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.637499999998293,
+  "shock": {
+   "status": "OK",
+   "p0": 1.318765,
+   "p0_ts": 1361453399959000000,
+   "p30": 1.319035,
+   "p30_ts": 1361453430139000000,
+   "shock_pips": 2.6999999999999247
+  },
+  "shock_score": 1.0236966824650888,
+  "qualifying": false,
+  "p0": 1.318765,
+  "p30": 1.319035,
+  "shock_pips": 2.6999999999999247
+ },
+ {
+  "event_id": "MACRO-NFP-201302",
+  "family": "NFP",
+  "t0_ns": 1362749400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.4600000000015716,
+   "median_spread_pips": 0.5000000000010552,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.4600000000015716,
+  "shock": {
+   "status": "OK",
+   "p0": 1.30932,
+   "p0_ts": 1362749399746000000,
+   "p30": 1.3082099999999999,
+   "p30_ts": 1362749430118000000,
+   "shock_pips": -11.100000000001664
+  },
+  "shock_score": 4.512195121949014,
+  "qualifying": true,
+  "p0": 1.30932,
+  "p30": 1.3082099999999999,
+  "shock_pips": -11.100000000001664
+ },
+ {
+  "event_id": "MACRO-CPI-201302",
+  "family": "CPI",
+  "t0_ns": 1363350600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.0999999999994357,
+   "median_spread_pips": 0.4999999999988347,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.0999999999994357,
+  "shock": {
+   "status": "OK",
+   "p0": 1.30607,
+   "p0_ts": 1363350599234000000,
+   "p30": 1.305485,
+   "p30_ts": 1363350630411000000,
+   "shock_pips": -5.850000000000577
+  },
+  "shock_score": 2.785714285715309,
+  "qualifying": true,
+  "p0": 1.30607,
+  "p30": 1.305485,
+  "shock_pips": -5.850000000000577
+ },
+ {
+  "event_id": "MACRO-NFP-201303",
+  "family": "NFP",
+  "t0_ns": 1365165000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "NO_BREAKOUT"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.827500000001981,
+   "median_spread_pips": 0.30000000000085514,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.827500000001981,
+  "shock": {
+   "status": "OK",
+   "p0": 1.295625,
+   "p0_ts": 1365164999531000000,
+   "p30": 1.29636,
+   "p30_ts": 1365165030062000000,
+   "shock_pips": 7.3499999999993015
+  },
+  "shock_score": 2.5994694960191516,
+  "qualifying": true,
+  "p0": 1.295625,
+  "p30": 1.29636,
+  "shock_pips": 7.3499999999993015
+ },
+ {
+  "event_id": "MACRO-CPI-201303",
+  "family": "CPI",
+  "t0_ns": 1366115400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.249999999998977,
+   "median_spread_pips": 0.30000000000196536,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 4.249999999998977,
+  "shock": {
+   "status": "OK",
+   "p0": 1.31414,
+   "p0_ts": 1366115399981000000,
+   "p30": 1.3144399999999998,
+   "p30_ts": 1366115430058000000,
+   "shock_pips": 2.999999999997449
+  },
+  "shock_score": 0.7058823529407462,
+  "qualifying": false,
+  "p0": 1.31414,
+  "p30": 1.3144399999999998,
+  "shock_pips": 2.999999999997449
+ },
+ {
+  "event_id": "MACRO-NFP-201304",
+  "family": "NFP",
+  "t0_ns": 1367584200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.6074999999989847,
+   "median_spread_pips": 0.40000000000040004,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.6074999999989847,
+  "shock": {
+   "status": "OK",
+   "p0": 1.31227,
+   "p0_ts": 1367584199769000000,
+   "p30": 1.311995,
+   "p30_ts": 1367584230031000000,
+   "shock_pips": -2.7500000000002522
+  },
+  "shock_score": 0.7623007623010467,
+  "qualifying": false,
+  "p0": 1.31227,
+  "p30": 1.311995,
+  "shock_pips": -2.7500000000002522
+ },
+ {
+  "event_id": "MACRO-CPI-201304",
+  "family": "CPI",
+  "t0_ns": 1368707400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.6274999999994497,
+   "median_spread_pips": 0.40000000000040004,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.6274999999994497,
+  "shock": {
+   "status": "OK",
+   "p0": 1.288335,
+   "p0_ts": 1368707399967000000,
+   "p30": 1.28948,
+   "p30_ts": 1368707430322000000,
+   "shock_pips": 11.449999999999516
+  },
+  "shock_score": 4.357754519505962,
+  "qualifying": true,
+  "p0": 1.288335,
+  "p30": 1.28948,
+  "shock_pips": 11.449999999999516
+ },
+ {
+  "event_id": "MACRO-NFP-201305",
+  "family": "NFP",
+  "t0_ns": 1370608200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.502499999999518,
+   "median_spread_pips": 0.40000000000040004,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.502499999999518,
+  "shock": {
+   "status": "OK",
+   "p0": 1.3259249999999998,
+   "p0_ts": 1370608199930000000,
+   "p30": 1.32363,
+   "p30_ts": 1370608230358000000,
+   "shock_pips": -22.94999999999714
+  },
+  "shock_score": 6.55246252676668,
+  "qualifying": true,
+  "p0": 1.3259249999999998,
+  "p30": 1.32363,
+  "shock_pips": -22.94999999999714
+ },
+ {
+  "event_id": "MACRO-CPI-201305",
+  "family": "CPI",
+  "t0_ns": 1371558600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.1549999999997955,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.1549999999997955,
+  "shock": {
+   "status": "OK",
+   "p0": 1.33738,
+   "p0_ts": 1371558599862000000,
+   "p30": 1.3374899999999998,
+   "p30_ts": 1371558630025000000,
+   "shock_pips": 1.0999999999983245
+  },
+  "shock_score": 0.5104408352660923,
+  "qualifying": false,
+  "p0": 1.33738,
+  "p30": 1.3374899999999998,
+  "shock_pips": 1.0999999999983245
+ },
+ {
+  "event_id": "MACRO-NFP-201306",
+  "family": "NFP",
+  "t0_ns": 1373027400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.187499999999676,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.187499999999676,
+  "shock": {
+   "status": "OK",
+   "p0": 1.28793,
+   "p0_ts": 1373027399996000000,
+   "p30": 1.283635,
+   "p30_ts": 1373027430846000000,
+   "shock_pips": -42.94999999999938
+  },
+  "shock_score": 13.474509803922745,
+  "qualifying": true,
+  "p0": 1.28793,
+  "p30": 1.283635,
+  "shock_pips": -42.94999999999938
+ },
+ {
+  "event_id": "MACRO-CPI-201306",
+  "family": "CPI",
+  "t0_ns": 1373977800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.4500000000005073,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.4500000000005073,
+  "shock": {
+   "status": "OK",
+   "p0": 1.3118400000000001,
+   "p0_ts": 1373977799523000000,
+   "p30": 1.311045,
+   "p30_ts": 1373977830172000000,
+   "shock_pips": -7.950000000001012
+  },
+  "shock_score": 3.2448979591834144,
+  "qualifying": true,
+  "p0": 1.3118400000000001,
+  "p30": 1.311045,
+  "shock_pips": -7.950000000001012
+ },
+ {
+  "event_id": "MACRO-NFP-201307",
+  "family": "NFP",
+  "t0_ns": 1375446600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "SPREAD_TOO_WIDE"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.587500000000186,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.587500000000186,
+  "shock": {
+   "status": "OK",
+   "p0": 1.319635,
+   "p0_ts": 1375446599989000000,
+   "p30": 1.3249900000000001,
+   "p30_ts": 1375446630377000000,
+   "shock_pips": 53.55000000000221
+  },
+  "shock_score": 20.695652173912407,
+  "qualifying": true,
+  "p0": 1.319635,
+  "p30": 1.3249900000000001,
+  "shock_pips": 53.55000000000221
+ },
+ {
+  "event_id": "MACRO-CPI-201307",
+  "family": "CPI",
+  "t0_ns": 1376569800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.9550000000017052,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.9550000000017052,
+  "shock": {
+   "status": "OK",
+   "p0": 1.328945,
+   "p0_ts": 1376569799064000000,
+   "p30": 1.327685,
+   "p30_ts": 1376569830065000000,
+   "shock_pips": -12.600000000000389
+  },
+  "shock_score": 6.445012787718363,
+  "qualifying": true,
+  "p0": 1.328945,
+  "p30": 1.327685,
+  "shock_pips": -12.600000000000389
+ },
+ {
+  "event_id": "MACRO-NFP-201308",
+  "family": "NFP",
+  "t0_ns": 1378470600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "NO_BREAKOUT"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.305000000000556,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.305000000000556,
+  "shock": {
+   "status": "OK",
+   "p0": 1.3113899999999998,
+   "p0_ts": 1378470599946000000,
+   "p30": 1.3154400000000002,
+   "p30_ts": 1378470630010000000,
+   "shock_pips": 40.50000000000331
+  },
+  "shock_score": 17.5704989153985,
+  "qualifying": true,
+  "p0": 1.3113899999999998,
+  "p30": 1.3154400000000002,
+  "shock_pips": 40.50000000000331
+ },
+ {
+  "event_id": "MACRO-CPI-201308",
+  "family": "CPI",
+  "t0_ns": 1379421000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.9500000000006734,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.9500000000006734,
+  "shock": {
+   "status": "OK",
+   "p0": 1.335775,
+   "p0_ts": 1379420999852000000,
+   "p30": 1.336005,
+   "p30_ts": 1379421030542000000,
+   "shock_pips": 2.300000000001745
+  },
+  "shock_score": 1.1794871794876671,
+  "qualifying": false,
+  "p0": 1.335775,
+  "p30": 1.336005,
+  "shock_pips": 2.300000000001745
+ },
+ {
+  "event_id": "MACRO-NFP-201309",
+  "family": "NFP",
+  "t0_ns": 1382445000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "NO_BREAKOUT"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.310000000001698,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.310000000001698,
+  "shock": {
+   "status": "OK",
+   "p0": 1.367995,
+   "p0_ts": 1382444999800000000,
+   "p30": 1.3732950000000002,
+   "p30_ts": 1382445030042000000,
+   "shock_pips": 53.000000000000824
+  },
+  "shock_score": 40.45801526712376,
+  "qualifying": true,
+  "p0": 1.367995,
+  "p30": 1.3732950000000002,
+  "shock_pips": 53.000000000000824
+ },
+ {
+  "event_id": "MACRO-CPI-201309",
+  "family": "CPI",
+  "t0_ns": 1383136200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.729999999998898,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.729999999998898,
+  "shock": {
+   "status": "OK",
+   "p0": 1.37663,
+   "p0_ts": 1383136199739000000,
+   "p30": 1.3763649999999998,
+   "p30_ts": 1383136230189000000,
+   "shock_pips": -2.6500000000018176
+  },
+  "shock_score": 0.9706959706970283,
+  "qualifying": false,
+  "p0": 1.37663,
+  "p30": 1.3763649999999998,
+  "shock_pips": -2.6500000000018176
+ },
+ {
+  "event_id": "MACRO-NFP-201310",
+  "family": "NFP",
+  "t0_ns": 1383917400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "NO_BREAKOUT"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.1549999999994633,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.1549999999994633,
+  "shock": {
+   "status": "OK",
+   "p0": 1.34159,
+   "p0_ts": 1383917399984000000,
+   "p30": 1.335955,
+   "p30_ts": 1383917430115000000,
+   "shock_pips": -56.35000000000056
+  },
+  "shock_score": 17.860538827261536,
+  "qualifying": true,
+  "p0": 1.34159,
+  "p30": 1.335955,
+  "shock_pips": -56.35000000000056
+ },
+ {
+  "event_id": "MACRO-CPI-201310",
+  "family": "CPI",
+  "t0_ns": 1384954200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "SPREAD_TOO_WIDE"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.077499999999066,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.077499999999066,
+  "shock": {
+   "status": "OK",
+   "p0": 1.352935,
+   "p0_ts": 1384954198878000000,
+   "p30": 1.351535,
+   "p30_ts": 1384954230113000000,
+   "shock_pips": -14.000000000000679
+  },
+  "shock_score": 6.738868832735005,
+  "qualifying": true,
+  "p0": 1.352935,
+  "p30": 1.351535,
+  "shock_pips": -14.000000000000679
+ },
+ {
+  "event_id": "MACRO-NFP-201311",
+  "family": "NFP",
+  "t0_ns": 1386336600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.1824999999997536,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.1824999999997536,
+  "shock": {
+   "status": "OK",
+   "p0": 1.3647,
+   "p0_ts": 1386336599927000000,
+   "p30": 1.3639299999999999,
+   "p30_ts": 1386336630188000000,
+   "shock_pips": -7.7000000000015945
+  },
+  "shock_score": 3.5280641466219764,
+  "qualifying": true,
+  "p0": 1.3647,
+  "p30": 1.3639299999999999,
+  "shock_pips": -7.7000000000015945
+ },
+ {
+  "event_id": "MACRO-CPI-201311",
+  "family": "CPI",
+  "t0_ns": 1387287000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.2050000000009002,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.2050000000009002,
+  "shock": {
+   "status": "OK",
+   "p0": 1.37518,
+   "p0_ts": 1387286999983000000,
+   "p30": 1.3753099999999998,
+   "p30_ts": 1387287030046000000,
+   "shock_pips": 1.2999999999974143
+  },
+  "shock_score": 0.5895691609963191,
+  "qualifying": false,
+  "p0": 1.37518,
+  "p30": 1.3753099999999998,
+  "shock_pips": 1.2999999999974143
+ },
+ {
+  "event_id": "MACRO-NFP-201312",
+  "family": "NFP",
+  "t0_ns": 1389360600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "C": {
+    "status": "NO_BREAKOUT"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.7550000000001729,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.7550000000001729,
+  "shock": {
+   "status": "OK",
+   "p0": 1.357685,
+   "p0_ts": 1389360599906000000,
+   "p30": 1.363145,
+   "p30_ts": 1389360630093000000,
+   "shock_pips": 54.6000000000002
+  },
+  "shock_score": 31.111111111108162,
+  "qualifying": true,
+  "p0": 1.357685,
+  "p30": 1.363145,
+  "shock_pips": 54.6000000000002
+ },
+ {
+  "event_id": "MACRO-CPI-201312",
+  "family": "CPI",
+  "t0_ns": 1389879000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.7425000000003124,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.7425000000003124,
+  "shock": {
+   "status": "OK",
+   "p0": 1.360375,
+   "p0_ts": 1389878996811000000,
+   "p30": 1.360325,
+   "p30_ts": 1389879030102000000,
+   "shock_pips": -0.4999999999988347
+  },
+  "shock_score": 0.2869440459103272,
+  "qualifying": false,
+  "p0": 1.360375,
+  "p30": 1.360325,
+  "shock_pips": -0.4999999999988347
+ },
+ {
+  "event_id": "MACRO-NFP-201401",
+  "family": "NFP",
+  "t0_ns": 1391779800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "NO_BREAKOUT"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.1774999999999434,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.1774999999999434,
+  "shock": {
+   "status": "OK",
+   "p0": 1.35874,
+   "p0_ts": 1391779799925000000,
+   "p30": 1.36376,
+   "p30_ts": 1391779830151000000,
+   "shock_pips": 50.200000000000244
+  },
+  "shock_score": 23.053960964409438,
+  "qualifying": true,
+  "p0": 1.35874,
+  "p30": 1.36376,
+  "shock_pips": 50.200000000000244
+ },
+ {
+  "event_id": "MACRO-CPI-201401",
+  "family": "CPI",
+  "t0_ns": 1392903000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.569999999999182,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 109
+  },
+  "noise_scale_pips": 1.569999999999182,
+  "shock": {
+   "status": "OK",
+   "p0": 1.37042,
+   "p0_ts": 1392902999076000000,
+   "p30": 1.3706399999999999,
+   "p30_ts": 1392903030469000000,
+   "shock_pips": 2.1999999999988695
+  },
+  "shock_score": 1.4012738853503284,
+  "qualifying": false,
+  "p0": 1.37042,
+  "p30": 1.3706399999999999,
+  "shock_pips": 2.1999999999988695
+ },
+ {
+  "event_id": "MACRO-NFP-201402",
+  "family": "NFP",
+  "t0_ns": 1394199000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.1374999999994584,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.1374999999994584,
+  "shock": {
+   "status": "OK",
+   "p0": 1.3900299999999999,
+   "p0_ts": 1394198999456000000,
+   "p30": 1.387945,
+   "p30_ts": 1394199030046000000,
+   "shock_pips": -20.849999999998925
+  },
+  "shock_score": 9.754385964914249,
+  "qualifying": true,
+  "p0": 1.3900299999999999,
+  "p30": 1.387945,
+  "shock_pips": -20.849999999998925
+ },
+ {
+  "event_id": "MACRO-CPI-201402",
+  "family": "CPI",
+  "t0_ns": 1395145800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.119999999997902,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 4.119999999997902,
+  "shock": {
+   "status": "OK",
+   "p0": 1.3926699999999999,
+   "p0_ts": 1395145799976000000,
+   "p30": 1.39282,
+   "p30_ts": 1395145830316000000,
+   "shock_pips": 1.500000000000945
+  },
+  "shock_score": 0.36407766990332735,
+  "qualifying": false,
+  "p0": 1.3926699999999999,
+  "p30": 1.39282,
+  "shock_pips": 1.500000000000945
+ },
+ {
+  "event_id": "MACRO-NFP-201403",
+  "family": "NFP",
+  "t0_ns": 1396614600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.0800000000007475,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 109
+  },
+  "noise_scale_pips": 2.0800000000007475,
+  "shock": {
+   "status": "OK",
+   "p0": 1.3693849999999999,
+   "p0_ts": 1396614598652000000,
+   "p30": 1.37053,
+   "p30_ts": 1396614630059000000,
+   "shock_pips": 11.450000000001737
+  },
+  "shock_score": 5.5048076923065485,
+  "qualifying": true,
+  "p0": 1.3693849999999999,
+  "p30": 1.37053,
+  "shock_pips": 11.450000000001737
+ },
+ {
+  "event_id": "MACRO-CPI-201403",
+  "family": "CPI",
+  "t0_ns": 1397565000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.2999999999996348,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 109
+  },
+  "noise_scale_pips": 1.2999999999996348,
+  "shock": {
+   "status": "OK",
+   "p0": 1.379935,
+   "p0_ts": 1397564999992000000,
+   "p30": 1.37941,
+   "p30_ts": 1397565030068000000,
+   "shock_pips": -5.249999999998867
+  },
+  "shock_score": 4.038461538461801,
+  "qualifying": true,
+  "p0": 1.379935,
+  "p30": 1.37941,
+  "shock_pips": -5.249999999998867
+ },
+ {
+  "event_id": "MACRO-NFP-201404",
+  "family": "NFP",
+  "t0_ns": 1399033800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.6275000000007809,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.6275000000007809,
+  "shock": {
+   "status": "OK",
+   "p0": 1.38631,
+   "p0_ts": 1399033798796000000,
+   "p30": 1.38204,
+   "p30_ts": 1399033830213000000,
+   "shock_pips": -42.69999999999996
+  },
+  "shock_score": 26.236559139772332,
+  "qualifying": true,
+  "p0": 1.38631,
+  "p30": 1.38204,
+  "shock_pips": -42.69999999999996
+ },
+ {
+  "event_id": "MACRO-CPI-201404",
+  "family": "CPI",
+  "t0_ns": 1400157000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.7100000000000997,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.7100000000000997,
+  "shock": {
+   "status": "OK",
+   "p0": 1.36598,
+   "p0_ts": 1400156998716000000,
+   "p30": 1.3650250000000002,
+   "p30_ts": 1400157030098000000,
+   "shock_pips": -9.549999999998171
+  },
+  "shock_score": 5.584795321636032,
+  "qualifying": true,
+  "p0": 1.36598,
+  "p30": 1.3650250000000002,
+  "shock_pips": -9.549999999998171
+ },
+ {
+  "event_id": "MACRO-NFP-201405",
+  "family": "NFP",
+  "t0_ns": 1402057800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.4774999999994662,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.4774999999994662,
+  "shock": {
+   "status": "OK",
+   "p0": 1.36432,
+   "p0_ts": 1402057799786000000,
+   "p30": 1.363915,
+   "p30_ts": 1402057830062000000,
+   "shock_pips": -4.049999999999887
+  },
+  "shock_score": 1.6347124117056546,
+  "qualifying": false,
+  "p0": 1.36432,
+  "p30": 1.363915,
+  "shock_pips": -4.049999999999887
+ },
+ {
+  "event_id": "MACRO-CPI-201405",
+  "family": "CPI",
+  "t0_ns": 1403008200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "SPREAD_TOO_WIDE"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.1824999999996417,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 108
+  },
+  "noise_scale_pips": 1.1824999999996417,
+  "shock": {
+   "status": "OK",
+   "p0": 1.3570250000000001,
+   "p0_ts": 1403008199757000000,
+   "p30": 1.355995,
+   "p30_ts": 1403008230074000000,
+   "shock_pips": -10.300000000000864
+  },
+  "shock_score": 8.710359408037196,
+  "qualifying": true,
+  "p0": 1.3570250000000001,
+  "p30": 1.355995,
+  "shock_pips": -10.300000000000864
+ },
+ {
+  "event_id": "MACRO-NFP-201406",
+  "family": "NFP",
+  "t0_ns": 1404390600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.5825000000002638,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.5825000000002638,
+  "shock": {
+   "status": "OK",
+   "p0": 1.364525,
+   "p0_ts": 1404390599596000000,
+   "p30": 1.362225,
+   "p30_ts": 1404390630003000000,
+   "shock_pips": -22.999999999999687
+  },
+  "shock_score": 14.533965244863099,
+  "qualifying": true,
+  "p0": 1.364525,
+  "p30": 1.362225,
+  "shock_pips": -22.999999999999687
+ },
+ {
+  "event_id": "MACRO-CPI-201406",
+  "family": "CPI",
+  "t0_ns": 1406032200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "NO_BREAKOUT"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.249999999998308,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.249999999998308,
+  "shock": {
+   "status": "OK",
+   "p0": 1.348215,
+   "p0_ts": 1406032198251000000,
+   "p30": 1.34916,
+   "p30_ts": 1406032230048000000,
+   "shock_pips": 9.449999999999736
+  },
+  "shock_score": 7.560000000010022,
+  "qualifying": true,
+  "p0": 1.348215,
+  "p30": 1.34916,
+  "shock_pips": 9.449999999999736
+ },
+ {
+  "event_id": "MACRO-NFP-201407",
+  "family": "NFP",
+  "t0_ns": 1406896200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.4300000000004862,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 109
+  },
+  "noise_scale_pips": 1.4300000000004862,
+  "shock": {
+   "status": "OK",
+   "p0": 1.33975,
+   "p0_ts": 1406896199809000000,
+   "p30": 1.34313,
+   "p30_ts": 1406896230039000000,
+   "shock_pips": 33.799999999999386
+  },
+  "shock_score": 23.63636363635517,
+  "qualifying": true,
+  "p0": 1.33975,
+  "p30": 1.34313,
+  "shock_pips": 33.799999999999386
+ },
+ {
+  "event_id": "MACRO-CPI-201407",
+  "family": "CPI",
+  "t0_ns": 1408451400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.0774999999991761,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.0774999999991761,
+  "shock": {
+   "status": "OK",
+   "p0": 1.33563,
+   "p0_ts": 1408451399658000000,
+   "p30": 1.3344749999999999,
+   "p30_ts": 1408451430078000000,
+   "shock_pips": -11.550000000002392
+  },
+  "shock_score": 10.719257540613665,
+  "qualifying": true,
+  "p0": 1.33563,
+  "p30": 1.3344749999999999,
+  "shock_pips": -11.550000000002392
+ },
+ {
+  "event_id": "MACRO-NFP-201408",
+  "family": "NFP",
+  "t0_ns": 1409920200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.7275000000002148,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.7275000000002148,
+  "shock": {
+   "status": "OK",
+   "p0": 1.295185,
+   "p0_ts": 1409920199988000000,
+   "p30": 1.29733,
+   "p30_ts": 1409920230010000000,
+   "shock_pips": 21.450000000000635
+  },
+  "shock_score": 12.416787264832399,
+  "qualifying": true,
+  "p0": 1.295185,
+  "p30": 1.29733,
+  "shock_pips": 21.450000000000635
+ },
+ {
+  "event_id": "MACRO-CPI-201408",
+  "family": "CPI",
+  "t0_ns": 1410957000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 0.9775000000019628,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 0.9775000000019628,
+  "shock": {
+   "status": "OK",
+   "p0": 1.2958349999999998,
+   "p0_ts": 1410956999689000000,
+   "p30": 1.29669,
+   "p30_ts": 1410957030027000000,
+   "shock_pips": 8.550000000000502
+  },
+  "shock_score": 8.746803069036659,
+  "qualifying": true,
+  "p0": 1.2958349999999998,
+  "p30": 1.29669,
+  "shock_pips": 8.550000000000502
+ },
+ {
+  "event_id": "MACRO-NFP-201409",
+  "family": "NFP",
+  "t0_ns": 1412339400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.22750000000127,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.22750000000127,
+  "shock": {
+   "status": "OK",
+   "p0": 1.26023,
+   "p0_ts": 1412339399898000000,
+   "p30": 1.25569,
+   "p30_ts": 1412339430099000000,
+   "shock_pips": -45.399999999999885
+  },
+  "shock_score": 20.381593714915375,
+  "qualifying": true,
+  "p0": 1.26023,
+  "p30": 1.25569,
+  "shock_pips": -45.399999999999885
+ },
+ {
+  "event_id": "MACRO-CPI-201409",
+  "family": "CPI",
+  "t0_ns": 1413981000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.177499999998722,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.177499999998722,
+  "shock": {
+   "status": "OK",
+   "p0": 1.26993,
+   "p0_ts": 1413980999770000000,
+   "p30": 1.2683499999999999,
+   "p30_ts": 1413981030276000000,
+   "shock_pips": -15.800000000001369
+  },
+  "shock_score": 7.256027554539904,
+  "qualifying": true,
+  "p0": 1.26993,
+  "p30": 1.2683499999999999,
+  "shock_pips": -15.800000000001369
+ },
+ {
+  "event_id": "MACRO-NFP-201410",
+  "family": "NFP",
+  "t0_ns": 1415367000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.8099999999995335,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.8099999999995335,
+  "shock": {
+   "status": "OK",
+   "p0": 1.238815,
+   "p0_ts": 1415366999773000000,
+   "p30": 1.2440950000000002,
+   "p30_ts": 1415367030298000000,
+   "shock_pips": 52.80000000000173
+  },
+  "shock_score": 29.171270718240518,
+  "qualifying": true,
+  "p0": 1.238815,
+  "p30": 1.2440950000000002,
+  "shock_pips": 52.80000000000173
+ },
+ {
+  "event_id": "MACRO-CPI-201410",
+  "family": "CPI",
+  "t0_ns": 1416490200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.027500000001181,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.027500000001181,
+  "shock": {
+   "status": "OK",
+   "p0": 1.2538550000000002,
+   "p0_ts": 1416490199971000000,
+   "p30": 1.25225,
+   "p30_ts": 1416490230026000000,
+   "shock_pips": -16.050000000000786
+  },
+  "shock_score": 7.91615289765299,
+  "qualifying": true,
+  "p0": 1.2538550000000002,
+  "p30": 1.25225,
+  "shock_pips": -16.050000000000786
+ },
+ {
+  "event_id": "MACRO-NFP-201411",
+  "family": "NFP",
+  "t0_ns": 1417786200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.032499999998661,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.032499999998661,
+  "shock": {
+   "status": "OK",
+   "p0": 1.23677,
+   "p0_ts": 1417786199969000000,
+   "p30": 1.23022,
+   "p30_ts": 1417786230291000000,
+   "shock_pips": -65.49999999999834
+  },
+  "shock_score": 21.59934047816233,
+  "qualifying": true,
+  "p0": 1.23677,
+  "p30": 1.23022,
+  "shock_pips": -65.49999999999834
+ },
+ {
+  "event_id": "MACRO-CPI-201411",
+  "family": "CPI",
+  "t0_ns": 1418823000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.9549999999994847,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.9549999999994847,
+  "shock": {
+   "status": "OK",
+   "p0": 1.2460499999999999,
+   "p0_ts": 1418822999951000000,
+   "p30": 1.246835,
+   "p30_ts": 1418823030097000000,
+   "shock_pips": 7.850000000000357
+  },
+  "shock_score": 4.01534526854344,
+  "qualifying": true,
+  "p0": 1.2460499999999999,
+  "p30": 1.246835,
+  "shock_pips": 7.850000000000357
+ },
+ {
+  "event_id": "MACRO-NFP-201412",
+  "family": "NFP",
+  "t0_ns": 1420810200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.80000000000069,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.80000000000069,
+  "shock": {
+   "status": "OK",
+   "p0": 1.181705,
+   "p0_ts": 1420810199816000000,
+   "p30": 1.181745,
+   "p30_ts": 1420810230033000000,
+   "shock_pips": 0.40000000000040004
+  },
+  "shock_score": 0.2222222222223593,
+  "qualifying": false,
+  "p0": 1.181705,
+  "p30": 1.181745,
+  "shock_pips": 0.40000000000040004
+ },
+ {
+  "event_id": "MACRO-CPI-201412",
+  "family": "CPI",
+  "t0_ns": 1421415000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.319999999999544,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.319999999999544,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1600350000000001,
+   "p0_ts": 1421414999732000000,
+   "p30": 1.1596799999999998,
+   "p30_ts": 1421415030095000000,
+   "shock_pips": -3.5500000000032728
+  },
+  "shock_score": 1.0692771084348676,
+  "qualifying": false,
+  "p0": 1.1600350000000001,
+  "p30": 1.1596799999999998,
+  "shock_pips": -3.5500000000032728
+ },
+ {
+  "event_id": "MACRO-NFP-201501",
+  "family": "NFP",
+  "t0_ns": 1423229400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "NO_BREAKOUT"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.4149999999989458,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.4149999999989458,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1453950000000002,
+   "p0_ts": 1423229399757000000,
+   "p30": 1.13983,
+   "p30_ts": 1423229430296000000,
+   "shock_pips": -55.65000000000264
+  },
+  "shock_score": 16.29575402636012,
+  "qualifying": true,
+  "p0": 1.1453950000000002,
+  "p30": 1.13983,
+  "shock_pips": -55.65000000000264
+ },
+ {
+  "event_id": "MACRO-CPI-201501",
+  "family": "CPI",
+  "t0_ns": 1424957400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.879999999999881,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.879999999999881,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1316950000000001,
+   "p0_ts": 1424957399502000000,
+   "p30": 1.131575,
+   "p30_ts": 1424957430101000000,
+   "shock_pips": -1.2000000000012
+  },
+  "shock_score": 0.4166666666671006,
+  "qualifying": false,
+  "p0": 1.1316950000000001,
+  "p30": 1.131575,
+  "shock_pips": -1.2000000000012
+ },
+ {
+  "event_id": "MACRO-NFP-201502",
+  "family": "NFP",
+  "t0_ns": 1425648600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.004999999999702,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.004999999999702,
+  "shock": {
+   "status": "OK",
+   "p0": 1.098045,
+   "p0_ts": 1425648599795000000,
+   "p30": 1.0977999999999999,
+   "p30_ts": 1425648630041000000,
+   "shock_pips": -2.4500000000005073
+  },
+  "shock_score": 0.8153078202997506,
+  "qualifying": false,
+  "p0": 1.098045,
+  "p30": 1.0977999999999999,
+  "shock_pips": -2.4500000000005073
+ },
+ {
+  "event_id": "MACRO-CPI-201502",
+  "family": "CPI",
+  "t0_ns": 1427200200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.31499999999929,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.31499999999929,
+  "shock": {
+   "status": "OK",
+   "p0": 1.099395,
+   "p0_ts": 1427200199625000000,
+   "p30": 1.096905,
+   "p30_ts": 1427200230306000000,
+   "shock_pips": -24.899999999998812
+  },
+  "shock_score": 7.511312217195821,
+  "qualifying": true,
+  "p0": 1.099395,
+  "p30": 1.096905,
+  "shock_pips": -24.899999999998812
+ },
+ {
+  "event_id": "MACRO-NFP-201503",
+  "family": "NFP",
+  "t0_ns": 1428064200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.742499999998761,
+   "median_spread_pips": 0.40000000000040004,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 4.742499999998761,
+  "shock": {
+   "status": "OK",
+   "p0": 1.08817,
+   "p0_ts": 1428064199949000000,
+   "p30": 1.09945,
+   "p30_ts": 1428064230098000000,
+   "shock_pips": 112.79999999999956
+  },
+  "shock_score": 23.78492356352747,
+  "qualifying": true,
+  "p0": 1.08817,
+  "p30": 1.09945,
+  "shock_pips": 112.79999999999956
+ },
+ {
+  "event_id": "MACRO-CPI-201503",
+  "family": "CPI",
+  "t0_ns": 1429273800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.527500000000905,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.527500000000905,
+  "shock": {
+   "status": "OK",
+   "p0": 1.082215,
+   "p0_ts": 1429273799317000000,
+   "p30": 1.0811899999999999,
+   "p30_ts": 1429273830166000000,
+   "shock_pips": -10.250000000000536
+  },
+  "shock_score": 2.9057406094962173,
+  "qualifying": true,
+  "p0": 1.082215,
+  "p30": 1.0811899999999999,
+  "shock_pips": -10.250000000000536
+ },
+ {
+  "event_id": "MACRO-NFP-201504",
+  "family": "NFP",
+  "t0_ns": 1431088200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.2775000000002663,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.2775000000002663,
+  "shock": {
+   "status": "OK",
+   "p0": 1.127075,
+   "p0_ts": 1431088199938000000,
+   "p30": 1.1270250000000002,
+   "p30_ts": 1431088230006000000,
+   "shock_pips": -0.4999999999988347
+  },
+  "shock_score": 0.1525553012963521,
+  "qualifying": false,
+  "p0": 1.127075,
+  "p30": 1.1270250000000002,
+  "shock_pips": -0.4999999999988347
+ },
+ {
+  "event_id": "MACRO-CPI-201504",
+  "family": "CPI",
+  "t0_ns": 1432297800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.6825000000006987,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.6825000000006987,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1173899999999999,
+   "p0_ts": 1432297799176000000,
+   "p30": 1.112415,
+   "p30_ts": 1432297830013000000,
+   "shock_pips": -49.74999999999952
+  },
+  "shock_score": 13.50984385607334,
+  "qualifying": true,
+  "p0": 1.1173899999999999,
+  "p30": 1.112415,
+  "shock_pips": -49.74999999999952
+ },
+ {
+  "event_id": "MACRO-NFP-201505",
+  "family": "NFP",
+  "t0_ns": 1433507400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.3824999999999545,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.3824999999999545,
+  "shock": {
+   "status": "OK",
+   "p0": 1.126225,
+   "p0_ts": 1433507399966000000,
+   "p30": 1.11274,
+   "p30_ts": 1433507430079000000,
+   "shock_pips": -134.84999999999968
+  },
+  "shock_score": 39.86696230598714,
+  "qualifying": true,
+  "p0": 1.126225,
+  "p30": 1.11274,
+  "shock_pips": -134.84999999999968
+ },
+ {
+  "event_id": "MACRO-CPI-201505",
+  "family": "CPI",
+  "t0_ns": 1434630600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.1824999999998655,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.1824999999998655,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1393849999999999,
+   "p0_ts": 1434630599924000000,
+   "p30": 1.1421000000000001,
+   "p30_ts": 1434630630042000000,
+   "shock_pips": 27.15000000000245
+  },
+  "shock_score": 8.531029065201444,
+  "qualifying": true,
+  "p0": 1.1393849999999999,
+  "p30": 1.1421000000000001,
+  "shock_pips": 27.15000000000245
+ },
+ {
+  "event_id": "MACRO-NFP-201506",
+  "family": "NFP",
+  "t0_ns": 1435840200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.6824999999995875,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.6824999999995875,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1051,
+   "p0_ts": 1435840199719000000,
+   "p30": 1.110215,
+   "p30_ts": 1435840230069000000,
+   "shock_pips": 51.14999999999981
+  },
+  "shock_score": 19.068033550795032,
+  "qualifying": true,
+  "p0": 1.1051,
+  "p30": 1.110215,
+  "shock_pips": 51.14999999999981
+ },
+ {
+  "event_id": "MACRO-CPI-201506",
+  "family": "CPI",
+  "t0_ns": 1437136200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.5500000000011624,
+   "median_spread_pips": 0.40000000000040004,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.5500000000011624,
+  "shock": {
+   "status": "OK",
+   "p0": 1.08865,
+   "p0_ts": 1437136199827000000,
+   "p30": 1.08825,
+   "p30_ts": 1437136230131000000,
+   "shock_pips": -3.9999999999995595
+  },
+  "shock_score": 1.5686274509795044,
+  "qualifying": false,
+  "p0": 1.08865,
+  "p30": 1.08825,
+  "shock_pips": -3.9999999999995595
+ },
+ {
+  "event_id": "MACRO-NFP-201507",
+  "family": "NFP",
+  "t0_ns": 1438950600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.0050000000008112,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.0050000000008112,
+  "shock": {
+   "status": "OK",
+   "p0": 1.0952350000000002,
+   "p0_ts": 1438950599745000000,
+   "p30": 1.091355,
+   "p30_ts": 1438950630089000000,
+   "shock_pips": -38.800000000001056
+  },
+  "shock_score": 19.35162094762362,
+  "qualifying": true,
+  "p0": 1.0952350000000002,
+  "p30": 1.091355,
+  "shock_pips": -38.800000000001056
+ },
+ {
+  "event_id": "MACRO-CPI-201507",
+  "family": "CPI",
+  "t0_ns": 1439987400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.8050000000007225,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.8050000000007225,
+  "shock": {
+   "status": "OK",
+   "p0": 1.104425,
+   "p0_ts": 1439987399541000000,
+   "p30": 1.105675,
+   "p30_ts": 1439987430518000000,
+   "shock_pips": 12.499999999999734
+  },
+  "shock_score": 6.925207756229767,
+  "qualifying": true,
+  "p0": 1.104425,
+  "p30": 1.105675,
+  "shock_pips": 12.499999999999734
+ },
+ {
+  "event_id": "MACRO-NFP-201508",
+  "family": "NFP",
+  "t0_ns": 1441369800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "C": {
+    "status": "NO_BREAKOUT"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.927500000000194,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.927500000000194,
+  "shock": {
+   "status": "OK",
+   "p0": 1.11523,
+   "p0_ts": 1441369798719000000,
+   "p30": 1.11334,
+   "p30_ts": 1441369830216000000,
+   "shock_pips": -18.899999999999473
+  },
+  "shock_score": 6.456020495302552,
+  "qualifying": true,
+  "p0": 1.11523,
+  "p30": 1.11334,
+  "shock_pips": -18.899999999999473
+ },
+ {
+  "event_id": "MACRO-CPI-201508",
+  "family": "CPI",
+  "t0_ns": 1442406600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.1500000000007624,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.1500000000007624,
+  "shock": {
+   "status": "OK",
+   "p0": 1.12366,
+   "p0_ts": 1442406599867000000,
+   "p30": 1.1237849999999998,
+   "p30_ts": 1442406630027000000,
+   "shock_pips": 1.2499999999970868
+  },
+  "shock_score": 0.5813953488356481,
+  "qualifying": false,
+  "p0": 1.12366,
+  "p30": 1.1237849999999998,
+  "shock_pips": 1.2499999999970868
+ },
+ {
+  "event_id": "MACRO-NFP-201509",
+  "family": "NFP",
+  "t0_ns": 1443789000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.0550000000001396,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.0550000000001396,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1155650000000001,
+   "p0_ts": 1443788999816000000,
+   "p30": 1.12391,
+   "p30_ts": 1443789030138000000,
+   "shock_pips": 83.44999999999824
+  },
+  "shock_score": 40.60827250607911,
+  "qualifying": true,
+  "p0": 1.1155650000000001,
+  "p30": 1.12391,
+  "shock_pips": 83.44999999999824
+ },
+ {
+  "event_id": "MACRO-CPI-201509",
+  "family": "CPI",
+  "t0_ns": 1444912200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.5274999999987946,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.5274999999987946,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1444299999999998,
+   "p0_ts": 1444912199831000000,
+   "p30": 1.142065,
+   "p30_ts": 1444912230037000000,
+   "shock_pips": -23.649999999997284
+  },
+  "shock_score": 9.357072205740282,
+  "qualifying": true,
+  "p0": 1.1444299999999998,
+  "p30": 1.142065,
+  "shock_pips": -23.649999999997284
+ },
+ {
+  "event_id": "MACRO-NFP-201510",
+  "family": "NFP",
+  "t0_ns": 1446816600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "NO_BREAKOUT"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.5550000000009727,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.5550000000009727,
+  "shock": {
+   "status": "OK",
+   "p0": 1.08414,
+   "p0_ts": 1446816599833000000,
+   "p30": 1.0719349999999999,
+   "p30_ts": 1446816630056000000,
+   "shock_pips": -122.05000000000243
+  },
+  "shock_score": 47.76908023481642,
+  "qualifying": true,
+  "p0": 1.08414,
+  "p30": 1.0719349999999999,
+  "shock_pips": -122.05000000000243
+ },
+ {
+  "event_id": "MACRO-CPI-201510",
+  "family": "CPI",
+  "t0_ns": 1447767000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.9500000000006734,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.9500000000006734,
+  "shock": {
+   "status": "OK",
+   "p0": 1.067085,
+   "p0_ts": 1447766999021000000,
+   "p30": 1.0659550000000002,
+   "p30_ts": 1447767030291000000,
+   "shock_pips": -11.299999999998533
+  },
+  "shock_score": 5.794871794869041,
+  "qualifying": true,
+  "p0": 1.067085,
+  "p30": 1.0659550000000002,
+  "shock_pips": -11.299999999998533
+ },
+ {
+  "event_id": "MACRO-NFP-201511",
+  "family": "NFP",
+  "t0_ns": 1449235800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.049999999999997,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.049999999999997,
+  "shock": {
+   "status": "OK",
+   "p0": 1.092665,
+   "p0_ts": 1449235799952000000,
+   "p30": 1.08685,
+   "p30_ts": 1449235830248000000,
+   "shock_pips": -58.14999999999903
+  },
+  "shock_score": 19.065573770491504,
+  "qualifying": true,
+  "p0": 1.092665,
+  "p30": 1.08685,
+  "shock_pips": -58.14999999999903
+ },
+ {
+  "event_id": "MACRO-CPI-201511",
+  "family": "CPI",
+  "t0_ns": 1450186200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.2375000000000034,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.2375000000000034,
+  "shock": {
+   "status": "OK",
+   "p0": 1.09923,
+   "p0_ts": 1450186199115000000,
+   "p30": 1.0987200000000001,
+   "p30_ts": 1450186230160000000,
+   "shock_pips": -5.099999999997884
+  },
+  "shock_score": 1.57528957528892,
+  "qualifying": false,
+  "p0": 1.09923,
+  "p30": 1.0987200000000001,
+  "shock_pips": -5.099999999997884
+ },
+ {
+  "event_id": "MACRO-NFP-201512",
+  "family": "NFP",
+  "t0_ns": 1452259800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "NO_BREAKOUT"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.2600000000012606,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.2600000000012606,
+  "shock": {
+   "status": "OK",
+   "p0": 1.0863200000000002,
+   "p0_ts": 1452259799902000000,
+   "p30": 1.081395,
+   "p30_ts": 1452259830034000000,
+   "shock_pips": -49.25000000000068
+  },
+  "shock_score": 21.792035398218236,
+  "qualifying": true,
+  "p0": 1.0863200000000002,
+  "p30": 1.081395,
+  "shock_pips": -49.25000000000068
+ },
+ {
+  "event_id": "MACRO-CPI-201512",
+  "family": "CPI",
+  "t0_ns": 1453296600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.5775000000001214,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.5775000000001214,
+  "shock": {
+   "status": "OK",
+   "p0": 1.089965,
+   "p0_ts": 1453296599685000000,
+   "p30": 1.090595,
+   "p30_ts": 1453296630112000000,
+   "shock_pips": 6.299999999999084
+  },
+  "shock_score": 2.444228903976251,
+  "qualifying": true,
+  "p0": 1.089965,
+  "p30": 1.090595,
+  "shock_pips": 6.299999999999084
+ },
+ {
+  "event_id": "MACRO-NFP-201601",
+  "family": "NFP",
+  "t0_ns": 1454679000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.5924999999979983,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.5924999999979983,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1210550000000001,
+   "p0_ts": 1454678998363000000,
+   "p30": 1.1226150000000001,
+   "p30_ts": 1454679030146000000,
+   "shock_pips": 15.600000000000058
+  },
+  "shock_score": 6.017357762781911,
+  "qualifying": true,
+  "p0": 1.1210550000000001,
+  "p30": 1.1226150000000001,
+  "shock_pips": 15.600000000000058
+ },
+ {
+  "event_id": "MACRO-CPI-201601",
+  "family": "CPI",
+  "t0_ns": 1455888600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.4274999999981395,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.4274999999981395,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1089799999999999,
+   "p0_ts": 1455888599992000000,
+   "p30": 1.107915,
+   "p30_ts": 1455888630208000000,
+   "shock_pips": -10.649999999998716
+  },
+  "shock_score": 4.387229660147015,
+  "qualifying": true,
+  "p0": 1.1089799999999999,
+  "p30": 1.107915,
+  "shock_pips": -10.649999999998716
+ },
+ {
+  "event_id": "MACRO-NFP-201602",
+  "family": "NFP",
+  "t0_ns": 1457098200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.227500000000271,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.227500000000271,
+  "shock": {
+   "status": "OK",
+   "p0": 1.09731,
+   "p0_ts": 1457098199812000000,
+   "p30": 1.096225,
+   "p30_ts": 1457098230139000000,
+   "shock_pips": -10.850000000000026
+  },
+  "shock_score": 4.870931537597624,
+  "qualifying": true,
+  "p0": 1.09731,
+  "p30": 1.096225,
+  "shock_pips": -10.850000000000026
+ },
+ {
+  "event_id": "MACRO-CPI-201602",
+  "family": "CPI",
+  "t0_ns": 1458131400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.8274999999996486,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.8274999999996486,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1097549999999998,
+   "p0_ts": 1458131399961000000,
+   "p30": 1.107915,
+   "p30_ts": 1458131430232000000,
+   "shock_pips": -18.399999999998418
+  },
+  "shock_score": 10.068399452805448,
+  "qualifying": true,
+  "p0": 1.1097549999999998,
+  "p30": 1.107915,
+  "shock_pips": -18.399999999998418
+ },
+ {
+  "event_id": "MACRO-NFP-201603",
+  "family": "NFP",
+  "t0_ns": 1459513800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.132500000000537,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.132500000000537,
+  "shock": {
+   "status": "OK",
+   "p0": 1.142795,
+   "p0_ts": 1459513799820000000,
+   "p30": 1.1397599999999999,
+   "p30_ts": 1459513830072000000,
+   "shock_pips": -30.35000000000121
+  },
+  "shock_score": 9.688747007181487,
+  "qualifying": true,
+  "p0": 1.142795,
+  "p30": 1.1397599999999999,
+  "shock_pips": -30.35000000000121
+ },
+ {
+  "event_id": "MACRO-CPI-201603",
+  "family": "CPI",
+  "t0_ns": 1460637000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.204999999999901,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.204999999999901,
+  "shock": {
+   "status": "OK",
+   "p0": 1.125435,
+   "p0_ts": 1460636999967000000,
+   "p30": 1.12737,
+   "p30_ts": 1460637030010000000,
+   "shock_pips": 19.3500000000002
+  },
+  "shock_score": 8.775510204082117,
+  "qualifying": true,
+  "p0": 1.125435,
+  "p30": 1.12737,
+  "shock_pips": 19.3500000000002
+ },
+ {
+  "event_id": "MACRO-NFP-201604",
+  "family": "NFP",
+  "t0_ns": 1462537800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.4649999999993835,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.4649999999993835,
+  "shock": {
+   "status": "OK",
+   "p0": 1.143575,
+   "p0_ts": 1462537799997000000,
+   "p30": 1.14695,
+   "p30_ts": 1462537830027000000,
+   "shock_pips": 33.749999999999055
+  },
+  "shock_score": 13.691683569982757,
+  "qualifying": true,
+  "p0": 1.143575,
+  "p30": 1.14695,
+  "shock_pips": 33.749999999999055
+ },
+ {
+  "event_id": "MACRO-CPI-201604",
+  "family": "CPI",
+  "t0_ns": 1463488200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "NO_BREAKOUT"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.449999999998397,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.449999999998397,
+  "shock": {
+   "status": "OK",
+   "p0": 1.13172,
+   "p0_ts": 1463488199614000000,
+   "p30": 1.130385,
+   "p30_ts": 1463488230038000000,
+   "shock_pips": -13.350000000000861
+  },
+  "shock_score": 9.20689655173491,
+  "qualifying": true,
+  "p0": 1.13172,
+  "p30": 1.130385,
+  "shock_pips": -13.350000000000861
+ },
+ {
+  "event_id": "MACRO-NFP-201605",
+  "family": "NFP",
+  "t0_ns": 1464957000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.40000000000029,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.40000000000029,
+  "shock": {
+   "status": "OK",
+   "p0": 1.11584,
+   "p0_ts": 1464956999921000000,
+   "p30": 1.12074,
+   "p30_ts": 1464957030057000000,
+   "shock_pips": 49.000000000001265
+  },
+  "shock_score": 34.999999999993655,
+  "qualifying": true,
+  "p0": 1.11584,
+  "p30": 1.12074,
+  "shock_pips": 49.000000000001265
+ },
+ {
+  "event_id": "MACRO-CPI-201605",
+  "family": "CPI",
+  "t0_ns": 1466080200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.432499999999171,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.432499999999171,
+  "shock": {
+   "status": "OK",
+   "p0": 1.117765,
+   "p0_ts": 1466080199720000000,
+   "p30": 1.11754,
+   "p30_ts": 1466080230152000000,
+   "shock_pips": -2.249999999999197
+  },
+  "shock_score": 0.9249743062692555,
+  "qualifying": false,
+  "p0": 1.117765,
+  "p30": 1.11754,
+  "shock_pips": -2.249999999999197
+ },
+ {
+  "event_id": "MACRO-NFP-201606",
+  "family": "NFP",
+  "t0_ns": 1467981000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "NO_BREAKOUT"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.2000000000000908,
+   "median_spread_pips": 0.10000000000065512,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.2000000000000908,
+  "shock": {
+   "status": "OK",
+   "p0": 1.10732,
+   "p0_ts": 1467980999690000000,
+   "p30": 1.10083,
+   "p30_ts": 1467981030049000000,
+   "shock_pips": -64.90000000000107
+  },
+  "shock_score": 29.499999999999268,
+  "qualifying": true,
+  "p0": 1.10732,
+  "p30": 1.10083,
+  "shock_pips": -64.90000000000107
+ },
+ {
+  "event_id": "MACRO-CPI-201606",
+  "family": "CPI",
+  "t0_ns": 1468585800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "NO_BREAKOUT"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.20000000000109,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.20000000000109,
+  "shock": {
+   "status": "OK",
+   "p0": 1.113385,
+   "p0_ts": 1468585799764000000,
+   "p30": 1.111415,
+   "p30_ts": 1468585830155000000,
+   "shock_pips": -19.700000000000273
+  },
+  "shock_score": 8.954545454541142,
+  "qualifying": true,
+  "p0": 1.113385,
+  "p30": 1.111415,
+  "shock_pips": -19.700000000000273
+ },
+ {
+  "event_id": "MACRO-NFP-201607",
+  "family": "NFP",
+  "t0_ns": 1470400200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.8875000000000413,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.8875000000000413,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1149499999999999,
+   "p0_ts": 1470400199951000000,
+   "p30": 1.1108449999999999,
+   "p30_ts": 1470400230047000000,
+   "shock_pips": -41.05000000000025
+  },
+  "shock_score": 21.748344370860586,
+  "qualifying": true,
+  "p0": 1.1149499999999999,
+  "p30": 1.1108449999999999,
+  "shock_pips": -41.05000000000025
+ },
+ {
+  "event_id": "MACRO-CPI-201607",
+  "family": "CPI",
+  "t0_ns": 1471350600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.477499999998577,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.477499999998577,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1295700000000002,
+   "p0_ts": 1471350599745000000,
+   "p30": 1.13154,
+   "p30_ts": 1471350630048000000,
+   "shock_pips": 19.699999999998052
+  },
+  "shock_score": 13.333333333344857,
+  "qualifying": true,
+  "p0": 1.1295700000000002,
+  "p30": 1.13154,
+  "shock_pips": 19.699999999998052
+ },
+ {
+  "event_id": "MACRO-NFP-201608",
+  "family": "NFP",
+  "t0_ns": 1472819400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "SPREAD_TOO_WIDE"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.6549999999997398,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.6549999999997398,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1174300000000001,
+   "p0_ts": 1472819399991000000,
+   "p30": 1.1243699999999999,
+   "p30_ts": 1472819430086000000,
+   "shock_pips": 69.39999999999723
+  },
+  "shock_score": 41.93353474320734,
+  "qualifying": true,
+  "p0": 1.1174300000000001,
+  "p30": 1.1243699999999999,
+  "shock_pips": 69.39999999999723
+ },
+ {
+  "event_id": "MACRO-CPI-201608",
+  "family": "CPI",
+  "t0_ns": 1474029000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.500000000000945,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.500000000000945,
+  "shock": {
+   "status": "OK",
+   "p0": 1.122415,
+   "p0_ts": 1474028999919000000,
+   "p30": 1.120075,
+   "p30_ts": 1474029030001000000,
+   "shock_pips": -23.400000000000087
+  },
+  "shock_score": 15.59999999999023,
+  "qualifying": true,
+  "p0": 1.122415,
+  "p30": 1.120075,
+  "shock_pips": -23.400000000000087
+ },
+ {
+  "event_id": "MACRO-NFP-201609",
+  "family": "NFP",
+  "t0_ns": 1475843400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.2999999999995246,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.2999999999995246,
+  "shock": {
+   "status": "OK",
+   "p0": 1.113815,
+   "p0_ts": 1475843399656000000,
+   "p30": 1.1168049999999998,
+   "p30_ts": 1475843430030000000,
+   "shock_pips": 29.89999999999826
+  },
+  "shock_score": 13.000000000001931,
+  "qualifying": true,
+  "p0": 1.113815,
+  "p30": 1.1168049999999998,
+  "shock_pips": 29.89999999999826
+ },
+ {
+  "event_id": "MACRO-CPI-201609",
+  "family": "CPI",
+  "t0_ns": 1476793800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.4274999999992486,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.4274999999992486,
+  "shock": {
+   "status": "OK",
+   "p0": 1.099545,
+   "p0_ts": 1476793799928000000,
+   "p30": 1.100375,
+   "p30_ts": 1476793830013000000,
+   "shock_pips": 8.300000000001084
+  },
+  "shock_score": 5.814360770581754,
+  "qualifying": true,
+  "p0": 1.099545,
+  "p30": 1.100375,
+  "shock_pips": 8.300000000001084
+ },
+ {
+  "event_id": "MACRO-NFP-201610",
+  "family": "NFP",
+  "t0_ns": 1478262600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.9999999999997797,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.9999999999997797,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1101100000000002,
+   "p0_ts": 1478262599569000000,
+   "p30": 1.10951,
+   "p30_ts": 1478262630265000000,
+   "shock_pips": -6.00000000000156
+  },
+  "shock_score": 3.0000000000011102,
+  "qualifying": true,
+  "p0": 1.1101100000000002,
+  "p30": 1.10951,
+  "shock_pips": -6.00000000000156
+ },
+ {
+  "event_id": "MACRO-CPI-201610",
+  "family": "CPI",
+  "t0_ns": 1479389400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.3274999999994845,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 4.3274999999994845,
+  "shock": {
+   "status": "OK",
+   "p0": 1.07196,
+   "p0_ts": 1479389399306000000,
+   "p30": 1.071765,
+   "p30_ts": 1479389430037000000,
+   "shock_pips": -1.9499999999994522
+  },
+  "shock_score": 0.4506065857884886,
+  "qualifying": false,
+  "p0": 1.07196,
+  "p30": 1.071765,
+  "shock_pips": -1.9499999999994522
+ },
+ {
+  "event_id": "MACRO-NFP-201611",
+  "family": "NFP",
+  "t0_ns": 1480685400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.100000000000435,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.100000000000435,
+  "shock": {
+   "status": "OK",
+   "p0": 1.064405,
+   "p0_ts": 1480685399987000000,
+   "p30": 1.066085,
+   "p30_ts": 1480685430219000000,
+   "shock_pips": 16.799999999999038
+  },
+  "shock_score": 7.999999999997885,
+  "qualifying": true,
+  "p0": 1.064405,
+  "p30": 1.066085,
+  "shock_pips": 16.799999999999038
+ },
+ {
+  "event_id": "MACRO-CPI-201611",
+  "family": "CPI",
+  "t0_ns": 1481808600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.077500000000067,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 4.077500000000067,
+  "shock": {
+   "status": "OK",
+   "p0": 1.04217,
+   "p0_ts": 1481808599739000000,
+   "p30": 1.04188,
+   "p30_ts": 1481808630448000000,
+   "shock_pips": -2.900000000001235
+  },
+  "shock_score": 0.7112201103620324,
+  "qualifying": false,
+  "p0": 1.04217,
+  "p30": 1.04188,
+  "shock_pips": -2.900000000001235
+ },
+ {
+  "event_id": "MACRO-NFP-201612",
+  "family": "NFP",
+  "t0_ns": 1483709400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.9274999999991946,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.9274999999991946,
+  "shock": {
+   "status": "OK",
+   "p0": 1.0589149999999998,
+   "p0_ts": 1483709399764000000,
+   "p30": 1.057995,
+   "p30_ts": 1483709430035000000,
+   "shock_pips": -9.199999999998099
+  },
+  "shock_score": 3.1426131511530757,
+  "qualifying": true,
+  "p0": 1.0589149999999998,
+  "p30": 1.057995,
+  "shock_pips": -9.199999999998099
+ },
+ {
+  "event_id": "MACRO-CPI-201612",
+  "family": "CPI",
+  "t0_ns": 1484746200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.6775000000009985,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.6775000000009985,
+  "shock": {
+   "status": "OK",
+   "p0": 1.06632,
+   "p0_ts": 1484746199867000000,
+   "p30": 1.0657800000000002,
+   "p30_ts": 1484746230191000000,
+   "shock_pips": -5.399999999997629
+  },
+  "shock_score": 2.0168067226874378,
+  "qualifying": true,
+  "p0": 1.06632,
+  "p30": 1.0657800000000002,
+  "shock_pips": -5.399999999997629
+ },
+ {
+  "event_id": "MACRO-NFP-201701",
+  "family": "NFP",
+  "t0_ns": 1486128600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "NO_BREAKOUT"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.0524999999999,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.0524999999999,
+  "shock": {
+   "status": "OK",
+   "p0": 1.0735899999999998,
+   "p0_ts": 1486128598822000000,
+   "p30": 1.0746950000000002,
+   "p30_ts": 1486128630047000000,
+   "shock_pips": 11.050000000003557
+  },
+  "shock_score": 5.383678440927696,
+  "qualifying": true,
+  "p0": 1.0735899999999998,
+  "p30": 1.0746950000000002,
+  "shock_pips": 11.050000000003557
+ },
+ {
+  "event_id": "MACRO-CPI-201701",
+  "family": "CPI",
+  "t0_ns": 1487165400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.7275000000002148,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.7275000000002148,
+  "shock": {
+   "status": "OK",
+   "p0": 1.055395,
+   "p0_ts": 1487165399900000000,
+   "p30": 1.053665,
+   "p30_ts": 1487165430251000000,
+   "shock_pips": -17.300000000000093
+  },
+  "shock_score": 10.014471780027753,
+  "qualifying": true,
+  "p0": 1.055395,
+  "p30": 1.053665,
+  "shock_pips": -17.300000000000093
+ },
+ {
+  "event_id": "MACRO-NFP-201702",
+  "family": "NFP",
+  "t0_ns": 1489152600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.9050000000003784,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.9050000000003784,
+  "shock": {
+   "status": "OK",
+   "p0": 1.0602800000000001,
+   "p0_ts": 1489152599900000000,
+   "p30": 1.0613100000000002,
+   "p30_ts": 1489152630014000000,
+   "shock_pips": 10.300000000000864
+  },
+  "shock_score": 5.406824146981007,
+  "qualifying": true,
+  "p0": 1.0602800000000001,
+  "p30": 1.0613100000000002,
+  "shock_pips": 10.300000000000864
+ },
+ {
+  "event_id": "MACRO-CPI-201702",
+  "family": "CPI",
+  "t0_ns": 1489581000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.3775000000011415,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.3775000000011415,
+  "shock": {
+   "status": "OK",
+   "p0": 1.062975,
+   "p0_ts": 1489580998954000000,
+   "p30": 1.0622699999999998,
+   "p30_ts": 1489581030398000000,
+   "shock_pips": -7.050000000001777
+  },
+  "shock_score": 5.117967332120461,
+  "qualifying": true,
+  "p0": 1.062975,
+  "p30": 1.0622699999999998,
+  "shock_pips": -7.050000000001777
+ },
+ {
+  "event_id": "MACRO-NFP-201703",
+  "family": "NFP",
+  "t0_ns": 1491568200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.1274999999993938,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.1274999999993938,
+  "shock": {
+   "status": "OK",
+   "p0": 1.06346,
+   "p0_ts": 1491568199969000000,
+   "p30": 1.0648849999999999,
+   "p30_ts": 1491568230145000000,
+   "shock_pips": 14.249999999997875
+  },
+  "shock_score": 6.698002350177173,
+  "qualifying": true,
+  "p0": 1.06346,
+  "p30": 1.0648849999999999,
+  "shock_pips": 14.249999999997875
+ },
+ {
+  "event_id": "MACRO-CPI-201703",
+  "family": "CPI",
+  "t0_ns": 1492173000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 0.9499999999995623,
+   "median_spread_pips": 0.7999999999985796,
+   "n_buckets": 104
+  },
+  "noise_scale_pips": 0.9499999999995623,
+  "shock": {
+   "status": "OK",
+   "p0": 1.06147,
+   "p0_ts": 1492172999563000000,
+   "p30": 1.06197,
+   "p30_ts": 1492173030091000000,
+   "shock_pips": 5.00000000000167
+  },
+  "shock_score": 5.263157894741025,
+  "qualifying": true,
+  "p0": 1.06147,
+  "p30": 1.06197,
+  "shock_pips": 5.00000000000167
+ },
+ {
+  "event_id": "MACRO-NFP-201704",
+  "family": "NFP",
+  "t0_ns": 1493987400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.5550000000000839,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.5550000000000839,
+  "shock": {
+   "status": "OK",
+   "p0": 1.09618,
+   "p0_ts": 1493987399906000000,
+   "p30": 1.095785,
+   "p30_ts": 1493987430236000000,
+   "shock_pips": -3.949999999999232
+  },
+  "shock_score": 2.540192926044385,
+  "qualifying": true,
+  "p0": 1.09618,
+  "p30": 1.095785,
+  "shock_pips": -3.949999999999232
+ },
+ {
+  "event_id": "MACRO-CPI-201704",
+  "family": "CPI",
+  "t0_ns": 1494592200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.2099999999990445,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.2099999999990445,
+  "shock": {
+   "status": "OK",
+   "p0": 1.0872549999999999,
+   "p0_ts": 1494592199871000000,
+   "p30": 1.0882049999999999,
+   "p30_ts": 1494592230355000000,
+   "shock_pips": 9.500000000000064
+  },
+  "shock_score": 7.85123966942774,
+  "qualifying": true,
+  "p0": 1.0872549999999999,
+  "p30": 1.0882049999999999,
+  "shock_pips": 9.500000000000064
+ },
+ {
+  "event_id": "MACRO-NFP-201705",
+  "family": "NFP",
+  "t0_ns": 1496406600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.9274999999990825,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.9274999999990825,
+  "shock": {
+   "status": "OK",
+   "p0": 1.121665,
+   "p0_ts": 1496406599546000000,
+   "p30": 1.1237300000000001,
+   "p30_ts": 1496406630231000000,
+   "shock_pips": 20.650000000002056
+  },
+  "shock_score": 10.713359273676724,
+  "qualifying": true,
+  "p0": 1.121665,
+  "p30": 1.1237300000000001,
+  "shock_pips": 20.650000000002056
+ },
+ {
+  "event_id": "MACRO-CPI-201705",
+  "family": "CPI",
+  "t0_ns": 1497443400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.027500000001069,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.027500000001069,
+  "shock": {
+   "status": "OK",
+   "p0": 1.12039,
+   "p0_ts": 1497443399915000000,
+   "p30": 1.122955,
+   "p30_ts": 1497443430023000000,
+   "shock_pips": 25.649999999999284
+  },
+  "shock_score": 24.96350364960837,
+  "qualifying": true,
+  "p0": 1.12039,
+  "p30": 1.122955,
+  "shock_pips": 25.649999999999284
+ },
+ {
+  "event_id": "MACRO-NFP-201706",
+  "family": "NFP",
+  "t0_ns": 1499430600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.955000000000706,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.955000000000706,
+  "shock": {
+   "status": "OK",
+   "p0": 1.14114,
+   "p0_ts": 1499430599488000000,
+   "p30": 1.14144,
+   "p30_ts": 1499430630312000000,
+   "shock_pips": 2.9999999999996696
+  },
+  "shock_score": 1.5345268542192256,
+  "qualifying": false,
+  "p0": 1.14114,
+  "p30": 1.14144,
+  "shock_pips": 2.9999999999996696
+ },
+ {
+  "event_id": "MACRO-CPI-201706",
+  "family": "CPI",
+  "t0_ns": 1500035400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.5274999999999037,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.5274999999999037,
+  "shock": {
+   "status": "OK",
+   "p0": 1.14153,
+   "p0_ts": 1500035399932000000,
+   "p30": 1.14394,
+   "p30_ts": 1500035430238000000,
+   "shock_pips": 24.100000000000232
+  },
+  "shock_score": 15.777414075287563,
+  "qualifying": true,
+  "p0": 1.14153,
+  "p30": 1.14394,
+  "shock_pips": 24.100000000000232
+ },
+ {
+  "event_id": "MACRO-NFP-201707",
+  "family": "NFP",
+  "t0_ns": 1501849800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "NO_BREAKOUT"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.6275000000005588,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.6275000000005588,
+  "shock": {
+   "status": "OK",
+   "p0": 1.18683,
+   "p0_ts": 1501849799823000000,
+   "p30": 1.18411,
+   "p30_ts": 1501849830259000000,
+   "shock_pips": -27.200000000000557
+  },
+  "shock_score": 16.712749615970026,
+  "qualifying": true,
+  "p0": 1.18683,
+  "p30": 1.18411,
+  "shock_pips": -27.200000000000557
+ },
+ {
+  "event_id": "MACRO-CPI-201707",
+  "family": "CPI",
+  "t0_ns": 1502454600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.8650000000001157,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.8650000000001157,
+  "shock": {
+   "status": "OK",
+   "p0": 1.17672,
+   "p0_ts": 1502454599903000000,
+   "p30": 1.179675,
+   "p30_ts": 1502454630142000000,
+   "shock_pips": 29.55000000000041
+  },
+  "shock_score": 15.844504021446959,
+  "qualifying": true,
+  "p0": 1.17672,
+  "p30": 1.179675,
+  "shock_pips": 29.55000000000041
+ },
+ {
+  "event_id": "MACRO-NFP-201708",
+  "family": "NFP",
+  "t0_ns": 1504269000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "SPREAD_TOO_WIDE"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.400000000001401,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.400000000001401,
+  "shock": {
+   "status": "OK",
+   "p0": 1.191615,
+   "p0_ts": 1504268999612000000,
+   "p30": 1.1962000000000002,
+   "p30_ts": 1504269030175000000,
+   "shock_pips": 45.85000000000061
+  },
+  "shock_score": 19.104166666655768,
+  "qualifying": true,
+  "p0": 1.191615,
+  "p30": 1.1962000000000002,
+  "shock_pips": 45.85000000000061
+ },
+ {
+  "event_id": "MACRO-CPI-201708",
+  "family": "CPI",
+  "t0_ns": 1505392200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.977499999998301,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.977499999998301,
+  "shock": {
+   "status": "OK",
+   "p0": 1.18943,
+   "p0_ts": 1505392199848000000,
+   "p30": 1.1853799999999999,
+   "p30_ts": 1505392230258000000,
+   "shock_pips": -40.50000000000109
+  },
+  "shock_score": 13.602015113358252,
+  "qualifying": true,
+  "p0": 1.18943,
+  "p30": 1.1853799999999999,
+  "shock_pips": -40.50000000000109
+ },
+ {
+  "event_id": "MACRO-NFP-201709",
+  "family": "NFP",
+  "t0_ns": 1507293000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.1999999999989797,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.1999999999989797,
+  "shock": {
+   "status": "OK",
+   "p0": 1.169915,
+   "p0_ts": 1507292999990000000,
+   "p30": 1.168685,
+   "p30_ts": 1507293030001000000,
+   "shock_pips": -12.300000000000644
+  },
+  "shock_score": 10.250000000009251,
+  "qualifying": true,
+  "p0": 1.169915,
+  "p30": 1.168685,
+  "shock_pips": -12.300000000000644
+ },
+ {
+  "event_id": "MACRO-CPI-201709",
+  "family": "CPI",
+  "t0_ns": 1507897800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.9500000000006734,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.9500000000006734,
+  "shock": {
+   "status": "OK",
+   "p0": 1.180815,
+   "p0_ts": 1507897799963000000,
+   "p30": 1.18398,
+   "p30_ts": 1507897830215000000,
+   "shock_pips": 31.650000000000844
+  },
+  "shock_score": 16.230769230764057,
+  "qualifying": true,
+  "p0": 1.180815,
+  "p30": 1.18398,
+  "shock_pips": 31.650000000000844
+ },
+ {
+  "event_id": "MACRO-NFP-201710",
+  "family": "NFP",
+  "t0_ns": 1509712200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.3500000000021828,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.3500000000021828,
+  "shock": {
+   "status": "OK",
+   "p0": 1.165895,
+   "p0_ts": 1509712199991000000,
+   "p30": 1.1677499999999998,
+   "p30_ts": 1509712230412000000,
+   "shock_pips": 18.5499999999994
+  },
+  "shock_score": 13.74074074071808,
+  "qualifying": true,
+  "p0": 1.165895,
+  "p30": 1.1677499999999998,
+  "shock_pips": 18.5499999999994
+ },
+ {
+  "event_id": "MACRO-CPI-201710",
+  "family": "CPI",
+  "t0_ns": 1510752600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.1550000000007947,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.1550000000007947,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1837900000000001,
+   "p0_ts": 1510752599619000000,
+   "p30": 1.1833749999999998,
+   "p30_ts": 1510752630109000000,
+   "shock_pips": -4.150000000002763
+  },
+  "shock_score": 1.9257540603253978,
+  "qualifying": false,
+  "p0": 1.1837900000000001,
+  "p30": 1.1833749999999998,
+  "shock_pips": -4.150000000002763
+ },
+ {
+  "event_id": "MACRO-NFP-201711",
+  "family": "NFP",
+  "t0_ns": 1512739800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.45500000000065,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.45500000000065,
+  "shock": {
+   "status": "OK",
+   "p0": 1.17398,
+   "p0_ts": 1512739799236000000,
+   "p30": 1.175115,
+   "p30_ts": 1512739830067000000,
+   "shock_pips": 11.349999999998861
+  },
+  "shock_score": 7.8006872852191,
+  "qualifying": true,
+  "p0": 1.17398,
+  "p30": 1.175115,
+  "shock_pips": 11.349999999998861
+ },
+ {
+  "event_id": "MACRO-CPI-201711",
+  "family": "CPI",
+  "t0_ns": 1513171800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.4500000000008395,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.4500000000008395,
+  "shock": {
+   "status": "OK",
+   "p0": 1.173575,
+   "p0_ts": 1513171799934000000,
+   "p30": 1.175125,
+   "p30_ts": 1513171830084000000,
+   "shock_pips": 15.499999999999403
+  },
+  "shock_score": 10.689655172407193,
+  "qualifying": true,
+  "p0": 1.173575,
+  "p30": 1.175125,
+  "shock_pips": 15.499999999999403
+ },
+ {
+  "event_id": "MACRO-NFP-201712",
+  "family": "NFP",
+  "t0_ns": 1515159000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.3500000000011836,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.3500000000011836,
+  "shock": {
+   "status": "OK",
+   "p0": 1.20513,
+   "p0_ts": 1515158999952000000,
+   "p30": 1.20778,
+   "p30_ts": 1515159030361000000,
+   "shock_pips": 26.500000000000412
+  },
+  "shock_score": 19.629629629612726,
+  "qualifying": true,
+  "p0": 1.20513,
+  "p30": 1.20778,
+  "shock_pips": 26.500000000000412
+ },
+ {
+  "event_id": "MACRO-CPI-201712",
+  "family": "CPI",
+  "t0_ns": 1515763800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.0050000000020325,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.0050000000020325,
+  "shock": {
+   "status": "OK",
+   "p0": 1.2140650000000002,
+   "p0_ts": 1515763799790000000,
+   "p30": 1.2136049999999998,
+   "p30_ts": 1515763830508000000,
+   "shock_pips": -4.60000000000349
+  },
+  "shock_score": 2.294264339151535,
+  "qualifying": true,
+  "p0": 1.2140650000000002,
+  "p30": 1.2136049999999998,
+  "shock_pips": -4.60000000000349
+ },
+ {
+  "event_id": "MACRO-NFP-201801",
+  "family": "NFP",
+  "t0_ns": 1517578200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.8274999999986494,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.8274999999986494,
+  "shock": {
+   "status": "OK",
+   "p0": 1.2492,
+   "p0_ts": 1517578199968000000,
+   "p30": 1.24702,
+   "p30_ts": 1517578230068000000,
+   "shock_pips": -21.800000000000708
+  },
+  "shock_score": 11.928864569092651,
+  "qualifying": true,
+  "p0": 1.2492,
+  "p30": 1.24702,
+  "shock_pips": -21.800000000000708
+ },
+ {
+  "event_id": "MACRO-CPI-201801",
+  "family": "CPI",
+  "t0_ns": 1518615000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.4274999999981395,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.4274999999981395,
+  "shock": {
+   "status": "OK",
+   "p0": 1.234725,
+   "p0_ts": 1518614999793000000,
+   "p30": 1.231405,
+   "p30_ts": 1518615030031000000,
+   "shock_pips": -33.199999999999896
+  },
+  "shock_score": 13.676622039145352,
+  "qualifying": true,
+  "p0": 1.234725,
+  "p30": 1.231405,
+  "shock_pips": -33.199999999999896
+ },
+ {
+  "event_id": "MACRO-NFP-201802",
+  "family": "NFP",
+  "t0_ns": 1520602200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.1775000000019418,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.1775000000019418,
+  "shock": {
+   "status": "OK",
+   "p0": 1.228575,
+   "p0_ts": 1520602199912000000,
+   "p30": 1.22807,
+   "p30_ts": 1520602230104000000,
+   "shock_pips": -5.049999999999777
+  },
+  "shock_score": 2.319173363947313,
+  "qualifying": true,
+  "p0": 1.228575,
+  "p30": 1.22807,
+  "shock_pips": -5.049999999999777
+ },
+ {
+  "event_id": "MACRO-CPI-201802",
+  "family": "CPI",
+  "t0_ns": 1520944200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.955000000000484,
+   "median_spread_pips": 0.20000000000131024,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.955000000000484,
+  "shock": {
+   "status": "OK",
+   "p0": 1.2341000000000002,
+   "p0_ts": 1520944199559000000,
+   "p30": 1.233325,
+   "p30_ts": 1520944230264000000,
+   "shock_pips": -7.750000000001922
+  },
+  "shock_score": 3.9641943734015364,
+  "qualifying": true,
+  "p0": 1.2341000000000002,
+  "p30": 1.233325,
+  "shock_pips": -7.750000000001922
+ },
+ {
+  "event_id": "MACRO-NFP-201803",
+  "family": "NFP",
+  "t0_ns": 1523017800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.9549999999994847,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.9549999999994847,
+  "shock": {
+   "status": "OK",
+   "p0": 1.223095,
+   "p0_ts": 1523017799941000000,
+   "p30": 1.2248450000000002,
+   "p30_ts": 1523017830062000000,
+   "shock_pips": 17.500000000001403
+  },
+  "shock_score": 8.951406649619445,
+  "qualifying": true,
+  "p0": 1.223095,
+  "p30": 1.2248450000000002,
+  "shock_pips": 17.500000000001403
+ },
+ {
+  "event_id": "MACRO-CPI-201803",
+  "family": "CPI",
+  "t0_ns": 1523449800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.2475000000001786,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.2475000000001786,
+  "shock": {
+   "status": "OK",
+   "p0": 1.2386300000000001,
+   "p0_ts": 1523449799863000000,
+   "p30": 1.238765,
+   "p30_ts": 1523449830210000000,
+   "shock_pips": 1.349999999997742
+  },
+  "shock_score": 0.6006674082303157,
+  "qualifying": false,
+  "p0": 1.2386300000000001,
+  "p30": 1.238765,
+  "shock_pips": 1.349999999997742
+ },
+ {
+  "event_id": "MACRO-NFP-201804",
+  "family": "NFP",
+  "t0_ns": 1525437000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.005000000000034,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.005000000000034,
+  "shock": {
+   "status": "OK",
+   "p0": 1.19641,
+   "p0_ts": 1525436999761000000,
+   "p30": 1.19801,
+   "p30_ts": 1525437030257000000,
+   "shock_pips": 16.00000000000046
+  },
+  "shock_score": 7.980049875311813,
+  "qualifying": true,
+  "p0": 1.19641,
+  "p30": 1.19801,
+  "shock_pips": 16.00000000000046
+ },
+ {
+  "event_id": "MACRO-CPI-201804",
+  "family": "CPI",
+  "t0_ns": 1525955400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.9775000000006313,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.9775000000006313,
+  "shock": {
+   "status": "OK",
+   "p0": 1.18817,
+   "p0_ts": 1525955399863000000,
+   "p30": 1.1906599999999998,
+   "p30_ts": 1525955430143000000,
+   "shock_pips": 24.899999999998812
+  },
+  "shock_score": 12.59165613147452,
+  "qualifying": true,
+  "p0": 1.18817,
+  "p30": 1.1906599999999998,
+  "shock_pips": 24.899999999998812
+ },
+ {
+  "event_id": "MACRO-NFP-201805",
+  "family": "NFP",
+  "t0_ns": 1527856200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.9549999999991523,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.9549999999991523,
+  "shock": {
+   "status": "OK",
+   "p0": 1.167265,
+   "p0_ts": 1527856199964000000,
+   "p30": 1.1655600000000002,
+   "p30_ts": 1527856230679000000,
+   "shock_pips": -17.049999999998455
+  },
+  "shock_score": 5.7698815566847195,
+  "qualifying": true,
+  "p0": 1.167265,
+  "p30": 1.1655600000000002,
+  "shock_pips": -17.049999999998455
+ },
+ {
+  "event_id": "MACRO-CPI-201805",
+  "family": "CPI",
+  "t0_ns": 1528806600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.077499999998067,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.077499999998067,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1779600000000001,
+   "p0_ts": 1528806599998000000,
+   "p30": 1.17907,
+   "p30_ts": 1528806630329000000,
+   "shock_pips": 11.099999999999444
+  },
+  "shock_score": 5.342960288813368,
+  "qualifying": true,
+  "p0": 1.1779600000000001,
+  "p30": 1.17907,
+  "shock_pips": 11.099999999999444
+ },
+ {
+  "event_id": "MACRO-NFP-201806",
+  "family": "NFP",
+  "t0_ns": 1530880200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.5999999999996017,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.5999999999996017,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1716700000000002,
+   "p0_ts": 1530880199874000000,
+   "p30": 1.173015,
+   "p30_ts": 1530880230173000000,
+   "shock_pips": 13.449999999997075
+  },
+  "shock_score": 8.406250000000265,
+  "qualifying": true,
+  "p0": 1.1716700000000002,
+  "p30": 1.173015,
+  "shock_pips": 13.449999999997075
+ },
+ {
+  "event_id": "MACRO-CPI-201806",
+  "family": "CPI",
+  "t0_ns": 1531398600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.1824999999997536,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.1824999999997536,
+  "shock": {
+   "status": "OK",
+   "p0": 1.16602,
+   "p0_ts": 1531398599940000000,
+   "p30": 1.166455,
+   "p30_ts": 1531398630400000000,
+   "shock_pips": 4.349999999999632
+  },
+  "shock_score": 1.9931271477663794,
+  "qualifying": false,
+  "p0": 1.16602,
+  "p30": 1.166455,
+  "shock_pips": 4.349999999999632
+ },
+ {
+  "event_id": "MACRO-NFP-201807",
+  "family": "NFP",
+  "t0_ns": 1533299400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.500000000002056,
+   "median_spread_pips": 0.30000000000196536,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.500000000002056,
+  "shock": {
+   "status": "OK",
+   "p0": 1.158755,
+   "p0_ts": 1533299399970000000,
+   "p30": 1.1590150000000001,
+   "p30_ts": 1533299430096000000,
+   "shock_pips": 2.60000000000149
+  },
+  "shock_score": 1.0399999999997407,
+  "qualifying": false,
+  "p0": 1.158755,
+  "p30": 1.1590150000000001,
+  "shock_pips": 2.60000000000149
+ },
+ {
+  "event_id": "MACRO-CPI-201807",
+  "family": "CPI",
+  "t0_ns": 1533904200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 3.6775000000008884,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 3.6775000000008884,
+  "shock": {
+   "status": "OK",
+   "p0": 1.14517,
+   "p0_ts": 1533904199910000000,
+   "p30": 1.14508,
+   "p30_ts": 1533904230114000000,
+   "shock_pips": -0.8999999999992347
+  },
+  "shock_score": 0.24473147518668045,
+  "qualifying": false,
+  "p0": 1.14517,
+  "p30": 1.14508,
+  "shock_pips": -0.8999999999992347
+ },
+ {
+  "event_id": "MACRO-NFP-201808",
+  "family": "NFP",
+  "t0_ns": 1536323400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.7600000000004272,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.7600000000004272,
+  "shock": {
+   "status": "OK",
+   "p0": 1.16181,
+   "p0_ts": 1536323399984000000,
+   "p30": 1.159155,
+   "p30_ts": 1536323430011000000,
+   "shock_pips": -26.55000000000074
+  },
+  "shock_score": 15.085227272724032,
+  "qualifying": true,
+  "p0": 1.16181,
+  "p30": 1.159155,
+  "shock_pips": -26.55000000000074
+ },
+ {
+  "event_id": "MACRO-CPI-201808",
+  "family": "CPI",
+  "t0_ns": 1536841800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.1050000000014664,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.1050000000014664,
+  "shock": {
+   "status": "OK",
+   "p0": 1.16195,
+   "p0_ts": 1536841799822000000,
+   "p30": 1.1636449999999998,
+   "p30_ts": 1536841830008000000,
+   "shock_pips": 16.9499999999978
+  },
+  "shock_score": 8.052256532059854,
+  "qualifying": true,
+  "p0": 1.16195,
+  "p30": 1.1636449999999998,
+  "shock_pips": 16.9499999999978
+ },
+ {
+  "event_id": "MACRO-NFP-201809",
+  "family": "NFP",
+  "t0_ns": 1538742600000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.100000000000435,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.100000000000435,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1507049999999999,
+   "p0_ts": 1538742599902000000,
+   "p30": 1.15181,
+   "p30_ts": 1538742630115000000,
+   "shock_pips": 11.050000000001337
+  },
+  "shock_score": 5.261904761904309,
+  "qualifying": true,
+  "p0": 1.1507049999999999,
+  "p30": 1.15181,
+  "shock_pips": 11.050000000001337
+ },
+ {
+  "event_id": "MACRO-CPI-201809",
+  "family": "CPI",
+  "t0_ns": 1539261000000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SPREAD_TOO_WIDE"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.4325000000016135,
+   "median_spread_pips": 0.1999999999990898,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.4325000000016135,
+  "shock": {
+   "status": "OK",
+   "p0": 1.157045,
+   "p0_ts": 1539260999556000000,
+   "p30": 1.15883,
+   "p30_ts": 1539261030170000000,
+   "shock_pips": 17.849999999999255
+  },
+  "shock_score": 7.338129496397704,
+  "qualifying": true,
+  "p0": 1.157045,
+  "p30": 1.15883,
+  "shock_pips": 17.849999999999255
+ },
+ {
+  "event_id": "MACRO-NFP-201810",
+  "family": "NFP",
+  "t0_ns": 1541161800000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "TRADED"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 2.1775000000009426,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 2.1775000000009426,
+  "shock": {
+   "status": "OK",
+   "p0": 1.143915,
+   "p0_ts": 1541161799867000000,
+   "p30": 1.1424949999999998,
+   "p30_ts": 1541161830174000000,
+   "shock_pips": -14.200000000001989
+  },
+  "shock_score": 6.521239954073866,
+  "qualifying": true,
+  "p0": 1.143915,
+  "p30": 1.1424949999999998,
+  "shock_pips": -14.200000000001989
+ },
+ {
+  "event_id": "MACRO-CPI-201810",
+  "family": "CPI",
+  "t0_ns": 1542202200000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "TRADED"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.5775000000004533,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.5775000000004533,
+  "shock": {
+   "status": "OK",
+   "p0": 1.129745,
+   "p0_ts": 1542202199871000000,
+   "p30": 1.13043,
+   "p30_ts": 1542202230800000000,
+   "shock_pips": 6.850000000000467
+  },
+  "shock_score": 4.342313787637717,
+  "qualifying": true,
+  "p0": 1.129745,
+  "p30": 1.13043,
+  "shock_pips": 6.850000000000467
+ },
+ {
+  "event_id": "MACRO-NFP-201811",
+  "family": "NFP",
+  "t0_ns": 1544189400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "TRADED"
+   },
+   "B": {
+    "status": "NO_TRIGGER"
+   },
+   "C": {
+    "status": "NO_BREAKOUT"
+   }
+  },
+  "baseline": {
+   "q95_pips": 1.7549999999991737,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 1.7549999999991737,
+  "shock": {
+   "status": "OK",
+   "p0": 1.1368200000000002,
+   "p0_ts": 1544189399857000000,
+   "p30": 1.1399249999999999,
+   "p30_ts": 1544189430035000000,
+   "shock_pips": 31.049999999996913
+  },
+  "shock_score": 17.692307692314262,
+  "qualifying": true,
+  "p0": 1.1368200000000002,
+  "p30": 1.1399249999999999,
+  "shock_pips": 31.049999999996913
+ },
+ {
+  "event_id": "MACRO-CPI-201811",
+  "family": "CPI",
+  "t0_ns": 1544621400000000000,
+  "exclusion": null,
+  "setups": {
+   "A": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "B": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   },
+   "C": {
+    "status": "SHOCK_NOT_QUALIFYING"
+   }
+  },
+  "baseline": {
+   "q95_pips": 4.845000000001429,
+   "median_spread_pips": 0.2999999999997449,
+   "n_buckets": 110
+  },
+  "noise_scale_pips": 4.845000000001429,
+  "shock": {
+   "status": "OK",
+   "p0": 1.13425,
+   "p0_ts": 1544621399583000000,
+   "p30": 1.134015,
+   "p30_ts": 1544621430303000000,
+   "shock_pips": -2.349999999999852
+  },
+  "shock_score": 0.48503611971086874,
+  "qualifying": false,
+  "p0": 1.13425,
+  "p30": 1.134015,
+  "shock_pips": -2.349999999999852
+ }
+]

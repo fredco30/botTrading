@@ -1,0 +1,344 @@
+{
+ "mission": "MACRO_TICK_M1_EVENT_STRATEGY_DISCOVERY",
+ "frozen_spec": "MACRO_TICK_M1_FROZEN_SPEC.md (commit b701d95)",
+ "discovery": "2010-01-01..2019-01-01 exclusive",
+ "events_nfp": 107,
+ "events_cpi": 107,
+ "events_primary_valid": 214,
+ "events_exclusions": {
+  "NOT_ALIGNED": 2
+ },
+ "qualifying_shocks_pooled": 147,
+ "metrics": {
+  "A": {
+   "strategy": "A",
+   "strategy_id": "MACRO_A_30S_CONTINUATION",
+   "events_eligible": 214,
+   "qualifying_shocks": 147,
+   "n_trades": 120,
+   "n_data_gap_invalid": 0,
+   "setup_status_counts": {
+    "SHOCK_NOT_QUALIFYING": 67,
+    "SPREAD_TOO_WIDE": 27,
+    "TRADED": 120
+   },
+   "exit_counts": {
+    "STOP": 54,
+    "TARGET": 37,
+    "TIME": 29,
+    "DATA_GAP_INVALID": 0,
+    "SPREAD_TOO_WIDE": 27,
+    "NO_FILL": 0
+   },
+   "trades_per_year": 13.333,
+   "mean_shock_pips": -1.3942,
+   "median_shock_pips": 5.6,
+   "mean_shock_score": 9.9592,
+   "net_mean_pips": 2.051,
+   "net_median_pips": -4.5,
+   "stress_025_mean": 1.551,
+   "stress_050_mean": 1.051,
+   "stress_100_mean": 0.051,
+   "win_rate": 0.4583,
+   "avg_win": 23.1895,
+   "avg_loss": -15.8354,
+   "profit_factor": 1.2391,
+   "expectancy_r": 0.0827,
+   "total_net_pips": 246.125,
+   "max_drawdown_pips": 226.3,
+   "max_consecutive_losses": 6,
+   "positive_years": 5,
+   "by_year": {
+    "2010": {
+     "n": 8,
+     "mean_net": -4.0406,
+     "total_net": -32.325,
+     "pf": 0.636
+    },
+    "2011": {
+     "n": 11,
+     "mean_net": -1.7091,
+     "total_net": -18.8,
+     "pf": 0.7623
+    },
+    "2012": {
+     "n": 11,
+     "mean_net": 0.4886,
+     "total_net": 5.375,
+     "pf": 1.0821
+    },
+    "2013": {
+     "n": 9,
+     "mean_net": 7.7889,
+     "total_net": 70.1,
+     "pf": 3.3289
+    },
+    "2014": {
+     "n": 12,
+     "mean_net": 5.2458,
+     "total_net": 62.95,
+     "pf": 2.2666
+    },
+    "2015": {
+     "n": 16,
+     "mean_net": 13.2266,
+     "total_net": 211.625,
+     "pf": 2.3327
+    },
+    "2016": {
+     "n": 19,
+     "mean_net": -7.1013,
+     "total_net": -134.925,
+     "pf": 0.5891
+    },
+    "2017": {
+     "n": 18,
+     "mean_net": 5.7139,
+     "total_net": 102.85,
+     "pf": 2.0669
+    },
+    "2018": {
+     "n": 16,
+     "mean_net": -1.2953,
+     "total_net": -20.725,
+     "pf": 0.8436
+    }
+   },
+   "nfp_mean_net": -0.5385,
+   "nfp_n": 65,
+   "nfp_pf": 0.9529,
+   "nfp_positive_years": 4,
+   "cpi_mean_net": 5.1114,
+   "cpi_n": 55,
+   "cpi_pf": 1.9819,
+   "cpi_positive_years": 6,
+   "remove_best_1pct_mean": 0.8172,
+   "ci95_lo": -2.1954,
+   "ci95_hi": 6.4591,
+   "ci_positive": false,
+   "verdict": "FAIL_GATE",
+   "verdict_reason": "BELOW_GATE"
+  },
+  "B": {
+   "strategy": "B",
+   "strategy_id": "MACRO_B_FAILED_SHOCK_REVERSAL",
+   "events_eligible": 214,
+   "qualifying_shocks": 147,
+   "n_trades": 62,
+   "n_data_gap_invalid": 0,
+   "setup_status_counts": {
+    "NO_TRIGGER": 78,
+    "SHOCK_NOT_QUALIFYING": 67,
+    "SPREAD_TOO_WIDE": 7,
+    "TRADED": 62
+   },
+   "exit_counts": {
+    "STOP": 24,
+    "TARGET": 38,
+    "TIME": 0,
+    "DATA_GAP_INVALID": 0,
+    "SPREAD_TOO_WIDE": 7,
+    "NO_FILL": 0
+   },
+   "trades_per_year": 6.889,
+   "mean_shock_pips": 3.4331,
+   "median_shock_pips": 7.5,
+   "mean_shock_score": 7.3529,
+   "net_mean_pips": -0.2274,
+   "net_median_pips": 2.575,
+   "stress_025_mean": -0.7274,
+   "stress_050_mean": -1.2274,
+   "stress_100_mean": -2.2274,
+   "win_rate": 0.6129,
+   "avg_win": 7.4447,
+   "avg_loss": -12.375,
+   "profit_factor": 0.9525,
+   "expectancy_r": -0.1147,
+   "total_net_pips": -14.1,
+   "max_drawdown_pips": 64.1,
+   "max_consecutive_losses": 3,
+   "positive_years": 4,
+   "by_year": {
+    "2010": {
+     "n": 6,
+     "mean_net": -3.5917,
+     "total_net": -21.55,
+     "pf": 0.3912
+    },
+    "2011": {
+     "n": 7,
+     "mean_net": -0.3929,
+     "total_net": -2.75,
+     "pf": 0.884
+    },
+    "2012": {
+     "n": 8,
+     "mean_net": 0.8062,
+     "total_net": 6.45,
+     "pf": 1.3449
+    },
+    "2013": {
+     "n": 3,
+     "mean_net": -6.2667,
+     "total_net": -18.8,
+     "pf": 0.1174
+    },
+    "2014": {
+     "n": 10,
+     "mean_net": 6.0,
+     "total_net": 60.0,
+     "pf": 2.8127
+    },
+    "2015": {
+     "n": 2,
+     "mean_net": 5.35,
+     "total_net": 10.7,
+     "pf": 1000000000.0
+    },
+    "2016": {
+     "n": 13,
+     "mean_net": -1.3077,
+     "total_net": -17.0,
+     "pf": 0.8258
+    },
+    "2017": {
+     "n": 4,
+     "mean_net": 1.125,
+     "total_net": 4.5,
+     "pf": 1.8654
+    },
+    "2018": {
+     "n": 9,
+     "mean_net": -3.9611,
+     "total_net": -35.65,
+     "pf": 0.425
+    }
+   },
+   "nfp_mean_net": 2.6189,
+   "nfp_n": 37,
+   "nfp_pf": 1.666,
+   "nfp_positive_years": 5,
+   "cpi_mean_net": -4.44,
+   "cpi_n": 25,
+   "cpi_pf": 0.2673,
+   "cpi_positive_years": 1,
+   "remove_best_1pct_mean": -0.7443,
+   "ci95_lo": -3.1759,
+   "ci95_hi": 2.6293,
+   "ci_positive": false,
+   "verdict": "REJECT",
+   "verdict_reason": "FAIL_FAST"
+  },
+  "C": {
+   "strategy": "C",
+   "strategy_id": "MACRO_C_5M_DIGESTION_BREAKOUT",
+   "events_eligible": 214,
+   "qualifying_shocks": 147,
+   "n_trades": 124,
+   "n_data_gap_invalid": 0,
+   "setup_status_counts": {
+    "NO_BREAKOUT": 18,
+    "SHOCK_NOT_QUALIFYING": 67,
+    "SPREAD_TOO_WIDE": 5,
+    "TRADED": 124
+   },
+   "exit_counts": {
+    "STOP": 64,
+    "TARGET": 39,
+    "TIME": 21,
+    "DATA_GAP_INVALID": 0,
+    "SPREAD_TOO_WIDE": 5,
+    "NO_FILL": 0
+   },
+   "trades_per_year": 13.778,
+   "mean_shock_pips": 0.502,
+   "median_shock_pips": 6.675,
+   "mean_shock_score": 8.9306,
+   "net_mean_pips": -0.9749,
+   "net_median_pips": -8.95,
+   "stress_025_mean": -1.4749,
+   "stress_050_mean": -1.9749,
+   "stress_100_mean": -2.9749,
+   "win_rate": 0.4032,
+   "avg_win": 23.7502,
+   "avg_loss": -17.6811,
+   "profit_factor": 0.9076,
+   "expectancy_r": -0.0478,
+   "total_net_pips": -120.8875,
+   "max_drawdown_pips": 197.4375,
+   "max_consecutive_losses": 7,
+   "positive_years": 5,
+   "by_year": {
+    "2010": {
+     "n": 7,
+     "mean_net": -12.6518,
+     "total_net": -88.5625,
+     "pf": 0.375
+    },
+    "2011": {
+     "n": 14,
+     "mean_net": 1.1188,
+     "total_net": 15.6625,
+     "pf": 1.1133
+    },
+    "2012": {
+     "n": 11,
+     "mean_net": 3.1784,
+     "total_net": 34.9625,
+     "pf": 1.3829
+    },
+    "2013": {
+     "n": 10,
+     "mean_net": 1.3725,
+     "total_net": 13.725,
+     "pf": 1.1409
+    },
+    "2014": {
+     "n": 16,
+     "mean_net": -6.2141,
+     "total_net": -99.425,
+     "pf": 0.3552
+    },
+    "2015": {
+     "n": 13,
+     "mean_net": -2.425,
+     "total_net": -31.525,
+     "pf": 0.8276
+    },
+    "2016": {
+     "n": 16,
+     "mean_net": 4.6813,
+     "total_net": 74.9,
+     "pf": 1.4732
+    },
+    "2017": {
+     "n": 19,
+     "mean_net": -3.1796,
+     "total_net": -60.4125,
+     "pf": 0.685
+    },
+    "2018": {
+     "n": 18,
+     "mean_net": 1.0993,
+     "total_net": 19.7875,
+     "pf": 1.1297
+    }
+   },
+   "nfp_mean_net": -0.7553,
+   "nfp_n": 71,
+   "nfp_pf": 0.9359,
+   "nfp_positive_years": 4,
+   "cpi_mean_net": -1.2691,
+   "cpi_n": 53,
+   "cpi_pf": 0.8573,
+   "cpi_positive_years": 3,
+   "remove_best_1pct_mean": -2.0685,
+   "ci95_lo": -5.0268,
+   "ci95_hi": 3.367,
+   "ci_positive": false,
+   "verdict": "REJECT",
+   "verdict_reason": "FAIL_FAST"
+  }
+ },
+ "fomc_primary_research": "DEFERRED"
+}

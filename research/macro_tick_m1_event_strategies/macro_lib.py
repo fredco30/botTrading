@@ -492,6 +492,8 @@ def run_event_on_window(ev, ts, bid, ask):
     for t in out["trades"]:
         t["shock_pips"] = float(sh["shock_pips"])
         t["shock_score"] = float(score)
+        t["p0"] = float(sh["p0"])
+        t["p30"] = float(sh["p30"])
     return out
 
 

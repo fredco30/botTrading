@@ -137,36 +137,50 @@ def audit_one(trade, ev_by_id):
     kind = trade["strategy"]
     if kind == "A":
         trig = t0 + 30 * 10**9
-    else:
-        if kind == "B":
-            level = got["p0"] + 0.50 * shock
-            lo = bisect.bisect_left(ts, t0 + 30 * 10**9)
-            hi = bisect.bisect_right(ts, t0 + 5 * 60 * 10**9)
-            trig_i = None
-            for i in range(lo, hi):
-                if (shock > 0 and mid[i] <= level) or \
-                        (shock < 0 and mid[i] >= level):
-                    trig_i = i
-                    break
-        else:  # C
-            lo = bisect.bisect_left(ts, t0 + 5 * 60 * 10**9)
-            hi = bisect.bisect_right(ts, t0 + 35 * 60 * 10**9)
-            r0 = bisect.bisect_left(ts, t0)
-            r1 = bisect.bisect_left(ts, t0 + 5 * 60 * 10**9)
-            nh = max(mid[r0:r1])
-            nl = min(mid[r0:r1])
-            trig_i = None
-            for i in range(lo, hi):
-                if mid[i] > nh or mid[i] < nl:
-                    trig_i = i
-                    break
+    elif kind == "B":
+        level = got["p0"] + 0.50 * shock
+        lo = bisect.bisect_left(ts, t0 + 30 * 10**9)
+        hi = bisect.bisect_right(ts, t0 + 5 * 60 * 10**9)
+        trig_i = None
+        for i in range(lo, hi):
+            if (shock > 0 and mid[i] <= level) or \
+                    (shock < 0 and mid[i] >= level):
+                trig_i = i
+                break
         if trig_i is None:
-            return {"ok": False, "trade_id": str(trade.get("event_id"))
-                    + "/" + kind, "error": "NO_TRIGGER_IN_AUDIT"}
+            return {"ok": False, "event_id": trade["event_id"],
+                    "strategy": kind, "error": "NO_TRIGGER_IN_AUDIT"}
+        trig = ts[trig_i]
+    else:  # C
+        lo = bisect.bisect_left(ts, t0 + 5 * 60 * 10**9)
+        hi = bisect.bisect_right(ts, t0 + 35 * 60 * 10**9)
+        r0 = bisect.bisect_left(ts, t0)
+        r1 = bisect.bisect_left(ts, t0 + 5 * 60 * 10**9)
+        nh = max(mid[r0:r1])
+        nl = min(mid[r0:r1])
+        trig_i = None
+        c_side = None
+        for i in range(lo, hi):
+            if mid[i] > nh:
+                trig_i, c_side = i, 1
+                break
+            if mid[i] < nl:
+                trig_i, c_side = i, -1
+                break
+        if trig_i is None:
+            return {"ok": False, "event_id": trade["event_id"],
+                    "strategy": kind, "error": "NO_TRIGGER_IN_AUDIT"}
         trig = ts[trig_i]
     got["trigger_ns"] = trig
-    # --- entry: first tick >= trigger+250ms on the executable side
-    side = 1 if got["shock_dir"] == "LONG" else -1
+    # --- frozen direction conventions: A follows the shock, B reverses it,
+    # C follows the breakout side observed above
+    if kind == "A":
+        exp_side = 1 if shock > 0 else -1
+    elif kind == "B":
+        exp_side = -1 if shock > 0 else 1
+    else:
+        exp_side = c_side
+    side = exp_side
     ie = bisect.bisect_left(ts, trig + 250 * MS)
     got["entry_ts"] = ts[ie]
     got["entry_side"] = "ASK" if side == 1 else "BID"
@@ -237,8 +251,9 @@ def audit_one(trade, ev_by_id):
     checks["t0_ns"] = got["t0_ns"] == trade["t0_ns"]
     checks["p0"] = abs(got["p0"] - trade["p0"]) <= TOL
     checks["p30"] = abs(got["p30"] - trade["p30"]) <= TOL
-    checks["shock_dir"] = got["shock_dir"] == ("LONG" if trade["side"] == 1
-                                               else "SHORT")
+    checks["shock_dir"] = ((got["p30"] - got["p0"]) > 0) \
+        == (trade["shock_pips"] > 0)
+    checks["side_convention"] = exp_side == trade["side"]
     checks["trigger_ns"] = (got["trigger_ns"] == trade["trigger_ns"]) \
         if trade["trigger_ns"] is not None \
         else (got["trigger_ns"] == trade["decision_ns"])
