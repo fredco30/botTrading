@@ -1,0 +1,306 @@
+{
+  "meta": {
+    "spec": "MTF_M1_FROZEN_SPEC.md (commit 7dd5a02)",
+    "base_head": "27b6e24eb27f26efec77f42bd1755ee9dbfc3275",
+    "data_root": "E:\\ResearchData\\botTrading\\ticks",
+    "discovery": "2010-01-01T00:00:00Z .. 2019-01-01T00:00:00Z (exclusive)",
+    "n_gaps": 104,
+    "n_ticks": 208003917,
+    "bars": {
+      "M15": 222430,
+      "H1": 55461,
+      "H4": 14262
+    },
+    "signals": {
+      "A": 2993,
+      "B": 2226,
+      "C": 2615
+    },
+    "latency_ms": 250,
+    "bootstrap": "2000x seed42 percentile"
+  },
+  "A": {
+    "n_trades": 1632,
+    "n_gap_invalid": 17,
+    "setup_counts": {
+      "NO_FILL": 1,
+      "NO_FILL_GAP": 0,
+      "INVALID_STOP": 43,
+      "NO_TRADE_TARGET_CROSSED": 0,
+      "SKIPPED_HARD_END": 4,
+      "UNRESOLVED": 0,
+      "IGNORED_WHILE_OPEN": 1296
+    },
+    "trades_per_year": 181.33,
+    "gross_mid_move_mean_pips": 0.3965,
+    "net_mean_pips": -0.4199,
+    "net_median_pips": -10.4,
+    "total_net_pips": -685.3,
+    "stress_010_mean": -0.6199,
+    "stress_025_mean": -0.9199,
+    "win_rate": 0.356,
+    "avg_win": 39.5904,
+    "avg_loss": -22.5379,
+    "profit_factor": 0.9711,
+    "expectancy_r": -0.0697,
+    "max_drawdown_pips": 2247.9,
+    "max_consecutive_losses": 11,
+    "positive_years": 3,
+    "by_year": {
+      "2010": {
+        "n": 188,
+        "mean_net": 3.0718,
+        "total_net": 577.5,
+        "pf": 1.1585
+      },
+      "2011": {
+        "n": 193,
+        "mean_net": -4.0192,
+        "total_net": -775.7,
+        "pf": 0.8088
+      },
+      "2012": {
+        "n": 182,
+        "mean_net": -1.6797,
+        "total_net": -305.7,
+        "pf": 0.8862
+      },
+      "2013": {
+        "n": 177,
+        "mean_net": -0.9983,
+        "total_net": -176.7,
+        "pf": 0.9242
+      },
+      "2014": {
+        "n": 195,
+        "mean_net": -1.579,
+        "total_net": -307.9,
+        "pf": 0.843
+      },
+      "2015": {
+        "n": 204,
+        "mean_net": -0.7623,
+        "total_net": -155.5,
+        "pf": 0.9553
+      },
+      "2016": {
+        "n": 162,
+        "mean_net": 0.7679,
+        "total_net": 124.4,
+        "pf": 1.0624
+      },
+      "2017": {
+        "n": 171,
+        "mean_net": 3.3509,
+        "total_net": 573.0,
+        "pf": 1.3732
+      },
+      "2018": {
+        "n": 160,
+        "mean_net": -1.4919,
+        "total_net": -238.7,
+        "pf": 0.881
+      }
+    },
+    "remove_best_1pct_mean": -2.0522,
+    "ci95_lo": -2.2181,
+    "ci95_hi": 1.2845,
+    "exits": {
+      "STOP": 984,
+      "TARGET": 414,
+      "TIME": 234
+    },
+    "verdict": "REJECT",
+    "id": "MTF_A_TREND_PULLBACK"
+  },
+  "B": {
+    "n_trades": 1120,
+    "n_gap_invalid": 16,
+    "setup_counts": {
+      "NO_FILL": 4,
+      "NO_FILL_GAP": 0,
+      "INVALID_STOP": 0,
+      "NO_TRADE_TARGET_CROSSED": 0,
+      "SKIPPED_HARD_END": 1,
+      "UNRESOLVED": 0,
+      "IGNORED_WHILE_OPEN": 1085
+    },
+    "trades_per_year": 124.44,
+    "gross_mid_move_mean_pips": 2.7304,
+    "net_mean_pips": 1.7863,
+    "net_median_pips": -19.65,
+    "total_net_pips": 2000.6292,
+    "stress_010_mean": 1.5863,
+    "stress_025_mean": 1.2863,
+    "win_rate": 0.3795,
+    "avg_win": 53.6347,
+    "avg_loss": -29.9196,
+    "profit_factor": 1.0962,
+    "expectancy_r": 0.0578,
+    "max_drawdown_pips": 981.1331,
+    "max_consecutive_losses": 19,
+    "positive_years": 5,
+    "by_year": {
+      "2010": {
+        "n": 132,
+        "mean_net": 8.7107,
+        "total_net": 1149.8177,
+        "pf": 1.3334
+      },
+      "2011": {
+        "n": 126,
+        "mean_net": 3.9377,
+        "total_net": 496.1482,
+        "pf": 1.1472
+      },
+      "2012": {
+        "n": 123,
+        "mean_net": 3.8742,
+        "total_net": 476.5315,
+        "pf": 1.2278
+      },
+      "2013": {
+        "n": 107,
+        "mean_net": -4.9311,
+        "total_net": -527.631,
+        "pf": 0.7504
+      },
+      "2014": {
+        "n": 128,
+        "mean_net": 3.0366,
+        "total_net": 388.6874,
+        "pf": 1.2856
+      },
+      "2015": {
+        "n": 137,
+        "mean_net": -2.0047,
+        "total_net": -274.6374,
+        "pf": 0.9101
+      },
+      "2016": {
+        "n": 115,
+        "mean_net": -1.9168,
+        "total_net": -220.4266,
+        "pf": 0.8877
+      },
+      "2017": {
+        "n": 135,
+        "mean_net": 4.6997,
+        "total_net": 634.4542,
+        "pf": 1.4038
+      },
+      "2018": {
+        "n": 117,
+        "mean_net": -1.0454,
+        "total_net": -122.3147,
+        "pf": 0.9327
+      }
+    },
+    "remove_best_1pct_mean": 0.5141,
+    "ci95_lo": -0.8048,
+    "ci95_hi": 4.5115,
+    "exits": {
+      "STOP": 654,
+      "TARGET": 342,
+      "TIME": 124
+    },
+    "verdict": "FAIL_GATE",
+    "id": "MTF_B_TREND_BREAKOUT"
+  },
+  "C": {
+    "n_trades": 1855,
+    "n_gap_invalid": 5,
+    "setup_counts": {
+      "NO_FILL": 5,
+      "NO_FILL_GAP": 0,
+      "INVALID_STOP": 0,
+      "NO_TRADE_TARGET_CROSSED": 172,
+      "SKIPPED_HARD_END": 0,
+      "UNRESOLVED": 0,
+      "IGNORED_WHILE_OPEN": 578
+    },
+    "trades_per_year": 206.11,
+    "gross_mid_move_mean_pips": -0.069,
+    "net_mean_pips": -0.8527,
+    "net_median_pips": -6.6,
+    "total_net_pips": -1581.755,
+    "stress_010_mean": -1.0527,
+    "stress_025_mean": -1.3527,
+    "win_rate": 0.483,
+    "avg_win": 18.8046,
+    "avg_loss": -19.2387,
+    "profit_factor": 0.9142,
+    "expectancy_r": -0.052,
+    "max_drawdown_pips": 2017.91,
+    "max_consecutive_losses": 9,
+    "positive_years": 2,
+    "by_year": {
+      "2010": {
+        "n": 188,
+        "mean_net": 0.2018,
+        "total_net": 37.9375,
+        "pf": 1.0145
+      },
+      "2011": {
+        "n": 242,
+        "mean_net": -1.2919,
+        "total_net": -312.65,
+        "pf": 0.9147
+      },
+      "2012": {
+        "n": 189,
+        "mean_net": 0.7455,
+        "total_net": 140.9025,
+        "pf": 1.0778
+      },
+      "2013": {
+        "n": 246,
+        "mean_net": -0.0318,
+        "total_net": -7.82,
+        "pf": 0.9961
+      },
+      "2014": {
+        "n": 159,
+        "mean_net": -0.799,
+        "total_net": -127.04,
+        "pf": 0.8836
+      },
+      "2015": {
+        "n": 218,
+        "mean_net": -0.6335,
+        "total_net": -138.0975,
+        "pf": 0.9355
+      },
+      "2016": {
+        "n": 237,
+        "mean_net": -2.2606,
+        "total_net": -535.7525,
+        "pf": 0.749
+      },
+      "2017": {
+        "n": 195,
+        "mean_net": -2.6815,
+        "total_net": -522.8875,
+        "pf": 0.6829
+      },
+      "2018": {
+        "n": 181,
+        "mean_net": -0.6428,
+        "total_net": -116.3475,
+        "pf": 0.9108
+      }
+    },
+    "remove_best_1pct_mean": -1.703,
+    "ci95_lo": -1.9021,
+    "ci95_hi": 0.2362,
+    "exits": {
+      "STOP": 893,
+      "TARGET": 744,
+      "TIME": 218
+    },
+    "verdict": "REJECT",
+    "id": "MTF_C_RANGE_REVERSION"
+  },
+  "FINAL_STATUS": "NO_MTF_CANDIDATE",
+  "STRATEGIES_PASSING_GATE": []
+}
