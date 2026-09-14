@@ -1,0 +1,268 @@
+experiment_id,family_id,mechanism,parameters,N,mean_pips,PF,expectancy_R,stress_R,remove_best,status,reason
+E001,F01,momentum k=5,x>2p h=15,6577,0.013,,,,,SCREEN,t=0.17 nonoverlap
+E002,F01,momentum k=5,x>2p h=30,4172,0.083,,,,,SCREEN,t=0.65 nonoverlap
+E003,F01,momentum k=5,x>2p h=60,2471,0.225,,,,,SCREEN,t=1.0 nonoverlap
+E004,F01,momentum k=5,x>4p h=15,3173,-0.123,,,,,SCREEN,t=-0.96 nonoverlap
+E005,F01,momentum k=5,x>4p h=30,2298,0.125,,,,,SCREEN,t=0.63 nonoverlap
+E006,F01,momentum k=5,x>4p h=60,1545,0.286,,,,,SCREEN,t=0.91 nonoverlap
+E007,F01,momentum k=5,x>6p h=15,1444,-0.242,,,,,SCREEN,t=-1.02 nonoverlap
+E008,F01,momentum k=5,x>6p h=30,1140,0.17,,,,,SCREEN,t=0.49 nonoverlap
+E009,F01,momentum k=5,x>6p h=60,846,0.253,,,,,SCREEN,t=0.52 nonoverlap
+E010,F01,momentum k=5,x>10p h=15,359,-0.311,,,,,SCREEN,t=-0.57 nonoverlap
+E011,F01,momentum k=5,x>10p h=30,307,0.576,,,,,SCREEN,t=0.61 nonoverlap
+E012,F01,momentum k=5,x>10p h=60,255,1.529,,,,,SCREEN,t=1.29 nonoverlap
+E013,F01,momentum k=15,x>2p h=15,6222,-0.093,,,,,SCREEN,t=-1.21 nonoverlap
+E014,F01,momentum k=15,x>2p h=30,4139,0.013,,,,,SCREEN,t=0.11 nonoverlap
+E015,F01,momentum k=15,x>2p h=60,2477,0.117,,,,,SCREEN,t=0.53 nonoverlap
+E016,F01,momentum k=15,x>4p h=15,3841,-0.085,,,,,SCREEN,t=-0.79 nonoverlap
+E017,F01,momentum k=15,x>4p h=30,2782,0.121,,,,,SCREEN,t=0.71 nonoverlap
+E018,F01,momentum k=15,x>4p h=60,1855,0.161,,,,,SCREEN,t=0.58 nonoverlap
+E019,F01,momentum k=15,x>6p h=15,2285,-0.163,,,,,SCREEN,t=-1.01 nonoverlap
+E020,F01,momentum k=15,x>6p h=30,1809,0.051,,,,,SCREEN,t=0.22 nonoverlap
+E021,F01,momentum k=15,x>6p h=60,1284,0.097,,,,,SCREEN,t=0.27 nonoverlap
+E022,F01,momentum k=15,x>10p h=15,793,-0.051,,,,,SCREEN,t=-0.17 nonoverlap
+E023,F01,momentum k=15,x>10p h=30,682,0.299,,,,,SCREEN,t=0.6 nonoverlap
+E024,F01,momentum k=15,x>10p h=60,551,0.869,,,,,SCREEN,t=1.29 nonoverlap
+E025,F01,momentum k=30,x>2p h=15,6299,0.027,,,,,SCREEN,t=0.39 nonoverlap
+E026,F01,momentum k=30,x>2p h=30,3682,0.162,,,,,SCREEN,t=1.23 nonoverlap
+E027,F01,momentum k=30,x>2p h=60,2326,0.206,,,,,SCREEN,t=0.91 nonoverlap
+E028,F01,momentum k=30,x>4p h=15,4395,0.038,,,,,SCREEN,t=0.38 nonoverlap
+E029,F01,momentum k=30,x>4p h=30,2709,0.143,,,,,SCREEN,t=0.84 nonoverlap
+E030,F01,momentum k=30,x>4p h=60,1868,0.257,,,,,SCREEN,t=0.95 nonoverlap
+E031,F01,momentum k=30,x>6p h=15,3045,-0.134,,,,,SCREEN,t=-1.07 nonoverlap
+E032,F01,momentum k=30,x>6p h=30,1955,0.021,,,,,SCREEN,t=0.1 nonoverlap
+E033,F01,momentum k=30,x>6p h=60,1413,0.097,,,,,SCREEN,t=0.29 nonoverlap
+E034,F01,momentum k=30,x>10p h=15,1371,0.039,,,,,SCREEN,t=0.17 nonoverlap
+E035,F01,momentum k=30,x>10p h=30,937,0.291,,,,,SCREEN,t=0.78 nonoverlap
+E036,F01,momentum k=30,x>10p h=60,747,0.413,,,,,SCREEN,t=0.76 nonoverlap
+E037,F01,momentum k=60,x>2p h=15,6296,0.034,,,,,SCREEN,t=0.5 nonoverlap
+E038,F01,momentum k=60,x>2p h=30,3585,0.147,,,,,SCREEN,t=1.11 nonoverlap
+E039,F01,momentum k=60,x>2p h=60,2059,0.298,,,,,SCREEN,t=1.22 nonoverlap
+E040,F01,momentum k=60,x>4p h=15,4864,0.093,,,,,SCREEN,t=1.01 nonoverlap
+E041,F01,momentum k=60,x>4p h=30,2832,0.161,,,,,SCREEN,t=1.0 nonoverlap
+E042,F01,momentum k=60,x>4p h=60,1687,0.233,,,,,SCREEN,t=0.81 nonoverlap
+E043,F01,momentum k=60,x>6p h=15,3707,-0.009,,,,,SCREEN,t=-0.08 nonoverlap
+E044,F01,momentum k=60,x>6p h=30,2189,0.069,,,,,SCREEN,t=0.36 nonoverlap
+E045,F01,momentum k=60,x>6p h=60,1344,0.244,,,,,SCREEN,t=0.72 nonoverlap
+E046,F01,momentum k=60,x>10p h=15,2150,0.027,,,,,SCREEN,t=0.16 nonoverlap
+E047,F01,momentum k=60,x>10p h=30,1323,0.233,,,,,SCREEN,t=0.85 nonoverlap
+E048,F01,momentum k=60,x>10p h=60,858,0.311,,,,,SCREEN,t=0.68 nonoverlap
+E049,F02,reversion k=15,x<-4p h=15,3727,0.22,,,,,SCREEN,t=2.28 nonoverlap
+E050,F02,reversion k=15,x<-4p h=30,2750,0.365,,,,,SCREEN,t=2.39 nonoverlap
+E051,F02,reversion k=15,x<-4p h=60,1839,0.667,,,,,SCREEN,t=2.36 nonoverlap
+E052,F02,reversion k=15,x<-6p h=15,2248,0.321,,,,,SCREEN,t=2.29 nonoverlap
+E053,F02,reversion k=15,x<-6p h=30,1776,0.316,,,,,SCREEN,t=1.5 nonoverlap
+E054,F02,reversion k=15,x<-6p h=60,1262,0.365,,,,,SCREEN,t=1.11 nonoverlap
+E055,F02,reversion k=15,x<-10p h=15,804,0.63,,,,,SCREEN,t=2.26 nonoverlap
+E056,F02,reversion k=15,x<-10p h=30,688,0.709,,,,,SCREEN,t=1.9 nonoverlap
+E057,F02,reversion k=15,x<-10p h=60,555,1.043,,,,,SCREEN,t=1.83 nonoverlap
+E058,F02,reversion k=30,x<-4p h=15,4295,0.206,,,,,SCREEN,t=2.36 nonoverlap
+E059,F02,reversion k=30,x<-4p h=30,2654,0.352,,,,,SCREEN,t=2.23 nonoverlap
+E060,F02,reversion k=30,x<-4p h=60,1815,0.591,,,,,SCREEN,t=2.27 nonoverlap
+E061,F02,reversion k=30,x<-6p h=15,2937,0.195,,,,,SCREEN,t=1.7 nonoverlap
+E062,F02,reversion k=30,x<-6p h=30,1878,0.379,,,,,SCREEN,t=1.94 nonoverlap
+E063,F02,reversion k=30,x<-6p h=60,1385,0.792,,,,,SCREEN,t=2.56 nonoverlap
+E064,F02,reversion k=30,x<-10p h=15,1351,0.398,,,,,SCREEN,t=2.1 nonoverlap
+E065,F02,reversion k=30,x<-10p h=30,912,0.584,,,,,SCREEN,t=1.91 nonoverlap
+E066,F02,reversion k=30,x<-10p h=60,745,0.962,,,,,SCREEN,t=2.12 nonoverlap
+E067,F02,reversion k=60,x<-4p h=15,4743,0.196,,,,,SCREEN,t=2.44 nonoverlap
+E068,F02,reversion k=60,x<-4p h=30,2768,0.272,,,,,SCREEN,t=1.86 nonoverlap
+E069,F02,reversion k=60,x<-4p h=60,1672,0.502,,,,,SCREEN,t=1.91 nonoverlap
+E070,F02,reversion k=60,x<-6p h=15,3617,0.259,,,,,SCREEN,t=2.67 nonoverlap
+E071,F02,reversion k=60,x<-6p h=30,2164,0.409,,,,,SCREEN,t=2.39 nonoverlap
+E072,F02,reversion k=60,x<-6p h=60,1337,0.758,,,,,SCREEN,t=2.47 nonoverlap
+E073,F02,reversion k=60,x<-10p h=15,2093,0.316,,,,,SCREEN,t=2.29 nonoverlap
+E074,F02,reversion k=60,x<-10p h=30,1293,0.439,,,,,SCREEN,t=1.8 nonoverlap
+E075,F02,reversion k=60,x<-10p h=60,827,0.776,,,,,SCREEN,t=1.88 nonoverlap
+E076,F03,hour drift,hour=0 h=60,7780,0.3668,,,,,SCREEN,t=4.91
+E077,F03,hour drift,hour=1 h=60,7790,0.6452,,,,,SCREEN,t=9.09
+E078,F03,hour drift,hour=2 h=60,7781,0.7851,,,,,SCREEN,t=12.09
+E079,F03,hour drift,hour=3 h=60,7786,-0.3171,,,,,SCREEN,t=-6.72
+E080,F03,hour drift,hour=4 h=60,7765,0.1279,,,,,SCREEN,t=2.12
+E081,F03,hour drift,hour=5 h=60,7731,0.485,,,,,SCREEN,t=5.47
+E082,F03,hour drift,hour=6 h=60,7793,-0.6295,,,,,SCREEN,t=-4.78
+E083,F03,hour drift,hour=7 h=60,7799,0.9211,,,,,SCREEN,t=6.55
+E084,F03,hour drift,hour=8 h=60,7799,-1.6642,,,,,SCREEN,t=-12.53
+E085,F03,hour drift,hour=9 h=60,7799,-1.519,,,,,SCREEN,t=-12.66
+E086,F03,hour drift,hour=10 h=60,7799,-0.0621,,,,,SCREEN,t=-0.56
+E087,F03,hour drift,hour=11 h=60,7800,0.8422,,,,,SCREEN,t=5.84
+E088,F03,hour drift,hour=12 h=60,7800,0.2216,,,,,SCREEN,t=1.46
+E089,F03,hour drift,hour=13 h=60,7800,2.6877,,,,,SCREEN,t=17.00
+E090,F03,hour drift,hour=14 h=60,7800,0.8563,,,,,SCREEN,t=5.77
+E091,F03,hour drift,hour=15 h=60,7800,0.7964,,,,,SCREEN,t=5.68
+E092,F03,hour drift,hour=16 h=60,7798,-0.4619,,,,,SCREEN,t=-4.04
+E093,F03,hour drift,hour=17 h=60,7619,-0.5832,,,,,SCREEN,t=-3.93
+E094,F03,hour drift,hour=18 h=60,7796,1.0901,,,,,SCREEN,t=8.69
+E095,F03,hour drift,hour=19 h=60,7795,1.0815,,,,,SCREEN,t=11.74
+E096,F03,hour drift,hour=20 h=60,7786,1.4727,,,,,SCREEN,t=7.69
+E097,F03,hour drift,hour=21 h=60,7751,-0.0056,,,,,SCREEN,t=-0.08
+E098,F03,hour drift,hour=22 h=60,7746,-0.0371,,,,,SCREEN,t=-0.65
+E099,F03,hour drift,hour=23 h=60,7754,-0.1877,,,,,SCREEN,t=-2.13
+E100,F07,H1 trend x impulse,long k=15 x>3 h=30,1886,1.482,,,,,SCREEN,t=6.8
+E101,F07,H1 trend x impulse,long k=15 x>3 h=60,1182,2.434,,,,,SCREEN,t=6.46
+E102,F07,H1 trend x impulse,long k=15 x>3 h=120,721,3.461,,,,,SCREEN,t=5.52
+E103,F07,H1 trend x impulse,short k=15 x>3 h=30,1843,-0.839,,,,,SCREEN,t=-4.89
+E104,F07,H1 trend x impulse,short k=15 x>3 h=60,1168,-1.63,,,,,SCREEN,t=-5.49
+E105,F07,H1 trend x impulse,short k=15 x>3 h=120,705,-1.716,,,,,SCREEN,t=-3.05
+E106,F07,H1 trend x impulse,long k=15 x>5 h=30,1322,1.575,,,,,SCREEN,t=5.56
+E107,F07,H1 trend x impulse,long k=15 x>5 h=60,909,2.556,,,,,SCREEN,t=5.6
+E108,F07,H1 trend x impulse,long k=15 x>5 h=120,596,3.55,,,,,SCREEN,t=4.78
+E109,F07,H1 trend x impulse,short k=15 x>5 h=30,1231,-0.806,,,,,SCREEN,t=-3.44
+E110,F07,H1 trend x impulse,short k=15 x>5 h=60,847,-1.386,,,,,SCREEN,t=-3.37
+E111,F07,H1 trend x impulse,short k=15 x>5 h=120,560,-1.708,,,,,SCREEN,t=-2.46
+E112,F07,H1 trend x impulse,long k=30 x>3 h=30,1834,1.45,,,,,SCREEN,t=6.52
+E113,F07,H1 trend x impulse,long k=30 x>3 h=60,1170,2.265,,,,,SCREEN,t=5.95
+E114,F07,H1 trend x impulse,long k=30 x>3 h=120,710,3.542,,,,,SCREEN,t=5.7
+E115,F07,H1 trend x impulse,short k=30 x>3 h=30,1790,-0.874,,,,,SCREEN,t=-4.96
+E116,F07,H1 trend x impulse,short k=30 x>3 h=60,1141,-1.62,,,,,SCREEN,t=-5.45
+E117,F07,H1 trend x impulse,short k=30 x>3 h=120,704,-1.685,,,,,SCREEN,t=-2.89
+E118,F07,H1 trend x impulse,long k=30 x>5 h=30,1421,1.272,,,,,SCREEN,t=4.65
+E119,F07,H1 trend x impulse,long k=30 x>5 h=60,965,2.018,,,,,SCREEN,t=4.6
+E120,F07,H1 trend x impulse,long k=30 x>5 h=120,622,3.258,,,,,SCREEN,t=4.66
+E121,F07,H1 trend x impulse,short k=30 x>5 h=30,1314,-0.875,,,,,SCREEN,t=-4.11
+E122,F07,H1 trend x impulse,short k=30 x>5 h=60,905,-1.413,,,,,SCREEN,t=-3.9
+E123,F07,H1 trend x impulse,short k=30 x>5 h=120,589,-1.66,,,,,SCREEN,t=-2.45
+E124,F11,stretch reversion,near24hHigh 1.0ATR h=30,492,-0.215,,,,,SCREEN,t=-0.49
+E125,F11,stretch reversion,near24hHigh 1.0ATR h=60,337,0.333,,,,,SCREEN,t=0.48
+E126,F11,stretch reversion,near24hLow 1.0ATR h=30,422,0.916,,,,,SCREEN,t=2.22
+E127,F11,stretch reversion,near24hLow 1.0ATR h=60,289,1.061,,,,,SCREEN,t=1.57
+E128,F11,stretch reversion,near24hHigh 1.5ATR h=30,561,0.094,,,,,SCREEN,t=0.22
+E129,F11,stretch reversion,near24hHigh 1.5ATR h=60,374,0.46,,,,,SCREEN,t=0.7
+E130,F11,stretch reversion,near24hLow 1.5ATR h=30,487,0.674,,,,,SCREEN,t=1.69
+E131,F11,stretch reversion,near24hLow 1.5ATR h=60,324,0.731,,,,,SCREEN,t=1.19
+E132,F11,stretch reversion,near24hHigh 2.0ATR h=30,636,-0.15,,,,,SCREEN,t=-0.39
+E133,F11,stretch reversion,near24hHigh 2.0ATR h=60,406,0.119,,,,,SCREEN,t=0.19
+E134,F11,stretch reversion,near24hLow 2.0ATR h=30,556,0.611,,,,,SCREEN,t=1.7
+E135,F11,stretch reversion,near24hLow 2.0ATR h=60,362,0.592,,,,,SCREEN,t=1.0
+E136,F14,vol regime,range60 tight_q20 h=30,1444,0.02,,,,,SCREEN,t=0.2
+E137,F14,vol regime,range60 tight_q20 h=60,796,0.07,,,,,SCREEN,t=0.35
+E138,F14,vol regime,range60 tight_q20 h=120,473,-0.143,,,,,SCREEN,t=-0.37
+E139,F14,vol regime,range60 tight_q40 h=30,2711,0.077,,,,,SCREEN,t=0.87
+E140,F14,vol regime,range60 tight_q40 h=60,1444,0.179,,,,,SCREEN,t=0.99
+E141,F14,vol regime,range60 tight_q40 h=120,797,0.427,,,,,SCREEN,t=1.16
+E142,F14,vol regime,range60 wide_q80 h=30,1429,0.556,,,,,SCREEN,t=1.89
+E143,F14,vol regime,range60 wide_q80 h=60,787,1.017,,,,,SCREEN,t=1.9
+E144,F14,vol regime,range60 wide_q80 h=120,468,1.646,,,,,SCREEN,t=1.8
+E145,F07d,LONG,k=15 x=4 SL=12 TP=12 T=60,1031,1.5033,1.5058,0.1253,0.5033,1.3901,SIM,"one-position, real spread, SL/TP tick-proxy"
+E146,F07d,SHORT,k=15 x=4 SL=12 TP=12 T=60,981,1.0629,1.3524,0.0886,0.0629,0.9503,SIM,"one-position, real spread, SL/TP tick-proxy"
+E147,F07d,LONG,k=15 x=6 SL=12 TP=12 T=60,759,1.4087,1.4344,0.1174,0.4087,1.2959,SIM,"one-position, real spread, SL/TP tick-proxy"
+E148,F07d,SHORT,k=15 x=6 SL=12 TP=12 T=60,719,0.8204,1.2358,0.0684,-0.1796,0.6947,SIM,"one-position, real spread, SL/TP tick-proxy"
+E149,F07d,LONG,k=30 x=4 SL=12 TP=12 T=60,1059,1.1329,1.3685,0.0944,0.1329,1.0188,SIM,"one-position, real spread, SL/TP tick-proxy"
+E150,F07d,SHORT,k=30 x=4 SL=12 TP=12 T=60,1003,1.0589,1.3602,0.0882,0.0589,0.9376,SIM,"one-position, real spread, SL/TP tick-proxy"
+E151,F05,LDN07 orbrk,UP>2p h=30,2,3.625,,,,,SCREEN,t=0.43
+E152,F05,LDN07 orbrk,UP>2p h=60,2,7.05,,,,,SCREEN,t=0.5
+E153,F05,LDN07 orbrk,UP>2p h=120,2,8.75,,,,,SCREEN,t=0.39
+E154,F05,LDN07 orbrk,DN<2p h=30,0,,,,,,SCREEN,t=nan
+E155,F05,LDN07 orbrk,DN<2p h=60,0,,,,,,SCREEN,t=nan
+E156,F05,LDN07 orbrk,DN<2p h=120,0,,,,,,SCREEN,t=nan
+E157,F05,LDN07 falsebrk,UP>2p h=30,0,,,,,,SCREEN,t=nan
+E158,F05,LDN07 falsebrk,UP>2p h=60,0,,,,,,SCREEN,t=nan
+E159,F05,LDN07 falsebrk,DN<2p h=30,1,-9.7,,,,,SCREEN,t=nan
+E160,F05,LDN07 falsebrk,DN<2p h=60,1,-10.95,,,,,SCREEN,t=nan
+E161,F05,LDN07 orbrk,UP>4p h=30,0,,,,,,SCREEN,t=nan
+E162,F05,LDN07 orbrk,UP>4p h=60,0,,,,,,SCREEN,t=nan
+E163,F05,LDN07 orbrk,UP>4p h=120,0,,,,,,SCREEN,t=nan
+E164,F05,LDN07 orbrk,DN<4p h=30,0,,,,,,SCREEN,t=nan
+E165,F05,LDN07 orbrk,DN<4p h=60,0,,,,,,SCREEN,t=nan
+E166,F05,LDN07 orbrk,DN<4p h=120,0,,,,,,SCREEN,t=nan
+E167,F05,LDN07 falsebrk,UP>4p h=30,0,,,,,,SCREEN,t=nan
+E168,F05,LDN07 falsebrk,UP>4p h=60,0,,,,,,SCREEN,t=nan
+E169,F05,LDN07 falsebrk,DN<4p h=30,0,,,,,,SCREEN,t=nan
+E170,F05,LDN07 falsebrk,DN<4p h=60,0,,,,,,SCREEN,t=nan
+E171,F05,NY13 orbrk,UP>2p h=30,7,-3.293,,,,,SCREEN,t=-1.07
+E172,F05,NY13 orbrk,UP>2p h=60,7,-7.3,,,,,SCREEN,t=-1.39
+E173,F05,NY13 orbrk,UP>2p h=120,7,-9.843,,,,,SCREEN,t=-2.02
+E174,F05,NY13 orbrk,DN<2p h=30,1,4.65,,,,,SCREEN,t=nan
+E175,F05,NY13 orbrk,DN<2p h=60,1,2.4,,,,,SCREEN,t=nan
+E176,F05,NY13 orbrk,DN<2p h=120,1,13.75,,,,,SCREEN,t=nan
+E177,F05,NY13 falsebrk,UP>2p h=30,2,0.95,,,,,SCREEN,t=0.12
+E178,F05,NY13 falsebrk,UP>2p h=60,2,2.225,,,,,SCREEN,t=0.7
+E179,F05,NY13 falsebrk,DN<2p h=30,0,,,,,,SCREEN,t=nan
+E180,F05,NY13 falsebrk,DN<2p h=60,0,,,,,,SCREEN,t=nan
+E181,F05,NY13 orbrk,UP>4p h=30,3,-6.55,,,,,SCREEN,t=-2.11
+E182,F05,NY13 orbrk,UP>4p h=60,3,-13.583,,,,,SCREEN,t=-2.18
+E183,F05,NY13 orbrk,UP>4p h=120,3,-7.467,,,,,SCREEN,t=-0.92
+E184,F05,NY13 orbrk,DN<4p h=30,0,,,,,,SCREEN,t=nan
+E185,F05,NY13 orbrk,DN<4p h=60,0,,,,,,SCREEN,t=nan
+E186,F05,NY13 orbrk,DN<4p h=120,0,,,,,,SCREEN,t=nan
+E187,F05,NY13 falsebrk,UP>4p h=30,1,-7.25,,,,,SCREEN,t=nan
+E188,F05,NY13 falsebrk,UP>4p h=60,1,-0.95,,,,,SCREEN,t=nan
+E189,F05,NY13 falsebrk,DN<4p h=30,0,,,,,,SCREEN,t=nan
+E190,F05,NY13 falsebrk,DN<4p h=60,0,,,,,,SCREEN,t=nan
+E191,F06,climactic spike fade,UP-spike fade 3x medrange h=15,2135,0.029,,,,,SCREEN,t=0.19
+E192,F06,climactic spike fade,UP-spike fade 3x medrange h=30,1597,0.329,,,,,SCREEN,t=1.49
+E193,F06,climactic spike fade,UP-spike fade 3x medrange h=60,1179,0.334,,,,,SCREEN,t=0.98
+E194,F06,climactic spike fade,DN-spike fade 3x medrange h=15,2096,0.423,,,,,SCREEN,t=2.57
+E195,F06,climactic spike fade,DN-spike fade 3x medrange h=30,1590,0.688,,,,,SCREEN,t=2.89
+E196,F06,climactic spike fade,DN-spike fade 3x medrange h=60,1164,1.037,,,,,SCREEN,t=2.71
+E197,F10,tick activity,q95 h=15,2741,0.363,,,,,SCREEN,t=2.75
+E198,F10,tick activity,q95 h=30,1940,0.49,,,,,SCREEN,t=2.42
+E199,F10,tick activity,q95 h=60,1370,0.575,,,,,SCREEN,t=1.77
+E200,F12,4h momentum,+10p h=60,1179,2.876,,,,,SCREEN,t=8.95
+E201,F12,4h momentum,+10p h=120,593,5.703,,,,,SCREEN,t=9.22
+E202,F12,4h momentum,-10p h=60,1203,-2.126,,,,,SCREEN,t=-7.89
+E203,F12,4h momentum,-10p h=120,603,-4.246,,,,,SCREEN,t=-7.73
+E204,F15,vwap reversion,up>3.0ATR h=30,4795,0.11,,,,,SCREEN,t=0.98
+E205,F15,vwap reversion,up>3.0ATR h=60,2410,0.261,,,,,SCREEN,t=1.21
+E206,F15,vwap reversion,dn<3.0ATR h=30,1396,0.162,,,,,SCREEN,t=0.92
+E207,F15,vwap reversion,dn<3.0ATR h=60,706,0.337,,,,,SCREEN,t=0.98
+E208,F15,vwap reversion,up>5.0ATR h=30,4749,0.108,,,,,SCREEN,t=0.98
+E209,F15,vwap reversion,up>5.0ATR h=60,2388,0.225,,,,,SCREEN,t=1.05
+E210,F15,vwap reversion,dn<5.0ATR h=30,1353,0.241,,,,,SCREEN,t=1.36
+E211,F15,vwap reversion,dn<5.0ATR h=60,690,0.559,,,,,SCREEN,t=1.46
+E212,F12d,4h momentum,L thr=10 SL=15 TP=15 T=120,593,2.7185,1.7813,0.1812,1.7185,2.593,SIM,"one-position, real spread"
+E213,F12d,4h momentum,L thr=10 SL=20 TP=20 T=120,593,3.9568,2.2705,0.1978,2.9568,3.7928,SIM,"one-position, real spread"
+E214,F12d,4h momentum,L thr=10 SL=15 TP=30 T=180,426,4.4371,2.0758,0.2958,3.4371,4.1335,SIM,"one-position, real spread"
+E215,F12d,4h momentum,L thr=10 SL=20 TP=20 T=240,299,6.2676,2.6679,0.3134,5.2676,6.1284,SIM,"one-position, real spread"
+E216,F12d,4h momentum,L thr=15 SL=15 TP=15 T=120,532,2.8412,1.8274,0.1894,1.8412,2.7025,SIM,"one-position, real spread"
+E217,F12d,4h momentum,L thr=15 SL=20 TP=20 T=120,532,4.088,2.2875,0.2044,3.088,3.9065,SIM,"one-position, real spread"
+E218,F12d,4h momentum,L thr=15 SL=15 TP=30 T=180,388,4.5881,2.1152,0.3059,3.5881,4.3234,SIM,"one-position, real spread"
+E219,F12d,4h momentum,L thr=15 SL=20 TP=20 T=240,267,7.0944,3.0815,0.3547,6.0944,6.9477,SIM,"one-position, real spread"
+E220,F12d,4h momentum,S thr=10 SL=15 TP=15 T=120,603,2.1342,1.6377,0.1423,1.1342,1.9831,SIM,"one-position, real spread"
+E221,F12d,4h momentum,S thr=10 SL=20 TP=20 T=120,603,2.698,1.7996,0.1349,1.698,2.4948,SIM,"one-position, real spread"
+E222,F12d,4h momentum,S thr=10 SL=15 TP=30 T=180,440,2.697,1.6152,0.1798,1.697,2.3832,SIM,"one-position, real spread"
+E223,F12d,4h momentum,S thr=10 SL=20 TP=20 T=240,303,4.6215,2.2205,0.2311,3.6215,4.4157,SIM,"one-position, real spread"
+E224,F12d,4h momentum,S thr=15 SL=15 TP=15 T=120,516,2.263,1.6767,0.1509,1.263,2.1131,SIM,"one-position, real spread"
+E225,F12d,4h momentum,S thr=15 SL=20 TP=20 T=120,516,2.855,1.847,0.1428,1.855,2.6533,SIM,"one-position, real spread"
+E226,F12d,4h momentum,S thr=15 SL=15 TP=30 T=180,381,2.9058,1.6406,0.1937,1.9058,2.6183,SIM,"one-position, real spread"
+E227,F12d,4h momentum,S thr=15 SL=20 TP=20 T=240,260,4.7665,2.2482,0.2383,3.7665,4.5887,SIM,"one-position, real spread"
+E228,F12d,4h momentum,L thr=10 SL=15 TP=15 T=120,593,2.7185,1.7813,0.1812,1.7185,2.593,SIM,"one-position, real spread"
+E229,F12d,4h momentum,S thr=10 SL=15 TP=15 T=120,603,2.1342,1.6377,0.1423,1.1342,1.9831,SIM,"one-position, real spread"
+E230,F07p,trend x impulse plateau,L x=3 SL=10 TP=10 T=60,1171,1.1816,1.418,0.1182,0.1816,1.0903,SIM,plateau
+E231,F07p,trend x impulse plateau,L x=3 SL=12 TP=12 T=60,1171,1.3946,1.4726,0.1162,0.3946,1.2848,SIM,plateau
+E232,F07p,trend x impulse plateau,L x=3 SL=15 TP=15 T=60,1171,1.5261,1.4988,0.1017,0.5261,1.3866,SIM,plateau
+E233,F07p,trend x impulse plateau,L x=3 SL=12 TP=20 T=60,1171,1.5912,1.5127,0.1326,0.5912,1.4006,SIM,plateau
+E234,F07p,trend x impulse plateau,L x=3 SL=20 TP=12 T=60,1171,1.4578,1.4872,0.0729,0.4578,1.3487,SIM,plateau
+E235,F07p,trend x impulse plateau,L x=4 SL=10 TP=10 T=60,1031,1.1904,1.4083,0.119,0.1904,1.0954,SIM,plateau
+E236,F07p,trend x impulse plateau,L x=4 SL=12 TP=12 T=60,1031,1.5033,1.5058,0.1253,0.5033,1.3901,SIM,plateau
+E237,F07p,trend x impulse plateau,L x=4 SL=15 TP=15 T=60,1031,1.4919,1.471,0.0995,0.4919,1.3463,SIM,plateau
+E238,F07p,trend x impulse plateau,L x=4 SL=12 TP=20 T=60,1031,1.5275,1.4831,0.1273,0.5275,1.3283,SIM,plateau
+E239,F07p,trend x impulse plateau,L x=4 SL=20 TP=12 T=60,1031,1.5788,1.5197,0.0789,0.5788,1.4664,SIM,plateau
+E240,F07p,trend x impulse plateau,L x=5 SL=10 TP=10 T=60,895,1.3742,1.4626,0.1374,0.3742,1.2866,SIM,plateau
+E241,F07p,trend x impulse plateau,L x=5 SL=12 TP=12 T=60,895,1.6225,1.5352,0.1352,0.6225,1.517,SIM,plateau
+E242,F07p,trend x impulse plateau,L x=5 SL=15 TP=15 T=60,895,1.5941,1.4955,0.1063,0.5941,1.4579,SIM,plateau
+E243,F07p,trend x impulse plateau,L x=5 SL=12 TP=20 T=60,895,1.581,1.4865,0.1318,0.581,1.3939,SIM,plateau
+E244,F07p,trend x impulse plateau,L x=5 SL=20 TP=12 T=60,895,1.7828,1.5823,0.0891,0.7828,1.679,SIM,plateau
+E245,F07p,trend x impulse plateau,L x=6 SL=10 TP=10 T=60,759,1.2341,1.3942,0.1234,0.2341,1.1407,SIM,plateau
+E246,F07p,trend x impulse plateau,L x=6 SL=12 TP=12 T=60,759,1.4087,1.4344,0.1174,0.4087,1.2959,SIM,plateau
+E247,F07p,trend x impulse plateau,L x=6 SL=15 TP=15 T=60,759,1.5282,1.454,0.1019,0.5282,1.3847,SIM,plateau
+E248,F07p,trend x impulse plateau,L x=6 SL=12 TP=20 T=60,759,1.4617,1.4217,0.1218,0.4617,1.2642,SIM,plateau
+E249,F07p,trend x impulse plateau,L x=6 SL=20 TP=12 T=60,759,1.4874,1.4451,0.0744,0.4874,1.3754,SIM,plateau
+E250,F07p,trend x impulse plateau,L x=8 SL=10 TP=10 T=60,543,0.7411,1.2025,0.0741,-0.2589,0.6376,SIM,plateau
+E251,F07p,trend x impulse plateau,L x=8 SL=12 TP=12 T=60,543,0.7026,1.1814,0.0585,-0.2974,0.5764,SIM,plateau
+E252,F07p,trend x impulse plateau,L x=8 SL=15 TP=15 T=60,543,0.9532,1.2385,0.0635,-0.0468,0.7963,SIM,plateau
+E253,F07p,trend x impulse plateau,L x=8 SL=12 TP=20 T=60,543,0.9449,1.233,0.0787,-0.0551,0.732,SIM,plateau
+E254,F07p,trend x impulse plateau,L x=8 SL=20 TP=12 T=60,543,0.6661,1.1638,0.0333,-0.3339,0.5395,SIM,plateau
+E255,F07p,trend x impulse plateau,L x=4 SL=12 TP=12 T=30,1554,0.7787,1.3141,0.0649,-0.2213,0.662,SIM,plateau
+E256,F07p,trend x impulse plateau,L x=4 SL=12 TP=12 T=45,1242,1.0199,1.3634,0.085,0.0199,0.9037,SIM,plateau
+E257,F07p,trend x impulse plateau,L x=4 SL=12 TP=12 T=60,1031,1.5033,1.5058,0.1253,0.5033,1.3901,SIM,plateau
+E258,F07p,trend x impulse plateau,L x=4 SL=12 TP=12 T=90,802,1.8511,1.5573,0.1543,0.8511,1.7359,SIM,plateau
+E259,F07p,trend x impulse plateau,L x=4 SL=12 TP=12 T=120,655,1.8302,1.51,0.1525,0.8302,1.7204,SIM,plateau
+E260,F07t,tick replay (5s/30s),C1 LONG,1022,1.2814,1.41,0.1068,0.2814,1.1648,TICK_REPLAY,"latency=5s slip=0.0p/side exits={'STOP': 165, 'TARGET': 281, 'TIME': 576} nofill=0"
+E261,F07t,tick replay (5s/30s),C1 SHORT,967,1.0962,1.3676,0.0913,0.0962,0.9822,TICK_REPLAY,"latency=5s slip=0.0p/side exits={'STOP': 145, 'TARGET': 233, 'TIME': 589} nofill=1"
+E262,F12t,tick replay (5s/30s),C2 LONG,592,2.5454,1.7122,0.1697,1.5454,2.4179,TICK_REPLAY,"latency=5s slip=0.0p/side exits={'STOP': 91, 'TARGET': 191, 'TIME': 310} nofill=1"
+E263,F12t,tick replay (5s/30s),C2 SHORT,602,2.2819,1.6949,0.1521,1.2819,2.1323,TICK_REPLAY,"latency=5s slip=0.0p/side exits={'STOP': 78, 'TARGET': 164, 'TIME': 360} nofill=1"
+E264,F07t_s,tick replay (5s/30s),C1 LONG,1022,0.3934,1.1117,0.0328,,0.2726,TICK_REPLAY,"latency=30s slip=0.5p/side exits={'STOP': 171, 'TARGET': 265, 'TIME': 586} nofill=0"
+E265,F07t_s,tick replay (5s/30s),C1 SHORT,967,1.111,1.3726,0.0926,,0.992,TICK_REPLAY,"latency=30s slip=0.5p/side exits={'STOP': 164, 'TARGET': 221, 'TIME': 582} nofill=1"
+E266,F12t_s,tick replay (5s/30s),C2 LONG,592,1.5274,1.3809,0.1018,,1.3945,TICK_REPLAY,"latency=30s slip=0.5p/side exits={'STOP': 97, 'TARGET': 179, 'TIME': 316} nofill=1"
+E267,F12t_s,tick replay (5s/30s),C2 SHORT,602,2.4061,1.7366,0.1604,,2.2521,TICK_REPLAY,"latency=30s slip=0.5p/side exits={'STOP': 87, 'TARGET': 157, 'TIME': 358} nofill=1"
