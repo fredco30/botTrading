@@ -1,0 +1,53 @@
+{
+ "partition_count": 108,
+ "partition_count_expected": 108,
+ "total_rows_footer": 209682628,
+ "total_rows_expected": 209682628,
+ "row_count_mismatches": [],
+ "ts_bounds_mismatches": [],
+ "first_ts_utc": "2010-01-01T00:00:03.964000",
+ "last_ts_utc": "2018-12-31T22:00:03.048000",
+ "monotonic_violations": 0,
+ "bid_gt_ask_count": 0,
+ "non_positive_quote_count": 0,
+ "duplicate_timestamp_count": 0,
+ "sha256_spot_checks": {
+  "2010-01": {
+   "match": true,
+   "sha256": "4123d4bf00d389ea088ae63cbc21116d5d83192364d7382514db55bb14d47d26"
+  },
+  "2014-06": {
+   "match": true,
+   "sha256": "fccb4115b09d81c561bd7b74a453523139e7b2ceff3ea4b2e7725f1ee276b0e1"
+  },
+  "2018-12": {
+   "match": true,
+   "sha256": "d8c013ba5a4fb10c9e8129ce1e85f1018a7583801620cc018158bbfdb43a94e7"
+  }
+ },
+ "spot_check_months": [
+  [
+   2010,
+   1
+  ],
+  [
+   2014,
+   6
+  ],
+  [
+   2018,
+   12
+  ]
+ ],
+ "checks": {
+  "partition_count_108": true,
+  "rows_match_manifest": true,
+  "ts_bounds_match_manifest": true,
+  "monotonic": true,
+  "bid_le_ask": true,
+  "positive_quotes": true,
+  "sha_spot_checks_pass": true
+ },
+ "PASS": true
+}
+INTEGRITY_PASS
