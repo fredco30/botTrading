@@ -1,0 +1,19 @@
+{
+ "I": {
+  "B1": {
+   "engine_set": "B1_PO3",
+   "n_compared": 641,
+   "n_total": 641,
+   "failures": [],
+   "n_failures": 0
+  },
+  "B2": {
+   "engine_set": "B2_LEGACY_H2",
+   "n_compared": 150,
+   "n_total": 150,
+   "failures": [],
+   "n_failures": 0
+  }
+ },
+ "PASS": true
+}
