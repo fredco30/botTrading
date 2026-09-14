@@ -266,3 +266,7 @@ E264,F07t_s,tick replay (5s/30s),C1 LONG,1022,0.3934,1.1117,0.0328,,0.2726,TICK_
 E265,F07t_s,tick replay (5s/30s),C1 SHORT,967,1.111,1.3726,0.0926,,0.992,TICK_REPLAY,"latency=30s slip=0.5p/side exits={'STOP': 164, 'TARGET': 221, 'TIME': 582} nofill=1"
 E266,F12t_s,tick replay (5s/30s),C2 LONG,592,1.5274,1.3809,0.1018,,1.3945,TICK_REPLAY,"latency=30s slip=0.5p/side exits={'STOP': 97, 'TARGET': 179, 'TIME': 316} nofill=1"
 E267,F12t_s,tick replay (5s/30s),C2 SHORT,602,2.4061,1.7366,0.1604,,2.2521,TICK_REPLAY,"latency=30s slip=0.5p/side exits={'STOP': 87, 'TARGET': 157, 'TIME': 358} nofill=1"
+E268,F07t,CONFIRM,C1 LONG,1066,1.19,1.39,0.099,,1.07,CONFIRM,"frozen rules, 2017H2, baseline 5s execution; PASS per spec 17"
+E269,F07t,CONFIRM,C1 SHORT,930,1.25,1.4,0.104,,1.13,CONFIRM,"frozen rules, 2017H2, baseline 5s execution; PASS per spec 17"
+E270,F12t,CONFIRM,C2 LONG,645,2.8,1.91,0.187,,2.67,CONFIRM,"frozen rules, 2017H2, baseline 5s execution; PASS per spec 17"
+E271,F12t,CONFIRM,C2 SHORT,550,2.21,1.61,0.147,,2.06,CONFIRM,"frozen rules, 2017H2, baseline 5s execution; PASS per spec 17"
