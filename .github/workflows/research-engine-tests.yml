@@ -33,3 +33,5 @@ jobs:
         run: python -m unittest discover -s research/p013r_v1_validation -p "test_*.py" -v
       - name: Run PO3-BASE-M0 suites (synthetic only)
         run: python -m unittest discover -s research/po3_base_m0 -p "test_*.py" -v
+      - name: Run LEGACY-REVERSE-M1 suites (synthetic only)
+        run: python -m unittest discover -s research/legacy_reverse_m1 -p "test_*.py" -v
