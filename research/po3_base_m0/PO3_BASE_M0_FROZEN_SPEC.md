@@ -91,7 +91,7 @@ After the sweep, the FIRST candle with all of:
 defines `decision_ts = close_ts`. Otherwise:
 
 - no qualifying candle → `NO_REINTEGRATION` (day ends, no trade);
-- the OPPOSITE threshold is crossed by any tick `sweep_ts < ts <= decision_ts` (i.e.
+- the OPPOSITE threshold is crossed by any tick `sweep_ts < ts < decision_ts` (i.e.
   before the decision event, with candle completion preceding same-timestamp ticks)
   → `DOUBLE_SWEEP_INVALID` (day ends, no trade).
 
@@ -102,9 +102,10 @@ processed in time order; a candle completing at time T precedes ticks at `ts >= 
 
 - Upper sweep + reintegration → **SHORT**; lower sweep + reintegration → **LONG**.
 - Stop extreme (frozen level, MID-based):
-  SHORT: `stop = max(MID)` over ticks `sweep_ts <= ts <= decision_ts`;
+  SHORT: `stop = max(MID)` over ticks `sweep_ts <= ts < decision_ts`;
   LONG: `stop = min(MID)` over the same interval.
-  No tick after `decision_ts` may influence the stop (tested).
+  `decision_ts` is a bucket end; by §7 causality its instant-ticks are post-decision.
+  No tick at/after `decision_ts` may influence the stop (tested).
 
 ## 9 — Entry (frozen)
 
