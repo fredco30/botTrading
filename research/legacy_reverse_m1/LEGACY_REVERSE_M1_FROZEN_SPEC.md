@@ -172,6 +172,15 @@ trigger candidate status and no parameter of H1/H2 is chosen from it.
   (entry fills 0.5 pip worse; STOP and window-end exits 0.5 pip worse on the exit
   side; TARGET fills remain exact limit fills). Stop/target LEVELS unchanged.
 - NO_FILL trades are excluded from N_TRADES; TRIGGERS counts them.
+- Data-basis clarification (frozen before outcomes): signal geometry, original trade
+  stream and reverse swing-stops come from the MT4 broker M15 BID history (the series
+  the canonical signal was established on, EA-faithful); entry/exit FILLS come from the
+  Dukascopy tick store. The two sources can differ slightly. Consequence handled
+  causally: T_stop = first tick in [exit_bar_open, exit_bar_open+15min) whose exit-side
+  price satisfies the original stop condition; if the tick series never confirms within
+  the exit bar (source divergence), fallback T_stop = first tick at/after exit-bar END
+  (bar-level exit is certainly known then). Fallback usage is counted and reported.
+  Stop/target LEVELS are never re-fit to tick data.
 
 ## 7. Metrics (frozen definitions)
 
