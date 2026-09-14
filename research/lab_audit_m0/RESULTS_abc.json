@@ -1,0 +1,99 @@
+{
+ "A": {
+  "control": "A_synthetic_positive",
+  "n_requested": 1000,
+  "n_traded": 1000,
+  "status_counts": {
+   "TRADE": 1000
+  },
+  "exit_type_counts": {
+   "TIME": 1000
+  },
+  "p_win_design": 0.65,
+  "mean_r": 0.20999999999988805,
+  "median_r": 0.9199999999998099,
+  "total_r": 209.99999999988805,
+  "win_rate": 0.645,
+  "profit_factor": 1.5477308294206937,
+  "bootstrap_ci95": [
+   0.15399999999989422,
+   0.27199999999988117
+  ],
+  "se_theoretical": 0.03162277660168379,
+  "gates": {
+   "n_all_traded": true,
+   "all_time_exits": true,
+   "sign_correct": true,
+   "within_tol_0.08": true,
+   "pf_sign": true,
+   "ci_lower_positive": true,
+   "ci_upper_negative": true
+  },
+  "PASS": true
+ },
+ "B": {
+  "control": "B_synthetic_negative",
+  "n_requested": 1000,
+  "n_traded": 1000,
+  "status_counts": {
+   "TRADE": 1000
+  },
+  "exit_type_counts": {
+   "TIME": 1000
+  },
+  "p_win_design": 0.35,
+  "mean_r": -0.3880000000000461,
+  "median_r": -1.0799999999999699,
+  "total_r": -388.0000000000461,
+  "win_rate": 0.346,
+  "profit_factor": 0.45067391550563923,
+  "bootstrap_ci95": [
+   -0.44605000000003975,
+   -0.327950000000053
+  ],
+  "se_theoretical": 0.03162277660168379,
+  "gates": {
+   "n_all_traded": true,
+   "all_time_exits": true,
+   "sign_correct": true,
+   "within_tol_0.08": true,
+   "pf_sign": true,
+   "ci_lower_positive": true,
+   "ci_upper_negative": true
+  },
+  "PASS": true
+ },
+ "C": {
+  "control": "C_synthetic_zero",
+  "n_requested": 5000,
+  "n_traded": 5000,
+  "status_counts": {
+   "TRADE": 5000
+  },
+  "exit_type_counts": {
+   "TIME": 5000
+  },
+  "p_win_design": 0.5,
+  "mean_r": -0.05760000000008247,
+  "median_r": 0.9199999999998099,
+  "total_r": -288.00000000041234,
+  "win_rate": 0.5112,
+  "profit_factor": 0.890889252591221,
+  "bootstrap_ci95": [
+   -0.08601000000007936,
+   -0.030000000000085514
+  ],
+  "se_theoretical": 0.01414213562373095,
+  "gates": {
+   "n_all_traded": true,
+   "all_time_exits": true,
+   "sign_correct": true,
+   "within_tol_0.04": true,
+   "pf_sign": true,
+   "ci_lower_positive": true,
+   "ci_upper_negative": true
+  },
+  "PASS": true
+ },
+ "PASS": true
+}

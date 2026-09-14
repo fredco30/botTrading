@@ -1,0 +1,133 @@
+{
+ "LAB_AUDIT_M0": "done",
+ "BASE_HEAD": "21cac5f05e454bbd7a2ef892dc5c3a23cd14bce1",
+ "FROZEN_SPEC_COMMIT": "3ec8a224c53e6634e8cf99819814f910e154cba8",
+ "FINAL_HEAD": "95180ba151d405ea68b95e9fa7a92d2bc4c7efd9",
+ "BRANCH": "research/lab-audit-m0",
+ "CONTROL_A_POSITIVE_SYNTH": {
+  "EXPECTED": "net +0.22R +-0.08R, PF>1, CI95 lower>0 (p=0.65, N=1000, cost=0.8 pip)",
+  "OBSERVED": {
+   "mean_r": 0.20999999999988805,
+   "profit_factor": 1.5477308294206937,
+   "win_rate": 0.645,
+   "ci95": [
+    0.15399999999989422,
+    0.27199999999988117
+   ],
+   "n": 1000
+  },
+  "PASS": true
+ },
+ "CONTROL_B_NEGATIVE_SYNTH": {
+  "EXPECTED": "net -0.38R +-0.08R, PF<1, CI95 upper<0 (p=0.35, N=1000)",
+  "OBSERVED": {
+   "mean_r": -0.3880000000000461,
+   "profit_factor": 0.45067391550563923,
+   "win_rate": 0.346,
+   "ci95": [
+    -0.44605000000003975,
+    -0.327950000000053
+   ],
+   "n": 1000
+  },
+  "PASS": true
+ },
+ "CONTROL_C_ZERO_SYNTH": {
+  "EXPECTED": "net -0.08R +-0.04R, est<0, PF<1 (p=0.50, N=5000)",
+  "OBSERVED": {
+   "mean_r": -0.05760000000008247,
+   "profit_factor": 0.890889252591221,
+   "win_rate": 0.5112,
+   "ci95": [
+    -0.08601000000007936,
+    -0.030000000000085514
+   ],
+   "n": 5000
+  },
+  "PASS": true
+ },
+ "CONTROL_D_RANDOM_REAL": {
+  "MEAN": -0.5049772043010609,
+  "P05": -1.0566903225806343,
+  "P95": -0.024208602150542952,
+  "median": -0.5053118279569775,
+  "n_profitable_perms": 4,
+  "n_pf_gt_1p20": 0,
+  "n_eligible_days": 2325,
+  "avg_spread_at_entry_pips": 0.5572903225806212,
+  "PASS": true
+ },
+ "CONTROL_E_LOOKAHEAD_ORACLE": {
+  "MEAN_PIPS": 13.278812636165595,
+  "PF": 999.0,
+  "n_days_used": 1836,
+  "win_rate": 1.0,
+  "PASS": true
+ },
+ "CONTROL_F_ANTI_ORACLE": {
+  "MEAN_PIPS": -14.323965141612177,
+  "PF": 0.0,
+  "n_days_used": 1836,
+  "win_rate": 0.0,
+  "PASS": true
+ },
+ "CONTROL_G_EXECUTION_MATRIX": {
+  "n_checks": 26,
+  "n_failures": 0,
+  "PASS": true
+ },
+ "CONTROL_H_METRICS_MATRIX": {
+  "n_failures": 0,
+  "PASS": true
+ },
+ "CONTROL_I_INDEPENDENT_ENGINE": {
+  "N": 791,
+  "MATCHES": 791,
+  "B1_PO3_trades": 641,
+  "B2_LEGACY_H2_trades": 150,
+  "PASS": true
+ },
+ "CONTROL_J_COMMON_SAMPLE": {
+  "BASE_N": 93,
+  "STRESS_N": 92,
+  "INTERSECTION_N": 86,
+  "BASE_COMMON_EV": 0.5454536697950872,
+  "STRESS_COMMON_EV": 0.47585610783079113,
+  "BASE_NATIVE_PF": 1.3187431608566715,
+  "STRESS_NATIVE_PF": 1.5321077600809203,
+  "BASE_COMMON_PF": 1.6235565819861677,
+  "STRESS_COMMON_PF": 1.6971659159154686,
+  "TEST04_PF_INCREASE_CAUSE": "SAMPLE_SELECTION_EFFECT",
+  "MECHANISM": "Exact reproduction confirmed. The naive N-difference (93 vs 92) hides 13 trades of sample divergence: intersection = 86. Latency (30 s) shifts every fill; 7 baseline trades do not execute under stress (5x SKIP_REVMAXSL: unslipped ref price pushed risk across the 25-pip gate; 2x INVALID_LEVELS), and ALL 7 are baseline losers (5 stop-outs ~ -21..-25 pips). Their removal lifts stress-native PF from a common-sample base of 1.624 to 1.532. On the common sample the execution effect is a genuine COST: EV 0.545R -> 0.476R (mean dR -0.070 ~ injected -1 pip slippage; 79/86 trades worsened). The residual common PF increase (1.624 -> 1.697) is a ratio-metric artifact of 11 exit-type flips toward 2.5R targets, not an edge. => The historical stress PF increase is a SAMPLE_SELECTION_EFFECT; no metric bug; stress is NOT genuinely better.",
+  "PASS": true
+ },
+ "CONTROL_K_CAUSALITY": {
+  "n_failures": 0,
+  "PASS": true
+ },
+ "DATA_INTEGRITY": {
+  "partition_count": 108,
+  "total_rows": 209682628,
+  "monotonic_violations": 0,
+  "bid_gt_ask_count": 0,
+  "non_positive_quote_count": 0,
+  "duplicate_timestamp_count": 0,
+  "sha256_spot_checks": {
+   "2010-01": true,
+   "2014-06": true,
+   "2018-12": true
+  },
+  "PASS": true
+ },
+ "CAN_LAB_DETECT_KNOWN_POSITIVE_EDGE": "YES",
+ "CAN_LAB_DETECT_KNOWN_NEGATIVE_EDGE": "YES",
+ "CAN_LAB_RETURN_NO_EDGE_FOR_RANDOM": "YES",
+ "CAN_LAB_DETECT_LOOKAHEAD_ORACLE": "YES",
+ "EXECUTION_ENGINE_VALIDATED": "YES",
+ "METRIC_ENGINE_VALIDATED": "YES",
+ "CAUSALITY_GUARDS_VALIDATED": "YES",
+ "STRESS_COMMON_SAMPLE_VALIDATED": "YES",
+ "2019_PLUS_ACCESSED": "NO",
+ "PROTECTED_OOS_ACCESSED": "NO",
+ "FINAL_STATUS": "LAB_PASS"
+}

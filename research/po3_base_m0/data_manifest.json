@@ -1,0 +1,981 @@
+{
+ "store": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD",
+ "partition_count": 108,
+ "total_rows": 209682628,
+ "schema": "timestamp_utc[ns,UTC], bid, ask, mid, spread_pips, bid_volume, ask_volume",
+ "entries": {
+  "2010-01": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2010\\month=01\\ticks.parquet",
+   "sha256": "4123d4bf00d389ea088ae63cbc21116d5d83192364d7382514db55bb14d47d26",
+   "bytes": 8614786,
+   "rows": 597068,
+   "row_groups": 1,
+   "ts_min": "2010-01-01 00:00:03.964000+00:00",
+   "ts_max": "2010-01-31 23:59:57.477000+00:00"
+  },
+  "2010-02": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2010\\month=02\\ticks.parquet",
+   "sha256": "a0a4081d36e656492b6ac99ab1c363a69c8750d919aa5d6229a0e5a3ff884d94",
+   "bytes": 8151134,
+   "rows": 568499,
+   "row_groups": 1,
+   "ts_min": "2010-02-01 00:00:14.432000+00:00",
+   "ts_max": "2010-02-28 23:59:57.768000+00:00"
+  },
+  "2010-03": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2010\\month=03\\ticks.parquet",
+   "sha256": "af8da71aee3df87ab4492c80e3cd6e321d03bc39c2987c62aa01c1b31cf0a26c",
+   "bytes": 9124661,
+   "rows": 654814,
+   "row_groups": 1,
+   "ts_min": "2010-03-01 00:00:02.839000+00:00",
+   "ts_max": "2010-03-31 23:59:43.879000+00:00"
+  },
+  "2010-04": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2010\\month=04\\ticks.parquet",
+   "sha256": "403eaf076fb1e8406d8404d07580118d7f7ffee6629e42904e027d3e3adc1573",
+   "bytes": 8712953,
+   "rows": 623088,
+   "row_groups": 1,
+   "ts_min": "2010-04-01 00:00:02.822000+00:00",
+   "ts_max": "2010-04-30 20:59:54.746000+00:00"
+  },
+  "2010-05": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2010\\month=05\\ticks.parquet",
+   "sha256": "734772f0eb97c0b4126a88a359c5dea1d1678133ed1ac45eee5b680b3b456beb",
+   "bytes": 8800458,
+   "rows": 598358,
+   "row_groups": 1,
+   "ts_min": "2010-05-02 21:00:03.496000+00:00",
+   "ts_max": "2010-05-31 23:59:57.483000+00:00"
+  },
+  "2010-06": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2010\\month=06\\ticks.parquet",
+   "sha256": "eecea9c15ecd2eb93b3f6e935bb01358878e1bfc866a5ea6c32fe20c2bc3e174",
+   "bytes": 8810032,
+   "rows": 625711,
+   "row_groups": 1,
+   "ts_min": "2010-06-01 00:00:14.175000+00:00",
+   "ts_max": "2010-06-30 23:59:46.300000+00:00"
+  },
+  "2010-07": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2010\\month=07\\ticks.parquet",
+   "sha256": "ffb346c406f09544082bc640d0dd23bae444d8478ff06a0befd1cb46c47552ed",
+   "bytes": 8978451,
+   "rows": 622678,
+   "row_groups": 1,
+   "ts_min": "2010-07-01 00:00:02.297000+00:00",
+   "ts_max": "2010-07-30 20:59:58.086000+00:00"
+  },
+  "2010-08": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2010\\month=08\\ticks.parquet",
+   "sha256": "13d77ad256b89c214b952d8ac72dec52815b53e25636c6bce162cc2b254fa595",
+   "bytes": 8994407,
+   "rows": 627417,
+   "row_groups": 1,
+   "ts_min": "2010-08-01 21:00:04.488000+00:00",
+   "ts_max": "2010-08-31 23:59:58.997000+00:00"
+  },
+  "2010-09": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2010\\month=09\\ticks.parquet",
+   "sha256": "cb3b8ff26162daa05590cb7baaeda5da15e334d9fefe6320bf1678cd279c47ec",
+   "bytes": 9014835,
+   "rows": 625188,
+   "row_groups": 1,
+   "ts_min": "2010-09-01 00:00:00.489000+00:00",
+   "ts_max": "2010-09-30 23:59:58.331000+00:00"
+  },
+  "2010-10": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2010\\month=10\\ticks.parquet",
+   "sha256": "83a9fc76d51474665d0924749e205d8c7aa8d70366c76f3faf1f2ee6ba11ce0f",
+   "bytes": 8619657,
+   "rows": 609506,
+   "row_groups": 1,
+   "ts_min": "2010-10-01 00:00:06.406000+00:00",
+   "ts_max": "2010-10-31 23:59:57.450000+00:00"
+  },
+  "2010-11": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2010\\month=11\\ticks.parquet",
+   "sha256": "1d474866abc0006918090ee6dfcfc31b310fd01c15901aae1a5c353137ca3622",
+   "bytes": 10575864,
+   "rows": 718872,
+   "row_groups": 1,
+   "ts_min": "2010-11-01 00:00:00.798000+00:00",
+   "ts_max": "2010-11-30 23:59:55.225000+00:00"
+  },
+  "2010-12": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2010\\month=12\\ticks.parquet",
+   "sha256": "74f2d04ba506d98557174446bde555628affc283ea849fb9676d436e05a3ede7",
+   "bytes": 19746551,
+   "rows": 1387568,
+   "row_groups": 2,
+   "ts_min": "2010-12-01 00:00:01.589000+00:00",
+   "ts_max": "2010-12-31 21:59:52.426000+00:00"
+  },
+  "2011-01": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2011\\month=01\\ticks.parquet",
+   "sha256": "68d8f7c0b9851c3007ce96182d88a1d03562048637718c66cb18aca5381a2fc8",
+   "bytes": 20530627,
+   "rows": 1456663,
+   "row_groups": 2,
+   "ts_min": "2011-01-02 22:00:26.739000+00:00",
+   "ts_max": "2011-01-31 23:59:59.394000+00:00"
+  },
+  "2011-02": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2011\\month=02\\ticks.parquet",
+   "sha256": "d87ec1959d97279da8e2d1879bb58f16cd9ef97bbfc4f799f8e6a54f83c4a412",
+   "bytes": 19995776,
+   "rows": 1499974,
+   "row_groups": 2,
+   "ts_min": "2011-02-01 00:00:00.407000+00:00",
+   "ts_max": "2011-02-28 23:59:59.561000+00:00"
+  },
+  "2011-03": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2011\\month=03\\ticks.parquet",
+   "sha256": "1882023066de479a51a2ebd3e68a23de18f07f529f5af51b815ee297108ceac4",
+   "bytes": 23834650,
+   "rows": 1858170,
+   "row_groups": 2,
+   "ts_min": "2011-03-01 00:00:00.659000+00:00",
+   "ts_max": "2011-03-31 23:59:58.918000+00:00"
+  },
+  "2011-04": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2011\\month=04\\ticks.parquet",
+   "sha256": "b05aff9bb975a60caa76bf967824837adae9dc5e2056f18bc56094fd504e4cdb",
+   "bytes": 22303404,
+   "rows": 1626617,
+   "row_groups": 2,
+   "ts_min": "2011-04-01 00:00:00.963000+00:00",
+   "ts_max": "2011-04-29 20:59:59.231000+00:00"
+  },
+  "2011-05": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2011\\month=05\\ticks.parquet",
+   "sha256": "9c6de92240e3667b5ee9cf01d70853b60638ee5f6bd0f48909c411d7b3ae2137",
+   "bytes": 30635629,
+   "rows": 2292193,
+   "row_groups": 3,
+   "ts_min": "2011-05-01 21:00:00.403000+00:00",
+   "ts_max": "2011-05-31 23:59:52.943000+00:00"
+  },
+  "2011-06": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2011\\month=06\\ticks.parquet",
+   "sha256": "78e5336fda70973b95365e82048d7acf6df7c7e4431b9af4d07eb7fb32ca7d9e",
+   "bytes": 29732881,
+   "rows": 2230114,
+   "row_groups": 3,
+   "ts_min": "2011-06-01 00:00:00.548000+00:00",
+   "ts_max": "2011-06-30 23:59:58.582000+00:00"
+  },
+  "2011-07": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2011\\month=07\\ticks.parquet",
+   "sha256": "d0b4d611d96ae5e6dd3e13aee07fee60cb0be8dbe6ae7783e2394619c16f3e78",
+   "bytes": 30404635,
+   "rows": 2189748,
+   "row_groups": 3,
+   "ts_min": "2011-07-01 00:00:01.012000+00:00",
+   "ts_max": "2011-07-31 23:59:57.880000+00:00"
+  },
+  "2011-08": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2011\\month=08\\ticks.parquet",
+   "sha256": "01f7c91d7a1dfe20af987f146a10aec6fb75fdf814864ca1b2a8e5a46fe495eb",
+   "bytes": 36374051,
+   "rows": 2700830,
+   "row_groups": 3,
+   "ts_min": "2011-08-01 00:00:00.537000+00:00",
+   "ts_max": "2011-08-31 23:59:58.095000+00:00"
+  },
+  "2011-09": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2011\\month=09\\ticks.parquet",
+   "sha256": "6f06f29eedef8edc72763d451811429bbe94c54368884916f6d14e289ab04159",
+   "bytes": 35599436,
+   "rows": 2591082,
+   "row_groups": 3,
+   "ts_min": "2011-09-01 00:00:03.494000+00:00",
+   "ts_max": "2011-09-30 20:59:50.926000+00:00"
+  },
+  "2011-10": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2011\\month=10\\ticks.parquet",
+   "sha256": "90cffea710ba1cf765181a931ea992bd7240d0d99d1024eaa1539ed5ce47c3c3",
+   "bytes": 34957474,
+   "rows": 2590813,
+   "row_groups": 3,
+   "ts_min": "2011-10-02 21:00:20.152000+00:00",
+   "ts_max": "2011-10-31 23:59:58.855000+00:00"
+  },
+  "2011-11": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2011\\month=11\\ticks.parquet",
+   "sha256": "d31ced14d0978b539435c1dc2347b33468038bc9fb22480629e225657661b879",
+   "bytes": 35269124,
+   "rows": 2618117,
+   "row_groups": 3,
+   "ts_min": "2011-11-01 00:00:00.814000+00:00",
+   "ts_max": "2011-11-30 23:59:58.627000+00:00"
+  },
+  "2011-12": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2011\\month=12\\ticks.parquet",
+   "sha256": "c0af079aac2f00569ee9abfbf07382402f2cc602a51529f65017ddeb4db1fea9",
+   "bytes": 27632929,
+   "rows": 2139481,
+   "row_groups": 3,
+   "ts_min": "2011-12-01 00:00:00.955000+00:00",
+   "ts_max": "2011-12-30 21:59:59.891000+00:00"
+  },
+  "2012-01": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2012\\month=01\\ticks.parquet",
+   "sha256": "e10bf2f28cdd64e9e30aac1bca2c4af5b3a5ee0be605c5ffd3a7b547d6a1c584",
+   "bytes": 33635558,
+   "rows": 2619093,
+   "row_groups": 3,
+   "ts_min": "2012-01-01 22:00:36.416000+00:00",
+   "ts_max": "2012-01-31 23:59:58.869000+00:00"
+  },
+  "2012-02": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2012\\month=02\\ticks.parquet",
+   "sha256": "5b0fa8aa2974f5d038370aa95f1dec5404c27e5c7388c0a38b05bce5d0a880bb",
+   "bytes": 32459715,
+   "rows": 2403688,
+   "row_groups": 3,
+   "ts_min": "2012-02-01 00:00:01.231000+00:00",
+   "ts_max": "2012-02-29 23:59:59.628000+00:00"
+  },
+  "2012-03": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2012\\month=03\\ticks.parquet",
+   "sha256": "dbffbef3c526c7ee9fa2f33392e9b61abdb3577a2d7650bd7d958bb6017c4f56",
+   "bytes": 27773002,
+   "rows": 2100633,
+   "row_groups": 3,
+   "ts_min": "2012-03-01 00:00:00.144000+00:00",
+   "ts_max": "2012-03-30 20:59:59.554000+00:00"
+  },
+  "2012-04": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2012\\month=04\\ticks.parquet",
+   "sha256": "b3110faf827782b865ecf0b1d9f9ba04ce1563d9b5b76705544092805ea393ea",
+   "bytes": 25156819,
+   "rows": 1923452,
+   "row_groups": 2,
+   "ts_min": "2012-04-01 21:00:02.646000+00:00",
+   "ts_max": "2012-04-30 23:59:59.353000+00:00"
+  },
+  "2012-05": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2012\\month=05\\ticks.parquet",
+   "sha256": "6b9aa5d4708d9e0d64c26f70744f4e459acd429330bb6cc938313ae79adcbee3",
+   "bytes": 32502549,
+   "rows": 2431508,
+   "row_groups": 3,
+   "ts_min": "2012-05-01 00:00:01.345000+00:00",
+   "ts_max": "2012-05-31 23:59:55.025000+00:00"
+  },
+  "2012-06": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2012\\month=06\\ticks.parquet",
+   "sha256": "3d4768523585d864b48cb1c150853b887bcd8e9a79f0074bbb699b3c92ded0a5",
+   "bytes": 30915734,
+   "rows": 2316948,
+   "row_groups": 3,
+   "ts_min": "2012-06-01 00:00:00.831000+00:00",
+   "ts_max": "2012-06-29 20:59:59.838000+00:00"
+  },
+  "2012-07": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2012\\month=07\\ticks.parquet",
+   "sha256": "7e2d3ab2375db5ef20769948ec22670db7f91e91987f4d7ce9a94c8df4861993",
+   "bytes": 27334713,
+   "rows": 2023214,
+   "row_groups": 2,
+   "ts_min": "2012-07-01 21:00:00.936000+00:00",
+   "ts_max": "2012-07-31 23:59:51.338000+00:00"
+  },
+  "2012-08": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2012\\month=08\\ticks.parquet",
+   "sha256": "88090d3ef7d77fec39327e7be4ca839a31cf2e0dc7179e26d8b11ce1fba232e2",
+   "bytes": 23510504,
+   "rows": 1759249,
+   "row_groups": 2,
+   "ts_min": "2012-08-01 00:00:01.044000+00:00",
+   "ts_max": "2012-08-31 20:59:58.579000+00:00"
+  },
+  "2012-09": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2012\\month=09\\ticks.parquet",
+   "sha256": "dc4de5e6866e55cd1633cdfd3ab9ea88425fbc430e941c458a18b5f00484d939",
+   "bytes": 22043066,
+   "rows": 1606727,
+   "row_groups": 2,
+   "ts_min": "2012-09-02 21:00:33.255000+00:00",
+   "ts_max": "2012-09-30 23:59:59.699000+00:00"
+  },
+  "2012-10": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2012\\month=10\\ticks.parquet",
+   "sha256": "8c2c6871896a8b3f9f5579c2f2976e825d25e798617c4e649fc44c88f32f2e04",
+   "bytes": 19711763,
+   "rows": 1468947,
+   "row_groups": 2,
+   "ts_min": "2012-10-01 00:00:00.741000+00:00",
+   "ts_max": "2012-10-31 23:59:59.400000+00:00"
+  },
+  "2012-11": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2012\\month=11\\ticks.parquet",
+   "sha256": "47f20b138f8a03a74ed87f1b79962f4246bc8f4db466ce25315df3dd5882c46c",
+   "bytes": 19374127,
+   "rows": 1440915,
+   "row_groups": 2,
+   "ts_min": "2012-11-01 00:00:00.059000+00:00",
+   "ts_max": "2012-11-30 21:59:59.169000+00:00"
+  },
+  "2012-12": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2012\\month=12\\ticks.parquet",
+   "sha256": "350b2a96c9211d73b0ce4755efe4f491bfa18a543b2b3c6d5c71dc7f477442b0",
+   "bytes": 17737820,
+   "rows": 1306577,
+   "row_groups": 2,
+   "ts_min": "2012-12-02 22:00:16.417000+00:00",
+   "ts_max": "2012-12-31 23:58:54.317000+00:00"
+  },
+  "2013-01": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2013\\month=01\\ticks.parquet",
+   "sha256": "e02e9d238cc522b7b84fa16dc1094024fb16b016cf1deccdeed0a800d0cf721e",
+   "bytes": 23150056,
+   "rows": 1746386,
+   "row_groups": 2,
+   "ts_min": "2013-01-01 00:00:00.463000+00:00",
+   "ts_max": "2013-01-31 23:59:59.861000+00:00"
+  },
+  "2013-02": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2013\\month=02\\ticks.parquet",
+   "sha256": "44c2a44b8d1a82009f00c0e6a59c63ce4248027912df439a71a001be44ba607b",
+   "bytes": 21993869,
+   "rows": 1669977,
+   "row_groups": 2,
+   "ts_min": "2013-02-01 00:00:00.672000+00:00",
+   "ts_max": "2013-02-28 23:59:54.319000+00:00"
+  },
+  "2013-03": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2013\\month=03\\ticks.parquet",
+   "sha256": "a6d8bd5d2fff3f7ef33cdfe24b7223aeeb796e07f3c9f9ce138cdd352a8fcd22",
+   "bytes": 22659619,
+   "rows": 1726096,
+   "row_groups": 2,
+   "ts_min": "2013-03-01 00:00:00.620000+00:00",
+   "ts_max": "2013-03-31 23:59:53.599000+00:00"
+  },
+  "2013-04": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2013\\month=04\\ticks.parquet",
+   "sha256": "13c819a70e5c0c202f7da003b6522bbc180ae77f3e8858add8edec9564834326",
+   "bytes": 23565169,
+   "rows": 1768708,
+   "row_groups": 2,
+   "ts_min": "2013-04-01 00:00:17.337000+00:00",
+   "ts_max": "2013-04-30 23:59:53.730000+00:00"
+  },
+  "2013-05": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2013\\month=05\\ticks.parquet",
+   "sha256": "ffffcd6e61f71b5d5b4111f709d11d7f108da9d46fbc70518ec079703c088e3a",
+   "bytes": 23680910,
+   "rows": 1749177,
+   "row_groups": 2,
+   "ts_min": "2013-05-01 00:00:04.468000+00:00",
+   "ts_max": "2013-05-31 20:59:50.264000+00:00"
+  },
+  "2013-06": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2013\\month=06\\ticks.parquet",
+   "sha256": "44ec6ada6e95f815409ebfe865d26c148cb1c7f32864fe5e7b36db1cbbd62492",
+   "bytes": 24045206,
+   "rows": 1715165,
+   "row_groups": 2,
+   "ts_min": "2013-06-02 21:01:38.523000+00:00",
+   "ts_max": "2013-06-30 23:59:50.134000+00:00"
+  },
+  "2013-07": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2013\\month=07\\ticks.parquet",
+   "sha256": "9cb6423486f102902ed39f02529b32cf1a4bbcbc8bfd296dedbcfe4ea551e25b",
+   "bytes": 24221428,
+   "rows": 1754769,
+   "row_groups": 2,
+   "ts_min": "2013-07-01 00:00:00.235000+00:00",
+   "ts_max": "2013-07-31 23:59:57.341000+00:00"
+  },
+  "2013-08": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2013\\month=08\\ticks.parquet",
+   "sha256": "8e6f5dced0817b336cff2cbbc0374f44309d8824f7d74d0741bc89d0e22559a1",
+   "bytes": 17769865,
+   "rows": 1296384,
+   "row_groups": 2,
+   "ts_min": "2013-08-01 00:00:01.317000+00:00",
+   "ts_max": "2013-08-30 20:59:59.288000+00:00"
+  },
+  "2013-09": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2013\\month=09\\ticks.parquet",
+   "sha256": "d0077b7dc1720fb756f28bc1593a3c8a67f000f40caa7d93114c82197286e8ed",
+   "bytes": 16513364,
+   "rows": 1226673,
+   "row_groups": 2,
+   "ts_min": "2013-09-01 21:01:35.919000+00:00",
+   "ts_max": "2013-09-30 23:59:49.592000+00:00"
+  },
+  "2013-10": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2013\\month=10\\ticks.parquet",
+   "sha256": "967de92507c2d74d8754509d03a5363fb3f0a788ab13bc887677dc8d3212011f",
+   "bytes": 17915419,
+   "rows": 1327282,
+   "row_groups": 2,
+   "ts_min": "2013-10-01 00:00:00.904000+00:00",
+   "ts_max": "2013-10-31 23:59:58.293000+00:00"
+  },
+  "2013-11": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2013\\month=11\\ticks.parquet",
+   "sha256": "9a082b0c19ea1bbfcc9398f065d1e57e0108457bf7abf261b3b230ed847dc6a0",
+   "bytes": 17857508,
+   "rows": 1312250,
+   "row_groups": 2,
+   "ts_min": "2013-11-01 00:00:01.905000+00:00",
+   "ts_max": "2013-11-29 21:59:49.328000+00:00"
+  },
+  "2013-12": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2013\\month=12\\ticks.parquet",
+   "sha256": "76c6c5ceecf2c1b6758d29df24561b87b52ad45b935ac6c2323ee07b8bb27409",
+   "bytes": 17244362,
+   "rows": 1283371,
+   "row_groups": 2,
+   "ts_min": "2013-12-01 22:00:01.591000+00:00",
+   "ts_max": "2013-12-31 22:00:00.625000+00:00"
+  },
+  "2014-01": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2014\\month=01\\ticks.parquet",
+   "sha256": "81516691095d394772701e2825a55f754225a92968daa0fea32262974227615d",
+   "bytes": 19505510,
+   "rows": 1454724,
+   "row_groups": 2,
+   "ts_min": "2014-01-01 22:00:58.616000+00:00",
+   "ts_max": "2014-01-31 21:59:57.157000+00:00"
+  },
+  "2014-02": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2014\\month=02\\ticks.parquet",
+   "sha256": "1afa4a059334daeed62d381074de93bd642d45e2187e822ab067a1faa05c6f2d",
+   "bytes": 14913220,
+   "rows": 1100516,
+   "row_groups": 2,
+   "ts_min": "2014-02-02 22:00:00.399000+00:00",
+   "ts_max": "2014-02-28 21:59:59.741000+00:00"
+  },
+  "2014-03": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2014\\month=03\\ticks.parquet",
+   "sha256": "6317e849fc078bac2ceabdc238823efd73083c161a0ed18ee8c353b966b98878",
+   "bytes": 13485133,
+   "rows": 1014962,
+   "row_groups": 1,
+   "ts_min": "2014-03-02 22:00:01.103000+00:00",
+   "ts_max": "2014-03-31 23:59:57.496000+00:00"
+  },
+  "2014-04": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2014\\month=04\\ticks.parquet",
+   "sha256": "6257f81b7f6cce7c07ad989c30f3927974124254de4fe29e19e7a2e24292f56b",
+   "bytes": 11822905,
+   "rows": 923335,
+   "row_groups": 1,
+   "ts_min": "2014-04-01 00:00:20.395000+00:00",
+   "ts_max": "2014-04-30 23:59:58.641000+00:00"
+  },
+  "2014-05": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2014\\month=05\\ticks.parquet",
+   "sha256": "6fc1645166fc29875168232696bc59dbc9e2fd1cdca324afc33ba3b0bbb36bd6",
+   "bytes": 14226566,
+   "rows": 1198416,
+   "row_groups": 2,
+   "ts_min": "2014-05-01 00:00:00.630000+00:00",
+   "ts_max": "2014-05-30 20:59:52.555000+00:00"
+  },
+  "2014-06": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2014\\month=06\\ticks.parquet",
+   "sha256": "fccb4115b09d81c561bd7b74a453523139e7b2ceff3ea4b2e7725f1ee276b0e1",
+   "bytes": 16603661,
+   "rows": 1377147,
+   "row_groups": 2,
+   "ts_min": "2014-06-01 21:00:14.724000+00:00",
+   "ts_max": "2014-06-30 23:59:56.663000+00:00"
+  },
+  "2014-07": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2014\\month=07\\ticks.parquet",
+   "sha256": "50127d1a2a4043c3da15e3e46b02cb1a12e5722f43efb0ab9a305d4905c76b54",
+   "bytes": 14087453,
+   "rows": 1156964,
+   "row_groups": 2,
+   "ts_min": "2014-07-01 00:00:01.305000+00:00",
+   "ts_max": "2014-07-31 23:59:58.760000+00:00"
+  },
+  "2014-08": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2014\\month=08\\ticks.parquet",
+   "sha256": "76621cb4fda4ecbfdbc3242e2e354de539accc13e0f32360101a0b635e7c55f0",
+   "bytes": 14196111,
+   "rows": 1122840,
+   "row_groups": 2,
+   "ts_min": "2014-08-01 00:00:00.436000+00:00",
+   "ts_max": "2014-08-31 23:59:59.746000+00:00"
+  },
+  "2014-09": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2014\\month=09\\ticks.parquet",
+   "sha256": "038e48b8931f8a2abde9a4c03c87a97b5ed24a6bcb47d8bda1969c409769d909",
+   "bytes": 21984955,
+   "rows": 1769196,
+   "row_groups": 2,
+   "ts_min": "2014-09-01 00:00:00.391000+00:00",
+   "ts_max": "2014-09-30 23:59:59.373000+00:00"
+  },
+  "2014-10": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2014\\month=10\\ticks.parquet",
+   "sha256": "b320aff64432b8d78151e776f0c254511e62352ab44a0ccad116c86c3a7641dd",
+   "bytes": 28602522,
+   "rows": 2239353,
+   "row_groups": 3,
+   "ts_min": "2014-10-01 00:00:00.176000+00:00",
+   "ts_max": "2014-10-31 20:59:59.926000+00:00"
+  },
+  "2014-11": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2014\\month=11\\ticks.parquet",
+   "sha256": "fcb2601198295a25a42a69a9774c268f02c81f8cc9be62aa513406258fa49a64",
+   "bytes": 23866126,
+   "rows": 1863250,
+   "row_groups": 2,
+   "ts_min": "2014-11-02 22:00:01.996000+00:00",
+   "ts_max": "2014-11-30 23:59:58.808000+00:00"
+  },
+  "2014-12": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2014\\month=12\\ticks.parquet",
+   "sha256": "8f3c8b1fe44eb27174e10fadd838733e67a0d267a49c71779bce987ba4c5b8ca",
+   "bytes": 22140294,
+   "rows": 1684537,
+   "row_groups": 2,
+   "ts_min": "2014-12-01 00:00:00.548000+00:00",
+   "ts_max": "2014-12-31 22:00:00.547000+00:00"
+  },
+  "2015-01": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2015\\month=01\\ticks.parquet",
+   "sha256": "fbf19a76400fca1ee410b310c49dbb29bdd94d7e4a00078d697b5b6a94ab5bb8",
+   "bytes": 27548474,
+   "rows": 2033272,
+   "row_groups": 2,
+   "ts_min": "2015-01-01 22:00:01.413000+00:00",
+   "ts_max": "2015-01-30 21:59:54.471000+00:00"
+  },
+  "2015-02": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2015\\month=02\\ticks.parquet",
+   "sha256": "a3652ab8b9ec71b7fe5d20b392feb5662adeea4063d9f9c03e5ef72032e074f0",
+   "bytes": 21288088,
+   "rows": 1615536,
+   "row_groups": 2,
+   "ts_min": "2015-02-01 22:00:04.906000+00:00",
+   "ts_max": "2015-02-27 21:59:59.179000+00:00"
+  },
+  "2015-03": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2015\\month=03\\ticks.parquet",
+   "sha256": "771bf617967ef9c31be6321c68c3167c2bc144da6f4fb1d6f1e2d36cae3e356d",
+   "bytes": 31197754,
+   "rows": 2218340,
+   "row_groups": 3,
+   "ts_min": "2015-03-01 22:00:19.053000+00:00",
+   "ts_max": "2015-03-31 23:59:59.435000+00:00"
+  },
+  "2015-04": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2015\\month=04\\ticks.parquet",
+   "sha256": "254ee84021cab65405f90362152ed477d8183ca87d0e305a34ba9255bf891aac",
+   "bytes": 30535644,
+   "rows": 2296365,
+   "row_groups": 3,
+   "ts_min": "2015-04-01 00:00:00.253000+00:00",
+   "ts_max": "2015-04-30 23:59:55.815000+00:00"
+  },
+  "2015-05": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2015\\month=05\\ticks.parquet",
+   "sha256": "ba509727a2dd44b0148949c275e01ffd325718fe656ef5a9ed73d7959cc62e05",
+   "bytes": 28214655,
+   "rows": 2143097,
+   "row_groups": 3,
+   "ts_min": "2015-05-01 00:00:00.126000+00:00",
+   "ts_max": "2015-05-31 23:59:58.499000+00:00"
+  },
+  "2015-06": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2015\\month=06\\ticks.parquet",
+   "sha256": "0f6448e8269c6b82c66697ad8d547c076bba7d1d4343187ceffa8ae7584c55c3",
+   "bytes": 30754309,
+   "rows": 2278998,
+   "row_groups": 3,
+   "ts_min": "2015-06-01 00:00:01.113000+00:00",
+   "ts_max": "2015-06-30 23:59:55.188000+00:00"
+  },
+  "2015-07": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2015\\month=07\\ticks.parquet",
+   "sha256": "fc284c4e9fcc14ba3ee3dc0e0ec8f4f47013f3c8dfe4998b560a6769b7008ba3",
+   "bytes": 27039149,
+   "rows": 2079650,
+   "row_groups": 2,
+   "ts_min": "2015-07-01 00:00:00.050000+00:00",
+   "ts_max": "2015-07-31 20:59:56.386000+00:00"
+  },
+  "2015-08": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2015\\month=08\\ticks.parquet",
+   "sha256": "e7ad3f049d212ff79491669fd97eb0a377ac2e0ece6162598dcfe16d8f64ebb3",
+   "bytes": 25873332,
+   "rows": 1955166,
+   "row_groups": 2,
+   "ts_min": "2015-08-02 21:00:02.433000+00:00",
+   "ts_max": "2015-08-31 23:59:53.902000+00:00"
+  },
+  "2015-09": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2015\\month=09\\ticks.parquet",
+   "sha256": "7e1ce9cd32b7aa95e1599f2bd86cb612aab065281a271b5d63a7c861118c80b8",
+   "bytes": 25808504,
+   "rows": 2010624,
+   "row_groups": 2,
+   "ts_min": "2015-09-01 00:00:00.016000+00:00",
+   "ts_max": "2015-09-30 23:59:58.242000+00:00"
+  },
+  "2015-10": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2015\\month=10\\ticks.parquet",
+   "sha256": "2aeeb79fc89c1fad69d9cf2148794519e057480cc0a255844e25afc7ec30a71b",
+   "bytes": 24411984,
+   "rows": 1866264,
+   "row_groups": 2,
+   "ts_min": "2015-10-01 00:00:02.087000+00:00",
+   "ts_max": "2015-10-30 20:59:58.053000+00:00"
+  },
+  "2015-11": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2015\\month=11\\ticks.parquet",
+   "sha256": "fe817fbd9073496e019f3ebb14d21167126c3472937ffc4c19974df83ded104a",
+   "bytes": 23606271,
+   "rows": 1779331,
+   "row_groups": 2,
+   "ts_min": "2015-11-01 22:00:00.227000+00:00",
+   "ts_max": "2015-11-30 23:59:51.362000+00:00"
+  },
+  "2015-12": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2015\\month=12\\ticks.parquet",
+   "sha256": "98be62fcfce8462ed691232dc3b0080ddc2cd4c46ec902a0020ea733de9b3500",
+   "bytes": 25693981,
+   "rows": 1955359,
+   "row_groups": 2,
+   "ts_min": "2015-12-01 00:00:00.187000+00:00",
+   "ts_max": "2015-12-31 21:59:51.734000+00:00"
+  },
+  "2016-01": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2016\\month=01\\ticks.parquet",
+   "sha256": "73fa8066bf1d21ad370e3b2b888105382740d12574b63c82c2e896144bdc2f9b",
+   "bytes": 29267693,
+   "rows": 2203624,
+   "row_groups": 3,
+   "ts_min": "2016-01-03 22:00:01.446000+00:00",
+   "ts_max": "2016-01-31 23:59:59.429000+00:00"
+  },
+  "2016-02": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2016\\month=02\\ticks.parquet",
+   "sha256": "6a86ed0b7d7bd6f2e96f9146fab0da56a6bd74e91219c113d535e8b1eb732e4e",
+   "bytes": 37621324,
+   "rows": 2906011,
+   "row_groups": 3,
+   "ts_min": "2016-02-01 00:00:00.728000+00:00",
+   "ts_max": "2016-02-29 23:59:58.926000+00:00"
+  },
+  "2016-03": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2016\\month=03\\ticks.parquet",
+   "sha256": "8413932f0f19eb525e9b254ea3e3568ffb764c90ac363dab8be05a4df43c8a78",
+   "bytes": 33855972,
+   "rows": 2673080,
+   "row_groups": 3,
+   "ts_min": "2016-03-01 00:00:00.290000+00:00",
+   "ts_max": "2016-03-31 23:59:51.216000+00:00"
+  },
+  "2016-04": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2016\\month=04\\ticks.parquet",
+   "sha256": "80ada35f984dfb01b9aee0fa5912e6bacf4049fa018488c350990c6dd8425bfa",
+   "bytes": 25547589,
+   "rows": 1954992,
+   "row_groups": 2,
+   "ts_min": "2016-04-01 00:00:00.220000+00:00",
+   "ts_max": "2016-04-29 20:59:13.205000+00:00"
+  },
+  "2016-05": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2016\\month=05\\ticks.parquet",
+   "sha256": "c1c5e09744cc23ec11301f09bfd303cebc9b9caebde0e2ac970b427dbfe6d2a3",
+   "bytes": 24097863,
+   "rows": 1822524,
+   "row_groups": 2,
+   "ts_min": "2016-05-01 21:00:11.829000+00:00",
+   "ts_max": "2016-05-31 23:59:59.744000+00:00"
+  },
+  "2016-06": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2016\\month=06\\ticks.parquet",
+   "sha256": "351c4687bccfc9026864665a51fba4401e978408d89a5ab712bc15367acb26b5",
+   "bytes": 29967761,
+   "rows": 2254375,
+   "row_groups": 3,
+   "ts_min": "2016-06-01 00:00:00.402000+00:00",
+   "ts_max": "2016-06-30 23:59:59.903000+00:00"
+  },
+  "2016-07": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2016\\month=07\\ticks.parquet",
+   "sha256": "c4e8b7848b6e3e871cf70dbb0a13ffa4d82c49b91a6caac837a6eae96ca53691",
+   "bytes": 47672565,
+   "rows": 4201709,
+   "row_groups": 5,
+   "ts_min": "2016-07-01 00:00:00.259000+00:00",
+   "ts_max": "2016-07-31 23:59:59.851000+00:00"
+  },
+  "2016-08": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2016\\month=08\\ticks.parquet",
+   "sha256": "90c16bdd882a3ec0a12ef59c3d3637d59bd858de74247f0a83c97c57741f8c21",
+   "bytes": 81378533,
+   "rows": 7691127,
+   "row_groups": 8,
+   "ts_min": "2016-08-01 00:00:00.108000+00:00",
+   "ts_max": "2016-08-31 23:59:58.926000+00:00"
+  },
+  "2016-09": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2016\\month=09\\ticks.parquet",
+   "sha256": "c392fa62c9449c6a57f7d20e8c6fb4e905bcd85317c1834705d4fef7d11652dd",
+   "bytes": 92245817,
+   "rows": 8956960,
+   "row_groups": 9,
+   "ts_min": "2016-09-01 00:00:00.077000+00:00",
+   "ts_max": "2016-09-30 20:59:59.046000+00:00"
+  },
+  "2016-10": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2016\\month=10\\ticks.parquet",
+   "sha256": "c0b79fe1aab29fb94b44e3e1c1543475e6fd6b6ea61d95d55caca90e15a64759",
+   "bytes": 63229029,
+   "rows": 6039068,
+   "row_groups": 6,
+   "ts_min": "2016-10-02 21:00:05.470000+00:00",
+   "ts_max": "2016-10-31 23:59:42.479000+00:00"
+  },
+  "2016-11": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2016\\month=11\\ticks.parquet",
+   "sha256": "92f6326c3034a6ae95f2a98f7000806eb137ee0e6e634a802dbf37b28ae663dd",
+   "bytes": 29083199,
+   "rows": 2217336,
+   "row_groups": 3,
+   "ts_min": "2016-11-01 00:00:00.049000+00:00",
+   "ts_max": "2016-11-30 23:59:58.644000+00:00"
+  },
+  "2016-12": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2016\\month=12\\ticks.parquet",
+   "sha256": "520a893f7f26a610d9f423528a69da215b18a13fc7aab73c289f52956daaee16",
+   "bytes": 25105262,
+   "rows": 1904955,
+   "row_groups": 2,
+   "ts_min": "2016-12-01 00:00:00.156000+00:00",
+   "ts_max": "2016-12-30 21:59:56.230000+00:00"
+  },
+  "2017-01": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2017\\month=01\\ticks.parquet",
+   "sha256": "145a1f4268df95f0425c1eb46ba2972b89982d409f1f4399cb74ac25a513063c",
+   "bytes": 29033648,
+   "rows": 2188007,
+   "row_groups": 3,
+   "ts_min": "2017-01-01 22:00:20.786000+00:00",
+   "ts_max": "2017-01-31 23:59:53.808000+00:00"
+  },
+  "2017-02": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2017\\month=02\\ticks.parquet",
+   "sha256": "e37f7148b73aa1c9c18340570e8e6606ce928f4b8a07661427bf8b0f21cf10bb",
+   "bytes": 22932181,
+   "rows": 1717211,
+   "row_groups": 2,
+   "ts_min": "2017-02-01 00:00:00.623000+00:00",
+   "ts_max": "2017-02-28 23:59:55.547000+00:00"
+  },
+  "2017-03": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2017\\month=03\\ticks.parquet",
+   "sha256": "f243573d4ebae73b655b2acd041cd7bb327eaec7e7f2ba7fcec811aba6289772",
+   "bytes": 25568896,
+   "rows": 1958022,
+   "row_groups": 2,
+   "ts_min": "2017-03-01 00:00:00.241000+00:00",
+   "ts_max": "2017-03-31 20:59:56.707000+00:00"
+  },
+  "2017-04": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2017\\month=04\\ticks.parquet",
+   "sha256": "6c3291911496757b15b17611e9412a7ccdf163b1ca854106bc421fe0616255ec",
+   "bytes": 17004673,
+   "rows": 1298295,
+   "row_groups": 2,
+   "ts_min": "2017-04-02 21:00:34.289000+00:00",
+   "ts_max": "2017-04-30 23:59:03.898000+00:00"
+  },
+  "2017-05": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2017\\month=05\\ticks.parquet",
+   "sha256": "3ba5bcb82b8224b6bf0b7ac81b21a547316dc4b61ee399282f37a9fda7a2fc69",
+   "bytes": 22742615,
+   "rows": 1677133,
+   "row_groups": 2,
+   "ts_min": "2017-05-01 00:00:02.851000+00:00",
+   "ts_max": "2017-05-31 23:59:59.724000+00:00"
+  },
+  "2017-06": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2017\\month=06\\ticks.parquet",
+   "sha256": "b0cd2a9e79ed4ddc199398887b6a8ab9f00b7015c0e6ffd3fd6a380364c1b361",
+   "bytes": 22675829,
+   "rows": 1729147,
+   "row_groups": 2,
+   "ts_min": "2017-06-01 00:00:00.132000+00:00",
+   "ts_max": "2017-06-30 20:59:56.643000+00:00"
+  },
+  "2017-07": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2017\\month=07\\ticks.parquet",
+   "sha256": "e754e0b75427265cf29994536b80b7d01aa9494851840bf491633958cdaedeec",
+   "bytes": 24610460,
+   "rows": 1854513,
+   "row_groups": 2,
+   "ts_min": "2017-07-02 21:00:14.575000+00:00",
+   "ts_max": "2017-07-31 23:59:59.959000+00:00"
+  },
+  "2017-08": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2017\\month=08\\ticks.parquet",
+   "sha256": "b66f205b0e89ae1b2aca9899ca47ebbd3a8700bf4cef3f9ac9b173cb16d939bd",
+   "bytes": 27353779,
+   "rows": 2082167,
+   "row_groups": 2,
+   "ts_min": "2017-08-01 00:00:00.470000+00:00",
+   "ts_max": "2017-08-31 23:59:59.099000+00:00"
+  },
+  "2017-09": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2017\\month=09\\ticks.parquet",
+   "sha256": "f7b7c62bb8660e6787dd4e40f81389804473b8660a809d34f51d553c4d2f30e3",
+   "bytes": 27064859,
+   "rows": 2075625,
+   "row_groups": 2,
+   "ts_min": "2017-09-01 00:00:00.191000+00:00",
+   "ts_max": "2017-09-29 20:59:56.618000+00:00"
+  },
+  "2017-10": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2017\\month=10\\ticks.parquet",
+   "sha256": "08e8f855f75617e20f8de641d70971afa2672d63e373874bfb6bd3d7a4a6439c",
+   "bytes": 23603224,
+   "rows": 1795739,
+   "row_groups": 2,
+   "ts_min": "2017-10-01 21:00:06.101000+00:00",
+   "ts_max": "2017-10-31 23:59:12.569000+00:00"
+  },
+  "2017-11": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2017\\month=11\\ticks.parquet",
+   "sha256": "cba4fc5a38518412fa5c9c8e90b91403635609979278a1f735499ae999d63a7e",
+   "bytes": 22432052,
+   "rows": 1698014,
+   "row_groups": 2,
+   "ts_min": "2017-11-01 00:00:00.357000+00:00",
+   "ts_max": "2017-11-30 23:59:55.097000+00:00"
+  },
+  "2017-12": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2017\\month=12\\ticks.parquet",
+   "sha256": "76f0a0fca83d0577b9e4908a25f686cbd999851ee29f306266d46caa6c42760c",
+   "bytes": 20685298,
+   "rows": 1595528,
+   "row_groups": 2,
+   "ts_min": "2017-12-01 00:00:00.175000+00:00",
+   "ts_max": "2017-12-29 21:59:42.990000+00:00"
+  },
+  "2018-01": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2018\\month=01\\ticks.parquet",
+   "sha256": "5cc96a911cc0e0f4bbbdec6e968f21bc16cc8708e52cbeab63598e0b01a17c3a",
+   "bytes": 30906601,
+   "rows": 2305384,
+   "row_groups": 3,
+   "ts_min": "2018-01-01 22:00:08.661000+00:00",
+   "ts_max": "2018-01-31 23:59:47.019000+00:00"
+  },
+  "2018-02": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2018\\month=02\\ticks.parquet",
+   "sha256": "16f30fc0aa9dbcadf2fd17d1d43b5eafc2fe407aac77a385cc6f1b4fdeaa3a74",
+   "bytes": 30968403,
+   "rows": 2303292,
+   "row_groups": 3,
+   "ts_min": "2018-02-01 00:00:00.061000+00:00",
+   "ts_max": "2018-02-28 23:59:58.929000+00:00"
+  },
+  "2018-03": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2018\\month=03\\ticks.parquet",
+   "sha256": "2d30f80592351748f328ea9f5db950341282c321f6b444375bb15e2801cf7ed2",
+   "bytes": 27838013,
+   "rows": 2118104,
+   "row_groups": 3,
+   "ts_min": "2018-03-01 00:00:00.185000+00:00",
+   "ts_max": "2018-03-30 20:59:55.773000+00:00"
+  },
+  "2018-04": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2018\\month=04\\ticks.parquet",
+   "sha256": "994f92c8a60846ba54e046a3ed3680fecd06cbd833aebf739103e07431a8f7f1",
+   "bytes": 25353466,
+   "rows": 1901402,
+   "row_groups": 2,
+   "ts_min": "2018-04-01 21:00:18.456000+00:00",
+   "ts_max": "2018-04-30 23:59:59.599000+00:00"
+  },
+  "2018-05": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2018\\month=05\\ticks.parquet",
+   "sha256": "b70c1e898abe97a278e8510d4c527d49dc9eda568b4b9b7d9784b86453bdcc0a",
+   "bytes": 31611231,
+   "rows": 2353105,
+   "row_groups": 3,
+   "ts_min": "2018-05-01 00:00:00.129000+00:00",
+   "ts_max": "2018-05-31 23:59:59.903000+00:00"
+  },
+  "2018-06": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2018\\month=06\\ticks.parquet",
+   "sha256": "5687db77e1473a6b5af66959e963e6e6f389bdb6f49fdb833f71a5e5edd63085",
+   "bytes": 28697323,
+   "rows": 2153217,
+   "row_groups": 3,
+   "ts_min": "2018-06-01 00:00:00.434000+00:00",
+   "ts_max": "2018-06-29 20:59:56.236000+00:00"
+  },
+  "2018-07": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2018\\month=07\\ticks.parquet",
+   "sha256": "c9ccc4c9ccefffd46dac439955a17c342c1fe34bc57ed7fa3c50cd0f391dd475",
+   "bytes": 28679517,
+   "rows": 2133821,
+   "row_groups": 3,
+   "ts_min": "2018-07-01 21:00:16.014000+00:00",
+   "ts_max": "2018-07-31 23:59:57.465000+00:00"
+  },
+  "2018-08": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2018\\month=08\\ticks.parquet",
+   "sha256": "68a18fd51ff614e84e0c6022b027644f3f6c4073fecce2223416bdb5588807d4",
+   "bytes": 27379016,
+   "rows": 2102825,
+   "row_groups": 3,
+   "ts_min": "2018-08-01 00:00:00.042000+00:00",
+   "ts_max": "2018-08-31 20:59:57.280000+00:00"
+  },
+  "2018-09": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2018\\month=09\\ticks.parquet",
+   "sha256": "ec8baf1e1cf1591996c1081c8edb4607a3ba75e204bde3ff0b6a54b7e181c3eb",
+   "bytes": 23214966,
+   "rows": 1728616,
+   "row_groups": 2,
+   "ts_min": "2018-09-02 21:00:04.803000+00:00",
+   "ts_max": "2018-09-30 23:59:59.225000+00:00"
+  },
+  "2018-10": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2018\\month=10\\ticks.parquet",
+   "sha256": "cb959d985331b3044f5af1378e6c4dd61f22772675d33b64e9cd81edd7c35075",
+   "bytes": 29102182,
+   "rows": 2209121,
+   "row_groups": 3,
+   "ts_min": "2018-10-01 00:00:00.205000+00:00",
+   "ts_max": "2018-10-31 23:59:59.448000+00:00"
+  },
+  "2018-11": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2018\\month=11\\ticks.parquet",
+   "sha256": "989a4b1b114403007a801d2dedc00e4024021a3206a4d04cb4fef7ff833fba33",
+   "bytes": 28559348,
+   "rows": 2173445,
+   "row_groups": 3,
+   "ts_min": "2018-11-01 00:00:00.222000+00:00",
+   "ts_max": "2018-11-30 21:59:55.708000+00:00"
+  },
+  "2018-12": {
+   "path": "E:\\ResearchData\\botTrading\\ticks\\parquet\\EURUSD\\year=2018\\month=12\\ticks.parquet",
+   "sha256": "d8c013ba5a4fb10c9e8129ce1e85f1018a7583801620cc018158bbfdb43a94e7",
+   "bytes": 33038188,
+   "rows": 2538134,
+   "row_groups": 3,
+   "ts_min": "2018-12-02 22:00:01.940000+00:00",
+   "ts_max": "2018-12-31 22:00:03.048000+00:00"
+  }
+ },
+ "note": "ts_min/ts_max are exact first/last row timestamps of the partition"
+}

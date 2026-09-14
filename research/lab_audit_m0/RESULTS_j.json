@@ -1,0 +1,130 @@
+{
+ "control": "J_common_sample",
+ "identity_checks": {
+  "baseline_identity": true,
+  "pyramid_identity": true,
+  "n_baseline": 428,
+  "n_pyramid": 428
+ },
+ "n_t4_triggers": 164,
+ "N_baseline_native": 93,
+ "N_stress_native": 92,
+ "N_intersection": 86,
+ "reproduction": {
+  "base_pf_reported_1.319": 1.319,
+  "stress_pf_reported_1.532": 1.532,
+  "base_n_reported_93": 93,
+  "stress_n_reported_92": 92,
+  "base_pf_within_0.02": true,
+  "stress_pf_within_0.02": true
+ },
+ "base_native": {
+  "n": 93,
+  "pf": 1.3187431608566715,
+  "ev_r": 0.42684663707969045,
+  "total_pips": 203.90000000001018,
+  "win_rate": 0.5376344086021505
+ },
+ "stress_native": {
+  "n": 92,
+  "pf": 1.5321077600809203,
+  "ev_r": 0.1974406207205099,
+  "total_pips": 314.049999999828,
+  "win_rate": 0.358695652173913
+ },
+ "lat30_native": {
+  "n": 92,
+  "pf": 1.7091753140360153,
+  "ev_r": 0.42522882376225474,
+  "total_pips": 389.54999999998745,
+  "win_rate": 0.5869565217391305
+ },
+ "base_common": {
+  "n": 86,
+  "pf": 1.6235565819861677,
+  "ev_r": 0.5454536697950872,
+  "total_pips": 324.0000000000087,
+  "win_rate": 0.5813953488372093
+ },
+ "stress_common": {
+  "n": 86,
+  "pf": 1.6971659159154686,
+  "ev_r": 0.47585610783079113,
+  "total_pips": 371.4499999998422,
+  "win_rate": 0.38372093023255816
+ },
+ "lat30_common": {
+  "n": 86,
+  "pf": 1.8891913692276359,
+  "ev_r": 0.5950774454872494,
+  "total_pips": 440.94999999998885,
+  "win_rate": 0.6046511627906976
+ },
+ "selection_effect_pf": -0.30481342112949616,
+ "execution_effect_pf": -0.07360933392930091,
+ "dropped_in_stress": [
+  {
+   "trigger": "2013-01-21 09:45:00",
+   "level": 0,
+   "base_r": -1.2000000000017763,
+   "base_net_pips": -0.5999999999994898,
+   "stress_status": "INVALID_LEVELS"
+  },
+  {
+   "trigger": "2013-07-23 09:15:00",
+   "level": 0,
+   "base_r": -1.0,
+   "base_net_pips": -0.2999999999997449,
+   "stress_status": "INVALID_LEVELS"
+  },
+  {
+   "trigger": "2015-01-20 10:15:00",
+   "level": 2,
+   "base_r": -1.0040816326530881,
+   "base_net_pips": -24.599999999999067,
+   "stress_status": "SKIP_REVMAXSL"
+  },
+  {
+   "trigger": "2015-08-18 10:30:00",
+   "level": 0,
+   "base_r": -1.0,
+   "base_net_pips": -23.800000000000487,
+   "stress_status": "SKIP_REVMAXSL"
+  },
+  {
+   "trigger": "2016-05-09 08:45:00",
+   "level": 2,
+   "base_r": -1.0,
+   "base_net_pips": -24.999999999999467,
+   "stress_status": "SKIP_REVMAXSL"
+  },
+  {
+   "trigger": "2018-04-04 15:15:00",
+   "level": 2,
+   "base_r": -1.008196721311438,
+   "base_net_pips": -24.599999999999067,
+   "stress_status": "SKIP_REVMAXSL"
+  },
+  {
+   "trigger": "2018-04-18 11:15:00",
+   "level": 2,
+   "base_r": -1.0,
+   "base_net_pips": -21.200000000001218,
+   "stress_status": "SKIP_REVMAXSL"
+  }
+ ],
+ "added_in_stress": 6,
+ "common_per_trade": {
+  "n_entry_time_shifted": 86,
+  "n_r_improved": 7,
+  "n_r_worsened": 79,
+  "n_exit_type_changed": 11,
+  "mean_d_r": -0.06959756196429631,
+  "slippage_only_theoretical_pips": -1.0
+ },
+ "TEST04_PF_INCREASE_CAUSE": "SAMPLE_SELECTION_EFFECT",
+ "selection_effect_ev_r": -0.1186070327153968,
+ "execution_effect_ev_r": 0.06959756196429612,
+ "TEST04_MECHANISM": "Exact reproduction confirmed. The naive N-difference (93 vs 92) hides 13 trades of sample divergence: intersection = 86. Latency (30 s) shifts every fill; 7 baseline trades do not execute under stress (5x SKIP_REVMAXSL: unslipped ref price pushed risk across the 25-pip gate; 2x INVALID_LEVELS), and ALL 7 are baseline losers (5 stop-outs ~ -21..-25 pips). Their removal lifts stress-native PF from a common-sample base of 1.624 to 1.532. On the common sample the execution effect is a genuine COST: EV 0.545R -> 0.476R (mean dR -0.070 ~ injected -1 pip slippage; 79/86 trades worsened). The residual common PF increase (1.624 -> 1.697) is a ratio-metric artifact of 11 exit-type flips toward 2.5R targets, not an edge. => The historical stress PF increase is a SAMPLE_SELECTION_EFFECT; no metric bug; stress is NOT genuinely better.",
+ "PASS": true
+}
