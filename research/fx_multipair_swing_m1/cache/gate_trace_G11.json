@@ -1,0 +1,338 @@
+[
+ {
+  "sym": "EURUSD",
+  "j": 1788,
+  "decision_ts": 1479340800000000000,
+  "max_input_ts": 1479340800000000000,
+  "side": -1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 1345,
+  "decision_ts": 1425686400000000000,
+  "max_input_ts": 1425686400000000000,
+  "side": -1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 1225,
+  "decision_ts": 1411084800000000000,
+  "max_input_ts": 1411084800000000000,
+  "side": -1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 475,
+  "decision_ts": 1320105600000000000,
+  "max_input_ts": 1320105600000000000,
+  "side": 1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 839,
+  "decision_ts": 1363996800000000000,
+  "max_input_ts": 1363996800000000000,
+  "side": -1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 1347,
+  "decision_ts": 1426032000000000000,
+  "max_input_ts": 1426032000000000000,
+  "side": -1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 1984,
+  "decision_ts": 1503014400000000000,
+  "max_input_ts": 1503014400000000000,
+  "side": -1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 1685,
+  "decision_ts": 1466812800000000000,
+  "max_input_ts": 1466812800000000000,
+  "side": -1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 1973,
+  "decision_ts": 1501718400000000000,
+  "max_input_ts": 1501718400000000000,
+  "side": 1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 1233,
+  "decision_ts": 1412121600000000000,
+  "max_input_ts": 1412121600000000000,
+  "side": -1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 916,
+  "decision_ts": 1373500800000000000,
+  "max_input_ts": 1373500800000000000,
+  "side": 1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 413,
+  "decision_ts": 1312502400000000000,
+  "max_input_ts": 1312502400000000000,
+  "side": -1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 835,
+  "decision_ts": 1363651200000000000,
+  "max_input_ts": 1363651200000000000,
+  "side": -1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 1804,
+  "decision_ts": 1481241600000000000,
+  "max_input_ts": 1481241600000000000,
+  "side": -1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 823,
+  "decision_ts": 1362096000000000000,
+  "max_input_ts": 1362096000000000000,
+  "side": -1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 848,
+  "decision_ts": 1365206400000000000,
+  "max_input_ts": 1365206400000000000,
+  "side": 1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 1310,
+  "decision_ts": 1421452800000000000,
+  "max_input_ts": 1421452800000000000,
+  "side": -1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 403,
+  "decision_ts": 1311292800000000000,
+  "max_input_ts": 1311292800000000000,
+  "side": 1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 1230,
+  "decision_ts": 1411689600000000000,
+  "max_input_ts": 1411689600000000000,
+  "side": -1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 820,
+  "decision_ts": 1361836800000000000,
+  "max_input_ts": 1361836800000000000,
+  "side": -1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 473,
+  "decision_ts": 1319760000000000000,
+  "max_input_ts": 1319760000000000000,
+  "side": 1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 445,
+  "decision_ts": 1316476800000000000,
+  "max_input_ts": 1316476800000000000,
+  "side": -1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 385,
+  "decision_ts": 1309219200000000000,
+  "max_input_ts": 1309219200000000000,
+  "side": -1
+ },
+ {
+  "sym": "EURUSD",
+  "j": 2003,
+  "decision_ts": 1505347200000000000,
+  "max_input_ts": 1505347200000000000,
+  "side": -1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 1621,
+  "decision_ts": 1459296000000000000,
+  "max_input_ts": 1459296000000000000,
+  "side": 1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 791,
+  "decision_ts": 1358294400000000000,
+  "max_input_ts": 1358294400000000000,
+  "side": -1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 1613,
+  "decision_ts": 1458259200000000000,
+  "max_input_ts": 1458259200000000000,
+  "side": 1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 937,
+  "decision_ts": 1375920000000000000,
+  "max_input_ts": 1375920000000000000,
+  "side": 1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 1412,
+  "decision_ts": 1433376000000000000,
+  "max_input_ts": 1433376000000000000,
+  "side": -1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 458,
+  "decision_ts": 1317945600000000000,
+  "max_input_ts": 1317945600000000000,
+  "side": -1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 2069,
+  "decision_ts": 1513382400000000000,
+  "max_input_ts": 1513382400000000000,
+  "side": -1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 1314,
+  "decision_ts": 1421452800000000000,
+  "max_input_ts": 1421452800000000000,
+  "side": -1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 1674,
+  "decision_ts": 1465603200000000000,
+  "max_input_ts": 1465603200000000000,
+  "side": -1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 890,
+  "decision_ts": 1370304000000000000,
+  "max_input_ts": 1370304000000000000,
+  "side": 1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 2067,
+  "decision_ts": 1513209600000000000,
+  "max_input_ts": 1513209600000000000,
+  "side": 1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 478,
+  "decision_ts": 1320364800000000000,
+  "max_input_ts": 1320364800000000000,
+  "side": 1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 1579,
+  "decision_ts": 1454112000000000000,
+  "max_input_ts": 1454112000000000000,
+  "side": -1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 1279,
+  "decision_ts": 1417219200000000000,
+  "max_input_ts": 1417219200000000000,
+  "side": -1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 943,
+  "decision_ts": 1376611200000000000,
+  "max_input_ts": 1376611200000000000,
+  "side": 1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 1226,
+  "decision_ts": 1410912000000000000,
+  "max_input_ts": 1410912000000000000,
+  "side": -1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 810,
+  "decision_ts": 1360627200000000000,
+  "max_input_ts": 1360627200000000000,
+  "side": -1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 1420,
+  "decision_ts": 1434585600000000000,
+  "max_input_ts": 1434585600000000000,
+  "side": 1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 912,
+  "decision_ts": 1372896000000000000,
+  "max_input_ts": 1372896000000000000,
+  "side": -1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 485,
+  "decision_ts": 1321315200000000000,
+  "max_input_ts": 1321315200000000000,
+  "side": -1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 1353,
+  "decision_ts": 1426204800000000000,
+  "max_input_ts": 1426204800000000000,
+  "side": -1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 795,
+  "decision_ts": 1358812800000000000,
+  "max_input_ts": 1358812800000000000,
+  "side": -1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 497,
+  "decision_ts": 1322697600000000000,
+  "max_input_ts": 1322697600000000000,
+  "side": -1
+ },
+ {
+  "sym": "GBPUSD",
+  "j": 1624,
+  "decision_ts": 1459555200000000000,
+  "max_input_ts": 1459555200000000000,
+  "side": -1
+ }
+]

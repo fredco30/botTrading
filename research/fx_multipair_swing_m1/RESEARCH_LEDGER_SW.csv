@@ -1,0 +1,50 @@
+experiment_id,family_id,mechanism,feature_causality_pass,parameters,N,mean_pips,PF,expectancy_R,stress_pips,remove_best_pips,status,reason
+SW_E001,G01,donchian_breakout,PENDING,{'n': 10}|h=10,314,-1.4631,0.9843,,,,SCAN,signals e=735 g=728
+SW_E002,G01,donchian_breakout,PENDING,{'n': 20}|h=10,256,0.1082,1.0012,,,,SCAN,signals e=513 g=495
+SW_E003,G01,donchian_breakout,PENDING,{'n': 40}|h=2,361,-1.2058,0.9707,,,,SCAN,signals e=352 g=319
+SW_E004,G02,tsmom,PENDING,{'k': 10}|h=5,690,4.389,1.0696,,,,SCAN,signals e=2071 g=2070
+SW_E005,G02,tsmom,PENDING,{'k': 20}|h=2,1374,-0.5271,0.9873,,,,SCAN,signals e=2061 g=2059
+SW_E006,G02,tsmom,PENDING,{'k': 60}|h=10,368,9.2726,1.1135,,,,SCAN,signals e=2021 g=2020
+SW_E007,G01,donchian_breakout,PENDING,{'n': 10}|h=10,314,-1.4631,0.9843,,,,SCAN,signals e=735 g=728
+SW_E008,G01,donchian_breakout,PENDING,{'n': 20}|h=10,256,0.1082,1.0012,,,,SCAN,signals e=513 g=495
+SW_E009,G01,donchian_breakout,PENDING,{'n': 40}|h=2,361,-1.2058,0.9707,,,,SCAN,signals e=352 g=319
+SW_E010,G03,trend_pullback,PENDING,"{'trend_n': 50, 'pb_n': 20, 'depth': 0.5}|h=None",2,1.75,2.25,,,,SCAN,signals e=1 g=1
+SW_E011,G03,trend_pullback,PENDING,"{'trend_n': 100, 'pb_n': 20, 'depth': 1.0}|h=None",3,30.7667,33.9643,,,,SCAN,signals e=2 g=1
+SW_E012,G04,extreme_fade,PENDING,"{'z_n': 50, 'z': 2.0}|h=10",123,7.4276,1.089,,,,SCAN,signals e=286 g=279
+SW_E013,G04,extreme_fade,PENDING,"{'z_n': 100, 'z': 2.5}|h=1",84,-7.3595,0.7886,,,,SCAN,signals e=67 g=74
+SW_E014,G05,pdh_pdl_acceptance,PENDING,{}|h=8,2509,0.662,1.0426,,,,SCAN,signals e=1467 g=1512
+SW_E015,G03,trend_pullback,PENDING,"{'trend_n': 50, 'pb_n': 20, 'depth': 0.5}|h=None",5,4.54,2.4187,,,,SCAN,signals e=2 g=3
+SW_E016,G03,trend_pullback,PENDING,"{'trend_n': 100, 'pb_n': 20, 'depth': 1.0}|h=None",6,18.5833,7.9687,,,,SCAN,signals e=3 g=3
+SW_E017,G06,compression_breakout,PENDING,{'ratio': 0.8}|h=5,135,5.1319,1.0953,,,,SCAN,signals e=143 g=160
+SW_E018,G06,compression_breakout,PENDING,{'ratio': 0.7}|h=5,49,11.1551,1.2094,,,,SCAN,signals e=41 g=54
+SW_E019,G07,displacement_continuation,PENDING,{'mult': 2.0}|h=None,0,,,,,,SCAN,signals e=0 g=0
+SW_E020,G07,displacement_continuation,PENDING,{'mult': 2.5}|h=None,0,,,,,,SCAN,signals e=0 g=0
+SW_E021,G08,efficiency_extreme,PENDING,"{'k': 10, 'eff': 0.5}|h=10",179,4.7726,1.0574,,,,SCAN,signals e=276 g=295
+SW_E022,G08,efficiency_extreme,PENDING,"{'k': 20, 'eff': 0.45}|h=3",109,9.6477,1.1969,,,,SCAN,signals e=123 g=110
+SW_E023,G03,trend_pullback,PENDING,"{'trend_n': 50, 'pb_n': 20, 'depth': 0.5}|h=4",4387,-0.6214,0.951,,,,SCAN,signals e=2672 g=2745
+SW_E024,G03,trend_pullback,PENDING,"{'trend_n': 100, 'pb_n': 20, 'depth': 1.0}|h=4",3166,-0.3443,0.9737,,,,SCAN,signals e=1698 g=1760
+SW_E025,G07,displacement_continuation,PENDING,{'mult': 2.0}|h=2,1008,0.8535,1.0572,,,,SCAN,signals e=553 g=569
+SW_E026,G07,displacement_continuation,PENDING,{'mult': 2.5}|h=2,514,1.9481,1.1481,,,,SCAN,signals e=275 g=272
+SW_E027,G09,usd_regime,PENDING,"{'z_n': 20, 'z': 1.5}|h=10",189,18.4016,1.2111,,,,SCAN,signals e=170 g=165
+SW_E028,G09,usd_regime,PENDING,"{'z_n': 60, 'z': 1.5}|h=10",169,13.7444,1.1632,,,,SCAN,signals e=163 g=143
+SW_E029,G10,d1_trend_h4_break,PENDING,"{'fast': 20, 'slow': 50, 'break_n': 20}|h=6",1057,1.7871,1.0644,,,,SCAN,signals e=1536 g=1502
+SW_E030,G10,d1_trend_h4_break,PENDING,"{'fast': 50, 'slow': 100, 'break_n': 10}|h=6",1472,1.4327,1.0507,,,,SCAN,signals e=2100 g=2098
+SW_E031,G11,vol_regime_transition,PENDING,"{'win': 252, 'ma_n': 20, 'hi': 0.8, 'lo': 0.2}|h=10",44,27.1227,1.3478,,,,SCAN,signals e=34 g=32
+SW_E032,G11,vol_regime_transition,PENDING,"{'win': 126, 'ma_n': 50, 'hi': 0.9, 'lo': 0.1}|h=10",40,25.78,1.3032,,,,SCAN,signals e=29 g=26
+SW_E033,G12,monday_range_break,PENDING,{'end_hr': 8}|h=None,0,,,,,,SCAN,signals e=0 g=0
+SW_E034,G12,monday_range_break,PENDING,{'end_hr': 8}|h=8,833,2.1174,1.1621,,,,SCAN,signals e=417 g=416
+SW_E035,G11,vol_regime_transition,PENDING,"{'win': 252, 'ma_n': 20, 'hi': 0.8, 'lo': 0.2}|hold=120h|stop=2.5xATR14",56,22.661,1.452,0.1062,15.5768,16.55,DEEPEN,"per-pair={'EURUSD': {'N': 27, 'mean_pips': 33.06, 'PF': 1.792, 'expR': 0.1602}, 'GBPUSD': {'N': 29, 'mean_pips': 12.98, 'PF': 1.224, 'expR': 0.056}} surv_final=None"
+SW_E036,G11,vol_regime_transition,PENDING,"{'win': 252, 'ma_n': 20, 'hi': 0.8, 'lo': 0.2}|hold=240h|stop=2.5xATR14",48,2.646,1.035,0.0521,-3.9933,-6.385,DEEPEN,"per-pair={'EURUSD': {'N': 23, 'mean_pips': 16.3, 'PF': 1.436, 'expR': 0.111}, 'GBPUSD': {'N': 25, 'mean_pips': -9.92, 'PF': 0.91, 'expR': -0.002}} surv_final=None"
+SW_E037,G11,vol_regime_transition,PENDING,"{'win': 252, 'ma_n': 20, 'hi': 0.9, 'lo': 0.2}|hold=240h|stop=3.0xATR14",41,-43.321,0.579,-0.0922,-44.2483,-53.652,DEEPEN,"per-pair={'EURUSD': {'N': 22, 'mean_pips': -26.58, 'PF': 0.702, 'expR': -0.0551}, 'GBPUSD': {'N': 19, 'mean_pips': -62.71, 'PF': 0.473, 'expR': -0.1352}} surv_final=None"
+SW_E038,G08,efficiency_extreme,PENDING,"{'k': 20, 'eff': 0.45}|hold=120h|stop=2.5xATR14",106,17.066,1.344,0.096,18.2706,9.518,DEEPEN,"per-pair={'EURUSD': {'N': 58, 'mean_pips': 14.71, 'PF': 1.342, 'expR': 0.0977}, 'GBPUSD': {'N': 48, 'mean_pips': 19.91, 'PF': 1.346, 'expR': 0.0939}} surv_final=None"
+SW_E039,G06,compression_breakout,PENDING,{'ratio': 0.7}|hold=120h|stop=2.0xATR14,55,1.485,1.029,0.0249,-4.1003,-7.639,DEEPEN,"per-pair={'EURUSD': {'N': 25, 'mean_pips': 29.07, 'PF': 1.926, 'expR': 0.1417}, 'GBPUSD': {'N': 30, 'mean_pips': -21.5, 'PF': 0.68, 'expR': -0.0723}} surv_final=None"
+SW_E040,G07,displacement_continuation,PENDING,{'mult': 2.5}|hold=8h|stop=1.5xATR14,528,0.955,1.07,0.0371,0.2626,-0.67,DEEPEN,"per-pair={'EURUSD': {'N': 265, 'mean_pips': 2.75, 'PF': 1.244, 'expR': 0.0476}, 'GBPUSD': {'N': 263, 'mean_pips': -0.85, 'PF': 0.947, 'expR': 0.0265}} surv_final=None"
+SW_E041,G12,monday_range_break,PENDING,{'end_hr': 8}|hold=8h|stop=2.0xATR14,833,0.576,1.044,0.0263,-1.5127,-0.859,DEEPEN,"per-pair={'EURUSD': {'N': 417, 'mean_pips': 1.03, 'PF': 1.085, 'expR': 0.0632}, 'GBPUSD': {'N': 416, 'mean_pips': 0.12, 'PF': 1.009, 'expR': -0.0107}} surv_final=None"
+SW_E042,G08,plateau,PENDING,"{'k': 10, 'eff': 0.45}|hold=120h|stop=2.5xATR14",321,2.756,1.049,0.0252,-0.8183,-1.739,DEEPEN,"per-pair={'EURUSD': {'N': 163, 'mean_pips': 2.87, 'PF': 1.052, 'expR': 0.0161}, 'GBPUSD': {'N': 158, 'mean_pips': 2.64, 'PF': 1.046, 'expR': 0.0346}} surv_final=None"
+SW_E043,G08,plateau,PENDING,"{'k': 30, 'eff': 0.45}|hold=120h|stop=2.5xATR14",41,-5.006,0.904,0.043,-6.5707,-14.101,DEEPEN,"per-pair={'EURUSD': {'N': 24, 'mean_pips': -4.38, 'PF': 0.92, 'expR': 0.0469}, 'GBPUSD': {'N': 17, 'mean_pips': -5.89, 'PF': 0.877, 'expR': 0.0376}} surv_final=None"
+SW_E044,G08,plateau,PENDING,"{'k': 20, 'eff': 0.5}|hold=120h|stop=2.5xATR14",83,-9.37,0.868,-0.0003,8.4362,-14.083,DEEPEN,"per-pair={'EURUSD': {'N': 42, 'mean_pips': -1.53, 'PF': 0.976, 'expR': 0.0097}, 'GBPUSD': {'N': 41, 'mean_pips': -17.4, 'PF': 0.776, 'expR': -0.0107}} surv_final=None"
+SW_E045,G08,plateau,PENDING,"{'k': 20, 'eff': 0.4}|hold=120h|stop=2.5xATR14",144,10.772,1.219,0.0586,6.8393,5.155,DEEPEN,"per-pair={'EURUSD': {'N': 78, 'mean_pips': 7.5, 'PF': 1.161, 'expR': 0.0412}, 'GBPUSD': {'N': 66, 'mean_pips': 14.64, 'PF': 1.282, 'expR': 0.0792}} surv_final=None"
+SW_E046,G08,plateau,PENDING,"{'k': 20, 'eff': 0.45}|hold=72h|stop=2.5xATR14",130,1.029,1.021,0.0159,4.6723,-3.686,DEEPEN,"per-pair={'EURUSD': {'N': 72, 'mean_pips': -3.96, 'PF': 0.921, 'expR': -0.0078}, 'GBPUSD': {'N': 58, 'mean_pips': 7.22, 'PF': 1.148, 'expR': 0.0453}} surv_final=None"
+SW_E047,G11,plateau,PENDING,"{'win': 252, 'ma_n': 20, 'hi': 0.9, 'lo': 0.2}|hold=120h|stop=2.5xATR14",47,-31.011,0.618,-0.0877,-26.791,-39.644,DEEPEN,"per-pair={'EURUSD': {'N': 25, 'mean_pips': -23.97, 'PF': 0.656, 'expR': -0.0731}, 'GBPUSD': {'N': 22, 'mean_pips': -39.01, 'PF': 0.586, 'expR': -0.1042}} surv_final=None"
+SW_E048,G11,plateau,PENDING,"{'win': 252, 'ma_n': 20, 'hi': 0.8, 'lo': 0.2}|hold=120h|stop=2.0xATR14",56,26.625,1.577,0.1462,19.6127,20.585,DEEPEN,"per-pair={'EURUSD': {'N': 27, 'mean_pips': 36.54, 'PF': 1.956, 'expR': 0.2095}, 'GBPUSD': {'N': 29, 'mean_pips': 17.39, 'PF': 1.325, 'expR': 0.0873}} surv_final=None"
+SW_E049,G11,plateau,PENDING,"{'win': 252, 'ma_n': 20, 'hi': 0.8, 'lo': 0.2}|hold=120h|stop=3.0xATR14",56,26.879,1.585,0.1022,19.8532,20.844,DEEPEN,"per-pair={'EURUSD': {'N': 27, 'mean_pips': 29.58, 'PF': 1.654, 'expR': 0.1273}, 'GBPUSD': {'N': 29, 'mean_pips': 24.36, 'PF': 1.523, 'expR': 0.0789}} surv_final=None"
