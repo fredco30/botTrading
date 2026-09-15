@@ -1,0 +1,882 @@
+{
+ "name": "f17b_t067_T240_b10",
+ "sl": 10,
+ "tp": 10,
+ "tmin": 240,
+ "years": {
+  "2010": {
+   "base": {
+    "label": "2010",
+    "N": 168,
+    "trades_per_month": 14.0,
+    "mean_pips": -1.945,
+    "median_pips": -10.0,
+    "total_pips": -326.8,
+    "PF": 0.689,
+    "expectancy_r": -0.1945,
+    "win_rate": 0.4167,
+    "long_r": -0.2553,
+    "short_r": -0.1352,
+    "pos_months": 2,
+    "n_months": 12,
+    "pos_years": "0/1",
+    "yearly_r": {
+     "2010": -32.68
+    },
+    "yearly_pips": {
+     "2010": -326.8
+    },
+    "remove_best": -2.275,
+    "max_dd_r": 31.58,
+    "worst_year_r": -32.68,
+    "worst_rolling12m_r": -32.68,
+    "exits": {
+     "STOP": 95,
+     "TARGET": 68,
+     "TIME": 5
+    }
+   },
+   "stress_common": {
+    "label": "2010-SC",
+    "N": 162,
+    "trades_per_month": 13.5,
+    "mean_pips": -2.715,
+    "median_pips": -10.5,
+    "total_pips": -439.9,
+    "PF": 0.589,
+    "expectancy_r": -0.2715,
+    "win_rate": 0.3951,
+    "long_r": -0.3229,
+    "short_r": -0.2238,
+    "pos_months": 1,
+    "n_months": 12,
+    "pos_years": "0/1",
+    "yearly_r": {
+     "2010": -43.99
+    },
+    "yearly_pips": {
+     "2010": -439.9
+    },
+    "remove_best": -3.068,
+    "max_dd_r": 42.93,
+    "worst_year_r": -43.99,
+    "worst_rolling12m_r": -43.99,
+    "exits": {
+     "STOP": 97,
+     "TARGET": 62,
+     "TIME": 3
+    }
+   },
+   "base_years": {
+    "2010": {
+     "N": 168,
+     "mean_pips": -1.945,
+     "PF": null,
+     "pips": -326.8,
+     "r": -32.68,
+     "win_rate": 0.417
+    }
+   }
+  },
+  "2011": {
+   "base": {
+    "label": "2011",
+    "N": 701,
+    "trades_per_month": 58.42,
+    "mean_pips": -0.399,
+    "median_pips": -10.0,
+    "total_pips": -279.8,
+    "PF": 0.924,
+    "expectancy_r": -0.0399,
+    "win_rate": 0.475,
+    "long_r": -0.0629,
+    "short_r": -0.0168,
+    "pos_months": 6,
+    "n_months": 12,
+    "pos_years": "0/1",
+    "yearly_r": {
+     "2011": -27.98
+    },
+    "yearly_pips": {
+     "2011": -279.8
+    },
+    "remove_best": -0.716,
+    "max_dd_r": 61.72,
+    "worst_year_r": -27.98,
+    "worst_rolling12m_r": -27.98,
+    "exits": {
+     "STOP": 361,
+     "TARGET": 323,
+     "TIME": 17
+    }
+   },
+   "stress_common": {
+    "label": "2011-SC",
+    "N": 679,
+    "trades_per_month": 56.58,
+    "mean_pips": -1.636,
+    "median_pips": -10.5,
+    "total_pips": -1110.9,
+    "PF": 0.725,
+    "expectancy_r": -0.1636,
+    "win_rate": 0.4404,
+    "long_r": -0.1676,
+    "short_r": -0.1595,
+    "pos_months": 2,
+    "n_months": 12,
+    "pos_years": "0/1",
+    "yearly_r": {
+     "2011": -111.09
+    },
+    "yearly_pips": {
+     "2011": -1110.9
+    },
+    "remove_best": -1.954,
+    "max_dd_r": 121.5,
+    "worst_year_r": -111.09,
+    "worst_rolling12m_r": -111.09,
+    "exits": {
+     "STOP": 376,
+     "TARGET": 289,
+     "TIME": 14
+    }
+   },
+   "base_years": {
+    "2011": {
+     "N": 701,
+     "mean_pips": -0.399,
+     "PF": null,
+     "pips": -279.8,
+     "r": -27.98,
+     "win_rate": 0.475
+    }
+   }
+  },
+  "2012": {
+   "base": {
+    "label": "2012",
+    "N": 824,
+    "trades_per_month": 68.67,
+    "mean_pips": -0.741,
+    "median_pips": -4.2,
+    "total_pips": -610.8,
+    "PF": 0.859,
+    "expectancy_r": -0.0741,
+    "win_rate": 0.4757,
+    "long_r": -0.1018,
+    "short_r": -0.0464,
+    "pos_months": 4,
+    "n_months": 12,
+    "pos_years": "0/1",
+    "yearly_r": {
+     "2012": -61.08
+    },
+    "yearly_pips": {
+     "2012": -610.8
+    },
+    "remove_best": -0.873,
+    "max_dd_r": 72.3,
+    "worst_year_r": -61.08,
+    "worst_rolling12m_r": -61.08,
+    "exits": {
+     "STOP": 397,
+     "TARGET": 357,
+     "TIME": 70
+    }
+   },
+   "stress_common": {
+    "label": "2012-SC",
+    "N": 789,
+    "trades_per_month": 65.75,
+    "mean_pips": -1.606,
+    "median_pips": -10.5,
+    "total_pips": -1267.3,
+    "PF": 0.718,
+    "expectancy_r": -0.1606,
+    "win_rate": 0.4525,
+    "long_r": -0.1948,
+    "short_r": -0.1267,
+    "pos_months": 1,
+    "n_months": 12,
+    "pos_years": "0/1",
+    "yearly_r": {
+     "2012": -126.73
+    },
+    "yearly_pips": {
+     "2012": -1267.3
+    },
+    "remove_best": -1.734,
+    "max_dd_r": 128.63,
+    "worst_year_r": -126.73,
+    "worst_rolling12m_r": -126.73,
+    "exits": {
+     "STOP": 392,
+     "TARGET": 327,
+     "TIME": 70
+    }
+   },
+   "base_years": {
+    "2012": {
+     "N": 824,
+     "mean_pips": -0.741,
+     "PF": null,
+     "pips": -610.8,
+     "r": -61.08,
+     "win_rate": 0.476
+    }
+   }
+  },
+  "2013": {
+   "base": {
+    "label": "2013",
+    "N": 1005,
+    "trades_per_month": 83.75,
+    "mean_pips": 0.049,
+    "median_pips": 0.0,
+    "total_pips": 49.5,
+    "PF": 1.011,
+    "expectancy_r": 0.0049,
+    "win_rate": 0.4995,
+    "long_r": 0.0018,
+    "short_r": 0.008,
+    "pos_months": 7,
+    "n_months": 12,
+    "pos_years": "1/1",
+    "yearly_r": {
+     "2013": 4.95
+    },
+    "yearly_pips": {
+     "2013": 49.5
+    },
+    "remove_best": -0.096,
+    "max_dd_r": 33.31,
+    "worst_year_r": 4.95,
+    "worst_rolling12m_r": 4.95,
+    "exits": {
+     "STOP": 427,
+     "TARGET": 444,
+     "TIME": 134
+    }
+   },
+   "stress_common": {
+    "label": "2013-SC",
+    "N": 950,
+    "trades_per_month": 79.17,
+    "mean_pips": -0.977,
+    "median_pips": -2.75,
+    "total_pips": -928.3,
+    "PF": 0.812,
+    "expectancy_r": -0.0977,
+    "win_rate": 0.4674,
+    "long_r": -0.1114,
+    "short_r": -0.0842,
+    "pos_months": 4,
+    "n_months": 12,
+    "pos_years": "0/1",
+    "yearly_r": {
+     "2013": -92.83
+    },
+    "yearly_pips": {
+     "2013": -928.3
+    },
+    "remove_best": -1.122,
+    "max_dd_r": 100.0,
+    "worst_year_r": -92.83,
+    "worst_rolling12m_r": -92.83,
+    "exits": {
+     "STOP": 428,
+     "TARGET": 399,
+     "TIME": 123
+    }
+   },
+   "base_years": {
+    "2013": {
+     "N": 1005,
+     "mean_pips": 0.049,
+     "PF": null,
+     "pips": 49.5,
+     "r": 4.95,
+     "win_rate": 0.5
+    }
+   }
+  },
+  "2014": {
+   "base": {
+    "label": "2014",
+    "N": 1109,
+    "trades_per_month": 92.42,
+    "mean_pips": 0.03,
+    "median_pips": 0.0,
+    "total_pips": 33.8,
+    "PF": 1.007,
+    "expectancy_r": 0.003,
+    "win_rate": 0.4986,
+    "long_r": -0.0185,
+    "short_r": 0.0251,
+    "pos_months": 6,
+    "n_months": 12,
+    "pos_years": "1/1",
+    "yearly_r": {
+     "2014": 3.38
+    },
+    "yearly_pips": {
+     "2014": 33.8
+    },
+    "remove_best": -0.139,
+    "max_dd_r": 30.66,
+    "worst_year_r": 3.38,
+    "worst_rolling12m_r": 3.38,
+    "exits": {
+     "STOP": 388,
+     "TARGET": 403,
+     "TIME": 318
+    }
+   },
+   "stress_common": {
+    "label": "2014-SC",
+    "N": 1033,
+    "trades_per_month": 86.08,
+    "mean_pips": -1.201,
+    "median_pips": -1.9,
+    "total_pips": -1240.8,
+    "PF": 0.752,
+    "expectancy_r": -0.1201,
+    "win_rate": 0.4501,
+    "long_r": -0.1533,
+    "short_r": -0.0869,
+    "pos_months": 2,
+    "n_months": 12,
+    "pos_years": "0/1",
+    "yearly_r": {
+     "2014": -124.08
+    },
+    "yearly_pips": {
+     "2014": -1240.8
+    },
+    "remove_best": -1.38,
+    "max_dd_r": 127.04,
+    "worst_year_r": -124.08,
+    "worst_rolling12m_r": -124.08,
+    "exits": {
+     "STOP": 404,
+     "TARGET": 349,
+     "TIME": 280
+    }
+   },
+   "base_years": {
+    "2014": {
+     "N": 1109,
+     "mean_pips": 0.03,
+     "PF": null,
+     "pips": 33.8,
+     "r": 3.38,
+     "win_rate": 0.499
+    }
+   }
+  },
+  "2015": {
+   "base": {
+    "label": "2015",
+    "N": 1092,
+    "trades_per_month": 91.0,
+    "mean_pips": -0.424,
+    "median_pips": -2.6,
+    "total_pips": -462.5,
+    "PF": 0.918,
+    "expectancy_r": -0.0424,
+    "win_rate": 0.4872,
+    "long_r": -0.0719,
+    "short_r": -0.0138,
+    "pos_months": 5,
+    "n_months": 12,
+    "pos_years": "0/1",
+    "yearly_r": {
+     "2015": -46.25
+    },
+    "yearly_pips": {
+     "2015": -462.5
+    },
+    "remove_best": -0.57,
+    "max_dd_r": 89.77,
+    "worst_year_r": -46.25,
+    "worst_rolling12m_r": -46.25,
+    "exits": {
+     "STOP": 527,
+     "TARGET": 501,
+     "TIME": 64
+    }
+   },
+   "stress_common": {
+    "label": "2015-SC",
+    "N": 1051,
+    "trades_per_month": 87.58,
+    "mean_pips": -1.399,
+    "median_pips": -10.5,
+    "total_pips": -1469.9,
+    "PF": 0.755,
+    "expectancy_r": -0.1399,
+    "win_rate": 0.4662,
+    "long_r": -0.1735,
+    "short_r": -0.1075,
+    "pos_months": 2,
+    "n_months": 12,
+    "pos_years": "0/1",
+    "yearly_r": {
+     "2015": -146.99
+    },
+    "yearly_pips": {
+     "2015": -1469.9
+    },
+    "remove_best": -1.555,
+    "max_dd_r": 166.4,
+    "worst_year_r": -146.99,
+    "worst_rolling12m_r": -146.99,
+    "exits": {
+     "STOP": 529,
+     "TARGET": 458,
+     "TIME": 64
+    }
+   },
+   "base_years": {
+    "2015": {
+     "N": 1092,
+     "mean_pips": -0.424,
+     "PF": null,
+     "pips": -462.5,
+     "r": -46.25,
+     "win_rate": 0.487
+    }
+   }
+  },
+  "2016": {
+   "base": {
+    "label": "2016",
+    "N": 822,
+    "trades_per_month": 68.5,
+    "mean_pips": -0.392,
+    "median_pips": -1.75,
+    "total_pips": -322.4,
+    "PF": 0.919,
+    "expectancy_r": -0.0392,
+    "win_rate": 0.4805,
+    "long_r": 0.019,
+    "short_r": -0.0878,
+    "pos_months": 7,
+    "n_months": 12,
+    "pos_years": "0/1",
+    "yearly_r": {
+     "2016": -32.24
+    },
+    "yearly_pips": {
+     "2016": -322.4
+    },
+    "remove_best": -0.583,
+    "max_dd_r": 38.94,
+    "worst_year_r": -32.24,
+    "worst_rolling12m_r": -32.24,
+    "exits": {
+     "STOP": 363,
+     "TARGET": 335,
+     "TIME": 124
+    }
+   },
+   "stress_common": {
+    "label": "2016-SC",
+    "N": 800,
+    "trades_per_month": 66.67,
+    "mean_pips": -1.532,
+    "median_pips": -4.35,
+    "total_pips": -1225.9,
+    "PF": 0.719,
+    "expectancy_r": -0.1532,
+    "win_rate": 0.4462,
+    "long_r": -0.0881,
+    "short_r": -0.2076,
+    "pos_months": 1,
+    "n_months": 12,
+    "pos_years": "0/1",
+    "yearly_r": {
+     "2016": -122.59
+    },
+    "yearly_pips": {
+     "2016": -1225.9
+    },
+    "remove_best": -1.702,
+    "max_dd_r": 123.93,
+    "worst_year_r": -122.59,
+    "worst_rolling12m_r": -122.59,
+    "exits": {
+     "STOP": 380,
+     "TARGET": 303,
+     "TIME": 117
+    }
+   },
+   "base_years": {
+    "2016": {
+     "N": 822,
+     "mean_pips": -0.392,
+     "PF": null,
+     "pips": -322.4,
+     "r": -32.24,
+     "win_rate": 0.481
+    }
+   }
+  },
+  "2017": {
+   "base": {
+    "label": "2017",
+    "N": 882,
+    "trades_per_month": 73.5,
+    "mean_pips": -0.486,
+    "median_pips": -2.55,
+    "total_pips": -428.3,
+    "PF": 0.902,
+    "expectancy_r": -0.0486,
+    "win_rate": 0.4717,
+    "long_r": 0.0055,
+    "short_r": -0.1002,
+    "pos_months": 5,
+    "n_months": 12,
+    "pos_years": "0/1",
+    "yearly_r": {
+     "2017": -42.83
+    },
+    "yearly_pips": {
+     "2017": -428.3
+    },
+    "remove_best": -0.829,
+    "max_dd_r": 45.11,
+    "worst_year_r": -42.83,
+    "worst_rolling12m_r": -42.83,
+    "exits": {
+     "STOP": 390,
+     "TARGET": 347,
+     "TIME": 145
+    }
+   },
+   "stress_common": {
+    "label": "2017-SC",
+    "N": 853,
+    "trades_per_month": 71.08,
+    "mean_pips": -1.372,
+    "median_pips": -4.0,
+    "total_pips": -1170.4,
+    "PF": 0.747,
+    "expectancy_r": -0.1372,
+    "win_rate": 0.4408,
+    "long_r": -0.0716,
+    "short_r": -0.2,
+    "pos_months": 2,
+    "n_months": 12,
+    "pos_years": "0/1",
+    "yearly_r": {
+     "2017": -117.04
+    },
+    "yearly_pips": {
+     "2017": -1170.4
+    },
+    "remove_best": -1.73,
+    "max_dd_r": 116.63,
+    "worst_year_r": -117.04,
+    "worst_rolling12m_r": -117.04,
+    "exits": {
+     "STOP": 394,
+     "TARGET": 319,
+     "TIME": 140
+    }
+   },
+   "base_years": {
+    "2017": {
+     "N": 882,
+     "mean_pips": -0.486,
+     "PF": null,
+     "pips": -428.3,
+     "r": -42.83,
+     "win_rate": 0.472
+    }
+   }
+  }
+ },
+ "agg_base": {
+  "label": "AGG BASE",
+  "N": 6603,
+  "trades_per_month": 68.78,
+  "mean_pips": -0.355,
+  "median_pips": -1.5,
+  "total_pips": -2347.3,
+  "PF": 0.927,
+  "expectancy_r": -0.0355,
+  "win_rate": 0.4836,
+  "long_r": -0.0382,
+  "short_r": -0.033,
+  "pos_months": 42,
+  "n_months": 96,
+  "pos_years": "2/8",
+  "yearly_r": {
+   "2010": -32.68,
+   "2011": -27.98,
+   "2012": -61.08,
+   "2013": 4.95,
+   "2014": 3.38,
+   "2015": -46.25,
+   "2016": -32.24,
+   "2017": -42.83
+  },
+  "yearly_pips": {
+   "2010": -326.8,
+   "2011": -279.8,
+   "2012": -610.8,
+   "2013": 49.5,
+   "2014": 33.8,
+   "2015": -462.5,
+   "2016": -322.4,
+   "2017": -428.3
+  },
+  "remove_best": -0.552,
+  "max_dd_r": 235.26,
+  "worst_year_r": -61.08,
+  "worst_rolling12m_r": -92.4,
+  "exits": {
+   "STOP": 2948,
+   "TARGET": 2778,
+   "TIME": 877
+  }
+ },
+ "agg_stress": {
+  "label": "AGG STRESS",
+  "N": 6584,
+  "trades_per_month": 68.58,
+  "mean_pips": -1.391,
+  "median_pips": -4.4,
+  "total_pips": -9155.8,
+  "PF": 0.745,
+  "expectancy_r": -0.1391,
+  "win_rate": 0.4525,
+  "long_r": -0.1414,
+  "short_r": -0.1368,
+  "pos_months": 13,
+  "n_months": 96,
+  "pos_years": "0/8",
+  "yearly_r": {
+   "2010": -47.6,
+   "2011": -115.07,
+   "2012": -127.77,
+   "2013": -106.43,
+   "2014": -126.45,
+   "2015": -150.42,
+   "2016": -123.63,
+   "2017": -118.21
+  },
+  "yearly_pips": {
+   "2010": -476.0,
+   "2011": -1150.7,
+   "2012": -1277.7,
+   "2013": -1064.3,
+   "2014": -1264.5,
+   "2015": -1504.2,
+   "2016": -1236.3,
+   "2017": -1182.1
+  },
+  "remove_best": -1.593,
+  "max_dd_r": 915.24,
+  "worst_year_r": -150.42,
+  "worst_rolling12m_r": -201.66,
+  "exits": {
+   "STOP": 3112,
+   "TARGET": 2601,
+   "TIME": 871
+  }
+ },
+ "agg_base_common": {
+  "label": "AGG BASE-COMMON",
+  "N": 6317,
+  "trades_per_month": 65.8,
+  "mean_pips": -0.338,
+  "median_pips": -1.3,
+  "total_pips": -2132.1,
+  "PF": 0.931,
+  "expectancy_r": -0.0338,
+  "win_rate": 0.4852,
+  "long_r": -0.0379,
+  "short_r": -0.0297,
+  "pos_months": 44,
+  "n_months": 96,
+  "pos_years": "2/8",
+  "yearly_r": {
+   "2010": -32.86,
+   "2011": -23.86,
+   "2012": -60.57,
+   "2013": 15.72,
+   "2014": 7.53,
+   "2015": -52.12,
+   "2016": -28.99,
+   "2017": -38.06
+  },
+  "yearly_pips": {
+   "2010": -328.6,
+   "2011": -238.6,
+   "2012": -605.7,
+   "2013": 157.2,
+   "2014": 75.3,
+   "2015": -521.2,
+   "2016": -289.9,
+   "2017": -380.6
+  },
+  "remove_best": -0.538,
+  "max_dd_r": 213.74,
+  "worst_year_r": -60.57,
+  "worst_rolling12m_r": -92.02,
+  "exits": {
+   "STOP": 2828,
+   "TARGET": 2675,
+   "TIME": 814
+  }
+ },
+ "agg_stress_common": {
+  "label": "AGG STRESS-COMMON",
+  "N": 6317,
+  "trades_per_month": 65.8,
+  "mean_pips": -1.402,
+  "median_pips": -4.6,
+  "total_pips": -8853.4,
+  "PF": 0.744,
+  "expectancy_r": -0.1402,
+  "win_rate": 0.4515,
+  "long_r": -0.1427,
+  "short_r": -0.1377,
+  "pos_months": 15,
+  "n_months": 96,
+  "pos_years": "0/8",
+  "yearly_r": {
+   "2010": -43.99,
+   "2011": -111.09,
+   "2012": -126.73,
+   "2013": -92.83,
+   "2014": -124.08,
+   "2015": -146.99,
+   "2016": -122.59,
+   "2017": -117.04
+  },
+  "yearly_pips": {
+   "2010": -439.9,
+   "2011": -1110.9,
+   "2012": -1267.3,
+   "2013": -928.3,
+   "2014": -1240.8,
+   "2015": -1469.9,
+   "2016": -1225.9,
+   "2017": -1170.4
+  },
+  "remove_best": -1.604,
+  "max_dd_r": 885.0,
+  "worst_year_r": -146.99,
+  "worst_rolling12m_r": -193.82,
+  "exits": {
+   "STOP": 3000,
+   "TARGET": 2506,
+   "TIME": 811
+  }
+ },
+ "years_table_base": {
+  "2010": {
+   "N": 168,
+   "mean_pips": -1.945,
+   "PF": null,
+   "pips": -326.8,
+   "r": -32.68,
+   "win_rate": 0.417
+  },
+  "2011": {
+   "N": 701,
+   "mean_pips": -0.399,
+   "PF": null,
+   "pips": -279.8,
+   "r": -27.98,
+   "win_rate": 0.475
+  },
+  "2012": {
+   "N": 824,
+   "mean_pips": -0.741,
+   "PF": null,
+   "pips": -610.8,
+   "r": -61.08,
+   "win_rate": 0.476
+  },
+  "2013": {
+   "N": 1005,
+   "mean_pips": 0.049,
+   "PF": null,
+   "pips": 49.5,
+   "r": 4.95,
+   "win_rate": 0.5
+  },
+  "2014": {
+   "N": 1109,
+   "mean_pips": 0.03,
+   "PF": null,
+   "pips": 33.8,
+   "r": 3.38,
+   "win_rate": 0.499
+  },
+  "2015": {
+   "N": 1092,
+   "mean_pips": -0.424,
+   "PF": null,
+   "pips": -462.5,
+   "r": -46.25,
+   "win_rate": 0.487
+  },
+  "2016": {
+   "N": 822,
+   "mean_pips": -0.392,
+   "PF": null,
+   "pips": -322.4,
+   "r": -32.24,
+   "win_rate": 0.481
+  },
+  "2017": {
+   "N": 882,
+   "mean_pips": -0.486,
+   "PF": null,
+   "pips": -428.3,
+   "r": -42.83,
+   "win_rate": 0.472
+  }
+ },
+ "survival_base": {
+  "FINAL_CAPITAL": 141.69,
+  "MAX_DRAWDOWN_PERCENT": 71.89,
+  "WORST_CALENDAR_YEAR_PERCENT": -27.12,
+  "WORST_ROLLING_12M_PERCENT": -37.99,
+  "LOWEST_EQUITY": 140.56,
+  "LONGEST_DRAWDOWN_DURATION_DAYS": 2919.8,
+  "yearly_returns_percent": {
+   "2010": -15.3,
+   "2011": -13.92,
+   "2012": -27.12,
+   "2013": 1.29,
+   "2014": 0.54,
+   "2015": -21.86,
+   "2016": -15.73,
+   "2017": -20.47
+  }
+ },
+ "survival_stress_common": {
+  "FINAL_CAPITAL": 5.49,
+  "MAX_DRAWDOWN_PERCENT": 98.91,
+  "WORST_CALENDAR_YEAR_PERCENT": -52.77,
+  "WORST_ROLLING_12M_PERCENT": -62.65,
+  "LOWEST_EQUITY": 5.47,
+  "LONGEST_DRAWDOWN_DURATION_DAYS": 2919.8,
+  "yearly_returns_percent": {
+   "2010": -19.94,
+   "2011": -43.18,
+   "2012": -47.5,
+   "2013": -37.85,
+   "2014": -46.82,
+   "2015": -52.77,
+   "2016": -46.35,
+   "2017": -45.11
+  }
+ }
+}
