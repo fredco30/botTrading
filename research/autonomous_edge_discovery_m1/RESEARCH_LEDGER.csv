@@ -70,3 +70,13 @@ E068,F08,absorption plateau,PASS,lb=120 fade=2 SL15 TP15 T120,325,1.12,1.301,0.0
 E069,F08,absorption plateau,PASS,lb=120 fade=3 SL15 TP15 T120,23,-1.848,0.666,-0.1232,-2.778,-2.614,REPLAY,L=0.1615 S=-0.3062 posmon=6 COMMON bPF=0.666 sPF=0.556 sEV=-2.778
 E070,F08,absorption plateau,PASS,lb=180 fade=2 SL15 TP15 T120,259,1.615,1.455,0.1077,0.658,1.379,REPLAY,L=0.1273 S=0.0896 posmon=10 COMMON bPF=1.455 sPF=1.161 sEV=0.658
 E071,F08,absorption plateau,PASS,lb=180 fade=3 SL15 TP15 T120,18,0.272,1.061,0.0181,-0.433,-0.594,REPLAY,L=0.3092 S=-0.2147 posmon=7 COMMON bPF=1.061 sPF=0.911 sEV=-0.433
+E072,F09,weekday-hour calendar drift,PASS,hour=700 wd=0 h=240,52,-0.9,,-0.06,,,SCREEN,"t=-0.31 posmon=7/12 hiVR=-1.35 loVR=0.11 months=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"
+E073,F09,weekday-hour calendar drift,PASS,hour=700 wd=1 h=240,52,-1.746,,-0.1164,,,SCREEN,"t=-0.47 posmon=7/12 hiVR=3.91 loVR=-5.52 months=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"
+E074,F09,weekday-hour calendar drift,PASS,hour=700 wd=2 h=240,52,-2.59,,-0.1727,,,SCREEN,"t=-0.93 posmon=6/12 hiVR=-4.88 loVR=-1.30 months=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"
+E075,F09,weekday-hour calendar drift,PASS,hour=700 wd=3 h=240,52,-5.421,,-0.3614,,,SCREEN,"t=-1.54 posmon=3/12 hiVR=-6.69 loVR=4.71 months=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"
+E076,F09,weekday-hour calendar drift,PASS,hour=700 wd=4 h=240,52,2.813,,0.1876,,,SCREEN,"t=1.00 posmon=6/12 hiVR=-3.32 loVR=3.46 months=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"
+E077,F09,weekday-hour calendar drift,PASS,hour=1300 wd=0 h=240,51,0.954,,0.0636,,,SCREEN,"t=0.28 posmon=7/12 hiVR=-3.62 loVR=nan months=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"
+E078,F09,weekday-hour calendar drift,PASS,hour=1300 wd=1 h=240,52,4.113,,0.2742,,,SCREEN,"t=1.21 posmon=9/12 hiVR=6.39 loVR=nan months=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"
+E079,F09,weekday-hour calendar drift,PASS,hour=1300 wd=2 h=240,52,5.738,,0.3826,,,SCREEN,"t=1.51 posmon=8/12 hiVR=3.78 loVR=nan months=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"
+E080,F09,weekday-hour calendar drift,PASS,hour=1300 wd=3 h=240,52,3.01,,0.2006,,,SCREEN,"t=0.70 posmon=7/12 hiVR=2.26 loVR=nan months=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"
+E081,F09,weekday-hour calendar drift,PASS,hour=1300 wd=4 h=240,52,2.308,,0.1538,,,SCREEN,"t=0.55 posmon=9/12 hiVR=-2.59 loVR=nan months=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"

@@ -1,0 +1,192 @@
+{
+ "base": {
+  "label": "C1 2018H1 BASE",
+  "N": 133,
+  "UNIT_N": "COUNT",
+  "trades_per_month": 11.08,
+  "mean_pips": -2.436,
+  "UNIT_mean": "PIPS",
+  "median_pips": -2.1,
+  "UNIT_median": "PIPS",
+  "total_pips": -324.0,
+  "UNIT_total": "PIPS",
+  "PF": 0.614,
+  "expectancy_r": -0.1624,
+  "UNIT_expR": "R",
+  "win_rate": 0.4135,
+  "UNIT_wr": "PERCENT_FRACTION",
+  "pos_months": 1,
+  "UNIT_pos_months": "COUNT_of_12",
+  "long_r": -0.2038,
+  "UNIT_long": "R",
+  "short_r": -0.1304,
+  "UNIT_short": "R",
+  "remove_best": -2.702,
+  "UNIT_rb": "PIPS",
+  "ci95_r": [
+   -0.2902,
+   -0.0342
+  ],
+  "UNIT_ci": "R",
+  "max_dd_r": 22.75,
+  "UNIT_dd": "R",
+  "max_consec_losses": 10,
+  "UNIT_streak": "COUNT",
+  "exits": {
+   "STOP": 44,
+   "TARGET": 26,
+   "TIME": 63
+  }
+ },
+ "stress": {
+  "label": "C1 2018H1 STRESS",
+  "N": 132,
+  "UNIT_N": "COUNT",
+  "trades_per_month": 11.0,
+  "mean_pips": -3.17,
+  "UNIT_mean": "PIPS",
+  "median_pips": -3.7,
+  "UNIT_median": "PIPS",
+  "total_pips": -418.5,
+  "UNIT_total": "PIPS",
+  "PF": 0.531,
+  "expectancy_r": -0.2114,
+  "UNIT_expR": "R",
+  "win_rate": 0.3788,
+  "UNIT_wr": "PERCENT_FRACTION",
+  "pos_months": 1,
+  "UNIT_pos_months": "COUNT_of_12",
+  "long_r": -0.2439,
+  "UNIT_long": "R",
+  "short_r": -0.1859,
+  "UNIT_short": "R",
+  "remove_best": -3.442,
+  "UNIT_rb": "PIPS",
+  "ci95_r": [
+   -0.3359,
+   -0.0845
+  ],
+  "UNIT_ci": "R",
+  "max_dd_r": 28.42,
+  "UNIT_dd": "R",
+  "max_consec_losses": 12,
+  "UNIT_streak": "COUNT",
+  "exits": {
+   "STOP": 46,
+   "TARGET": 26,
+   "TIME": 60
+  }
+ },
+ "base_common": {
+  "label": "C1 2018H1 BASE_COMMON",
+  "N": 132,
+  "UNIT_N": "COUNT",
+  "trades_per_month": 11.0,
+  "mean_pips": -2.464,
+  "UNIT_mean": "PIPS",
+  "median_pips": -2.45,
+  "UNIT_median": "PIPS",
+  "total_pips": -325.2,
+  "UNIT_total": "PIPS",
+  "PF": 0.613,
+  "expectancy_r": -0.1642,
+  "UNIT_expR": "R",
+  "win_rate": 0.4091,
+  "UNIT_wr": "PERCENT_FRACTION",
+  "pos_months": 1,
+  "UNIT_pos_months": "COUNT_of_12",
+  "long_r": -0.2038,
+  "UNIT_long": "R",
+  "short_r": -0.1332,
+  "UNIT_short": "R",
+  "remove_best": -2.732,
+  "UNIT_rb": "PIPS",
+  "ci95_r": [
+   -0.2886,
+   -0.0388
+  ],
+  "UNIT_ci": "R",
+  "max_dd_r": 22.83,
+  "UNIT_dd": "R",
+  "max_consec_losses": 10,
+  "UNIT_streak": "COUNT",
+  "exits": {
+   "STOP": 44,
+   "TARGET": 26,
+   "TIME": 62
+  }
+ },
+ "stress_common": {
+  "label": "C1 2018H1 STRESS_COMMON",
+  "N": 132,
+  "UNIT_N": "COUNT",
+  "trades_per_month": 11.0,
+  "mean_pips": -3.17,
+  "UNIT_mean": "PIPS",
+  "median_pips": -3.7,
+  "UNIT_median": "PIPS",
+  "total_pips": -418.5,
+  "UNIT_total": "PIPS",
+  "PF": 0.531,
+  "expectancy_r": -0.2114,
+  "UNIT_expR": "R",
+  "win_rate": 0.3788,
+  "UNIT_wr": "PERCENT_FRACTION",
+  "pos_months": 1,
+  "UNIT_pos_months": "COUNT_of_12",
+  "long_r": -0.2439,
+  "UNIT_long": "R",
+  "short_r": -0.1859,
+  "UNIT_short": "R",
+  "remove_best": -3.442,
+  "UNIT_rb": "PIPS",
+  "ci95_r": [
+   -0.3359,
+   -0.0845
+  ],
+  "UNIT_ci": "R",
+  "max_dd_r": 28.42,
+  "UNIT_dd": "R",
+  "max_consec_losses": 12,
+  "UNIT_streak": "COUNT",
+  "exits": {
+   "STOP": 46,
+   "TARGET": 26,
+   "TIME": 60
+  }
+ },
+ "monthly_base": {
+  "1": {
+   "N": 22,
+   "mean": -4.005,
+   "sum": -88.1
+  },
+  "2": {
+   "N": 22,
+   "mean": -4.818,
+   "sum": -106.0
+  },
+  "3": {
+   "N": 25,
+   "mean": -2.008,
+   "sum": -50.2
+  },
+  "4": {
+   "N": 21,
+   "mean": 1.01,
+   "sum": 21.2
+  },
+  "5": {
+   "N": 22,
+   "mean": -1.586,
+   "sum": -34.9
+  },
+  "6": {
+   "N": 21,
+   "mean": -3.143,
+   "sum": -66.0
+  }
+ },
+ "long_r": -0.2038,
+ "short_r": -0.1304
+}
