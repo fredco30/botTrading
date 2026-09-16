@@ -78,11 +78,5 @@
  "REPLAY_BASE_PF": 1.5998,
  "HIGHRES_REFERENCE_NET": 13.3853,
  "HIGHRES_REFERENCE_PF": 1.467,
- "REGRESSION_MATCH": "YES_EXPLAINABLE",
- "EXPLAIN_CLASSES": {
-  "entry_at_bbo_vs_1m_open": "paper fills at executable ask/bid; validated replay filled at the 1m bar open (delta ~ +-1 tick)",
-  "stop_quote_level": "paper stop executes at the first quote touch inside the frozen stop bar (seconds earlier than the 1m bar-end exit); cuts losses faster",
-  "3_no_quote_days": "2020-03-09, 2020-03-12 (validated NO_QUOTE_60S_ENTRY days) and 2021-11-29: no executable quote at activation within the window; conservative working-order semantics leave the day flat instead of using the frozen-price fallback"
- },
- "VERDICT": "Software regression PASS: 130/133 exact signal identity + 3 conservative-fallback days; all PnL deltas mechanically explained (BBO granularity vs 1m bar-end fills); no tuning performed."
+ "REGRESSION_MATCH": false
 }

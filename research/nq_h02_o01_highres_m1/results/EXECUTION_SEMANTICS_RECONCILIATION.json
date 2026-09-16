@@ -1,0 +1,53 @@
+{
+ "MODE1": {
+  "N": 133,
+  "NET": 13.3853,
+  "PF": 1.4672,
+  "TARGET_NET": 13.3853,
+  "TARGET_PF": 1.467,
+  "MATCH": false
+ },
+ "MODE2": {
+  "SIGNALS": 133,
+  "EXECUTED": 130,
+  "BASE_NET": 15.2306,
+  "BASE_PF": 1.5998,
+  "CONS_NET": 14.7306,
+  "STRESS_NET": 14.2306,
+  "CONSERVATIVE_PF": 1.5716,
+  "STRESS_PF": 1.5443
+ },
+ "TOTAL_PNL_DELTA": 141.5,
+ "N_EXECUTED": 130,
+ "MISSING_DAYS_CLASSIFICATION": {
+  "2020-03-09": "DATA_GAP_FIRST_QUOTE_LATE (61s after activation; in_activation_bar=True; bid_first=7852.50)",
+  "2020-03-12": "DATA_GAP_FIRST_QUOTE_LATE (1s after activation; in_activation_bar=True; bid_first=7450.00)",
+  "2021-11-29": "DATA_GAP_FIRST_QUOTE_LATE (0s after activation; in_activation_bar=True; bid_first=16261.00)"
+ },
+ "DELTA_CONTRIBUTION": [
+  {
+   "DELTA_CLASS": "EOD",
+   "count": 33,
+   "sum": 19.0,
+   "mean": 0.576
+  },
+  {
+   "DELTA_CLASS": "MISSING_QUOTE",
+   "count": 0,
+   "sum": 0.0,
+   "mean": null
+  },
+  {
+   "DELTA_CLASS": "STOP",
+   "count": 95,
+   "sum": 122.0,
+   "mean": 1.284
+  },
+  {
+   "DELTA_CLASS": "TRAIL",
+   "count": 1,
+   "sum": 0.5,
+   "mean": 0.5
+  }
+ ]
+}
