@@ -85,7 +85,9 @@ def main() -> int:
             compression="zstd",
         )
         job_id = job["id"]
-        print(f"{year}: job {job_id} state={job['state']} est=${job.get('cost_usd', 0):.4f}")
+        est = job.get('cost_usd')
+        est_s = f"${est:.4f}" if est is not None else "n/a"
+        print(f"{year}: job {job_id} state={job['state']} est={est_s}")
         for i in range(MAX_POLLS):
             if job["state"] in ("done", "expired"):
                 break
@@ -98,10 +100,16 @@ def main() -> int:
             return 3
         (META_DIR / f"batch_job_{year}.raw.json").write_text(
             json.dumps(job, indent=2, default=str))
-        client.batch.download(
-            job_id=job_id, output_dir=str(RAW_DIR),
-            filename=out.name,
-        )
+        try:
+            client.batch.download(
+                job_id=job_id, output_dir=str(RAW_DIR),
+                filename=out.name,
+            )
+        except TypeError:
+            client.batch.download(job_id=job_id, output_dir=str(RAW_DIR))
+            cand = list(RAW_DIR.glob(f"{job_id}*"))
+            if cand:
+                cand[0].rename(out)
         digest = sha256_file(out)
         meta_out.write_text(json.dumps({
             "year": year,
