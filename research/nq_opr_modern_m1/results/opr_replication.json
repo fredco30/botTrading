@@ -1,0 +1,452 @@
+{
+ "FOLD": "REPLICATION",
+ "WINDOW": [
+  "2024-01-01 00:00:00+00:00",
+  "2026-01-01 00:00:00+00:00"
+ ],
+ "DATA_ROWS_5M": 423892,
+ "DATA_SPAN": [
+  "2020-01-01 23:00:00+00:00",
+  "2025-12-31 21:55:00+00:00"
+ ],
+ "P000A_LEVEL": {
+  "N_EVENTS": 153,
+  "PHASE_A": {
+   "ret_h5m": {
+    "N": 153,
+    "MEAN_PTS": 4.7696,
+    "MEDIAN_PTS": 1.25,
+    "WIN_RATE": 0.5359,
+    "MFE_MEAN": 90.4886,
+    "MAE_MEAN": 71.4967,
+    "MEAN_LONG": 2.3542,
+    "MEAN_SHORT": 7.7101,
+    "BY_YEAR": {
+     "2024": 4.7676,
+     "2025": 4.7721
+    }
+   },
+   "ret_h15m": {
+    "N": 153,
+    "MEAN_PTS": 9.4869,
+    "MEDIAN_PTS": 7.25,
+    "WIN_RATE": 0.5817,
+    "MFE_MEAN": 90.4886,
+    "MAE_MEAN": 71.4967,
+    "MEAN_LONG": 9.631,
+    "MEAN_SHORT": 9.3116,
+    "BY_YEAR": {
+     "2024": 6.1441,
+     "2025": 13.6654
+    }
+   },
+   "ret_h30m": {
+    "N": 153,
+    "MEAN_PTS": 11.3758,
+    "MEDIAN_PTS": 11.0,
+    "WIN_RATE": 0.5882,
+    "MFE_MEAN": 90.4886,
+    "MAE_MEAN": 71.4967,
+    "MEAN_LONG": 10.0179,
+    "MEAN_SHORT": 13.029,
+    "BY_YEAR": {
+     "2024": 7.1618,
+     "2025": 16.6434
+    }
+   },
+   "ret_h60m": {
+    "N": 153,
+    "MEAN_PTS": 14.3954,
+    "MEDIAN_PTS": 16.5,
+    "WIN_RATE": 0.5948,
+    "MFE_MEAN": 90.4886,
+    "MAE_MEAN": 71.4967,
+    "MEAN_LONG": 15.5,
+    "MEAN_SHORT": 13.0507,
+    "BY_YEAR": {
+     "2024": 3.6912,
+     "2025": 27.7757
+    }
+   },
+   "ret_h120m": {
+    "N": 153,
+    "MEAN_PTS": 15.9412,
+    "MEDIAN_PTS": 15.0,
+    "WIN_RATE": 0.6013,
+    "MFE_MEAN": 90.4886,
+    "MAE_MEAN": 71.4967,
+    "MEAN_LONG": 15.0625,
+    "MEAN_SHORT": 17.0109,
+    "BY_YEAR": {
+     "2024": 7.7676,
+     "2025": 26.1581
+    }
+   },
+   "BREAK_DIST_ATR": {
+    "MEAN": 0.103,
+    "MEDIAN": 0.096
+   },
+   "N_EVENTS": 153
+  },
+  "STRATEGY": {
+   "LOW": {
+    "TRADING_DAYS": 517,
+    "SIGNALS": 153,
+    "RETEST_SESSIONS": 153,
+    "TRADES": 153,
+    "TRADES_PER_WEEK": 1.224,
+    "GROSS_POINTS_PER_TRADE": 6.223,
+    "NET_POINTS_PER_TRADE": 5.473,
+    "NET_TICKS_PER_TRADE": 21.89,
+    "NET_USD_PER_CONTRACT": 27.37,
+    "PF": 1.5857,
+    "EXPECTANCY_R": 0.3258,
+    "WIN_RATE": 0.4837,
+    "AVG_WIN": 30.6351,
+    "MEDIAN_WIN": 22.375,
+    "MAX_WIN": 174.875,
+    "AVG_LOSS": -18.0965,
+    "MEDIAN_LOSS": -6.75,
+    "MAX_LOSS": -111.5,
+    "MFE_MEAN": 57.3562,
+    "MAE_MEAN": 32.1127,
+    "PROFIT_CAPTURED_OVER_MFE": -0.0104,
+    "REMOVE_BEST_1_PERCENT": 3.543,
+    "MAX_DRAWDOWN_POINTS": -151.375,
+    "MAX_DRAWDOWN_USD_1_NQ": -756.88,
+    "WORST_DAY_USD": -557.5,
+    "WORST_TRADE_USD": -557.5,
+    "LONG_N": 84,
+    "SHORT_N": 69,
+    "LONG_NET_MEAN": 7.7961,
+    "SHORT_NET_MEAN": 2.6449,
+    "EXIT_REASON_BREAKDOWN": {
+     "BE_STOP": 73,
+     "EMA8": 50,
+     "LEVEL_STOP": 28,
+     "EOD": 2
+    },
+    "BY_YEAR_NET_MEAN_PTS": {
+     "2024": 4.4676,
+     "2025": 6.7298
+    },
+    "BY_YEAR_N": {
+     "2024": 85,
+     "2025": 68
+    },
+    "HOLD_MEDIAN_MIN": 15.0
+   },
+   "NORMAL": {
+    "TRADING_DAYS": 517,
+    "SIGNALS": 153,
+    "RETEST_SESSIONS": 153,
+    "TRADES": 153,
+    "TRADES_PER_WEEK": 1.224,
+    "GROSS_POINTS_PER_TRADE": 6.223,
+    "NET_POINTS_PER_TRADE": 4.723,
+    "NET_TICKS_PER_TRADE": 18.89,
+    "NET_USD_PER_CONTRACT": 23.62,
+    "PF": 1.4851,
+    "EXPECTANCY_R": 0.2937,
+    "WIN_RATE": 0.4641,
+    "AVG_WIN": 31.1567,
+    "MEDIAN_WIN": 23.625,
+    "MAX_WIN": 174.125,
+    "AVG_LOSS": -18.1646,
+    "MEDIAN_LOSS": -7.1875,
+    "MAX_LOSS": -112.25,
+    "MFE_MEAN": 57.3562,
+    "MAE_MEAN": 32.1127,
+    "PROFIT_CAPTURED_OVER_MFE": -0.0208,
+    "REMOVE_BEST_1_PERCENT": 2.793,
+    "MAX_DRAWDOWN_POINTS": -156.625,
+    "MAX_DRAWDOWN_USD_1_NQ": -783.12,
+    "WORST_DAY_USD": -561.25,
+    "WORST_TRADE_USD": -561.25,
+    "LONG_N": 84,
+    "SHORT_N": 69,
+    "LONG_NET_MEAN": 7.0461,
+    "SHORT_NET_MEAN": 1.8949,
+    "EXIT_REASON_BREAKDOWN": {
+     "BE_STOP": 73,
+     "EMA8": 50,
+     "LEVEL_STOP": 28,
+     "EOD": 2
+    },
+    "BY_YEAR_NET_MEAN_PTS": {
+     "2024": 3.7176,
+     "2025": 5.9798
+    },
+    "BY_YEAR_N": {
+     "2024": 85,
+     "2025": 68
+    },
+    "HOLD_MEDIAN_MIN": 15.0
+   },
+   "STRESS": {
+    "TRADING_DAYS": 517,
+    "SIGNALS": 153,
+    "RETEST_SESSIONS": 153,
+    "TRADES": 153,
+    "TRADES_PER_WEEK": 1.224,
+    "GROSS_POINTS_PER_TRADE": 6.223,
+    "NET_POINTS_PER_TRADE": 3.223,
+    "NET_TICKS_PER_TRADE": 12.89,
+    "NET_USD_PER_CONTRACT": 16.12,
+    "PF": 1.3051,
+    "EXPECTANCY_R": 0.2295,
+    "WIN_RATE": 0.4248,
+    "AVG_WIN": 32.45,
+    "MEDIAN_WIN": 25.125,
+    "MAX_WIN": 172.625,
+    "AVG_LOSS": -18.3651,
+    "MEDIAN_LOSS": -7.375,
+    "MAX_LOSS": -113.75,
+    "MFE_MEAN": 57.3562,
+    "MAE_MEAN": 32.1127,
+    "PROFIT_CAPTURED_OVER_MFE": -0.0562,
+    "REMOVE_BEST_1_PERCENT": 1.293,
+    "MAX_DRAWDOWN_POINTS": -167.125,
+    "MAX_DRAWDOWN_USD_1_NQ": -835.62,
+    "WORST_DAY_USD": -568.75,
+    "WORST_TRADE_USD": -568.75,
+    "LONG_N": 84,
+    "SHORT_N": 69,
+    "LONG_NET_MEAN": 5.5461,
+    "SHORT_NET_MEAN": 0.3949,
+    "EXIT_REASON_BREAKDOWN": {
+     "BE_STOP": 73,
+     "EMA8": 50,
+     "LEVEL_STOP": 28,
+     "EOD": 2
+    },
+    "BY_YEAR_NET_MEAN_PTS": {
+     "2024": 2.2176,
+     "2025": 4.4798
+    },
+    "BY_YEAR_N": {
+     "2024": 85,
+     "2025": 68
+    },
+    "HOLD_MEDIAN_MIN": 15.0
+   }
+  }
+ },
+ "P000B_VWAP": {
+  "N_EVENTS": 52,
+  "PHASE_A": {
+   "ret_h5m": {
+    "N": 52,
+    "MEAN_PTS": 6.4183,
+    "MEDIAN_PTS": 6.875,
+    "WIN_RATE": 0.6346,
+    "MFE_MEAN": 109.5529,
+    "MAE_MEAN": 66.9231,
+    "MEAN_LONG": 5.7727,
+    "MEAN_SHORT": 6.8917,
+    "BY_YEAR": {
+     "2024": 4.375,
+     "2025": 8.4615
+    }
+   },
+   "ret_h15m": {
+    "N": 52,
+    "MEAN_PTS": 9.0385,
+    "MEDIAN_PTS": 15.0,
+    "WIN_RATE": 0.6923,
+    "MFE_MEAN": 109.5529,
+    "MAE_MEAN": 66.9231,
+    "MEAN_LONG": 17.9205,
+    "MEAN_SHORT": 2.525,
+    "BY_YEAR": {
+     "2024": 18.7308,
+     "2025": -0.6538
+    }
+   },
+   "ret_h30m": {
+    "N": 52,
+    "MEAN_PTS": 22.2019,
+    "MEDIAN_PTS": 30.625,
+    "WIN_RATE": 0.6538,
+    "MFE_MEAN": 109.5529,
+    "MAE_MEAN": 66.9231,
+    "MEAN_LONG": 32.0,
+    "MEAN_SHORT": 15.0167,
+    "BY_YEAR": {
+     "2024": 39.3846,
+     "2025": 5.0192
+    }
+   },
+   "ret_h60m": {
+    "N": 52,
+    "MEAN_PTS": 41.6635,
+    "MEDIAN_PTS": 44.75,
+    "WIN_RATE": 0.75,
+    "MFE_MEAN": 109.5529,
+    "MAE_MEAN": 66.9231,
+    "MEAN_LONG": 35.6705,
+    "MEAN_SHORT": 46.0583,
+    "BY_YEAR": {
+     "2024": 54.5385,
+     "2025": 28.7885
+    }
+   },
+   "ret_h120m": {
+    "N": 52,
+    "MEAN_PTS": 39.9519,
+    "MEDIAN_PTS": 59.0,
+    "WIN_RATE": 0.6923,
+    "MFE_MEAN": 109.5529,
+    "MAE_MEAN": 66.9231,
+    "MEAN_LONG": 39.6477,
+    "MEAN_SHORT": 40.175,
+    "BY_YEAR": {
+     "2024": 53.7692,
+     "2025": 26.1346
+    }
+   },
+   "BREAK_DIST_ATR": {
+    "MEAN": 0.119,
+    "MEDIAN": 0.107
+   },
+   "N_EVENTS": 52
+  },
+  "STRATEGY": {
+   "LOW": {
+    "TRADING_DAYS": 517,
+    "SIGNALS": 52,
+    "RETEST_SESSIONS": 52,
+    "TRADES": 52,
+    "TRADES_PER_WEEK": 0.416,
+    "GROSS_POINTS_PER_TRADE": 7.2957,
+    "NET_POINTS_PER_TRADE": 6.5457,
+    "NET_TICKS_PER_TRADE": 26.18,
+    "NET_USD_PER_CONTRACT": 32.73,
+    "PF": 2.9661,
+    "EXPECTANCY_R": 0.214,
+    "WIN_RATE": 0.3269,
+    "AVG_WIN": 30.2059,
+    "MEDIAN_WIN": 26.625,
+    "MAX_WIN": 121.375,
+    "AVG_LOSS": -4.9464,
+    "MEDIAN_LOSS": -2.5,
+    "MAX_LOSS": -21.5,
+    "MFE_MEAN": 54.9183,
+    "MAE_MEAN": 34.8413,
+    "PROFIT_CAPTURED_OVER_MFE": -0.0222,
+    "REMOVE_BEST_1_PERCENT": 4.2941,
+    "MAX_DRAWDOWN_POINTS": -45.75,
+    "MAX_DRAWDOWN_USD_1_NQ": -228.75,
+    "WORST_DAY_USD": -107.5,
+    "WORST_TRADE_USD": -107.5,
+    "LONG_N": 22,
+    "SHORT_N": 30,
+    "LONG_NET_MEAN": 9.642,
+    "SHORT_NET_MEAN": 4.275,
+    "EXIT_REASON_BREAKDOWN": {
+     "BE_STOP": 36,
+     "EMA8": 16
+    },
+    "BY_YEAR_NET_MEAN_PTS": {
+     "2024": 4.8269,
+     "2025": 8.2644
+    },
+    "BY_YEAR_N": {
+     "2024": 26,
+     "2025": 26
+    },
+    "HOLD_MEDIAN_MIN": 10.0
+   },
+   "NORMAL": {
+    "TRADING_DAYS": 517,
+    "SIGNALS": 52,
+    "RETEST_SESSIONS": 52,
+    "TRADES": 52,
+    "TRADES_PER_WEEK": 0.416,
+    "GROSS_POINTS_PER_TRADE": 7.2957,
+    "NET_POINTS_PER_TRADE": 5.7957,
+    "NET_TICKS_PER_TRADE": 23.18,
+    "NET_USD_PER_CONTRACT": 28.98,
+    "PF": 2.5116,
+    "EXPECTANCY_R": 0.1881,
+    "WIN_RATE": 0.3269,
+    "AVG_WIN": 29.4559,
+    "MEDIAN_WIN": 25.875,
+    "MAX_WIN": 120.625,
+    "AVG_LOSS": -5.6964,
+    "MEDIAN_LOSS": -3.25,
+    "MAX_LOSS": -22.25,
+    "MFE_MEAN": 54.9183,
+    "MAE_MEAN": 34.8413,
+    "PROFIT_CAPTURED_OVER_MFE": -0.0445,
+    "REMOVE_BEST_1_PERCENT": 3.5441,
+    "MAX_DRAWDOWN_POINTS": -53.25,
+    "MAX_DRAWDOWN_USD_1_NQ": -266.25,
+    "WORST_DAY_USD": -111.25,
+    "WORST_TRADE_USD": -111.25,
+    "LONG_N": 22,
+    "SHORT_N": 30,
+    "LONG_NET_MEAN": 8.892,
+    "SHORT_NET_MEAN": 3.525,
+    "EXIT_REASON_BREAKDOWN": {
+     "BE_STOP": 36,
+     "EMA8": 16
+    },
+    "BY_YEAR_NET_MEAN_PTS": {
+     "2024": 4.0769,
+     "2025": 7.5144
+    },
+    "BY_YEAR_N": {
+     "2024": 26,
+     "2025": 26
+    },
+    "HOLD_MEDIAN_MIN": 10.0
+   },
+   "STRESS": {
+    "TRADING_DAYS": 517,
+    "SIGNALS": 52,
+    "RETEST_SESSIONS": 52,
+    "TRADES": 52,
+    "TRADES_PER_WEEK": 0.416,
+    "GROSS_POINTS_PER_TRADE": 7.2957,
+    "NET_POINTS_PER_TRADE": 4.2957,
+    "NET_TICKS_PER_TRADE": 17.18,
+    "NET_USD_PER_CONTRACT": 21.48,
+    "PF": 1.8868,
+    "EXPECTANCY_R": 0.1365,
+    "WIN_RATE": 0.3269,
+    "AVG_WIN": 27.9559,
+    "MEDIAN_WIN": 24.375,
+    "MAX_WIN": 119.125,
+    "AVG_LOSS": -7.1964,
+    "MEDIAN_LOSS": -4.75,
+    "MAX_LOSS": -23.75,
+    "MFE_MEAN": 54.9183,
+    "MAE_MEAN": 34.8413,
+    "PROFIT_CAPTURED_OVER_MFE": -0.0889,
+    "REMOVE_BEST_1_PERCENT": 2.0441,
+    "MAX_DRAWDOWN_POINTS": -68.25,
+    "MAX_DRAWDOWN_USD_1_NQ": -341.25,
+    "WORST_DAY_USD": -118.75,
+    "WORST_TRADE_USD": -118.75,
+    "LONG_N": 22,
+    "SHORT_N": 30,
+    "LONG_NET_MEAN": 7.392,
+    "SHORT_NET_MEAN": 2.025,
+    "EXIT_REASON_BREAKDOWN": {
+     "BE_STOP": 36,
+     "EMA8": 16
+    },
+    "BY_YEAR_NET_MEAN_PTS": {
+     "2024": 2.5769,
+     "2025": 6.0144
+    },
+    "BY_YEAR_N": {
+     "2024": 26,
+     "2025": 26
+    },
+    "HOLD_MEDIAN_MIN": 10.0
+   }
+  }
+ }
+}

@@ -1,0 +1,455 @@
+{
+ "FOLD": "VALIDATION",
+ "WINDOW": [
+  "2022-01-01 00:00:00+00:00",
+  "2024-01-01 00:00:00+00:00"
+ ],
+ "DATA_ROWS_5M": 423892,
+ "DATA_SPAN": [
+  "2020-01-01 23:00:00+00:00",
+  "2025-12-31 21:55:00+00:00"
+ ],
+ "P000A_LEVEL": {
+  "N_EVENTS": 144,
+  "PHASE_A": {
+   "ret_h5m": {
+    "N": 144,
+    "MEAN_PTS": 1.6024,
+    "MEDIAN_PTS": -0.5,
+    "WIN_RATE": 0.4861,
+    "MFE_MEAN": 67.4167,
+    "MAE_MEAN": 68.2083,
+    "MEAN_LONG": 1.7,
+    "MEAN_SHORT": 1.4964,
+    "BY_YEAR": {
+     "2022": 1.8603,
+     "2023": 1.3717
+    }
+   },
+   "ret_h15m": {
+    "N": 144,
+    "MEAN_PTS": 3.5573,
+    "MEDIAN_PTS": 2.75,
+    "WIN_RATE": 0.5208,
+    "MFE_MEAN": 67.4167,
+    "MAE_MEAN": 68.2083,
+    "MEAN_LONG": 3.9967,
+    "MEAN_SHORT": 3.0797,
+    "BY_YEAR": {
+     "2022": 0.4154,
+     "2023": 6.3684
+    }
+   },
+   "ret_h30m": {
+    "N": 144,
+    "MEAN_PTS": 1.3003,
+    "MEDIAN_PTS": 2.25,
+    "WIN_RATE": 0.5139,
+    "MFE_MEAN": 67.4167,
+    "MAE_MEAN": 68.2083,
+    "MEAN_LONG": 3.08,
+    "MEAN_SHORT": -0.6341,
+    "BY_YEAR": {
+     "2022": -5.9963,
+     "2023": 7.8289
+    }
+   },
+   "ret_h60m": {
+    "N": 144,
+    "MEAN_PTS": 6.066,
+    "MEDIAN_PTS": 3.125,
+    "WIN_RATE": 0.5347,
+    "MFE_MEAN": 67.4167,
+    "MAE_MEAN": 68.2083,
+    "MEAN_LONG": 11.3767,
+    "MEAN_SHORT": 0.2935,
+    "BY_YEAR": {
+     "2022": 1.8088,
+     "2023": 9.875
+    }
+   },
+   "ret_h120m": {
+    "N": 144,
+    "MEAN_PTS": 5.5191,
+    "MEDIAN_PTS": 2.75,
+    "WIN_RATE": 0.5069,
+    "MFE_MEAN": 67.4167,
+    "MAE_MEAN": 68.2083,
+    "MEAN_LONG": 10.8433,
+    "MEAN_SHORT": -0.2681,
+    "BY_YEAR": {
+     "2022": 0.2831,
+     "2023": 10.2039
+    }
+   },
+   "BREAK_DIST_ATR": {
+    "MEAN": 0.103,
+    "MEDIAN": 0.101
+   },
+   "N_EVENTS": 144
+  },
+  "STRATEGY": {
+   "LOW": {
+    "TRADING_DAYS": 516,
+    "SIGNALS": 144,
+    "RETEST_SESSIONS": 144,
+    "TRADES": 144,
+    "TRADES_PER_WEEK": 1.161,
+    "GROSS_POINTS_PER_TRADE": 3.0582,
+    "NET_POINTS_PER_TRADE": 2.3082,
+    "NET_TICKS_PER_TRADE": 9.23,
+    "NET_USD_PER_CONTRACT": 11.54,
+    "PF": 1.3023,
+    "EXPECTANCY_R": 0.0932,
+    "WIN_RATE": 0.3958,
+    "AVG_WIN": 25.1228,
+    "MEDIAN_WIN": 13.5,
+    "MAX_WIN": 95.625,
+    "AVG_LOSS": -12.6394,
+    "MEDIAN_LOSS": -6.125,
+    "MAX_LOSS": -67.0,
+    "MFE_MEAN": 41.3299,
+    "MAE_MEAN": 29.9531,
+    "PROFIT_CAPTURED_OVER_MFE": -0.0552,
+    "REMOVE_BEST_1_PERCENT": 1.6556,
+    "MAX_DRAWDOWN_POINTS": -181.5,
+    "MAX_DRAWDOWN_USD_1_NQ": -907.5,
+    "WORST_DAY_USD": -335.0,
+    "WORST_TRADE_USD": -335.0,
+    "LONG_N": 75,
+    "SHORT_N": 69,
+    "LONG_NET_MEAN": 4.2467,
+    "SHORT_NET_MEAN": 0.2011,
+    "EXIT_REASON_BREAKDOWN": {
+     "BE_STOP": 81,
+     "EMA8": 39,
+     "LEVEL_STOP": 23,
+     "EOD": 1
+    },
+    "BY_YEAR_NET_MEAN_PTS": {
+     "2022": 1.7555,
+     "2023": 2.8026
+    },
+    "BY_YEAR_N": {
+     "2022": 68,
+     "2023": 76
+    },
+    "HOLD_MEDIAN_MIN": 15.0
+   },
+   "NORMAL": {
+    "TRADING_DAYS": 516,
+    "SIGNALS": 144,
+    "RETEST_SESSIONS": 144,
+    "TRADES": 144,
+    "TRADES_PER_WEEK": 1.161,
+    "GROSS_POINTS_PER_TRADE": 3.0582,
+    "NET_POINTS_PER_TRADE": 1.5582,
+    "NET_TICKS_PER_TRADE": 6.23,
+    "NET_USD_PER_CONTRACT": 7.79,
+    "PF": 1.1924,
+    "EXPECTANCY_R": 0.0579,
+    "WIN_RATE": 0.375,
+    "AVG_WIN": 25.7523,
+    "MEDIAN_WIN": 14.6875,
+    "MAX_WIN": 94.875,
+    "AVG_LOSS": -12.9583,
+    "MEDIAN_LOSS": -6.4375,
+    "MAX_LOSS": -67.75,
+    "MFE_MEAN": 41.3299,
+    "MAE_MEAN": 29.9531,
+    "PROFIT_CAPTURED_OVER_MFE": -0.0974,
+    "REMOVE_BEST_1_PERCENT": 0.9056,
+    "MAX_DRAWDOWN_POINTS": -201.375,
+    "MAX_DRAWDOWN_USD_1_NQ": -1006.88,
+    "WORST_DAY_USD": -338.75,
+    "WORST_TRADE_USD": -338.75,
+    "LONG_N": 75,
+    "SHORT_N": 69,
+    "LONG_NET_MEAN": 3.4967,
+    "SHORT_NET_MEAN": -0.5489,
+    "EXIT_REASON_BREAKDOWN": {
+     "BE_STOP": 81,
+     "EMA8": 39,
+     "LEVEL_STOP": 23,
+     "EOD": 1
+    },
+    "BY_YEAR_NET_MEAN_PTS": {
+     "2022": 1.0055,
+     "2023": 2.0526
+    },
+    "BY_YEAR_N": {
+     "2022": 68,
+     "2023": 76
+    },
+    "HOLD_MEDIAN_MIN": 15.0
+   },
+   "STRESS": {
+    "TRADING_DAYS": 516,
+    "SIGNALS": 144,
+    "RETEST_SESSIONS": 144,
+    "TRADES": 144,
+    "TRADES_PER_WEEK": 1.161,
+    "GROSS_POINTS_PER_TRADE": 3.0582,
+    "NET_POINTS_PER_TRADE": 0.0582,
+    "NET_TICKS_PER_TRADE": 0.23,
+    "NET_USD_PER_CONTRACT": 0.29,
+    "PF": 1.0064,
+    "EXPECTANCY_R": -0.0128,
+    "WIN_RATE": 0.3403,
+    "AVG_WIN": 26.8061,
+    "MEDIAN_WIN": 17.5,
+    "MAX_WIN": 93.375,
+    "AVG_LOSS": -13.7382,
+    "MEDIAN_LOSS": -6.625,
+    "MAX_LOSS": -69.25,
+    "MFE_MEAN": 41.3299,
+    "MAE_MEAN": 29.9531,
+    "PROFIT_CAPTURED_OVER_MFE": -0.1656,
+    "REMOVE_BEST_1_PERCENT": -0.5944,
+    "MAX_DRAWDOWN_POINTS": -316.75,
+    "MAX_DRAWDOWN_USD_1_NQ": -1583.75,
+    "WORST_DAY_USD": -346.25,
+    "WORST_TRADE_USD": -346.25,
+    "LONG_N": 75,
+    "SHORT_N": 69,
+    "LONG_NET_MEAN": 1.9967,
+    "SHORT_NET_MEAN": -2.0489,
+    "EXIT_REASON_BREAKDOWN": {
+     "BE_STOP": 81,
+     "EMA8": 39,
+     "LEVEL_STOP": 23,
+     "EOD": 1
+    },
+    "BY_YEAR_NET_MEAN_PTS": {
+     "2022": -0.4945,
+     "2023": 0.5526
+    },
+    "BY_YEAR_N": {
+     "2022": 68,
+     "2023": 76
+    },
+    "HOLD_MEDIAN_MIN": 15.0
+   }
+  }
+ },
+ "P000B_VWAP": {
+  "N_EVENTS": 46,
+  "PHASE_A": {
+   "ret_h5m": {
+    "N": 46,
+    "MEAN_PTS": 2.25,
+    "MEDIAN_PTS": 4.625,
+    "WIN_RATE": 0.5652,
+    "MFE_MEAN": 84.0543,
+    "MAE_MEAN": 62.8967,
+    "MEAN_LONG": 1.9659,
+    "MEAN_SHORT": 2.5104,
+    "BY_YEAR": {
+     "2022": 1.7955,
+     "2023": 2.6667
+    }
+   },
+   "ret_h15m": {
+    "N": 46,
+    "MEAN_PTS": 9.3261,
+    "MEDIAN_PTS": 7.25,
+    "WIN_RATE": 0.587,
+    "MFE_MEAN": 84.0543,
+    "MAE_MEAN": 62.8967,
+    "MEAN_LONG": 5.7727,
+    "MEAN_SHORT": 12.5833,
+    "BY_YEAR": {
+     "2022": 11.4886,
+     "2023": 7.3438
+    }
+   },
+   "ret_h30m": {
+    "N": 46,
+    "MEAN_PTS": 9.3913,
+    "MEDIAN_PTS": 1.375,
+    "WIN_RATE": 0.5435,
+    "MFE_MEAN": 84.0543,
+    "MAE_MEAN": 62.8967,
+    "MEAN_LONG": 2.7273,
+    "MEAN_SHORT": 15.5,
+    "BY_YEAR": {
+     "2022": 24.8864,
+     "2023": -4.8125
+    }
+   },
+   "ret_h60m": {
+    "N": 46,
+    "MEAN_PTS": 21.7446,
+    "MEDIAN_PTS": 11.75,
+    "WIN_RATE": 0.5652,
+    "MFE_MEAN": 84.0543,
+    "MAE_MEAN": 62.8967,
+    "MEAN_LONG": 17.8409,
+    "MEAN_SHORT": 25.3229,
+    "BY_YEAR": {
+     "2022": 36.9432,
+     "2023": 7.8125
+    }
+   },
+   "ret_h120m": {
+    "N": 46,
+    "MEAN_PTS": 25.2446,
+    "MEDIAN_PTS": 14.0,
+    "WIN_RATE": 0.6087,
+    "MFE_MEAN": 84.0543,
+    "MAE_MEAN": 62.8967,
+    "MEAN_LONG": 17.9432,
+    "MEAN_SHORT": 31.9375,
+    "BY_YEAR": {
+     "2022": 46.1477,
+     "2023": 6.0833
+    }
+   },
+   "BREAK_DIST_ATR": {
+    "MEAN": 0.11,
+    "MEDIAN": 0.102
+   },
+   "N_EVENTS": 46
+  },
+  "STRATEGY": {
+   "LOW": {
+    "TRADING_DAYS": 516,
+    "SIGNALS": 46,
+    "RETEST_SESSIONS": 46,
+    "TRADES": 46,
+    "TRADES_PER_WEEK": 0.371,
+    "GROSS_POINTS_PER_TRADE": 9.3587,
+    "NET_POINTS_PER_TRADE": 8.6087,
+    "NET_TICKS_PER_TRADE": 34.43,
+    "NET_USD_PER_CONTRACT": 43.04,
+    "PF": 2.5364,
+    "EXPECTANCY_R": 0.3099,
+    "WIN_RATE": 0.2826,
+    "AVG_WIN": 50.2885,
+    "MEDIAN_WIN": 26.5,
+    "MAX_WIN": 156.375,
+    "AVG_LOSS": -7.8106,
+    "MEDIAN_LOSS": -3.25,
+    "MAX_LOSS": -67.0,
+    "MFE_MEAN": 53.4783,
+    "MAE_MEAN": 25.8533,
+    "PROFIT_CAPTURED_OVER_MFE": -0.0366,
+    "REMOVE_BEST_1_PERCENT": 5.325,
+    "MAX_DRAWDOWN_POINTS": -123.0,
+    "MAX_DRAWDOWN_USD_1_NQ": -615.0,
+    "WORST_DAY_USD": -335.0,
+    "WORST_TRADE_USD": -335.0,
+    "LONG_N": 22,
+    "SHORT_N": 24,
+    "LONG_NET_MEAN": 0.9148,
+    "SHORT_NET_MEAN": 15.6615,
+    "EXIT_REASON_BREAKDOWN": {
+     "BE_STOP": 29,
+     "EMA8": 13,
+     "LEVEL_STOP": 4
+    },
+    "BY_YEAR_NET_MEAN_PTS": {
+     "2022": 7.9261,
+     "2023": 9.2344
+    },
+    "BY_YEAR_N": {
+     "2022": 22,
+     "2023": 24
+    },
+    "HOLD_MEDIAN_MIN": 10.0
+   },
+   "NORMAL": {
+    "TRADING_DAYS": 516,
+    "SIGNALS": 46,
+    "RETEST_SESSIONS": 46,
+    "TRADES": 46,
+    "TRADES_PER_WEEK": 0.371,
+    "GROSS_POINTS_PER_TRADE": 9.3587,
+    "NET_POINTS_PER_TRADE": 7.8587,
+    "NET_TICKS_PER_TRADE": 31.43,
+    "NET_USD_PER_CONTRACT": 39.29,
+    "PF": 2.2796,
+    "EXPECTANCY_R": 0.276,
+    "WIN_RATE": 0.2826,
+    "AVG_WIN": 49.5385,
+    "MEDIAN_WIN": 25.75,
+    "MAX_WIN": 155.625,
+    "AVG_LOSS": -8.5606,
+    "MEDIAN_LOSS": -4.0,
+    "MAX_LOSS": -67.75,
+    "MFE_MEAN": 53.4783,
+    "MAE_MEAN": 25.8533,
+    "PROFIT_CAPTURED_OVER_MFE": -0.0732,
+    "REMOVE_BEST_1_PERCENT": 4.575,
+    "MAX_DRAWDOWN_POINTS": -131.25,
+    "MAX_DRAWDOWN_USD_1_NQ": -656.25,
+    "WORST_DAY_USD": -338.75,
+    "WORST_TRADE_USD": -338.75,
+    "LONG_N": 22,
+    "SHORT_N": 24,
+    "LONG_NET_MEAN": 0.1648,
+    "SHORT_NET_MEAN": 14.9115,
+    "EXIT_REASON_BREAKDOWN": {
+     "BE_STOP": 29,
+     "EMA8": 13,
+     "LEVEL_STOP": 4
+    },
+    "BY_YEAR_NET_MEAN_PTS": {
+     "2022": 7.1761,
+     "2023": 8.4844
+    },
+    "BY_YEAR_N": {
+     "2022": 22,
+     "2023": 24
+    },
+    "HOLD_MEDIAN_MIN": 10.0
+   },
+   "STRESS": {
+    "TRADING_DAYS": 516,
+    "SIGNALS": 46,
+    "RETEST_SESSIONS": 46,
+    "TRADES": 46,
+    "TRADES_PER_WEEK": 0.371,
+    "GROSS_POINTS_PER_TRADE": 9.3587,
+    "NET_POINTS_PER_TRADE": 6.3587,
+    "NET_TICKS_PER_TRADE": 25.43,
+    "NET_USD_PER_CONTRACT": 31.79,
+    "PF": 1.881,
+    "EXPECTANCY_R": 0.2083,
+    "WIN_RATE": 0.2826,
+    "AVG_WIN": 48.0385,
+    "MEDIAN_WIN": 24.25,
+    "MAX_WIN": 154.125,
+    "AVG_LOSS": -10.0606,
+    "MEDIAN_LOSS": -5.5,
+    "MAX_LOSS": -69.25,
+    "MFE_MEAN": 53.4783,
+    "MAE_MEAN": 25.8533,
+    "PROFIT_CAPTURED_OVER_MFE": -0.145,
+    "REMOVE_BEST_1_PERCENT": 3.075,
+    "MAX_DRAWDOWN_POINTS": -147.75,
+    "MAX_DRAWDOWN_USD_1_NQ": -738.75,
+    "WORST_DAY_USD": -346.25,
+    "WORST_TRADE_USD": -346.25,
+    "LONG_N": 22,
+    "SHORT_N": 24,
+    "LONG_NET_MEAN": -1.3352,
+    "SHORT_NET_MEAN": 13.4115,
+    "EXIT_REASON_BREAKDOWN": {
+     "BE_STOP": 29,
+     "EMA8": 13,
+     "LEVEL_STOP": 4
+    },
+    "BY_YEAR_NET_MEAN_PTS": {
+     "2022": 5.6761,
+     "2023": 6.9844
+    },
+    "BY_YEAR_N": {
+     "2022": 22,
+     "2023": 24
+    },
+    "HOLD_MEDIAN_MIN": 10.0
+   }
+  }
+ }
+}
