@@ -1,0 +1,46 @@
+{
+ "metrics": {
+  "label": "EURUSD_2018H2",
+  "N": 5,
+  "trades_per_month": 1.67,
+  "mean_pips": 25.469,
+  "median_pips": 9.6,
+  "total_pips": 127.35,
+  "PF": 7.464,
+  "expectancy_r": 0.3881,
+  "win_rate": 0.8,
+  "long_r": 0.4681,
+  "short_r": 0.0681,
+  "pos_months": 3,
+  "n_months": 3,
+  "pos_years": "1/1",
+  "yearly_r": {
+   "2018": 1.94
+  },
+  "yearly_pips": {
+   "2018": 127.3
+  },
+  "remove_best": 15.1,
+  "max_dd_r": 0.0,
+  "worst_year_r": 1.94,
+  "worst_rolling12m_r": NaN,
+  "exits": {
+   "STOP": 0,
+   "TARGET": 2,
+   "TIME": 3
+  }
+ },
+ "stress_mean": 24.669,
+ "months": {
+  "2018": {
+   "N": 5,
+   "mean_pips": 25.469,
+   "PF": null,
+   "pips": 127.3,
+   "r": 1.94,
+   "win_rate": 0.8
+  }
+ },
+ "decisions_in_window": 12,
+ "stage_b_pass": true
+}

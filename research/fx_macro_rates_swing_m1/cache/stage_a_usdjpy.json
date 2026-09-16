@@ -1,0 +1,122 @@
+{
+ "metrics": {
+  "label": "USDJPY_STAGE_A",
+  "N": 23,
+  "trades_per_month": 1.21,
+  "mean_pips": 24.822,
+  "median_pips": 38.6,
+  "total_pips": 570.9,
+  "PF": 2.242,
+  "expectancy_r": 0.3334,
+  "win_rate": 0.7391,
+  "long_r": 0.3242,
+  "short_r": 0.3775,
+  "pos_months": 15,
+  "n_months": 19,
+  "pos_years": "6/7",
+  "yearly_r": {
+   "2010": -0.0,
+   "2011": 2.2,
+   "2012": 1.44,
+   "2013": -0.52,
+   "2014": 1.65,
+   "2015": 1.42,
+   "2016": 1.47
+  },
+  "yearly_pips": {
+   "2010": 23.6,
+   "2011": 145.9,
+   "2012": 93.0,
+   "2013": -217.7,
+   "2014": 167.1,
+   "2015": 117.1,
+   "2016": 241.9
+  },
+  "remove_best": 16.69,
+  "max_dd_r": 1.8,
+  "worst_year_r": -0.52,
+  "worst_rolling12m_r": 2.13,
+  "exits": {
+   "STOP": 3,
+   "TARGET": 9,
+   "TIME": 11
+  }
+ },
+ "stress_mean": 24.083,
+ "years": {
+  "2010": {
+   "N": 2,
+   "mean_pips": 11.786,
+   "PF": null,
+   "pips": 23.6,
+   "r": -0.0,
+   "win_rate": 0.5
+  },
+  "2011": {
+   "N": 7,
+   "mean_pips": 20.844,
+   "PF": null,
+   "pips": 145.9,
+   "r": 2.2,
+   "win_rate": 0.714
+  },
+  "2012": {
+   "N": 2,
+   "mean_pips": 46.491,
+   "PF": null,
+   "pips": 93.0,
+   "r": 1.44,
+   "win_rate": 1.0
+  },
+  "2013": {
+   "N": 6,
+   "mean_pips": -36.279,
+   "PF": null,
+   "pips": -217.7,
+   "r": -0.52,
+   "win_rate": 0.5
+  },
+  "2014": {
+   "N": 2,
+   "mean_pips": 83.543,
+   "PF": null,
+   "pips": 167.1,
+   "r": 1.65,
+   "win_rate": 1.0
+  },
+  "2015": {
+   "N": 2,
+   "mean_pips": 58.559,
+   "PF": null,
+   "pips": 117.1,
+   "r": 1.42,
+   "win_rate": 1.0
+  },
+  "2016": {
+   "N": 2,
+   "mean_pips": 120.957,
+   "PF": null,
+   "pips": 241.9,
+   "r": 1.47,
+   "win_rate": 1.0
+  }
+ },
+ "survival": {
+  "FINAL_CAPITAL": 519.46,
+  "MAX_DRAWDOWN_PERCENT": 0.9,
+  "WORST_CALENDAR_YEAR_PERCENT": -0.26,
+  "WORST_ROLLING_12M_PERCENT": 1.06,
+  "LOWEST_EQUITY": 499.98,
+  "LONGEST_DRAWDOWN_DURATION_DAYS": 286.7,
+  "yearly_returns_percent": {
+   "2010": -0.0,
+   "2011": 1.1,
+   "2012": 0.72,
+   "2013": -0.26,
+   "2014": 0.83,
+   "2015": 0.71,
+   "2016": 0.74
+  }
+ },
+ "stage_a_pass": true
+}
