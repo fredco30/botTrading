@@ -1,0 +1,282 @@
+{
+ "A": {
+  "NORMAL": {
+   "ELIGIBLE_DIRECTIONAL_DAYS": 1294,
+   "SETUPS_A": 737,
+   "SETUPS_B": 0,
+   "CANCELLED_ATR": 314,
+   "CANCELLED_1R": 0,
+   "OBSTACLE_REJECTS": 58,
+   "RR_REJECTS": 0,
+   "TRADES": 278,
+   "TRADES_PER_WEEK": 0.898,
+   "GROSS_POINTS_PER_TRADE": -1.1592,
+   "NET_POINTS_PER_TRADE": -2.6592,
+   "NET_TICKS_PER_TRADE": -10.64,
+   "NET_USD_PER_NQ": -53.18,
+   "PF": 0.8232,
+   "EXPECTANCY_R": -0.3197,
+   "WIN_RATE": 0.277,
+   "AVG_WIN_R": 1.899,
+   "AVG_LOSS_R": -1.169,
+   "REMOVE_BEST_1_PERCENT": -4.3809,
+   "MAX_DD_R": -90.509,
+   "MAX_DD_POINTS": -1135.5,
+   "MAX_DD_USD_1NQ": -22710.0,
+   "BY_YEAR_NET_PTS": {
+    "2020": -3.522,
+    "2021": -9.872,
+    "2022": 15.872,
+    "2023": -6.538,
+    "2024": -9.977,
+    "2025": -3.033
+   },
+   "BY_YEAR_N": {
+    "2020": 57,
+    "2021": 47,
+    "2022": 47,
+    "2023": 39,
+    "2024": 43,
+    "2025": 45
+   },
+   "LONG_N": 187,
+   "SHORT_N": 91,
+   "EXIT_REASON": {
+    "STOP": 199,
+    "2R_TARGET": 78,
+    "EOD": 1
+   },
+   "MFE_MEAN_PTS": 26.12,
+   "MAE_MEAN_PTS": 25.412,
+   "CAPTURE_RATIO": -0.9466,
+   "DIAGNOSTICS_2O": {
+    "BY_OPR_WIDTH_ATR_QUARTILE": {
+     "Q1": -5.086,
+     "Q2": -5.996,
+     "Q3": -1.674,
+     "Q4": 2.086
+    },
+    "BY_ATR_QUARTILE": {
+     "Q1": -3.996,
+     "Q2": -9.355,
+     "Q3": -1.083,
+     "Q4": 3.725
+    },
+    "BY_FLOW_STRENGTH_QUARTILE": {
+     "Q1": -2.289,
+     "Q2": -9.366,
+     "Q3": 5.54,
+     "Q4": -4.5
+    },
+    "BY_SIDE": {
+     "LONG": -4.122,
+     "SHORT": 0.346
+    },
+    "BY_ENTRY_BUCKET": {
+     "0945-1015": -3.441,
+     "1015-1100": -1.067,
+     "1100-1130": -4.92
+    },
+    "BY_FOLD": {
+     "DISCOVERY": -6.392,
+     "REPLICATION": -6.426,
+     "VALIDATION": 5.709
+    }
+   }
+  },
+  "STRESS": {
+   "STRESS_POINTS": -4.1592,
+   "STRESS_PF": 0.7421,
+   "STRESS_TRADES": 278,
+   "STRESS_NET_USD": -83.18
+  },
+  "GATE": "FAIL:net<=0;PF=0.8232;rm_best<=0;pos_years<4"
+ },
+ "B": {
+  "NORMAL": {
+   "ELIGIBLE_DIRECTIONAL_DAYS": 1294,
+   "SETUPS_A": 0,
+   "SETUPS_B": 863,
+   "CANCELLED_ATR": 0,
+   "CANCELLED_1R": 256,
+   "OBSTACLE_REJECTS": 0,
+   "RR_REJECTS": 179,
+   "TRADES": 102,
+   "TRADES_PER_WEEK": 0.329,
+   "GROSS_POINTS_PER_TRADE": 0.674,
+   "NET_POINTS_PER_TRADE": -0.826,
+   "NET_TICKS_PER_TRADE": -3.3,
+   "NET_USD_PER_NQ": -16.52,
+   "PF": 0.9548,
+   "EXPECTANCY_R": -0.1072,
+   "WIN_RATE": 0.2451,
+   "AVG_WIN_R": 2.883,
+   "AVG_LOSS_R": -1.078,
+   "REMOVE_BEST_1_PERCENT": -2.2847,
+   "MAX_DD_R": -18.387,
+   "MAX_DD_POINTS": -407.75,
+   "MAX_DD_USD_1NQ": -8155.0,
+   "BY_YEAR_NET_PTS": {
+    "2020": 1.5,
+    "2021": -5.181,
+    "2022": 8.662,
+    "2023": -1.0,
+    "2024": -5.432,
+    "2025": -5.5
+   },
+   "BY_YEAR_N": {
+    "2020": 19,
+    "2021": 18,
+    "2022": 20,
+    "2023": 12,
+    "2024": 11,
+    "2025": 22
+   },
+   "LONG_N": 63,
+   "SHORT_N": 39,
+   "EXIT_REASON": {
+    "STOP": 76,
+    "OPPOSITE_OPR_TARGET": 24,
+    "EOD": 2
+   },
+   "MFE_MEAN_PTS": 37.887,
+   "MAE_MEAN_PTS": 29.358,
+   "CAPTURE_RATIO": -0.9214,
+   "DIAGNOSTICS_2O": {
+    "BY_OPR_WIDTH_ATR_QUARTILE": {
+     "Q1": 0.856,
+     "Q2": 0.0,
+     "Q3": 2.72,
+     "Q4": -6.712
+    },
+    "BY_ATR_QUARTILE": {
+     "Q1": 2.308,
+     "Q2": -1.38,
+     "Q3": -8.18,
+     "Q4": 3.644
+    },
+    "BY_FLOW_STRENGTH_QUARTILE": {
+     "Q1": 3.567,
+     "Q2": -3.02,
+     "Q3": 0.13,
+     "Q4": -4.029
+    },
+    "BY_SIDE": {
+     "LONG": -8.286,
+     "SHORT": 11.224
+    },
+    "BY_ENTRY_BUCKET": {
+     "0945-1015": 3.793,
+     "1015-1100": -3.37,
+     "1100-1130": -6.0
+    },
+    "BY_FOLD": {
+     "DISCOVERY": -1.75,
+     "REPLICATION": -5.477,
+     "VALIDATION": 5.039
+    }
+   }
+  },
+  "STRESS": {
+   "STRESS_POINTS": -2.326,
+   "STRESS_PF": 0.88,
+   "STRESS_TRADES": 102,
+   "STRESS_NET_USD": -46.52
+  },
+  "GATE": "FAIL:net<=0;PF=0.9548;rm_best<=0;pos_years<4"
+ },
+ "C": {
+  "NORMAL": {
+   "ELIGIBLE_DIRECTIONAL_DAYS": 1294,
+   "SETUPS_A": 722,
+   "SETUPS_B": 831,
+   "CANCELLED_ATR": 309,
+   "CANCELLED_1R": 237,
+   "OBSTACLE_REJECTS": 56,
+   "RR_REJECTS": 173,
+   "TRADES": 371,
+   "TRADES_PER_WEEK": 1.198,
+   "GROSS_POINTS_PER_TRADE": -0.7426,
+   "NET_POINTS_PER_TRADE": -2.2426,
+   "NET_TICKS_PER_TRADE": -8.97,
+   "NET_USD_PER_NQ": -44.85,
+   "PF": 0.8597,
+   "EXPECTANCY_R": -0.2694,
+   "WIN_RATE": 0.2668,
+   "AVG_WIN_R": 2.135,
+   "AVG_LOSS_R": -1.145,
+   "REMOVE_BEST_1_PERCENT": -3.9619,
+   "MAX_DD_R": -105.458,
+   "MAX_DD_POINTS": -1297.75,
+   "MAX_DD_USD_1NQ": -25955.0,
+   "BY_YEAR_NET_PTS": {
+    "2020": -1.932,
+    "2021": -8.671,
+    "2022": 13.34,
+    "2023": -5.235,
+    "2024": -8.943,
+    "2025": -3.843
+   },
+   "BY_YEAR_N": {
+    "2020": 73,
+    "2021": 63,
+    "2022": 64,
+    "2023": 51,
+    "2024": 53,
+    "2025": 67
+   },
+   "LONG_N": 247,
+   "SHORT_N": 124,
+   "EXIT_REASON": {
+    "STOP": 269,
+    "2R_TARGET": 76,
+    "OPPOSITE_OPR_TARGET": 23,
+    "EOD": 3
+   },
+   "MFE_MEAN_PTS": 28.964,
+   "MAE_MEAN_PTS": 26.507,
+   "CAPTURE_RATIO": -0.9489,
+   "DIAGNOSTICS_2O": {
+    "BY_OPR_WIDTH_ATR_QUARTILE": {
+     "Q1": -4.242,
+     "Q2": -2.468,
+     "Q3": -1.723,
+     "Q4": -0.532
+    },
+    "BY_ATR_QUARTILE": {
+     "Q1": -2.723,
+     "Q2": -7.793,
+     "Q3": -2.402,
+     "Q4": 3.946
+    },
+    "BY_FLOW_STRENGTH_QUARTILE": {
+     "Q1": -1.812,
+     "Q2": -5.675,
+     "Q3": 3.916,
+     "Q4": -5.333
+    },
+    "BY_SIDE": {
+     "LONG": -5.079,
+     "SHORT": 3.407
+    },
+    "BY_ENTRY_BUCKET": {
+     "0945-1015": -1.54,
+     "1015-1100": -1.998,
+     "1100-1130": -4.945
+    },
+    "BY_FOLD": {
+     "DISCOVERY": -5.053,
+     "REPLICATION": -6.096,
+     "VALIDATION": 5.102
+    }
+   }
+  },
+  "STRESS": {
+   "STRESS_POINTS": -3.7426,
+   "STRESS_PF": 0.7809,
+   "STRESS_TRADES": 371,
+   "STRESS_NET_USD": -74.85
+  },
+  "GATE": "FAIL:net<=0;PF=0.8597;rm_best<=0;pos_years<4"
+ }
+}
