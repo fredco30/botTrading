@@ -14,6 +14,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).parent))
 import nq_lib as N  # noqa: E402
+from nq_lib import ET  # noqa: E402
 
 HERE = Path(__file__).parent
 OUT = HERE / "results"

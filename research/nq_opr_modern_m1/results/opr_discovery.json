@@ -1,0 +1,458 @@
+{
+ "FOLD": "DISCOVERY",
+ "WINDOW": [
+  "2020-01-01 00:00:00+00:00",
+  "2022-01-01 00:00:00+00:00"
+ ],
+ "DATA_ROWS_5M": 423892,
+ "DATA_SPAN": [
+  "2020-01-01 23:00:00+00:00",
+  "2025-12-31 21:55:00+00:00"
+ ],
+ "P000A_LEVEL": {
+  "N_EVENTS": 123,
+  "PHASE_A": {
+   "ret_h5m": {
+    "N": 123,
+    "MEAN_PTS": 3.75,
+    "MEDIAN_PTS": 1.5,
+    "WIN_RATE": 0.5528,
+    "MFE_MEAN": 51.372,
+    "MAE_MEAN": 55.8841,
+    "MEAN_LONG": 4.5615,
+    "MEAN_SHORT": 2.8405,
+    "BY_YEAR": {
+     "2020": 4.127,
+     "2021": 3.3542
+    }
+   },
+   "ret_h15m": {
+    "N": 123,
+    "MEAN_PTS": 1.8049,
+    "MEDIAN_PTS": -0.5,
+    "WIN_RATE": 0.4959,
+    "MFE_MEAN": 51.372,
+    "MAE_MEAN": 55.8841,
+    "MEAN_LONG": 3.5077,
+    "MEAN_SHORT": -0.1034,
+    "BY_YEAR": {
+     "2020": 4.0595,
+     "2021": -0.5625
+    }
+   },
+   "ret_h30m": {
+    "N": 123,
+    "MEAN_PTS": -1.248,
+    "MEDIAN_PTS": 0.5,
+    "WIN_RATE": 0.5041,
+    "MFE_MEAN": 51.372,
+    "MAE_MEAN": 55.8841,
+    "MEAN_LONG": -2.6,
+    "MEAN_SHORT": 0.2672,
+    "BY_YEAR": {
+     "2020": 1.8016,
+     "2021": -4.45
+    }
+   },
+   "ret_h60m": {
+    "N": 123,
+    "MEAN_PTS": -2.9756,
+    "MEDIAN_PTS": 3.5,
+    "WIN_RATE": 0.5366,
+    "MFE_MEAN": 51.372,
+    "MAE_MEAN": 55.8841,
+    "MEAN_LONG": -3.7192,
+    "MEAN_SHORT": -2.1422,
+    "BY_YEAR": {
+     "2020": 3.4008,
+     "2021": -9.6708
+    }
+   },
+   "ret_h120m": {
+    "N": 123,
+    "MEAN_PTS": -4.1159,
+    "MEDIAN_PTS": -1.25,
+    "WIN_RATE": 0.4715,
+    "MFE_MEAN": 51.372,
+    "MAE_MEAN": 55.8841,
+    "MEAN_LONG": -0.2308,
+    "MEAN_SHORT": -8.4698,
+    "BY_YEAR": {
+     "2020": -3.9206,
+     "2021": -4.3208
+    }
+   },
+   "BREAK_DIST_ATR": {
+    "MEAN": 0.105,
+    "MEDIAN": 0.091
+   },
+   "N_EVENTS": 123
+  },
+  "STRATEGY": {
+   "LOW": {
+    "TRADING_DAYS": 518,
+    "SIGNALS": 123,
+    "RETEST_SESSIONS": 123,
+    "TRADES": 123,
+    "TRADES_PER_WEEK": 0.987,
+    "GROSS_POINTS_PER_TRADE": 4.0234,
+    "NET_POINTS_PER_TRADE": 3.2734,
+    "NET_TICKS_PER_TRADE": 13.09,
+    "NET_USD_PER_CONTRACT": 16.37,
+    "PF": 1.5515,
+    "EXPECTANCY_R": 0.2922,
+    "WIN_RATE": 0.439,
+    "AVG_WIN": 20.9745,
+    "MEDIAN_WIN": 10.0,
+    "MAX_WIN": 98.25,
+    "AVG_LOSS": -10.5797,
+    "MEDIAN_LOSS": -3.625,
+    "MAX_LOSS": -64.0,
+    "MFE_MEAN": 36.2073,
+    "MAE_MEAN": 21.2053,
+    "PROFIT_CAPTURED_OVER_MFE": -0.0268,
+    "REMOVE_BEST_1_PERCENT": 2.4949,
+    "MAX_DRAWDOWN_POINTS": -124.0,
+    "MAX_DRAWDOWN_USD_1_NQ": -620.0,
+    "WORST_DAY_USD": -320.0,
+    "WORST_TRADE_USD": -320.0,
+    "LONG_N": 65,
+    "SHORT_N": 58,
+    "LONG_NET_MEAN": 4.9885,
+    "SHORT_NET_MEAN": 1.3513,
+    "EXIT_REASON_BREAKDOWN": {
+     "BE_STOP": 66,
+     "EMA8": 32,
+     "LEVEL_STOP": 19,
+     "EOD": 6
+    },
+    "BY_YEAR_NET_MEAN_PTS": {
+     "2020": 1.7718,
+     "2021": 4.85
+    },
+    "BY_YEAR_N": {
+     "2020": 63,
+     "2021": 60
+    },
+    "HOLD_MEDIAN_MIN": 10.0
+   },
+   "NORMAL": {
+    "TRADING_DAYS": 518,
+    "SIGNALS": 123,
+    "RETEST_SESSIONS": 123,
+    "TRADES": 123,
+    "TRADES_PER_WEEK": 0.987,
+    "GROSS_POINTS_PER_TRADE": 4.0234,
+    "NET_POINTS_PER_TRADE": 2.5234,
+    "NET_TICKS_PER_TRADE": 10.09,
+    "NET_USD_PER_CONTRACT": 12.62,
+    "PF": 1.3963,
+    "EXPECTANCY_R": 0.2441,
+    "WIN_RATE": 0.3984,
+    "AVG_WIN": 22.3163,
+    "MEDIAN_WIN": 14.0,
+    "MAX_WIN": 97.5,
+    "AVG_LOSS": -10.5828,
+    "MEDIAN_LOSS": -3.5,
+    "MAX_LOSS": -64.75,
+    "MFE_MEAN": 36.2073,
+    "MAE_MEAN": 21.2053,
+    "PROFIT_CAPTURED_OVER_MFE": -0.0566,
+    "REMOVE_BEST_1_PERCENT": 1.7449,
+    "MAX_DRAWDOWN_POINTS": -151.875,
+    "MAX_DRAWDOWN_USD_1_NQ": -759.38,
+    "WORST_DAY_USD": -323.75,
+    "WORST_TRADE_USD": -323.75,
+    "LONG_N": 65,
+    "SHORT_N": 58,
+    "LONG_NET_MEAN": 4.2385,
+    "SHORT_NET_MEAN": 0.6013,
+    "EXIT_REASON_BREAKDOWN": {
+     "BE_STOP": 66,
+     "EMA8": 32,
+     "LEVEL_STOP": 19,
+     "EOD": 6
+    },
+    "BY_YEAR_NET_MEAN_PTS": {
+     "2020": 1.0218,
+     "2021": 4.1
+    },
+    "BY_YEAR_N": {
+     "2020": 63,
+     "2021": 60
+    },
+    "HOLD_MEDIAN_MIN": 10.0
+   },
+   "STRESS": {
+    "TRADING_DAYS": 518,
+    "SIGNALS": 123,
+    "RETEST_SESSIONS": 123,
+    "TRADES": 123,
+    "TRADES_PER_WEEK": 0.987,
+    "GROSS_POINTS_PER_TRADE": 4.0234,
+    "NET_POINTS_PER_TRADE": 1.0234,
+    "NET_TICKS_PER_TRADE": 4.09,
+    "NET_USD_PER_CONTRACT": 5.12,
+    "PF": 1.1403,
+    "EXPECTANCY_R": 0.148,
+    "WIN_RATE": 0.3496,
+    "AVG_WIN": 23.7936,
+    "MEDIAN_WIN": 17.625,
+    "MAX_WIN": 96.0,
+    "AVG_LOSS": -11.2156,
+    "MEDIAN_LOSS": -4.5,
+    "MAX_LOSS": -66.25,
+    "MFE_MEAN": 36.2073,
+    "MAE_MEAN": 21.2053,
+    "PROFIT_CAPTURED_OVER_MFE": -0.1379,
+    "REMOVE_BEST_1_PERCENT": 0.2449,
+    "MAX_DRAWDOWN_POINTS": -208.875,
+    "MAX_DRAWDOWN_USD_1_NQ": -1044.38,
+    "WORST_DAY_USD": -331.25,
+    "WORST_TRADE_USD": -331.25,
+    "LONG_N": 65,
+    "SHORT_N": 58,
+    "LONG_NET_MEAN": 2.7385,
+    "SHORT_NET_MEAN": -0.8987,
+    "EXIT_REASON_BREAKDOWN": {
+     "BE_STOP": 66,
+     "EMA8": 32,
+     "LEVEL_STOP": 19,
+     "EOD": 6
+    },
+    "BY_YEAR_NET_MEAN_PTS": {
+     "2020": -0.4782,
+     "2021": 2.6
+    },
+    "BY_YEAR_N": {
+     "2020": 63,
+     "2021": 60
+    },
+    "HOLD_MEDIAN_MIN": 10.0
+   }
+  }
+ },
+ "P000B_VWAP": {
+  "N_EVENTS": 49,
+  "PHASE_A": {
+   "ret_h5m": {
+    "N": 49,
+    "MEAN_PTS": -1.3061,
+    "MEDIAN_PTS": 0.0,
+    "WIN_RATE": 0.4694,
+    "MFE_MEAN": 58.2806,
+    "MAE_MEAN": 62.102,
+    "MEAN_LONG": 0.0259,
+    "MEAN_SHORT": -3.2375,
+    "BY_YEAR": {
+     "2020": -1.3152,
+     "2021": -1.2981
+    }
+   },
+   "ret_h15m": {
+    "N": 49,
+    "MEAN_PTS": -1.4592,
+    "MEDIAN_PTS": 3.25,
+    "WIN_RATE": 0.5306,
+    "MFE_MEAN": 58.2806,
+    "MAE_MEAN": 62.102,
+    "MEAN_LONG": 6.2845,
+    "MEAN_SHORT": -12.6875,
+    "BY_YEAR": {
+     "2020": -3.1304,
+     "2021": 0.0192
+    }
+   },
+   "ret_h30m": {
+    "N": 49,
+    "MEAN_PTS": -3.0816,
+    "MEDIAN_PTS": 6.0,
+    "WIN_RATE": 0.6327,
+    "MFE_MEAN": 58.2806,
+    "MAE_MEAN": 62.102,
+    "MEAN_LONG": 13.5086,
+    "MEAN_SHORT": -27.1375,
+    "BY_YEAR": {
+     "2020": -7.2717,
+     "2021": 0.625
+    }
+   },
+   "ret_h60m": {
+    "N": 49,
+    "MEAN_PTS": 3.7041,
+    "MEDIAN_PTS": 11.75,
+    "WIN_RATE": 0.6327,
+    "MFE_MEAN": 58.2806,
+    "MAE_MEAN": 62.102,
+    "MEAN_LONG": 27.3017,
+    "MEAN_SHORT": -30.5125,
+    "BY_YEAR": {
+     "2020": -11.6304,
+     "2021": 17.2692
+    }
+   },
+   "ret_h120m": {
+    "N": 49,
+    "MEAN_PTS": 1.3878,
+    "MEDIAN_PTS": 1.75,
+    "WIN_RATE": 0.5102,
+    "MFE_MEAN": 58.2806,
+    "MAE_MEAN": 62.102,
+    "MEAN_LONG": 20.3103,
+    "MEAN_SHORT": -26.05,
+    "BY_YEAR": {
+     "2020": -11.75,
+     "2021": 13.0096
+    }
+   },
+   "BREAK_DIST_ATR": {
+    "MEAN": 0.141,
+    "MEDIAN": 0.134
+   },
+   "N_EVENTS": 49
+  },
+  "STRATEGY": {
+   "LOW": {
+    "TRADING_DAYS": 518,
+    "SIGNALS": 49,
+    "RETEST_SESSIONS": 49,
+    "TRADES": 49,
+    "TRADES_PER_WEEK": 0.393,
+    "GROSS_POINTS_PER_TRADE": 3.9107,
+    "NET_POINTS_PER_TRADE": 3.1607,
+    "NET_TICKS_PER_TRADE": 12.64,
+    "NET_USD_PER_CONTRACT": 15.8,
+    "PF": 1.6446,
+    "EXPECTANCY_R": 0.0992,
+    "WIN_RATE": 0.2857,
+    "AVG_WIN": 28.2232,
+    "MEDIAN_WIN": 27.625,
+    "MAX_WIN": 57.5,
+    "AVG_LOSS": -6.8643,
+    "MEDIAN_LOSS": -4.125,
+    "MAX_LOSS": -37.75,
+    "MFE_MEAN": 33.6633,
+    "MAE_MEAN": 24.6735,
+    "PROFIT_CAPTURED_OVER_MFE": -0.0833,
+    "REMOVE_BEST_1_PERCENT": 2.0286,
+    "MAX_DRAWDOWN_POINTS": -68.875,
+    "MAX_DRAWDOWN_USD_1_NQ": -344.38,
+    "WORST_DAY_USD": -188.75,
+    "WORST_TRADE_USD": -188.75,
+    "LONG_N": 29,
+    "SHORT_N": 20,
+    "LONG_NET_MEAN": 8.0172,
+    "SHORT_NET_MEAN": -3.8813,
+    "EXIT_REASON_BREAKDOWN": {
+     "BE_STOP": 31,
+     "EMA8": 14,
+     "LEVEL_STOP": 3,
+     "EOD": 1
+    },
+    "BY_YEAR_NET_MEAN_PTS": {
+     "2020": -0.6304,
+     "2021": 6.5144
+    },
+    "BY_YEAR_N": {
+     "2020": 23,
+     "2021": 26
+    },
+    "HOLD_MEDIAN_MIN": 5.0
+   },
+   "NORMAL": {
+    "TRADING_DAYS": 518,
+    "SIGNALS": 49,
+    "RETEST_SESSIONS": 49,
+    "TRADES": 49,
+    "TRADES_PER_WEEK": 0.393,
+    "GROSS_POINTS_PER_TRADE": 3.9107,
+    "NET_POINTS_PER_TRADE": 2.4107,
+    "NET_TICKS_PER_TRADE": 9.64,
+    "NET_USD_PER_CONTRACT": 12.05,
+    "PF": 1.4432,
+    "EXPECTANCY_R": 0.0644,
+    "WIN_RATE": 0.2857,
+    "AVG_WIN": 27.4732,
+    "MEDIAN_WIN": 26.875,
+    "MAX_WIN": 56.75,
+    "AVG_LOSS": -7.6143,
+    "MEDIAN_LOSS": -4.875,
+    "MAX_LOSS": -38.5,
+    "MFE_MEAN": 33.6633,
+    "MAE_MEAN": 24.6735,
+    "PROFIT_CAPTURED_OVER_MFE": -0.1383,
+    "REMOVE_BEST_1_PERCENT": 1.2786,
+    "MAX_DRAWDOWN_POINTS": -82.375,
+    "MAX_DRAWDOWN_USD_1_NQ": -411.88,
+    "WORST_DAY_USD": -192.5,
+    "WORST_TRADE_USD": -192.5,
+    "LONG_N": 29,
+    "SHORT_N": 20,
+    "LONG_NET_MEAN": 7.2672,
+    "SHORT_NET_MEAN": -4.6312,
+    "EXIT_REASON_BREAKDOWN": {
+     "BE_STOP": 31,
+     "EMA8": 14,
+     "LEVEL_STOP": 3,
+     "EOD": 1
+    },
+    "BY_YEAR_NET_MEAN_PTS": {
+     "2020": -1.3804,
+     "2021": 5.7644
+    },
+    "BY_YEAR_N": {
+     "2020": 23,
+     "2021": 26
+    },
+    "HOLD_MEDIAN_MIN": 5.0
+   },
+   "STRESS": {
+    "TRADING_DAYS": 518,
+    "SIGNALS": 49,
+    "RETEST_SESSIONS": 49,
+    "TRADES": 49,
+    "TRADES_PER_WEEK": 0.393,
+    "GROSS_POINTS_PER_TRADE": 3.9107,
+    "NET_POINTS_PER_TRADE": 0.9107,
+    "NET_TICKS_PER_TRADE": 3.64,
+    "NET_USD_PER_CONTRACT": 4.55,
+    "PF": 1.1399,
+    "EXPECTANCY_R": -0.0052,
+    "WIN_RATE": 0.2857,
+    "AVG_WIN": 25.9732,
+    "MEDIAN_WIN": 25.375,
+    "MAX_WIN": 55.25,
+    "AVG_LOSS": -9.1143,
+    "MEDIAN_LOSS": -6.375,
+    "MAX_LOSS": -40.0,
+    "MFE_MEAN": 33.6633,
+    "MAE_MEAN": 24.6735,
+    "PROFIT_CAPTURED_OVER_MFE": -0.2449,
+    "REMOVE_BEST_1_PERCENT": -0.2214,
+    "MAX_DRAWDOWN_POINTS": -111.375,
+    "MAX_DRAWDOWN_USD_1_NQ": -556.88,
+    "WORST_DAY_USD": -200.0,
+    "WORST_TRADE_USD": -200.0,
+    "LONG_N": 29,
+    "SHORT_N": 20,
+    "LONG_NET_MEAN": 5.7672,
+    "SHORT_NET_MEAN": -6.1312,
+    "EXIT_REASON_BREAKDOWN": {
+     "BE_STOP": 31,
+     "EMA8": 14,
+     "LEVEL_STOP": 3,
+     "EOD": 1
+    },
+    "BY_YEAR_NET_MEAN_PTS": {
+     "2020": -2.8804,
+     "2021": 4.2644
+    },
+    "BY_YEAR_N": {
+     "2020": 23,
+     "2021": 26
+    },
+    "HOLD_MEDIAN_MIN": 5.0
+   }
+  }
+ }
+}

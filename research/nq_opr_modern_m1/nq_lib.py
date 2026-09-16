@@ -27,8 +27,7 @@ import numpy as np
 import pandas as pd
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-PARQUET = os.path.join(os.path.abspath(os.sep), "ResearchData", "botTrading",
-                       "nq", "databento", "parquet")
+PARQUET = "E:/ResearchData/botTrading/nq/databento/parquet"
 
 ET = "America/New_York"
 
