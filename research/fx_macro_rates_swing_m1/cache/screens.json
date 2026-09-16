@@ -1,0 +1,2114 @@
+{
+ "MR_E001": {
+  "metrics": {
+   "label": "A/impulse_z1.5_cap0.5_h24",
+   "N": 2197,
+   "trades_per_month": 24.41,
+   "mean_pips": 0.823,
+   "median_pips": -0.9,
+   "total_pips": 1808.14,
+   "PF": 1.037,
+   "expectancy_r": 0.0041,
+   "win_rate": 0.4907,
+   "long_r": 0.0005,
+   "short_r": 0.0077,
+   "pos_months": 45,
+   "n_months": 90,
+   "pos_years": "4/8",
+   "yearly_r": {
+    "2010": 1.45,
+    "2011": -0.56,
+    "2012": 0.8,
+    "2013": -10.17,
+    "2014": -0.28,
+    "2015": 37.17,
+    "2016": -13.88,
+    "2017": -5.49
+   },
+   "yearly_pips": {
+    "2010": 102.7,
+    "2011": -393.4,
+    "2012": -112.9,
+    "2013": -406.0,
+    "2014": 18.2,
+    "2015": 2571.1,
+    "2016": 299.4,
+    "2017": -271.0
+   },
+   "remove_best": -0.58,
+   "max_dd_r": 36.8,
+   "worst_year_r": -13.88,
+   "worst_rolling12m_r": -33.64,
+   "exits": {
+    "STOP": 754,
+    "TARGET": 767,
+    "TIME": 676
+   }
+  },
+  "stress_mean": -0.078,
+  "per_pair": {
+   "EURUSD": {
+    "N": 1056,
+    "mean_pips": -0.791,
+    "PF": 0.965,
+    "expectancy_r": -0.0124,
+    "pos_years": "3/8"
+   },
+   "GBPUSD": {
+    "N": 1141,
+    "mean_pips": 2.316,
+    "PF": 1.104,
+    "expectancy_r": 0.0194,
+    "pos_years": "4/8"
+   }
+  },
+  "promote": false,
+  "years": {
+   "2010": {
+    "N": 166,
+    "mean_pips": 0.619,
+    "PF": null,
+    "pips": 102.7,
+    "r": 1.45,
+    "win_rate": 0.494
+   },
+   "2011": {
+    "N": 363,
+    "mean_pips": -1.084,
+    "PF": null,
+    "pips": -393.4,
+    "r": -0.56,
+    "win_rate": 0.49
+   },
+   "2012": {
+    "N": 364,
+    "mean_pips": -0.31,
+    "PF": null,
+    "pips": -112.9,
+    "r": 0.8,
+    "win_rate": 0.503
+   },
+   "2013": {
+    "N": 241,
+    "mean_pips": -1.684,
+    "PF": null,
+    "pips": -406.0,
+    "r": -10.17,
+    "win_rate": 0.494
+   },
+   "2014": {
+    "N": 242,
+    "mean_pips": 0.075,
+    "PF": null,
+    "pips": 18.2,
+    "r": -0.28,
+    "win_rate": 0.496
+   },
+   "2015": {
+    "N": 265,
+    "mean_pips": 9.702,
+    "PF": null,
+    "pips": 2571.1,
+    "r": 37.17,
+    "win_rate": 0.536
+   },
+   "2016": {
+    "N": 308,
+    "mean_pips": 0.972,
+    "PF": null,
+    "pips": 299.4,
+    "r": -13.88,
+    "win_rate": 0.448
+   },
+   "2017": {
+    "N": 248,
+    "mean_pips": -1.093,
+    "PF": null,
+    "pips": -271.0,
+    "r": -5.49,
+    "win_rate": 0.468
+   }
+  },
+  "note": ""
+ },
+ "MR_E002": {
+  "metrics": {
+   "label": "A/impulse_z2.0_cap0.5_h24",
+   "N": 1212,
+   "trades_per_month": 13.47,
+   "mean_pips": 1.334,
+   "median_pips": -0.6,
+   "total_pips": 1616.83,
+   "PF": 1.058,
+   "expectancy_r": 0.0063,
+   "win_rate": 0.4901,
+   "long_r": 0.013,
+   "short_r": -0.0005,
+   "pos_months": 47,
+   "n_months": 90,
+   "pos_years": "3/8",
+   "yearly_r": {
+    "2010": -0.77,
+    "2011": -4.37,
+    "2012": 13.85,
+    "2013": -13.6,
+    "2014": -8.16,
+    "2015": 25.15,
+    "2016": -0.32,
+    "2017": -4.15
+   },
+   "yearly_pips": {
+    "2010": -114.7,
+    "2011": -385.6,
+    "2012": 511.5,
+    "2013": -477.1,
+    "2014": -463.3,
+    "2015": 1792.9,
+    "2016": 971.7,
+    "2017": -218.5
+   },
+   "remove_best": -0.392,
+   "max_dd_r": 27.67,
+   "worst_year_r": -13.6,
+   "worst_rolling12m_r": -20.16,
+   "exits": {
+    "STOP": 396,
+    "TARGET": 410,
+    "TIME": 406
+   }
+  },
+  "stress_mean": 0.377,
+  "per_pair": {
+   "EURUSD": {
+    "N": 574,
+    "mean_pips": -0.675,
+    "PF": 0.971,
+    "expectancy_r": -0.0144,
+    "pos_years": "2/8"
+   },
+   "GBPUSD": {
+    "N": 638,
+    "mean_pips": 3.142,
+    "PF": 1.14,
+    "expectancy_r": 0.0249,
+    "pos_years": "4/8"
+   }
+  },
+  "promote": false,
+  "years": {
+   "2010": {
+    "N": 94,
+    "mean_pips": -1.221,
+    "PF": null,
+    "pips": -114.7,
+    "r": -0.77,
+    "win_rate": 0.489
+   },
+   "2011": {
+    "N": 204,
+    "mean_pips": -1.89,
+    "PF": null,
+    "pips": -385.6,
+    "r": -4.37,
+    "win_rate": 0.48
+   },
+   "2012": {
+    "N": 193,
+    "mean_pips": 2.65,
+    "PF": null,
+    "pips": 511.5,
+    "r": 13.85,
+    "win_rate": 0.554
+   },
+   "2013": {
+    "N": 129,
+    "mean_pips": -3.699,
+    "PF": null,
+    "pips": -477.1,
+    "r": -13.6,
+    "win_rate": 0.442
+   },
+   "2014": {
+    "N": 141,
+    "mean_pips": -3.286,
+    "PF": null,
+    "pips": -463.3,
+    "r": -8.16,
+    "win_rate": 0.44
+   },
+   "2015": {
+    "N": 153,
+    "mean_pips": 11.718,
+    "PF": null,
+    "pips": 1792.9,
+    "r": 25.15,
+    "win_rate": 0.549
+   },
+   "2016": {
+    "N": 174,
+    "mean_pips": 5.584,
+    "PF": null,
+    "pips": 971.7,
+    "r": -0.32,
+    "win_rate": 0.477
+   },
+   "2017": {
+    "N": 124,
+    "mean_pips": -1.762,
+    "PF": null,
+    "pips": -218.5,
+    "r": -4.15,
+    "win_rate": 0.46
+   }
+  },
+  "note": ""
+ },
+ "MR_E003": {
+  "metrics": {
+   "label": "B/div_z1.5_h48",
+   "N": 642,
+   "trades_per_month": 7.3,
+   "mean_pips": 3.435,
+   "median_pips": 3.6,
+   "total_pips": 2205.44,
+   "PF": 1.114,
+   "expectancy_r": 0.0472,
+   "win_rate": 0.5265,
+   "long_r": 0.0568,
+   "short_r": 0.0368,
+   "pos_months": 48,
+   "n_months": 88,
+   "pos_years": "6/8",
+   "yearly_r": {
+    "2010": 1.25,
+    "2011": 9.46,
+    "2012": -1.17,
+    "2013": 8.7,
+    "2014": 7.19,
+    "2015": 7.35,
+    "2016": -5.79,
+    "2017": 3.34
+   },
+   "yearly_pips": {
+    "2010": 44.4,
+    "2011": 1163.2,
+    "2012": -300.8,
+    "2013": 791.0,
+    "2014": 738.3,
+    "2015": 350.0,
+    "2016": -1003.4,
+    "2017": 422.7
+   },
+   "remove_best": 1.624,
+   "max_dd_r": 11.05,
+   "worst_year_r": -5.79,
+   "worst_rolling12m_r": -6.24,
+   "exits": {
+    "STOP": 130,
+    "TARGET": 154,
+    "TIME": 358
+   }
+  },
+  "stress_mean": 2.415,
+  "per_pair": {
+   "EURUSD": {
+    "N": 335,
+    "mean_pips": 0.006,
+    "PF": 1.0,
+    "expectancy_r": 0.0271,
+    "pos_years": "4/8"
+   },
+   "GBPUSD": {
+    "N": 307,
+    "mean_pips": 7.178,
+    "PF": 1.232,
+    "expectancy_r": 0.0693,
+    "pos_years": "6/8"
+   }
+  },
+  "promote": false,
+  "years": {
+   "2010": {
+    "N": 47,
+    "mean_pips": 0.944,
+    "PF": null,
+    "pips": 44.4,
+    "r": 1.25,
+    "win_rate": 0.532
+   },
+   "2011": {
+    "N": 51,
+    "mean_pips": 22.809,
+    "PF": null,
+    "pips": 1163.2,
+    "r": 9.46,
+    "win_rate": 0.647
+   },
+   "2012": {
+    "N": 46,
+    "mean_pips": -6.54,
+    "PF": null,
+    "pips": -300.8,
+    "r": -1.17,
+    "win_rate": 0.565
+   },
+   "2013": {
+    "N": 103,
+    "mean_pips": 7.68,
+    "PF": null,
+    "pips": 791.0,
+    "r": 8.7,
+    "win_rate": 0.534
+   },
+   "2014": {
+    "N": 91,
+    "mean_pips": 8.113,
+    "PF": null,
+    "pips": 738.3,
+    "r": 7.19,
+    "win_rate": 0.527
+   },
+   "2015": {
+    "N": 111,
+    "mean_pips": 3.153,
+    "PF": null,
+    "pips": 350.0,
+    "r": 7.35,
+    "win_rate": 0.505
+   },
+   "2016": {
+    "N": 96,
+    "mean_pips": -10.452,
+    "PF": null,
+    "pips": -1003.4,
+    "r": -5.79,
+    "win_rate": 0.458
+   },
+   "2017": {
+    "N": 97,
+    "mean_pips": 4.358,
+    "PF": null,
+    "pips": 422.7,
+    "r": 3.34,
+    "win_rate": 0.526
+   }
+  },
+  "note": ""
+ },
+ "MR_E004": {
+  "metrics": {
+   "label": "B/div_z2.0_h48",
+   "N": 328,
+   "trades_per_month": 4.32,
+   "mean_pips": 5.426,
+   "median_pips": 5.55,
+   "total_pips": 1779.79,
+   "PF": 1.172,
+   "expectancy_r": 0.0688,
+   "win_rate": 0.5488,
+   "long_r": 0.0795,
+   "short_r": 0.0556,
+   "pos_months": 44,
+   "n_months": 76,
+   "pos_years": "5/8",
+   "yearly_r": {
+    "2010": -5.49,
+    "2011": 4.76,
+    "2012": -1.02,
+    "2013": 15.1,
+    "2014": 1.05,
+    "2015": 8.26,
+    "2016": -4.14,
+    "2017": 4.04
+   },
+   "yearly_pips": {
+    "2010": -903.6,
+    "2011": 600.0,
+    "2012": -253.5,
+    "2013": 1609.2,
+    "2014": 81.9,
+    "2015": 714.5,
+    "2016": -385.1,
+    "2017": 316.5
+   },
+   "remove_best": 3.382,
+   "max_dd_r": 8.51,
+   "worst_year_r": -5.49,
+   "worst_rolling12m_r": -5.07,
+   "exits": {
+    "STOP": 65,
+    "TARGET": 87,
+    "TIME": 176
+   }
+  },
+  "stress_mean": 4.583,
+  "per_pair": {
+   "EURUSD": {
+    "N": 174,
+    "mean_pips": -1.201,
+    "PF": 0.963,
+    "expectancy_r": 0.0227,
+    "pos_years": "4/8"
+   },
+   "GBPUSD": {
+    "N": 154,
+    "mean_pips": 12.914,
+    "PF": 1.418,
+    "expectancy_r": 0.1209,
+    "pos_years": "7/8"
+   }
+  },
+  "promote": true,
+  "years": {
+   "2010": {
+    "N": 23,
+    "mean_pips": -39.289,
+    "PF": null,
+    "pips": -903.6,
+    "r": -5.49,
+    "win_rate": 0.435
+   },
+   "2011": {
+    "N": 23,
+    "mean_pips": 26.088,
+    "PF": null,
+    "pips": 600.0,
+    "r": 4.76,
+    "win_rate": 0.609
+   },
+   "2012": {
+    "N": 34,
+    "mean_pips": -7.456,
+    "PF": null,
+    "pips": -253.5,
+    "r": -1.02,
+    "win_rate": 0.559
+   },
+   "2013": {
+    "N": 64,
+    "mean_pips": 25.143,
+    "PF": null,
+    "pips": 1609.2,
+    "r": 15.1,
+    "win_rate": 0.625
+   },
+   "2014": {
+    "N": 50,
+    "mean_pips": 1.638,
+    "PF": null,
+    "pips": 81.9,
+    "r": 1.05,
+    "win_rate": 0.54
+   },
+   "2015": {
+    "N": 48,
+    "mean_pips": 14.885,
+    "PF": null,
+    "pips": 714.5,
+    "r": 8.26,
+    "win_rate": 0.542
+   },
+   "2016": {
+    "N": 46,
+    "mean_pips": -8.373,
+    "PF": null,
+    "pips": -385.1,
+    "r": -4.14,
+    "win_rate": 0.435
+   },
+   "2017": {
+    "N": 40,
+    "mean_pips": 7.913,
+    "PF": null,
+    "pips": 316.5,
+    "r": 4.04,
+    "win_rate": 0.6
+   }
+  },
+  "note": ""
+ },
+ "MR_E005": {
+  "metrics": {
+   "label": "C/curve_flat_usdup_thr1_h5d",
+   "N": 233,
+   "trades_per_month": 3.7,
+   "mean_pips": -4.385,
+   "median_pips": -5.9,
+   "total_pips": -1021.77,
+   "PF": 0.925,
+   "expectancy_r": -0.036,
+   "win_rate": 0.4893,
+   "long_r": 0.0222,
+   "short_r": -0.0909,
+   "pos_months": 36,
+   "n_months": 63,
+   "pos_years": "5/8",
+   "yearly_r": {
+    "2010": -0.55,
+    "2011": 4.96,
+    "2012": -16.92,
+    "2013": -0.97,
+    "2014": 3.84,
+    "2015": 0.97,
+    "2016": -0.45,
+    "2017": 0.7
+   },
+   "yearly_pips": {
+    "2010": -297.6,
+    "2011": 1396.8,
+    "2012": -3049.9,
+    "2013": -220.2,
+    "2014": 641.8,
+    "2015": 313.4,
+    "2016": 175.6,
+    "2017": 18.4
+   },
+   "remove_best": -8.599,
+   "max_dd_r": 21.38,
+   "worst_year_r": -16.92,
+   "worst_rolling12m_r": -16.64,
+   "exits": {
+    "STOP": 32,
+    "TARGET": 27,
+    "TIME": 174
+   }
+  },
+  "stress_mean": -5.769,
+  "per_pair": {
+   "EURUSD": {
+    "N": 116,
+    "mean_pips": -3.858,
+    "PF": 0.934,
+    "expectancy_r": -0.0367,
+    "pos_years": "5/8"
+   },
+   "GBPUSD": {
+    "N": 117,
+    "mean_pips": -4.909,
+    "PF": 0.916,
+    "expectancy_r": -0.0354,
+    "pos_years": "4/8"
+   }
+  },
+  "promote": false,
+  "years": {
+   "2010": {
+    "N": 15,
+    "mean_pips": -19.838,
+    "PF": null,
+    "pips": -297.6,
+    "r": -0.55,
+    "win_rate": 0.4
+   },
+   "2011": {
+    "N": 26,
+    "mean_pips": 53.723,
+    "PF": null,
+    "pips": 1396.8,
+    "r": 4.96,
+    "win_rate": 0.731
+   },
+   "2012": {
+    "N": 59,
+    "mean_pips": -51.694,
+    "PF": null,
+    "pips": -3049.9,
+    "r": -16.92,
+    "win_rate": 0.305
+   },
+   "2013": {
+    "N": 35,
+    "mean_pips": -6.291,
+    "PF": null,
+    "pips": -220.2,
+    "r": -0.97,
+    "win_rate": 0.514
+   },
+   "2014": {
+    "N": 18,
+    "mean_pips": 35.653,
+    "PF": null,
+    "pips": 641.8,
+    "r": 3.84,
+    "win_rate": 0.722
+   },
+   "2015": {
+    "N": 24,
+    "mean_pips": 13.059,
+    "PF": null,
+    "pips": 313.4,
+    "r": 0.97,
+    "win_rate": 0.583
+   },
+   "2016": {
+    "N": 22,
+    "mean_pips": 7.98,
+    "PF": null,
+    "pips": 175.6,
+    "r": -0.45,
+    "win_rate": 0.5
+   },
+   "2017": {
+    "N": 34,
+    "mean_pips": 0.542,
+    "PF": null,
+    "pips": 18.4,
+    "r": 0.7,
+    "win_rate": 0.441
+   }
+  },
+  "note": ""
+ },
+ "MR_E006": {
+  "metrics": {
+   "label": "C/curve_steep_usddn_thr1_h5d",
+   "N": 233,
+   "trades_per_month": 3.7,
+   "mean_pips": 3.164,
+   "median_pips": 3.9,
+   "total_pips": 737.31,
+   "PF": 1.058,
+   "expectancy_r": 0.0303,
+   "win_rate": 0.5107,
+   "long_r": 0.0853,
+   "short_r": -0.0281,
+   "pos_months": 27,
+   "n_months": 63,
+   "pos_years": "3/8",
+   "yearly_r": {
+    "2010": 0.48,
+    "2011": -5.08,
+    "2012": 16.57,
+    "2013": 0.73,
+    "2014": -4.0,
+    "2015": -1.06,
+    "2016": 0.38,
+    "2017": -0.96
+   },
+   "yearly_pips": {
+    "2010": 277.6,
+    "2011": -1434.8,
+    "2012": 2980.3,
+    "2013": 172.6,
+    "2014": -665.4,
+    "2015": -335.0,
+    "2016": -192.8,
+    "2017": -65.2
+   },
+   "remove_best": -1.008,
+   "max_dd_r": 10.36,
+   "worst_year_r": -5.08,
+   "worst_rolling12m_r": -8.37,
+   "exits": {
+    "STOP": 27,
+    "TARGET": 31,
+    "TIME": 175
+   }
+  },
+  "stress_mean": 2.287,
+  "per_pair": {
+   "EURUSD": {
+    "N": 116,
+    "mean_pips": 2.923,
+    "PF": 1.053,
+    "expectancy_r": 0.032,
+    "pos_years": "3/8"
+   },
+   "GBPUSD": {
+    "N": 117,
+    "mean_pips": 3.404,
+    "PF": 1.063,
+    "expectancy_r": 0.0286,
+    "pos_years": "4/8"
+   }
+  },
+  "promote": false,
+  "years": {
+   "2010": {
+    "N": 15,
+    "mean_pips": 18.505,
+    "PF": null,
+    "pips": 277.6,
+    "r": 0.48,
+    "win_rate": 0.6
+   },
+   "2011": {
+    "N": 26,
+    "mean_pips": -55.185,
+    "PF": null,
+    "pips": -1434.8,
+    "r": -5.08,
+    "win_rate": 0.269
+   },
+   "2012": {
+    "N": 59,
+    "mean_pips": 50.514,
+    "PF": null,
+    "pips": 2980.3,
+    "r": 16.57,
+    "win_rate": 0.695
+   },
+   "2013": {
+    "N": 35,
+    "mean_pips": 4.931,
+    "PF": null,
+    "pips": 172.6,
+    "r": 0.73,
+    "win_rate": 0.486
+   },
+   "2014": {
+    "N": 18,
+    "mean_pips": -36.964,
+    "PF": null,
+    "pips": -665.4,
+    "r": -4.0,
+    "win_rate": 0.278
+   },
+   "2015": {
+    "N": 24,
+    "mean_pips": -13.959,
+    "PF": null,
+    "pips": -335.0,
+    "r": -1.06,
+    "win_rate": 0.417
+   },
+   "2016": {
+    "N": 22,
+    "mean_pips": -8.762,
+    "PF": null,
+    "pips": -192.8,
+    "r": 0.38,
+    "win_rate": 0.5
+   },
+   "2017": {
+    "N": 34,
+    "mean_pips": -1.918,
+    "PF": null,
+    "pips": -65.2,
+    "r": -0.96,
+    "win_rate": 0.559
+   }
+  },
+  "note": ""
+ },
+ "MR_E007": {
+  "metrics": {
+   "label": "E/volregime_1.5_h24",
+   "N": 632,
+   "trades_per_month": 7.18,
+   "mean_pips": 1.267,
+   "median_pips": -1.0,
+   "total_pips": 800.49,
+   "PF": 1.05,
+   "expectancy_r": 0.0077,
+   "win_rate": 0.4921,
+   "long_r": 0.006,
+   "short_r": 0.0093,
+   "pos_months": 37,
+   "n_months": 88,
+   "pos_years": "6/8",
+   "yearly_r": {
+    "2010": 0.42,
+    "2011": 6.33,
+    "2012": -3.61,
+    "2013": 5.35,
+    "2014": 2.05,
+    "2015": 5.1,
+    "2016": -13.02,
+    "2017": 2.22
+   },
+   "yearly_pips": {
+    "2010": 144.4,
+    "2011": 639.7,
+    "2012": -263.3,
+    "2013": 630.1,
+    "2014": 235.4,
+    "2015": 325.0,
+    "2016": -1034.3,
+    "2017": 123.6
+   },
+   "remove_best": -0.943,
+   "max_dd_r": 17.96,
+   "worst_year_r": -13.02,
+   "worst_rolling12m_r": -15.46,
+   "exits": {
+    "STOP": 76,
+    "TARGET": 88,
+    "TIME": 468
+   }
+  },
+  "stress_mean": 0.349,
+  "per_pair": {
+   "EURUSD": {
+    "N": 316,
+    "mean_pips": -0.307,
+    "PF": 0.988,
+    "expectancy_r": -0.0073,
+    "pos_years": "5/8"
+   },
+   "GBPUSD": {
+    "N": 316,
+    "mean_pips": 2.841,
+    "PF": 1.111,
+    "expectancy_r": 0.0226,
+    "pos_years": "5/8"
+   }
+  },
+  "promote": false,
+  "years": {
+   "2010": {
+    "N": 35,
+    "mean_pips": 4.126,
+    "PF": null,
+    "pips": 144.4,
+    "r": 0.42,
+    "win_rate": 0.514
+   },
+   "2011": {
+    "N": 82,
+    "mean_pips": 7.801,
+    "PF": null,
+    "pips": 639.7,
+    "r": 6.33,
+    "win_rate": 0.512
+   },
+   "2012": {
+    "N": 78,
+    "mean_pips": -3.375,
+    "PF": null,
+    "pips": -263.3,
+    "r": -3.61,
+    "win_rate": 0.487
+   },
+   "2013": {
+    "N": 76,
+    "mean_pips": 8.29,
+    "PF": null,
+    "pips": 630.1,
+    "r": 5.35,
+    "win_rate": 0.592
+   },
+   "2014": {
+    "N": 89,
+    "mean_pips": 2.645,
+    "PF": null,
+    "pips": 235.4,
+    "r": 2.05,
+    "win_rate": 0.506
+   },
+   "2015": {
+    "N": 91,
+    "mean_pips": 3.571,
+    "PF": null,
+    "pips": 325.0,
+    "r": 5.1,
+    "win_rate": 0.462
+   },
+   "2016": {
+    "N": 89,
+    "mean_pips": -11.621,
+    "PF": null,
+    "pips": -1034.3,
+    "r": -13.02,
+    "win_rate": 0.337
+   },
+   "2017": {
+    "N": 92,
+    "mean_pips": 1.343,
+    "PF": null,
+    "pips": 123.6,
+    "r": 2.22,
+    "win_rate": 0.554
+   }
+  },
+  "note": ""
+ },
+ "MR_E008": {
+  "metrics": {
+   "label": "H/surprise_z1.0_h24",
+   "N": 122,
+   "trades_per_month": 2.39,
+   "mean_pips": -3.381,
+   "median_pips": -10.05,
+   "total_pips": -412.42,
+   "PF": 0.846,
+   "expectancy_r": -0.0861,
+   "win_rate": 0.4508,
+   "long_r": -0.1982,
+   "short_r": -0.0667,
+   "pos_months": 21,
+   "n_months": 51,
+   "pos_years": "2/8",
+   "yearly_r": {
+    "2010": -1.65,
+    "2011": 2.07,
+    "2012": -2.06,
+    "2013": 2.3,
+    "2014": -3.24,
+    "2015": -0.58,
+    "2016": -2.18,
+    "2017": -5.17
+   },
+   "yearly_pips": {
+    "2010": -110.6,
+    "2011": 169.6,
+    "2012": -149.1,
+    "2013": 105.4,
+    "2014": -82.4,
+    "2015": -7.3,
+    "2016": -143.9,
+    "2017": -194.1
+   },
+   "remove_best": -4.799,
+   "max_dd_r": 14.16,
+   "worst_year_r": -5.17,
+   "worst_rolling12m_r": -8.35,
+   "exits": {
+    "STOP": 45,
+    "TARGET": 35,
+    "TIME": 42
+   }
+  },
+  "stress_mean": -4.053,
+  "per_pair": {
+   "EURUSD": {
+    "N": 61,
+    "mean_pips": -3.938,
+    "PF": 0.819,
+    "expectancy_r": -0.1029,
+    "pos_years": "3/8"
+   },
+   "GBPUSD": {
+    "N": 61,
+    "mean_pips": -2.823,
+    "PF": 0.872,
+    "expectancy_r": -0.0692,
+    "pos_years": "2/8"
+   }
+  },
+  "promote": false,
+  "years": {
+   "2010": {
+    "N": 4,
+    "mean_pips": -27.638,
+    "PF": null,
+    "pips": -110.6,
+    "r": -1.65,
+    "win_rate": 0.5
+   },
+   "2011": {
+    "N": 20,
+    "mean_pips": 8.482,
+    "PF": null,
+    "pips": 169.6,
+    "r": 2.07,
+    "win_rate": 0.55
+   },
+   "2012": {
+    "N": 16,
+    "mean_pips": -9.319,
+    "PF": null,
+    "pips": -149.1,
+    "r": -2.06,
+    "win_rate": 0.375
+   },
+   "2013": {
+    "N": 8,
+    "mean_pips": 13.169,
+    "PF": null,
+    "pips": 105.4,
+    "r": 2.3,
+    "win_rate": 0.625
+   },
+   "2014": {
+    "N": 20,
+    "mean_pips": -4.122,
+    "PF": null,
+    "pips": -82.4,
+    "r": -3.24,
+    "win_rate": 0.45
+   },
+   "2015": {
+    "N": 18,
+    "mean_pips": -0.408,
+    "PF": null,
+    "pips": -7.3,
+    "r": -0.58,
+    "win_rate": 0.444
+   },
+   "2016": {
+    "N": 14,
+    "mean_pips": -10.279,
+    "PF": null,
+    "pips": -143.9,
+    "r": -2.18,
+    "win_rate": 0.357
+   },
+   "2017": {
+    "N": 22,
+    "mean_pips": -8.822,
+    "PF": null,
+    "pips": -194.1,
+    "r": -5.17,
+    "win_rate": 0.409
+   }
+  },
+  "note": ""
+ },
+ "MR_E009": {
+  "metrics": {
+   "label": "H/surprise_z1.0_h120",
+   "N": 122,
+   "trades_per_month": 2.39,
+   "mean_pips": -3.884,
+   "median_pips": -31.018,
+   "total_pips": -473.88,
+   "PF": 0.863,
+   "expectancy_r": -0.1011,
+   "win_rate": 0.4508,
+   "long_r": -0.1111,
+   "short_r": -0.0994,
+   "pos_months": 24,
+   "n_months": 51,
+   "pos_years": "3/8",
+   "yearly_r": {
+    "2010": -2.0,
+    "2011": 2.0,
+    "2012": -4.0,
+    "2013": 4.0,
+    "2014": -4.0,
+    "2015": -2.34,
+    "2016": -0.0,
+    "2017": -6.0
+   },
+   "yearly_pips": {
+    "2010": -133.3,
+    "2011": 143.6,
+    "2012": -243.0,
+    "2013": 193.9,
+    "2014": -112.2,
+    "2015": -137.9,
+    "2016": 85.7,
+    "2017": -270.6
+   },
+   "remove_best": -5.359,
+   "max_dd_r": 14.34,
+   "worst_year_r": -6.0,
+   "worst_rolling12m_r": -8.34,
+   "exits": {
+    "STOP": 67,
+    "TARGET": 55,
+    "TIME": 0
+   }
+  },
+  "stress_mean": -4.389,
+  "per_pair": {
+   "EURUSD": {
+    "N": 61,
+    "mean_pips": -4.784,
+    "PF": 0.823,
+    "expectancy_r": -0.1148,
+    "pos_years": "3/8"
+   },
+   "GBPUSD": {
+    "N": 61,
+    "mean_pips": -2.985,
+    "PF": 0.9,
+    "expectancy_r": -0.0875,
+    "pos_years": "4/8"
+   }
+  },
+  "promote": false,
+  "years": {
+   "2010": {
+    "N": 4,
+    "mean_pips": -33.317,
+    "PF": null,
+    "pips": -133.3,
+    "r": -2.0,
+    "win_rate": 0.25
+   },
+   "2011": {
+    "N": 20,
+    "mean_pips": 7.181,
+    "PF": null,
+    "pips": 143.6,
+    "r": 2.0,
+    "win_rate": 0.55
+   },
+   "2012": {
+    "N": 16,
+    "mean_pips": -15.19,
+    "PF": null,
+    "pips": -243.0,
+    "r": -4.0,
+    "win_rate": 0.375
+   },
+   "2013": {
+    "N": 8,
+    "mean_pips": 24.234,
+    "PF": null,
+    "pips": 193.9,
+    "r": 4.0,
+    "win_rate": 0.75
+   },
+   "2014": {
+    "N": 20,
+    "mean_pips": -5.611,
+    "PF": null,
+    "pips": -112.2,
+    "r": -4.0,
+    "win_rate": 0.4
+   },
+   "2015": {
+    "N": 18,
+    "mean_pips": -7.663,
+    "PF": null,
+    "pips": -137.9,
+    "r": -2.34,
+    "win_rate": 0.444
+   },
+   "2016": {
+    "N": 14,
+    "mean_pips": 6.121,
+    "PF": null,
+    "pips": 85.7,
+    "r": -0.0,
+    "win_rate": 0.5
+   },
+   "2017": {
+    "N": 22,
+    "mean_pips": -12.301,
+    "PF": null,
+    "pips": -270.6,
+    "r": -6.0,
+    "win_rate": 0.364
+   }
+  },
+  "note": ""
+ },
+ "MR_E010": {
+  "metrics": {
+   "label": "G/evfx_follow_h24",
+   "N": 384,
+   "trades_per_month": 4.0,
+   "mean_pips": -0.057,
+   "median_pips": 0.8,
+   "total_pips": -21.73,
+   "PF": 0.997,
+   "expectancy_r": -0.0255,
+   "win_rate": 0.5,
+   "long_r": -0.0463,
+   "short_r": -0.007,
+   "pos_months": 46,
+   "n_months": 96,
+   "pos_years": "5/8",
+   "yearly_r": {
+    "2010": 2.97,
+    "2011": -12.77,
+    "2012": 6.62,
+    "2013": -4.69,
+    "2014": -9.74,
+    "2015": 1.54,
+    "2016": 2.34,
+    "2017": 3.95
+   },
+   "yearly_pips": {
+    "2010": 360.5,
+    "2011": -795.8,
+    "2012": 299.5,
+    "2013": -173.3,
+    "2014": -304.4,
+    "2015": 117.1,
+    "2016": 253.0,
+    "2017": 221.7
+   },
+   "remove_best": -1.405,
+   "max_dd_r": 22.69,
+   "worst_year_r": -12.77,
+   "worst_rolling12m_r": -13.95,
+   "exits": {
+    "STOP": 128,
+    "TARGET": 116,
+    "TIME": 140
+   }
+  },
+  "stress_mean": -0.843,
+  "per_pair": {
+   "EURUSD": {
+    "N": 192,
+    "mean_pips": 0.053,
+    "PF": 1.003,
+    "expectancy_r": -0.0054,
+    "pos_years": "5/8"
+   },
+   "GBPUSD": {
+    "N": 192,
+    "mean_pips": -0.166,
+    "PF": 0.992,
+    "expectancy_r": -0.0456,
+    "pos_years": "5/8"
+   }
+  },
+  "promote": false,
+  "years": {
+   "2010": {
+    "N": 48,
+    "mean_pips": 7.51,
+    "PF": null,
+    "pips": 360.5,
+    "r": 2.97,
+    "win_rate": 0.542
+   },
+   "2011": {
+    "N": 48,
+    "mean_pips": -16.579,
+    "PF": null,
+    "pips": -795.8,
+    "r": -12.77,
+    "win_rate": 0.354
+   },
+   "2012": {
+    "N": 48,
+    "mean_pips": 6.239,
+    "PF": null,
+    "pips": 299.5,
+    "r": 6.62,
+    "win_rate": 0.562
+   },
+   "2013": {
+    "N": 48,
+    "mean_pips": -3.61,
+    "PF": null,
+    "pips": -173.3,
+    "r": -4.69,
+    "win_rate": 0.479
+   },
+   "2014": {
+    "N": 48,
+    "mean_pips": -6.342,
+    "PF": null,
+    "pips": -304.4,
+    "r": -9.74,
+    "win_rate": 0.417
+   },
+   "2015": {
+    "N": 48,
+    "mean_pips": 2.44,
+    "PF": null,
+    "pips": 117.1,
+    "r": 1.54,
+    "win_rate": 0.5
+   },
+   "2016": {
+    "N": 48,
+    "mean_pips": 5.271,
+    "PF": null,
+    "pips": 253.0,
+    "r": 2.34,
+    "win_rate": 0.542
+   },
+   "2017": {
+    "N": 48,
+    "mean_pips": 4.619,
+    "PF": null,
+    "pips": 221.7,
+    "r": 3.95,
+    "win_rate": 0.604
+   }
+  },
+  "note": ""
+ },
+ "MR_E011": {
+  "metrics": {
+   "label": "G/evfx_fade_h24",
+   "N": 384,
+   "trades_per_month": 4.0,
+   "mean_pips": -1.405,
+   "median_pips": -3.0,
+   "total_pips": -539.45,
+   "PF": 0.934,
+   "expectancy_r": -0.0069,
+   "win_rate": 0.4896,
+   "long_r": -0.0274,
+   "short_r": 0.0162,
+   "pos_months": 50,
+   "n_months": 96,
+   "pos_years": "3/8",
+   "yearly_r": {
+    "2010": -3.44,
+    "2011": 12.4,
+    "2012": -10.47,
+    "2013": 3.49,
+    "2014": 8.75,
+    "2015": -2.99,
+    "2016": -5.47,
+    "2017": -4.91
+   },
+   "yearly_pips": {
+    "2010": -397.7,
+    "2011": 769.8,
+    "2012": -455.2,
+    "2013": 106.5,
+    "2014": 269.6,
+    "2015": -186.1,
+    "2016": -385.1,
+    "2017": -261.3
+   },
+   "remove_best": -2.389,
+   "max_dd_r": 19.23,
+   "worst_year_r": -10.47,
+   "worst_rolling12m_r": -17.67,
+   "exits": {
+    "STOP": 122,
+    "TARGET": 124,
+    "TIME": 138
+   }
+  },
+  "stress_mean": -2.262,
+  "per_pair": {
+   "EURUSD": {
+    "N": 192,
+    "mean_pips": -1.045,
+    "PF": 0.949,
+    "expectancy_r": -0.0237,
+    "pos_years": "3/8"
+   },
+   "GBPUSD": {
+    "N": 192,
+    "mean_pips": -1.765,
+    "PF": 0.92,
+    "expectancy_r": 0.0099,
+    "pos_years": "3/8"
+   }
+  },
+  "promote": false,
+  "years": {
+   "2010": {
+    "N": 48,
+    "mean_pips": -8.285,
+    "PF": null,
+    "pips": -397.7,
+    "r": -3.44,
+    "win_rate": 0.458
+   },
+   "2011": {
+    "N": 48,
+    "mean_pips": 16.038,
+    "PF": null,
+    "pips": 769.8,
+    "r": 12.4,
+    "win_rate": 0.646
+   },
+   "2012": {
+    "N": 48,
+    "mean_pips": -9.483,
+    "PF": null,
+    "pips": -455.2,
+    "r": -10.47,
+    "win_rate": 0.417
+   },
+   "2013": {
+    "N": 48,
+    "mean_pips": 2.218,
+    "PF": null,
+    "pips": 106.5,
+    "r": 3.49,
+    "win_rate": 0.5
+   },
+   "2014": {
+    "N": 48,
+    "mean_pips": 5.617,
+    "PF": null,
+    "pips": 269.6,
+    "r": 8.75,
+    "win_rate": 0.583
+   },
+   "2015": {
+    "N": 48,
+    "mean_pips": -3.878,
+    "PF": null,
+    "pips": -186.1,
+    "r": -2.99,
+    "win_rate": 0.5
+   },
+   "2016": {
+    "N": 48,
+    "mean_pips": -8.023,
+    "PF": null,
+    "pips": -385.1,
+    "r": -5.47,
+    "win_rate": 0.417
+   },
+   "2017": {
+    "N": 48,
+    "mean_pips": -5.444,
+    "PF": null,
+    "pips": -261.3,
+    "r": -4.91,
+    "win_rate": 0.396
+   }
+  },
+  "note": ""
+ },
+ "MR_E012": {
+  "metrics": {
+   "label": "D/trendpb_thr1.0_h5d",
+   "N": 339,
+   "trades_per_month": 3.94,
+   "mean_pips": 4.715,
+   "median_pips": -3.4,
+   "total_pips": 1598.43,
+   "PF": 1.09,
+   "expectancy_r": -0.0001,
+   "win_rate": 0.4867,
+   "long_r": 0.012,
+   "short_r": -0.0129,
+   "pos_months": 45,
+   "n_months": 86,
+   "pos_years": "4/8",
+   "yearly_r": {
+    "2010": -0.95,
+    "2011": 9.77,
+    "2012": -5.97,
+    "2013": -7.92,
+    "2014": 3.4,
+    "2015": -0.28,
+    "2016": 4.49,
+    "2017": -2.58
+   },
+   "yearly_pips": {
+    "2010": -241.2,
+    "2011": 2984.3,
+    "2012": -878.2,
+    "2013": -1694.3,
+    "2014": 582.9,
+    "2015": 225.3,
+    "2016": 1216.4,
+    "2017": -596.8
+   },
+   "remove_best": 0.665,
+   "max_dd_r": 16.98,
+   "worst_year_r": -7.92,
+   "worst_rolling12m_r": -11.26,
+   "exits": {
+    "STOP": 33,
+    "TARGET": 42,
+    "TIME": 264
+   }
+  },
+  "stress_mean": 3.788,
+  "per_pair": {
+   "EURUSD": {
+    "N": 167,
+    "mean_pips": 2.718,
+    "PF": 1.051,
+    "expectancy_r": -0.0028,
+    "pos_years": "3/8"
+   },
+   "GBPUSD": {
+    "N": 172,
+    "mean_pips": 6.654,
+    "PF": 1.128,
+    "expectancy_r": 0.0024,
+    "pos_years": "4/8"
+   }
+  },
+  "promote": false,
+  "years": {
+   "2010": {
+    "N": 22,
+    "mean_pips": -10.964,
+    "PF": null,
+    "pips": -241.2,
+    "r": -0.95,
+    "win_rate": 0.409
+   },
+   "2011": {
+    "N": 58,
+    "mean_pips": 51.453,
+    "PF": null,
+    "pips": 2984.3,
+    "r": 9.77,
+    "win_rate": 0.69
+   },
+   "2012": {
+    "N": 62,
+    "mean_pips": -14.164,
+    "PF": null,
+    "pips": -878.2,
+    "r": -5.97,
+    "win_rate": 0.371
+   },
+   "2013": {
+    "N": 31,
+    "mean_pips": -54.655,
+    "PF": null,
+    "pips": -1694.3,
+    "r": -7.92,
+    "win_rate": 0.258
+   },
+   "2014": {
+    "N": 44,
+    "mean_pips": 13.249,
+    "PF": null,
+    "pips": 582.9,
+    "r": 3.4,
+    "win_rate": 0.5
+   },
+   "2015": {
+    "N": 46,
+    "mean_pips": 4.898,
+    "PF": null,
+    "pips": 225.3,
+    "r": -0.28,
+    "win_rate": 0.565
+   },
+   "2016": {
+    "N": 39,
+    "mean_pips": 31.189,
+    "PF": null,
+    "pips": 1216.4,
+    "r": 4.49,
+    "win_rate": 0.564
+   },
+   "2017": {
+    "N": 37,
+    "mean_pips": -16.13,
+    "PF": null,
+    "pips": -596.8,
+    "r": -2.58,
+    "win_rate": 0.405
+   }
+  },
+  "note": ""
+ },
+ "MR_E013": {
+  "metrics": {
+   "label": "D/trendpb_thr2.0_h5d",
+   "N": 105,
+   "trades_per_month": 2.1,
+   "mean_pips": -8.002,
+   "median_pips": -13.6,
+   "total_pips": -840.17,
+   "PF": 0.87,
+   "expectancy_r": -0.0771,
+   "win_rate": 0.4286,
+   "long_r": 0.1016,
+   "short_r": -0.1743,
+   "pos_months": 23,
+   "n_months": 50,
+   "pos_years": "3/8",
+   "yearly_r": {
+    "2010": 0.13,
+    "2011": 4.94,
+    "2012": -6.68,
+    "2013": -8.0,
+    "2014": -0.66,
+    "2015": 0.14,
+    "2016": 2.8,
+    "2017": -0.76
+   },
+   "yearly_pips": {
+    "2010": 15.3,
+    "2011": 1413.5,
+    "2012": -1197.0,
+    "2013": -1680.1,
+    "2014": -75.5,
+    "2015": -18.4,
+    "2016": 803.2,
+    "2017": -101.1
+   },
+   "remove_best": -13.947,
+   "max_dd_r": 17.39,
+   "worst_year_r": -8.0,
+   "worst_rolling12m_r": -13.18,
+   "exits": {
+    "STOP": 16,
+    "TARGET": 7,
+    "TIME": 82
+   }
+  },
+  "stress_mean": -8.892,
+  "per_pair": {
+   "EURUSD": {
+    "N": 51,
+    "mean_pips": -9.994,
+    "PF": 0.835,
+    "expectancy_r": -0.0743,
+    "pos_years": "3/8"
+   },
+   "GBPUSD": {
+    "N": 54,
+    "mean_pips": -6.12,
+    "PF": 0.902,
+    "expectancy_r": -0.0797,
+    "pos_years": "4/8"
+   }
+  },
+  "promote": false,
+  "years": {
+   "2010": {
+    "N": 8,
+    "mean_pips": 1.911,
+    "PF": null,
+    "pips": 15.3,
+    "r": 0.13,
+    "win_rate": 0.5
+   },
+   "2011": {
+    "N": 17,
+    "mean_pips": 83.145,
+    "PF": null,
+    "pips": 1413.5,
+    "r": 4.94,
+    "win_rate": 0.765
+   },
+   "2012": {
+    "N": 18,
+    "mean_pips": -66.501,
+    "PF": null,
+    "pips": -1197.0,
+    "r": -6.68,
+    "win_rate": 0.167
+   },
+   "2013": {
+    "N": 18,
+    "mean_pips": -93.337,
+    "PF": null,
+    "pips": -1680.1,
+    "r": -8.0,
+    "win_rate": 0.167
+   },
+   "2014": {
+    "N": 16,
+    "mean_pips": -4.721,
+    "PF": null,
+    "pips": -75.5,
+    "r": -0.66,
+    "win_rate": 0.438
+   },
+   "2015": {
+    "N": 11,
+    "mean_pips": -1.673,
+    "PF": null,
+    "pips": -18.4,
+    "r": 0.14,
+    "win_rate": 0.364
+   },
+   "2016": {
+    "N": 9,
+    "mean_pips": 89.246,
+    "PF": null,
+    "pips": 803.2,
+    "r": 2.8,
+    "win_rate": 0.889
+   },
+   "2017": {
+    "N": 8,
+    "mean_pips": -12.639,
+    "PF": null,
+    "pips": -101.1,
+    "r": -0.76,
+    "win_rate": 0.375
+   }
+  },
+  "note": ""
+ },
+ "MR_E014": {
+  "metrics": {
+   "label": "I/xmat_z1.5_cap0.5_h24",
+   "N": 1661,
+   "trades_per_month": 18.46,
+   "mean_pips": -0.202,
+   "median_pips": -1.8,
+   "total_pips": -334.87,
+   "PF": 0.991,
+   "expectancy_r": -0.018,
+   "win_rate": 0.4846,
+   "long_r": -0.0049,
+   "short_r": -0.0309,
+   "pos_months": 42,
+   "n_months": 90,
+   "pos_years": "3/8",
+   "yearly_r": {
+    "2010": 2.22,
+    "2011": -1.49,
+    "2012": -7.03,
+    "2013": -12.41,
+    "2014": -4.45,
+    "2015": 10.95,
+    "2016": -11.15,
+    "2017": -6.54
+   },
+   "yearly_pips": {
+    "2010": 121.7,
+    "2011": -407.9,
+    "2012": -464.9,
+    "2013": -563.3,
+    "2014": -167.7,
+    "2015": 930.1,
+    "2016": 473.9,
+    "2017": -256.7
+   },
+   "remove_best": -1.731,
+   "max_dd_r": 53.56,
+   "worst_year_r": -12.41,
+   "worst_rolling12m_r": -33.25,
+   "exits": {
+    "STOP": 577,
+    "TARGET": 556,
+    "TIME": 528
+   }
+  },
+  "stress_mean": -0.97,
+  "per_pair": {
+   "EURUSD": {
+    "N": 792,
+    "mean_pips": -1.87,
+    "PF": 0.92,
+    "expectancy_r": -0.0411,
+    "pos_years": "1/8"
+   },
+   "GBPUSD": {
+    "N": 869,
+    "mean_pips": 1.319,
+    "PF": 1.058,
+    "expectancy_r": 0.0031,
+    "pos_years": "4/8"
+   }
+  },
+  "promote": false,
+  "years": {
+   "2010": {
+    "N": 110,
+    "mean_pips": 1.106,
+    "PF": null,
+    "pips": 121.7,
+    "r": 2.22,
+    "win_rate": 0.5
+   },
+   "2011": {
+    "N": 282,
+    "mean_pips": -1.446,
+    "PF": null,
+    "pips": -407.9,
+    "r": -1.49,
+    "win_rate": 0.486
+   },
+   "2012": {
+    "N": 275,
+    "mean_pips": -1.691,
+    "PF": null,
+    "pips": -464.9,
+    "r": -7.03,
+    "win_rate": 0.509
+   },
+   "2013": {
+    "N": 204,
+    "mean_pips": -2.761,
+    "PF": null,
+    "pips": -563.3,
+    "r": -12.41,
+    "win_rate": 0.485
+   },
+   "2014": {
+    "N": 191,
+    "mean_pips": -0.878,
+    "PF": null,
+    "pips": -167.7,
+    "r": -4.45,
+    "win_rate": 0.487
+   },
+   "2015": {
+    "N": 177,
+    "mean_pips": 5.255,
+    "PF": null,
+    "pips": 930.1,
+    "r": 10.95,
+    "win_rate": 0.503
+   },
+   "2016": {
+    "N": 233,
+    "mean_pips": 2.034,
+    "PF": null,
+    "pips": 473.9,
+    "r": -11.15,
+    "win_rate": 0.446
+   },
+   "2017": {
+    "N": 189,
+    "mean_pips": -1.358,
+    "PF": null,
+    "pips": -256.7,
+    "r": -6.54,
+    "win_rate": 0.466
+   }
+  },
+  "note": ""
+ },
+ "MR_E015": {
+  "metrics": {
+   "label": "I/xmat_z1.5_cap0.5_adx25_h24",
+   "N": 808,
+   "trades_per_month": 9.08,
+   "mean_pips": -0.023,
+   "median_pips": -0.45,
+   "total_pips": -18.4,
+   "PF": 0.999,
+   "expectancy_r": -0.0157,
+   "win_rate": 0.4988,
+   "long_r": 0.0223,
+   "short_r": -0.058,
+   "pos_months": 45,
+   "n_months": 89,
+   "pos_years": "4/8",
+   "yearly_r": {
+    "2010": -0.87,
+    "2011": -3.57,
+    "2012": -6.5,
+    "2013": -9.21,
+    "2014": -8.21,
+    "2015": 12.75,
+    "2016": 3.74,
+    "2017": -0.83
+   },
+   "yearly_pips": {
+    "2010": 73.1,
+    "2011": -496.1,
+    "2012": -439.0,
+    "2013": -427.4,
+    "2014": -337.5,
+    "2015": 1062.9,
+    "2016": 503.4,
+    "2017": 42.4
+   },
+   "remove_best": -1.298,
+   "max_dd_r": 40.67,
+   "worst_year_r": -9.21,
+   "worst_rolling12m_r": -22.57,
+   "exits": {
+    "STOP": 298,
+    "TARGET": 281,
+    "TIME": 229
+   }
+  },
+  "stress_mean": -0.606,
+  "per_pair": {
+   "EURUSD": {
+    "N": 384,
+    "mean_pips": -0.165,
+    "PF": 0.993,
+    "expectancy_r": -0.0192,
+    "pos_years": "3/8"
+   },
+   "GBPUSD": {
+    "N": 424,
+    "mean_pips": 0.106,
+    "PF": 1.004,
+    "expectancy_r": -0.0126,
+    "pos_years": "3/8"
+   }
+  },
+  "promote": false,
+  "years": {
+   "2010": {
+    "N": 61,
+    "mean_pips": 1.199,
+    "PF": null,
+    "pips": 73.1,
+    "r": -0.87,
+    "win_rate": 0.492
+   },
+   "2011": {
+    "N": 163,
+    "mean_pips": -3.044,
+    "PF": null,
+    "pips": -496.1,
+    "r": -3.57,
+    "win_rate": 0.485
+   },
+   "2012": {
+    "N": 130,
+    "mean_pips": -3.377,
+    "PF": null,
+    "pips": -439.0,
+    "r": -6.5,
+    "win_rate": 0.492
+   },
+   "2013": {
+    "N": 88,
+    "mean_pips": -4.857,
+    "PF": null,
+    "pips": -427.4,
+    "r": -9.21,
+    "win_rate": 0.5
+   },
+   "2014": {
+    "N": 91,
+    "mean_pips": -3.709,
+    "PF": null,
+    "pips": -337.5,
+    "r": -8.21,
+    "win_rate": 0.462
+   },
+   "2015": {
+    "N": 78,
+    "mean_pips": 13.626,
+    "PF": null,
+    "pips": 1062.9,
+    "r": 12.75,
+    "win_rate": 0.564
+   },
+   "2016": {
+    "N": 100,
+    "mean_pips": 5.034,
+    "PF": null,
+    "pips": 503.4,
+    "r": 3.74,
+    "win_rate": 0.54
+   },
+   "2017": {
+    "N": 97,
+    "mean_pips": 0.437,
+    "PF": null,
+    "pips": 42.4,
+    "r": -0.83,
+    "win_rate": 0.474
+   }
+  },
+  "note": ""
+ },
+ "MR_E016": {
+  "metrics": {
+   "label": "K/regime_don20_z1.0_h48",
+   "N": 371,
+   "trades_per_month": 4.82,
+   "mean_pips": 2.176,
+   "median_pips": 1.0,
+   "total_pips": 807.36,
+   "PF": 1.078,
+   "expectancy_r": 0.0198,
+   "win_rate": 0.5202,
+   "long_r": -0.0096,
+   "short_r": 0.0521,
+   "pos_months": 39,
+   "n_months": 77,
+   "pos_years": "5/8",
+   "yearly_r": {
+    "2010": 4.72,
+    "2011": 1.97,
+    "2012": 0.58,
+    "2013": -1.51,
+    "2014": -4.06,
+    "2015": 6.89,
+    "2016": 1.34,
+    "2017": -2.56
+   },
+   "yearly_pips": {
+    "2010": 618.1,
+    "2011": 284.6,
+    "2012": 98.0,
+    "2013": -152.9,
+    "2014": -582.6,
+    "2015": 785.2,
+    "2016": 128.4,
+    "2017": -371.3
+   },
+   "remove_best": 0.404,
+   "max_dd_r": 10.15,
+   "worst_year_r": -4.06,
+   "worst_rolling12m_r": -4.9,
+   "exits": {
+    "STOP": 71,
+    "TARGET": 75,
+    "TIME": 225
+   }
+  },
+  "stress_mean": 1.218,
+  "per_pair": {
+   "EURUSD": {
+    "N": 206,
+    "mean_pips": 3.926,
+    "PF": 1.145,
+    "expectancy_r": 0.0241,
+    "pos_years": "4/8"
+   },
+   "GBPUSD": {
+    "N": 165,
+    "mean_pips": -0.008,
+    "PF": 1.0,
+    "expectancy_r": 0.0145,
+    "pos_years": "5/8"
+   }
+  },
+  "promote": false,
+  "years": {
+   "2010": {
+    "N": 30,
+    "mean_pips": 20.604,
+    "PF": null,
+    "pips": 618.1,
+    "r": 4.72,
+    "win_rate": 0.6
+   },
+   "2011": {
+    "N": 26,
+    "mean_pips": 10.945,
+    "PF": null,
+    "pips": 284.6,
+    "r": 1.97,
+    "win_rate": 0.538
+   },
+   "2012": {
+    "N": 14,
+    "mean_pips": 6.996,
+    "PF": null,
+    "pips": 98.0,
+    "r": 0.58,
+    "win_rate": 0.571
+   },
+   "2013": {
+    "N": 58,
+    "mean_pips": -2.637,
+    "PF": null,
+    "pips": -152.9,
+    "r": -1.51,
+    "win_rate": 0.534
+   },
+   "2014": {
+    "N": 51,
+    "mean_pips": -11.424,
+    "PF": null,
+    "pips": -582.6,
+    "r": -4.06,
+    "win_rate": 0.471
+   },
+   "2015": {
+    "N": 68,
+    "mean_pips": 11.548,
+    "PF": null,
+    "pips": 785.2,
+    "r": 6.89,
+    "win_rate": 0.544
+   },
+   "2016": {
+    "N": 58,
+    "mean_pips": 2.214,
+    "PF": null,
+    "pips": 128.4,
+    "r": 1.34,
+    "win_rate": 0.5
+   },
+   "2017": {
+    "N": 66,
+    "mean_pips": -5.626,
+    "PF": null,
+    "pips": -371.3,
+    "r": -2.56,
+    "win_rate": 0.485
+   }
+  },
+  "note": ""
+ }
+}
