@@ -1,0 +1,32 @@
+{
+ "EURUSD_DISCOVERY": {
+  "REFERENCE_N": 93,
+  "AUDIT_N": 93,
+  "MATCHED_N": 93,
+  "MISSING_TRADES": 0,
+  "EXTRA_TRADES": 0,
+  "CONTENT_MISMATCHES": 0,
+  "causality_all_trades": "PASS",
+  "set_pass": true
+ },
+ "USDJPY_STAGE_A": {
+  "REFERENCE_N": 23,
+  "AUDIT_N": 23,
+  "MATCHED_N": 23,
+  "MISSING_TRADES": 0,
+  "EXTRA_TRADES": 0,
+  "CONTENT_MISMATCHES": 0,
+  "causality_all_trades": "PASS",
+  "set_pass": true
+ },
+ "EURUSD_2018H2_STAGE_B": {
+  "REFERENCE_N": 5,
+  "AUDIT_N": 5,
+  "MATCHED_N": 5,
+  "MISSING_TRADES": 0,
+  "EXTRA_TRADES": 0,
+  "CONTENT_MISMATCHES": 0,
+  "causality_all_trades": "PASS",
+  "set_pass": true
+ }
+}
