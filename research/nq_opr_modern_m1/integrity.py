@@ -106,7 +106,9 @@ def main() -> int:
             "ROLLS_IN_YEAR": int(((roll["start_date"].dt.year == year)
                                   & (roll["start_date"].dt.tz_localize(None)
                                      >= pd.Timestamp(f"{year}-01-01"))).sum()),
-            "SHA256_RAW": sha256_file(RAW_DIR / f"glbx-mdp3-{year}.ohlcv-1m.dbn.zst"),
+            "SHA256_RAW": {k: v for k, v in json.loads(
+                (META_DIR / f"batch_job_{year}.json").read_text()
+            )["sha256_by_file"].items()} if (META_DIR / f"batch_job_{year}.json").exists() else None,
         }
         print(year, json.dumps({k: v for k, v in report[str(year)].items()
                                 if k != "SHA256_RAW"}, default=str)[:400])

@@ -21,17 +21,18 @@ YEARS = [2020, 2021, 2022, 2023, 2024, 2025]
 def main() -> int:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     for year in YEARS:
-        src = RAW_DIR / f"glbx-mdp3-{year}.ohlcv-1m.dbn.zst"
+        srcs = sorted((RAW_DIR / str(year)).glob("**/*.dbn.zst"))
         dst = OUT_DIR / f"nq_1m_{year}.parquet"
-        if not src.exists():
-            print(f"{year}: MISSING raw file, skip")
+        if not srcs:
+            print(f"{year}: MISSING raw files, skip")
             continue
         if dst.exists():
             print(f"{year}: parquet exists, skip")
             continue
-        store = DBNStore.from_file(str(src))
-        df = store.to_df()
-        df = df.reset_index()
+        parts = []
+        for src in srcs:
+            parts.append(DBNStore.from_file(str(src)).to_df().reset_index())
+        df = pd.concat(parts, ignore_index=True)
         # ts_event column (UTC). Keep only what we need.
         cols = {"ts_event": "ts", "open": "open", "high": "high",
                 "low": "low", "close": "close", "volume": "volume",
