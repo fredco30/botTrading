@@ -1,0 +1,1069 @@
+{
+ "authorization": "O01 BBO-1S ONLY, ceiling USD 2.00, human-approved 2026-09-16",
+ "windows": {
+  "2020-02-04_NQH0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-02-04_NQH0.dbn.zst",
+   "size_bytes": 708683,
+   "sha256": "87c311273b1fde570bce5bf74434bdcdb4e520c2fc094ef8d1bd70b3dd021469",
+   "start": "2020-02-04T14:30:00",
+   "end": "2020-02-04T21:05:00",
+   "record_count": null
+  },
+  "2020-02-05_NQH0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-02-05_NQH0.dbn.zst",
+   "size_bytes": 50408,
+   "sha256": "64abafa11657e2bc2bd99ba8753bc5898efe0b9651b66e512d516cc0b15757e9",
+   "start": "2020-02-05T14:30:00",
+   "end": "2020-02-05T14:55:00",
+   "record_count": null
+  },
+  "2020-02-13_NQH0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-02-13_NQH0.dbn.zst",
+   "size_bytes": 47986,
+   "sha256": "d8e1ca20ac345393697e4137198cfdc8fcad5d3eaf02d2a0e35657d439d29d93",
+   "start": "2020-02-13T14:30:00",
+   "end": "2020-02-13T14:55:00",
+   "record_count": null
+  },
+  "2020-03-05_NQH0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-03-05_NQH0.dbn.zst",
+   "size_bytes": 109056,
+   "sha256": "d558f193a04d6f2e2c0b654179490fd3389608a0c15efc969d1df5ff24bac03f",
+   "start": "2020-03-05T14:30:00",
+   "end": "2020-03-05T15:25:00",
+   "record_count": null
+  },
+  "2020-03-09_NQH0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-03-09_NQH0.dbn.zst",
+   "size_bytes": 31426,
+   "sha256": "0f3ac38c44e8a2a207497561bb7986b0a81b52295bb510a1cb6d6a4a919cfeba",
+   "start": "2020-03-09T13:30:00",
+   "end": "2020-03-09T14:00:00",
+   "record_count": null
+  },
+  "2020-03-12_NQH0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-03-12_NQH0.dbn.zst",
+   "size_bytes": 48909,
+   "sha256": "88da750e347b513e695be8ae5efac6aaa9b60480dc2ee35d8f879cb13cfcf7b0",
+   "start": "2020-03-12T13:30:00",
+   "end": "2020-03-12T14:05:00",
+   "record_count": null
+  },
+  "2020-03-13_NQH0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-03-13_NQH0.dbn.zst",
+   "size_bytes": 55453,
+   "sha256": "bf9ba90dc27d16934e98c4a7dfb50b11fd16e74b0e732b3b2a18fd80c3b6bae3",
+   "start": "2020-03-13T13:30:00",
+   "end": "2020-03-13T13:55:00",
+   "record_count": null
+  },
+  "2020-03-18_NQM0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-03-18_NQM0.dbn.zst",
+   "size_bytes": 65432,
+   "sha256": "c9323bcb37c06f5505293aeba0c8c5e8e1639ba9a7a480daeaa62cc0c55c9764",
+   "start": "2020-03-18T13:30:00",
+   "end": "2020-03-18T14:00:00",
+   "record_count": null
+  },
+  "2020-03-24_NQM0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-03-24_NQM0.dbn.zst",
+   "size_bytes": 53268,
+   "sha256": "a90b1688ad40814b85d7d0b592d197e08ecee9a28b4ccbf84cf3c0c3f419f13b",
+   "start": "2020-03-24T13:30:00",
+   "end": "2020-03-24T13:55:00",
+   "record_count": null
+  },
+  "2020-04-06_NQM0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-04-06_NQM0.dbn.zst",
+   "size_bytes": 713754,
+   "sha256": "07dbda90d0474eb9d610f727ac77df213053b3ced7af36e89c692e8f32ac4539",
+   "start": "2020-04-06T13:30:00",
+   "end": "2020-04-06T20:05:00",
+   "record_count": null
+  },
+  "2020-06-11_NQM0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-06-11_NQM0.dbn.zst",
+   "size_bytes": 98760,
+   "sha256": "f53d56987f7b3e1747d7b12b240c62024003f04d6d525a2d00a18b2d77dcee7e",
+   "start": "2020-06-11T13:30:00",
+   "end": "2020-06-11T14:20:00",
+   "record_count": null
+  },
+  "2020-06-15_NQM0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-06-15_NQM0.dbn.zst",
+   "size_bytes": 71676,
+   "sha256": "163e68e4432a462eea17287bffc796e2a8b00b64b348542d3a9f12544df3427f",
+   "start": "2020-06-15T13:30:00",
+   "end": "2020-06-15T14:05:00",
+   "record_count": null
+  },
+  "2020-07-06_NQU0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-07-06_NQU0.dbn.zst",
+   "size_bytes": 721771,
+   "sha256": "706ff1a64d9d9399f2f0fa7107171881533e94d7b16e14f79c0ef678dde688a2",
+   "start": "2020-07-06T13:30:00",
+   "end": "2020-07-06T20:05:00",
+   "record_count": null
+  },
+  "2020-07-16_NQU0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-07-16_NQU0.dbn.zst",
+   "size_bytes": 433634,
+   "sha256": "0ffc11de06e62d40be66f977dea33292da80269f960faa4f7f8bfe250b2ece2f",
+   "start": "2020-07-16T13:30:00",
+   "end": "2020-07-16T17:20:00",
+   "record_count": null
+  },
+  "2020-07-24_NQU0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-07-24_NQU0.dbn.zst",
+   "size_bytes": 90961,
+   "sha256": "f06ee1ed158344289e238f425a1b4e0738094c09160c36f6b75e2e2aa8944fb2",
+   "start": "2020-07-24T13:30:00",
+   "end": "2020-07-24T14:15:00",
+   "record_count": null
+  },
+  "2020-07-30_NQU0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-07-30_NQU0.dbn.zst",
+   "size_bytes": 50692,
+   "sha256": "db2efe1e6da3b59bdd5195b74da979646a29fda4aee570bef1e8dbeb704ef87c",
+   "start": "2020-07-30T13:30:00",
+   "end": "2020-07-30T13:55:00",
+   "record_count": null
+  },
+  "2020-08-24_NQU0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-08-24_NQU0.dbn.zst",
+   "size_bytes": 59735,
+   "sha256": "5121505b1773fa5cc31d7272cbff4f67f4cd5c0aedb85420945f68cc60089bbb",
+   "start": "2020-08-24T13:30:00",
+   "end": "2020-08-24T14:00:00",
+   "record_count": null
+  },
+  "2020-09-02_NQU0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-09-02_NQU0.dbn.zst",
+   "size_bytes": 51181,
+   "sha256": "63eb38d7cca26ed3f2d85957d43aab72266d609c1d99776bce03fbb0a01f07f2",
+   "start": "2020-09-02T13:30:00",
+   "end": "2020-09-02T13:55:00",
+   "record_count": null
+  },
+  "2020-09-07_NQU0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-09-07_NQU0.dbn.zst",
+   "size_bytes": 43577,
+   "sha256": "2bef6f1621ed535ac206c3b98a675978e28f09f6c02951e2762dbc116bdbe106",
+   "start": "2020-09-07T13:30:00",
+   "end": "2020-09-07T13:55:00",
+   "record_count": null
+  },
+  "2020-09-09_NQU0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-09-09_NQU0.dbn.zst",
+   "size_bytes": 62727,
+   "sha256": "a9e1d22b9c87352487d99d5cbfb7cdb68fadda4b494149c8eb7ebb56059e6314",
+   "start": "2020-09-09T13:30:00",
+   "end": "2020-09-09T14:00:00",
+   "record_count": null
+  },
+  "2020-09-21_NQZ0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-09-21_NQZ0.dbn.zst",
+   "size_bytes": 53259,
+   "sha256": "fa5020e1eade40ca235b9eea9c0bfc3fa5d99b63681b1be86a159a52395068f3",
+   "start": "2020-09-21T13:30:00",
+   "end": "2020-09-21T13:55:00",
+   "record_count": null
+  },
+  "2020-02-24_NQH0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-02-24_NQH0.dbn.zst",
+   "size_bytes": 51388,
+   "sha256": "2fd887cd5057c16a92086f6e8c2fcf8b7cccdae8bc75692f99a1c5d2c4b8a876",
+   "start": "2020-02-24T14:30:00",
+   "end": "2020-02-24T14:55:00",
+   "record_count": null
+  },
+  "2020-03-04_NQH0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-03-04_NQH0.dbn.zst",
+   "size_bytes": 60434,
+   "sha256": "58574c8971d9124e04b59231ca6467567d35ea8c8c38d2c9e3944028c45e82b3",
+   "start": "2020-03-04T14:30:00",
+   "end": "2020-03-04T15:00:00",
+   "record_count": null
+  },
+  "2020-03-10_NQH0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-03-10_NQH0.dbn.zst",
+   "size_bytes": 51403,
+   "sha256": "dcadccb49ddf53502ef52af69607598c6b94f4368bef8d113dfc36d024f41ec4",
+   "start": "2020-03-10T13:30:00",
+   "end": "2020-03-10T13:55:00",
+   "record_count": null
+  },
+  "2020-06-12_NQM0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-06-12_NQM0.dbn.zst",
+   "size_bytes": 99362,
+   "sha256": "97011765ce593d12fb4ec46ccb567fa8bfc070ea485851ce6c77622e60f74222",
+   "start": "2020-06-12T13:30:00",
+   "end": "2020-06-12T14:20:00",
+   "record_count": null
+  },
+  "2020-10-02_NQZ0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-10-02_NQZ0.dbn.zst",
+   "size_bytes": 51813,
+   "sha256": "de1d9ec92d94c4b28b4b7b226db7abf0e4f1791063ece9189fc99544c5b3647d",
+   "start": "2020-10-02T13:30:00",
+   "end": "2020-10-02T13:55:00",
+   "record_count": null
+  },
+  "2020-10-15_NQZ0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-10-15_NQZ0.dbn.zst",
+   "size_bytes": 49689,
+   "sha256": "ff1e9e0a48b6cc35478d5d27f904c2c22c3f75d5fd20b98a87667bffa089b629",
+   "start": "2020-10-15T13:30:00",
+   "end": "2020-10-15T13:55:00",
+   "record_count": null
+  },
+  "2020-10-26_NQZ0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-10-26_NQZ0.dbn.zst",
+   "size_bytes": 49654,
+   "sha256": "9b71d194dc86f2d1b6f77c7f56bcaf023deef5a42c416353670375dffcd23f74",
+   "start": "2020-10-26T13:30:00",
+   "end": "2020-10-26T13:55:00",
+   "record_count": null
+  },
+  "2020-11-05_NQZ0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-11-05_NQZ0.dbn.zst",
+   "size_bytes": 727513,
+   "sha256": "a104b6d031c6936a222181315e9000087af9f6d1331592fa21f80393e06a4052",
+   "start": "2020-11-05T14:30:00",
+   "end": "2020-11-05T21:05:00",
+   "record_count": null
+  },
+  "2020-12-15_NQZ0": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-12-15_NQZ0.dbn.zst",
+   "size_bytes": 141773,
+   "sha256": "adbd88170679771de4875038029883b98f123ecf3665a45ebcd8e8ee8155ee0b",
+   "start": "2020-12-15T14:30:00",
+   "end": "2020-12-15T15:45:00",
+   "record_count": null
+  },
+  "2020-12-28_NQH1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2020-12-28_NQH1.dbn.zst",
+   "size_bytes": 57022,
+   "sha256": "849bef3b1ad91152686705aed74dfb063dae82e2459c07f2b44360d01afade9a",
+   "start": "2020-12-28T14:30:00",
+   "end": "2020-12-28T15:00:00",
+   "record_count": null
+  },
+  "2021-01-06_NQH1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-01-06_NQH1.dbn.zst",
+   "size_bytes": 50785,
+   "sha256": "d3c1547067741aeaf3d9ae9da5662c0ef63b88351379e9940d06e2b79c617132",
+   "start": "2021-01-06T14:30:00",
+   "end": "2021-01-06T14:55:00",
+   "record_count": null
+  },
+  "2021-01-25_NQH1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-01-25_NQH1.dbn.zst",
+   "size_bytes": 143134,
+   "sha256": "84b61641d14ef5c7bff0ff6f5a4a48ac38323ce27ed42c3d2247879b60688c76",
+   "start": "2021-01-25T14:30:00",
+   "end": "2021-01-25T15:45:00",
+   "record_count": null
+  },
+  "2021-02-01_NQH1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-02-01_NQH1.dbn.zst",
+   "size_bytes": 51460,
+   "sha256": "3b75031a80e55f13b539f5feb5b40546a43be9b3b75a84f1fd6ac04d9547ca72",
+   "start": "2021-02-01T14:30:00",
+   "end": "2021-02-01T14:55:00",
+   "record_count": null
+  },
+  "2021-02-02_NQH1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-02-02_NQH1.dbn.zst",
+   "size_bytes": 721561,
+   "sha256": "8447e3577457429e592dbe55a8be0bd18c19fdff58b55eff6190fab509bf61cf",
+   "start": "2021-02-02T14:30:00",
+   "end": "2021-02-02T21:05:00",
+   "record_count": null
+  },
+  "2021-02-22_NQH1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-02-22_NQH1.dbn.zst",
+   "size_bytes": 50028,
+   "sha256": "4b5695129c35594b886d754fc38da7e822a0dc6410e1efbee6915f46d6428913",
+   "start": "2021-02-22T14:30:00",
+   "end": "2021-02-22T14:55:00",
+   "record_count": null
+  },
+  "2021-03-01_NQH1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-03-01_NQH1.dbn.zst",
+   "size_bytes": 724182,
+   "sha256": "c149cdc996805061cbc41ef0c45a8556c2fd178ce42687bbd7f7df019525227f",
+   "start": "2021-03-01T14:30:00",
+   "end": "2021-03-01T21:05:00",
+   "record_count": null
+  },
+  "2021-03-09_NQH1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-03-09_NQH1.dbn.zst",
+   "size_bytes": 756857,
+   "sha256": "b123cbd9de131ce2d5e405abcab45ad946bf9ea189c48fb3fc1cc4f9821a0aea",
+   "start": "2021-03-09T14:30:00",
+   "end": "2021-03-09T21:05:00",
+   "record_count": null
+  },
+  "2021-03-11_NQH1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-03-11_NQH1.dbn.zst",
+   "size_bytes": 51264,
+   "sha256": "c19d668ee20f7edd255db6f44377432ab2e797ece879e91c150fa20d90614442",
+   "start": "2021-03-11T14:30:00",
+   "end": "2021-03-11T14:55:00",
+   "record_count": null
+  },
+  "2021-03-12_NQH1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-03-12_NQH1.dbn.zst",
+   "size_bytes": 61759,
+   "sha256": "abd42c893e045924432f709fc88299ced5abf5d75bd40338a6d8666e2fa60125",
+   "start": "2021-03-12T14:30:00",
+   "end": "2021-03-12T15:00:00",
+   "record_count": null
+  },
+  "2021-03-18_NQM1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-03-18_NQM1.dbn.zst",
+   "size_bytes": 755788,
+   "sha256": "3cfbd780997f056f3869044c75cf2b081745cab00bb370917ec924e7c3be9028",
+   "start": "2021-03-18T13:30:00",
+   "end": "2021-03-18T20:05:00",
+   "record_count": null
+  },
+  "2021-04-01_NQM1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-04-01_NQM1.dbn.zst",
+   "size_bytes": 724623,
+   "sha256": "83d6ba6615230770e6dde712ba649a64343695f6aa5b9ebfe92ae7e3622e7f22",
+   "start": "2021-04-01T13:30:00",
+   "end": "2021-04-01T20:05:00",
+   "record_count": null
+  },
+  "2021-04-29_NQM1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-04-29_NQM1.dbn.zst",
+   "size_bytes": 49585,
+   "sha256": "286afa8f6f1fce5edd0d7585792097568bbdc199477d77a2ad285ae4a2b0f519",
+   "start": "2021-04-29T13:30:00",
+   "end": "2021-04-29T13:55:00",
+   "record_count": null
+  },
+  "2021-05-14_NQM1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-05-14_NQM1.dbn.zst",
+   "size_bytes": 58980,
+   "sha256": "033ab2f5bfd4bda4edd8c8ae3d9bd562f4d9ae3be2157dfd802e9d53f40eca1f",
+   "start": "2021-05-14T13:30:00",
+   "end": "2021-05-14T14:00:00",
+   "record_count": null
+  },
+  "2021-05-19_NQM1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-05-19_NQM1.dbn.zst",
+   "size_bytes": 51448,
+   "sha256": "cce2fe35db3c45be08d40c3a295bb78fc7933824d9e51cffb5cf3724a0a7be75",
+   "start": "2021-05-19T13:30:00",
+   "end": "2021-05-19T13:55:00",
+   "record_count": null
+  },
+  "2021-07-07_NQU1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-07-07_NQU1.dbn.zst",
+   "size_bytes": 78194,
+   "sha256": "77dcedb6dab524ba43c9c04f1c509d656241b0a6d64b30f8cb339fbdd7c9dff1",
+   "start": "2021-07-07T13:30:00",
+   "end": "2021-07-07T14:10:00",
+   "record_count": null
+  },
+  "2021-09-10_NQU1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-09-10_NQU1.dbn.zst",
+   "size_bytes": 77881,
+   "sha256": "d02f1cab35f7d242592e9b6d7212f55a3a71a438218ab4ddd446a32f1379fe69",
+   "start": "2021-09-10T13:30:00",
+   "end": "2021-09-10T14:10:00",
+   "record_count": null
+  },
+  "2021-09-13_NQU1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-09-13_NQU1.dbn.zst",
+   "size_bytes": 51855,
+   "sha256": "35001cfc99d563cde1331b16e716d4a39401b166be670d4b5b173b8e1a60e78c",
+   "start": "2021-09-13T13:30:00",
+   "end": "2021-09-13T13:55:00",
+   "record_count": null
+  },
+  "2021-09-24_NQZ1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-09-24_NQZ1.dbn.zst",
+   "size_bytes": 70384,
+   "sha256": "e5b9be6c392b7a9d9bc1888dc7ec7c7ca78e69a09b0ff66fe589a64d23c30933",
+   "start": "2021-09-24T13:30:00",
+   "end": "2021-09-24T14:05:00",
+   "record_count": null
+  },
+  "2021-09-28_NQZ1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-09-28_NQZ1.dbn.zst",
+   "size_bytes": 768694,
+   "sha256": "f02b19b754f032fc396c0c9622970c822edb2c60d979e0924ac958632c2a91cf",
+   "start": "2021-09-28T13:30:00",
+   "end": "2021-09-28T20:05:00",
+   "record_count": null
+  },
+  "2021-10-06_NQZ1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-10-06_NQZ1.dbn.zst",
+   "size_bytes": 52435,
+   "sha256": "7f62110813e1379e9bb24a3075abb53ce166abe25dc7825f2f8cdef599f28792",
+   "start": "2021-10-06T13:30:00",
+   "end": "2021-10-06T13:55:00",
+   "record_count": null
+  },
+  "2021-10-07_NQZ1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-10-07_NQZ1.dbn.zst",
+   "size_bytes": 735838,
+   "sha256": "3a9808b938303d6bc1e7e4b2ed7dce1bf70135fdce98bb6ea866a0b0b5bd00e1",
+   "start": "2021-10-07T13:30:00",
+   "end": "2021-10-07T20:05:00",
+   "record_count": null
+  },
+  "2021-10-14_NQZ1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-10-14_NQZ1.dbn.zst",
+   "size_bytes": 714436,
+   "sha256": "f593f1475055678c879c37577df2f38d36236da25362ba801480b8b608c7520b",
+   "start": "2021-10-14T13:30:00",
+   "end": "2021-10-14T20:05:00",
+   "record_count": null
+  },
+  "2021-11-18_NQZ1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-11-18_NQZ1.dbn.zst",
+   "size_bytes": 100056,
+   "sha256": "ec024ef591583404ed030f10953b21272a5d15250bf7d6773245e2883383488f",
+   "start": "2021-11-18T14:30:00",
+   "end": "2021-11-18T15:20:00",
+   "record_count": null
+  },
+  "2021-11-26_NQZ1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-11-26_NQZ1.dbn.zst",
+   "size_bytes": 443580,
+   "sha256": "5e59dec39f03042b6e5a98d3e816da0dd2aa9ea65238a95f3d1950a4b3c06df4",
+   "start": "2021-11-26T14:30:00",
+   "end": "2021-11-26T18:20:00",
+   "record_count": null
+  },
+  "2021-11-29_NQZ1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-11-29_NQZ1.dbn.zst",
+   "size_bytes": 51123,
+   "sha256": "714819e16b2929fdaba286db49d0b986249f17d1c8cae0b5e5cc480734cb5824",
+   "start": "2021-11-29T14:30:00",
+   "end": "2021-11-29T14:55:00",
+   "record_count": null
+  },
+  "2021-12-01_NQZ1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-12-01_NQZ1.dbn.zst",
+   "size_bytes": 416651,
+   "sha256": "72c1bba2b839ba8497b76003ac382ede382e41098d0427b4dced93ada189ff85",
+   "start": "2021-12-01T14:30:00",
+   "end": "2021-12-01T18:05:00",
+   "record_count": null
+  },
+  "2021-12-07_NQZ1": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-12-07_NQZ1.dbn.zst",
+   "size_bytes": 741196,
+   "sha256": "76d100d42cb64d9daaec2d77f263eb1ea95388ea01ddd4dceab2870a2da24f00",
+   "start": "2021-12-07T14:30:00",
+   "end": "2021-12-07T21:05:00",
+   "record_count": null
+  },
+  "2021-12-20_NQH2": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2021-12-20_NQH2.dbn.zst",
+   "size_bytes": 72120,
+   "sha256": "a337bba8906331b59b5f8bb3e33bad29b64ed51e1342bec38c72c1ceb8d01ad1",
+   "start": "2021-12-20T14:30:00",
+   "end": "2021-12-20T15:05:00",
+   "record_count": null
+  },
+  "2022-01-18_NQH2": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2022-01-18_NQH2.dbn.zst",
+   "size_bytes": 94273,
+   "sha256": "bd4bf2d9932861c557cf8501b2e1628bcca286f513f3a98d9f783686e728b5c3",
+   "start": "2022-01-18T14:30:00",
+   "end": "2022-01-18T15:15:00",
+   "record_count": null
+  },
+  "2022-01-26_NQH2": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2022-01-26_NQH2.dbn.zst",
+   "size_bytes": 53444,
+   "sha256": "e27f3fff43086e54ae548c945bb345b3352e28634a290c137f2ca4bba04c4aed",
+   "start": "2022-01-26T14:30:00",
+   "end": "2022-01-26T14:55:00",
+   "record_count": null
+  },
+  "2022-02-15_NQH2": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2022-02-15_NQH2.dbn.zst",
+   "size_bytes": 61782,
+   "sha256": "75634ad36f1e2f2c063f420d7746e311b1fdaff4f09d090a7c8be318b5f484c9",
+   "start": "2022-02-15T14:30:00",
+   "end": "2022-02-15T15:00:00",
+   "record_count": null
+  },
+  "2022-02-24_NQH2": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2022-02-24_NQH2.dbn.zst",
+   "size_bytes": 55377,
+   "sha256": "542771d485de628517088f18e62be88d3c889cdb2e0c8390aae8555ac3a65d2c",
+   "start": "2022-02-24T14:30:00",
+   "end": "2022-02-24T14:55:00",
+   "record_count": null
+  },
+  "2022-03-09_NQH2": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2022-03-09_NQH2.dbn.zst",
+   "size_bytes": 62800,
+   "sha256": "3c18653cfca5f7480701cb6d402b701a797f0f5f142a83abff16039cff2e1340",
+   "start": "2022-03-09T14:30:00",
+   "end": "2022-03-09T15:00:00",
+   "record_count": null
+  },
+  "2022-03-16_NQM2": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2022-03-16_NQM2.dbn.zst",
+   "size_bytes": 550158,
+   "sha256": "9ab64aa025fed097806b13cc030a0072bf288727c910b9ed30e250131b4e2d6a",
+   "start": "2022-03-16T13:30:00",
+   "end": "2022-03-16T18:15:00",
+   "record_count": null
+  },
+  "2022-04-21_NQM2": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2022-04-21_NQM2.dbn.zst",
+   "size_bytes": 91793,
+   "sha256": "0d90a9486a916f447f604b052258644bcc845430fed67032fcef53578584fcbe",
+   "start": "2022-04-21T13:30:00",
+   "end": "2022-04-21T14:15:00",
+   "record_count": null
+  },
+  "2022-05-13_NQM2": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2022-05-13_NQM2.dbn.zst",
+   "size_bytes": 774349,
+   "sha256": "5689c80108e0e9ca7927c0c21e84f710360bef8f477d4456801506a2d1e46ee5",
+   "start": "2022-05-13T13:30:00",
+   "end": "2022-05-13T20:05:00",
+   "record_count": null
+  },
+  "2022-05-20_NQM2": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2022-05-20_NQM2.dbn.zst",
+   "size_bytes": 92755,
+   "sha256": "518b00ff21447417460466476838d8a4b59f7f37a09283c5aef094ca17e85561",
+   "start": "2022-05-20T13:30:00",
+   "end": "2022-05-20T14:15:00",
+   "record_count": null
+  },
+  "2022-06-06_NQM2": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2022-06-06_NQM2.dbn.zst",
+   "size_bytes": 51681,
+   "sha256": "c7556f9be301199847bcf2a48017282f6724b5acdce8981909bf5f71acc39eb8",
+   "start": "2022-06-06T13:30:00",
+   "end": "2022-06-06T13:55:00",
+   "record_count": null
+  },
+  "2022-06-13_NQM2": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2022-06-13_NQM2.dbn.zst",
+   "size_bytes": 761537,
+   "sha256": "61431ba45dfa9e7687689f4f5228c941ebd0e22fcf0752f79dbaba0e68c01837",
+   "start": "2022-06-13T13:30:00",
+   "end": "2022-06-13T20:05:00",
+   "record_count": null
+  },
+  "2022-06-16_NQU2": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2022-06-16_NQU2.dbn.zst",
+   "size_bytes": 777002,
+   "sha256": "79329371c352dd095fd469737d266d7d6b2051bc9205975decb96d123f026193",
+   "start": "2022-06-16T13:30:00",
+   "end": "2022-06-16T20:05:00",
+   "record_count": null
+  },
+  "2022-07-27_NQU2": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2022-07-27_NQU2.dbn.zst",
+   "size_bytes": 752811,
+   "sha256": "033593acd6da9b637f56b43cf430457bc75de586d819fdd7cacf1029d4abd81e",
+   "start": "2022-07-27T13:30:00",
+   "end": "2022-07-27T20:05:00",
+   "record_count": null
+  },
+  "2022-08-22_NQU2": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2022-08-22_NQU2.dbn.zst",
+   "size_bytes": 748007,
+   "sha256": "cab5b9f71e1bd389802dbe891f30ee87c5f8036654cfe1be3d33bd20c76abbcd",
+   "start": "2022-08-22T13:30:00",
+   "end": "2022-08-22T20:05:00",
+   "record_count": null
+  },
+  "2022-09-09_NQU2": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2022-09-09_NQU2.dbn.zst",
+   "size_bytes": 735452,
+   "sha256": "ebc19856395dce09685179f18af1ff2729e2bdd1985bc5ab91043091beab9e15",
+   "start": "2022-09-09T13:30:00",
+   "end": "2022-09-09T20:05:00",
+   "record_count": null
+  },
+  "2022-09-27_NQZ2": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2022-09-27_NQZ2.dbn.zst",
+   "size_bytes": 81926,
+   "sha256": "0afab8609945649e9d7a0a525a9aba25e616b65b056c65eef5901cfb0c39cf0c",
+   "start": "2022-09-27T13:30:00",
+   "end": "2022-09-27T14:10:00",
+   "record_count": null
+  },
+  "2022-10-04_NQZ2": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2022-10-04_NQZ2.dbn.zst",
+   "size_bytes": 750624,
+   "sha256": "6e5524d2f462648955da47afb2244f424288a4ebd633fbc5ebd09e12a0bd8009",
+   "start": "2022-10-04T13:30:00",
+   "end": "2022-10-04T20:05:00",
+   "record_count": null
+  },
+  "2022-12-15_NQH3": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2022-12-15_NQH3.dbn.zst",
+   "size_bytes": 749992,
+   "sha256": "17b061ea881406f2c497dbfb462d3db527e379cdb9e80489fc51881c38bb5fcf",
+   "start": "2022-12-15T14:30:00",
+   "end": "2022-12-15T21:05:00",
+   "record_count": null
+  },
+  "2023-01-25_NQH3": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2023-01-25_NQH3.dbn.zst",
+   "size_bytes": 224725,
+   "sha256": "7b9c2cd91a57378a92a5a37feb38941b003d49c877f785deba08aa9c4321ec01",
+   "start": "2023-01-25T14:30:00",
+   "end": "2023-01-25T16:25:00",
+   "record_count": null
+  },
+  "2023-01-30_NQH3": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2023-01-30_NQH3.dbn.zst",
+   "size_bytes": 50391,
+   "sha256": "fbf4a51912ff8053bd2e6eeff85e2f08a47d9c970e36b2cc7f01628c7254a6d3",
+   "start": "2023-01-30T14:30:00",
+   "end": "2023-01-30T14:55:00",
+   "record_count": null
+  },
+  "2023-02-09_NQH3": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2023-02-09_NQH3.dbn.zst",
+   "size_bytes": 50890,
+   "sha256": "ef9ed93dd09a4b7b6db7e7ab06ea718450aa65819642aa1e4ee928ea7537af46",
+   "start": "2023-02-09T14:30:00",
+   "end": "2023-02-09T14:55:00",
+   "record_count": null
+  },
+  "2023-03-23_NQM3": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2023-03-23_NQM3.dbn.zst",
+   "size_bytes": 49545,
+   "sha256": "048506faff36e975133263d78f339b3499a7b4acbc402f9b1662c2ce748a5136",
+   "start": "2023-03-23T13:30:00",
+   "end": "2023-03-23T13:55:00",
+   "record_count": null
+  },
+  "2023-03-29_NQM3": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2023-03-29_NQM3.dbn.zst",
+   "size_bytes": 135033,
+   "sha256": "4167a35f02d3cb52dd2e846cbc055ea9d710a8147a27752c067fa67f30f9adbc",
+   "start": "2023-03-29T13:30:00",
+   "end": "2023-03-29T14:40:00",
+   "record_count": null
+  },
+  "2023-04-20_NQM3": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2023-04-20_NQM3.dbn.zst",
+   "size_bytes": 50350,
+   "sha256": "15edf46926778eb37e83791511d589801d754a01fc3b310753fa73f15b6ad25f",
+   "start": "2023-04-20T13:30:00",
+   "end": "2023-04-20T13:55:00",
+   "record_count": null
+  },
+  "2023-06-14_NQU3": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2023-06-14_NQU3.dbn.zst",
+   "size_bytes": 529420,
+   "sha256": "22c812692687f2a0d299474efa81c62afaf786dc6bb0a4d87ec859c01789dc86",
+   "start": "2023-06-14T13:30:00",
+   "end": "2023-06-14T18:10:00",
+   "record_count": null
+  },
+  "2023-07-13_NQU3": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2023-07-13_NQU3.dbn.zst",
+   "size_bytes": 734733,
+   "sha256": "e2e9a0cf30e801be9ec1b7a9847d0921c0a436225f905408416a75f29eb83956",
+   "start": "2023-07-13T13:30:00",
+   "end": "2023-07-13T20:05:00",
+   "record_count": null
+  },
+  "2023-07-27_NQU3": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2023-07-27_NQU3.dbn.zst",
+   "size_bytes": 119357,
+   "sha256": "3cdc915421f6912dcae6fe854e03d3f118171ee24c17eac0ce1c9870a0c7b108",
+   "start": "2023-07-27T13:30:00",
+   "end": "2023-07-27T14:30:00",
+   "record_count": null
+  },
+  "2023-08-22_NQU3": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2023-08-22_NQU3.dbn.zst",
+   "size_bytes": 59477,
+   "sha256": "0760e61835429704f1af1024dece4f3ac9c23ee5b695dcdfdc2ecb76124cddd1",
+   "start": "2023-08-22T13:30:00",
+   "end": "2023-08-22T14:00:00",
+   "record_count": null
+  },
+  "2023-09-26_NQZ3": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2023-09-26_NQZ3.dbn.zst",
+   "size_bytes": 742871,
+   "sha256": "2d5dc32fb3a71cbf8544027276993fb136e0f5d1edfe31f0a6a98f89eebb18e9",
+   "start": "2023-09-26T13:30:00",
+   "end": "2023-09-26T20:05:00",
+   "record_count": null
+  },
+  "2023-09-29_NQZ3": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2023-09-29_NQZ3.dbn.zst",
+   "size_bytes": 116895,
+   "sha256": "92f18eb697919522bcbd741bf00bbaba3186dc11d08140106e24a85512a17686",
+   "start": "2023-09-29T13:30:00",
+   "end": "2023-09-29T14:30:00",
+   "record_count": null
+  },
+  "2023-10-25_NQZ3": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2023-10-25_NQZ3.dbn.zst",
+   "size_bytes": 751169,
+   "sha256": "55057a312b870bdde4675e148d47589cf4045c50cd73737040ad6742986833d4",
+   "start": "2023-10-25T13:30:00",
+   "end": "2023-10-25T20:05:00",
+   "record_count": null
+  },
+  "2023-12-13_NQH4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2023-12-13_NQH4.dbn.zst",
+   "size_bytes": 68966,
+   "sha256": "7ca0fbf1dc93b29257941606a07ff9a307eaa447206d7fa1585993c3c9494ac2",
+   "start": "2023-12-13T14:30:00",
+   "end": "2023-12-13T15:05:00",
+   "record_count": null
+  },
+  "2024-01-19_NQH4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-01-19_NQH4.dbn.zst",
+   "size_bytes": 755884,
+   "sha256": "42001b61780900f64fba62b7b0cff3baad1f337a8dfe537c4748623ad20d5e00",
+   "start": "2024-01-19T14:30:00",
+   "end": "2024-01-19T21:05:00",
+   "record_count": null
+  },
+  "2024-01-24_NQH4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-01-24_NQH4.dbn.zst",
+   "size_bytes": 577133,
+   "sha256": "f253b49b16e4a219d3e3a29ec1c34469beb338da56a59b783f22fdec20a2d54a",
+   "start": "2024-01-24T14:30:00",
+   "end": "2024-01-24T19:30:00",
+   "record_count": null
+  },
+  "2024-02-22_NQH4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-02-22_NQH4.dbn.zst",
+   "size_bytes": 745002,
+   "sha256": "3bb58edff934b82b5fdc04d788f7b6cf74ed243e9475e34c3a0b59607fd6965a",
+   "start": "2024-02-22T14:30:00",
+   "end": "2024-02-22T21:05:00",
+   "record_count": null
+  },
+  "2024-03-13_NQM4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-03-13_NQM4.dbn.zst",
+   "size_bytes": 50144,
+   "sha256": "3aa9ac64f9a0829d06baf235ce120fc4cfcb4a75c772158f6b5260265cbf1f5c",
+   "start": "2024-03-13T13:30:00",
+   "end": "2024-03-13T13:55:00",
+   "record_count": null
+  },
+  "2024-04-15_NQM4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-04-15_NQM4.dbn.zst",
+   "size_bytes": 89625,
+   "sha256": "d9562eb06c68e399d995ca39a6b9895a731d09d2ad0ddfd15105942fdd217245",
+   "start": "2024-04-15T13:30:00",
+   "end": "2024-04-15T14:15:00",
+   "record_count": null
+  },
+  "2024-05-02_NQM4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-05-02_NQM4.dbn.zst",
+   "size_bytes": 50596,
+   "sha256": "5b736fb6958e588df13862e64e6566323def0cf27296850a806a35a362085b5c",
+   "start": "2024-05-02T13:30:00",
+   "end": "2024-05-02T13:55:00",
+   "record_count": null
+  },
+  "2024-06-19_NQU4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-06-19_NQU4.dbn.zst",
+   "size_bytes": 98580,
+   "sha256": "c576ca42607344c7d6da03d9b93c7c6d2979735286bb28f56513616f78311489",
+   "start": "2024-06-19T13:30:00",
+   "end": "2024-06-19T14:35:00",
+   "record_count": null
+  },
+  "2024-07-17_NQU4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-07-17_NQU4.dbn.zst",
+   "size_bytes": 760578,
+   "sha256": "2e3528e300bc6542773ea376059e0dab304fa4e3c9b5db1d326497dc58f2b802",
+   "start": "2024-07-17T13:30:00",
+   "end": "2024-07-17T20:05:00",
+   "record_count": null
+  },
+  "2024-07-26_NQU4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-07-26_NQU4.dbn.zst",
+   "size_bytes": 51622,
+   "sha256": "d88680613e869e7f15845d94231a6b8821646be04ca169a3aff2ed489befc8ce",
+   "start": "2024-07-26T13:30:00",
+   "end": "2024-07-26T13:55:00",
+   "record_count": null
+  },
+  "2024-07-31_NQU4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-07-31_NQU4.dbn.zst",
+   "size_bytes": 779278,
+   "sha256": "6ffd9990dd489ae049ae372c240fd96148e409c3e3037bc7fe4110bcd6670e34",
+   "start": "2024-07-31T13:30:00",
+   "end": "2024-07-31T20:05:00",
+   "record_count": null
+  },
+  "2024-09-09_NQU4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-09-09_NQU4.dbn.zst",
+   "size_bytes": 138521,
+   "sha256": "255ba07c69df387894efeaf55acd82853aae6ac3e648574e0b1e20cfddb47790",
+   "start": "2024-09-09T13:30:00",
+   "end": "2024-09-09T14:40:00",
+   "record_count": null
+  },
+  "2024-09-17_NQU4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-09-17_NQU4.dbn.zst",
+   "size_bytes": 49926,
+   "sha256": "4f1b63e6ac5a448611c095fafea7ccffac34149bef80ce17af2fced3b8525c31",
+   "start": "2024-09-17T13:30:00",
+   "end": "2024-09-17T13:55:00",
+   "record_count": null
+  },
+  "2024-09-18_NQZ4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-09-18_NQZ4.dbn.zst",
+   "size_bytes": 59362,
+   "sha256": "a150e50092b05014bdf3343811d52e10cfd8992cc673848e45169a1bd6882787",
+   "start": "2024-09-18T13:30:00",
+   "end": "2024-09-18T14:00:00",
+   "record_count": null
+  },
+  "2024-09-19_NQZ4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-09-19_NQZ4.dbn.zst",
+   "size_bytes": 60921,
+   "sha256": "1431af15c595923b3dcfc96d41778bf4bac41c080845c15fd0fae34edfcd4654",
+   "start": "2024-09-19T13:30:00",
+   "end": "2024-09-19T14:00:00",
+   "record_count": null
+  },
+  "2024-09-26_NQZ4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-09-26_NQZ4.dbn.zst",
+   "size_bytes": 50259,
+   "sha256": "54b675c9a3400aa5b07e4dcf7ff73fee5ec1973d0deb9ca1dfad5e70f26b267c",
+   "start": "2024-09-26T13:30:00",
+   "end": "2024-09-26T13:55:00",
+   "record_count": null
+  },
+  "2024-10-17_NQZ4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-10-17_NQZ4.dbn.zst",
+   "size_bytes": 82865,
+   "sha256": "b15578c0b872b40d655d64deb0c447cc1f78d909ac8363124119a60b4d3c7905",
+   "start": "2024-10-17T13:30:00",
+   "end": "2024-10-17T14:10:00",
+   "record_count": null
+  },
+  "2024-10-24_NQZ4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-10-24_NQZ4.dbn.zst",
+   "size_bytes": 49418,
+   "sha256": "ab01ebdd2dad0f824a6a9f5ba49e3bb2fa2e8cf3ee1c7442a3cfed856359037c",
+   "start": "2024-10-24T13:30:00",
+   "end": "2024-10-24T13:55:00",
+   "record_count": null
+  },
+  "2024-11-06_NQZ4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-11-06_NQZ4.dbn.zst",
+   "size_bytes": 53311,
+   "sha256": "cd6bf73875fce6ce797e0a7d282145f6d5be7759c4e2388d27a28e24e1da789d",
+   "start": "2024-11-06T14:30:00",
+   "end": "2024-11-06T14:55:00",
+   "record_count": null
+  },
+  "2024-11-15_NQZ4": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-11-15_NQZ4.dbn.zst",
+   "size_bytes": 749049,
+   "sha256": "d2d958f1cedc451466383e82314d23438f7db44dcb43e63b434ed8bf47fcbdda",
+   "start": "2024-11-15T14:30:00",
+   "end": "2024-11-15T21:05:00",
+   "record_count": null
+  },
+  "2024-12-19_NQH5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2024-12-19_NQH5.dbn.zst",
+   "size_bytes": 63390,
+   "sha256": "e9af3fccc59249efd6cf393cdeb565b6092e8edf42cf3a77603f209d4df93cb3",
+   "start": "2024-12-19T14:30:00",
+   "end": "2024-12-19T15:00:00",
+   "record_count": null
+  },
+  "2025-01-13_NQH5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-01-13_NQH5.dbn.zst",
+   "size_bytes": 62139,
+   "sha256": "3a0689e5351bc074919c877a61269a506800e0c9dddd55ec7a6ab19b8183c885",
+   "start": "2025-01-13T14:30:00",
+   "end": "2025-01-13T15:00:00",
+   "record_count": null
+  },
+  "2025-02-03_NQH5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-02-03_NQH5.dbn.zst",
+   "size_bytes": 126764,
+   "sha256": "9e148e755263689611472cb273b22f856879f5fa3121ab1268e659907f06a5a6",
+   "start": "2025-02-03T14:30:00",
+   "end": "2025-02-03T15:30:00",
+   "record_count": null
+  },
+  "2025-02-27_NQH5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-02-27_NQH5.dbn.zst",
+   "size_bytes": 55139,
+   "sha256": "bd991e25414c9dff6eb0366088a7dfca5f390d30a6ba6b688ac1f9962d6b318d",
+   "start": "2025-02-27T14:30:00",
+   "end": "2025-02-27T14:55:00",
+   "record_count": null
+  },
+  "2025-04-10_NQM5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-04-10_NQM5.dbn.zst",
+   "size_bytes": 864185,
+   "sha256": "9c2beeb788096e779cef8764ade34f6c29e3d9acfd9d90b671d07e39c190230a",
+   "start": "2025-04-10T13:30:00",
+   "end": "2025-04-10T20:05:00",
+   "record_count": null
+  },
+  "2025-04-22_NQM5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-04-22_NQM5.dbn.zst",
+   "size_bytes": 785870,
+   "sha256": "3ef92d2e9761c2ae86a696d676f69d902716c2d529b41e9be4475c754dd6eaab",
+   "start": "2025-04-22T13:30:00",
+   "end": "2025-04-22T20:05:00",
+   "record_count": null
+  },
+  "2025-05-01_NQM5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-05-01_NQM5.dbn.zst",
+   "size_bytes": 73273,
+   "sha256": "2a9db8f542fdc166106535aa4c143b07baaea19f245c3e9c322b8f43bb5297fb",
+   "start": "2025-05-01T13:30:00",
+   "end": "2025-05-01T14:05:00",
+   "record_count": null
+  },
+  "2025-05-12_NQM5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-05-12_NQM5.dbn.zst",
+   "size_bytes": 52742,
+   "sha256": "e99996ec18976589a80a8614431940fe83e898ba20def239014e43d93def56cf",
+   "start": "2025-05-12T13:30:00",
+   "end": "2025-05-12T13:55:00",
+   "record_count": null
+  },
+  "2025-05-19_NQM5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-05-19_NQM5.dbn.zst",
+   "size_bytes": 51951,
+   "sha256": "84541194dd9a4da77fa99d57aa246b388cacec163549ab07eb8b12126358ee57",
+   "start": "2025-05-19T13:30:00",
+   "end": "2025-05-19T13:55:00",
+   "record_count": null
+  },
+  "2025-05-26_NQM5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-05-26_NQM5.dbn.zst",
+   "size_bytes": 104085,
+   "sha256": "02b05bcd8d6085cc7ae69cfaceae69418f0733f6c8e30c75558d2acded5d022f",
+   "start": "2025-05-26T13:30:00",
+   "end": "2025-05-26T14:40:00",
+   "record_count": null
+  },
+  "2025-06-13_NQM5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-06-13_NQM5.dbn.zst",
+   "size_bytes": 60568,
+   "sha256": "3ca7b777c3f211ce4a437b2ac2c589a7446f0b31d48f270459438561aaf00a97",
+   "start": "2025-06-13T13:30:00",
+   "end": "2025-06-13T14:00:00",
+   "record_count": null
+  },
+  "2025-06-18_NQU5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-06-18_NQU5.dbn.zst",
+   "size_bytes": 636721,
+   "sha256": "b04494d4c6f162916f9a7448eb6dd4e742a88b95fcd76aa82fb81c2644028390",
+   "start": "2025-06-18T13:30:00",
+   "end": "2025-06-18T19:05:00",
+   "record_count": null
+  },
+  "2025-06-24_NQU5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-06-24_NQU5.dbn.zst",
+   "size_bytes": 721041,
+   "sha256": "e06671ca847f87704a0aea752976d6f15e41d2c0e855ebc507cc7fa58e61f6ef",
+   "start": "2025-06-24T13:30:00",
+   "end": "2025-06-24T20:05:00",
+   "record_count": null
+  },
+  "2025-07-04_NQU5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-07-04_NQU5.dbn.zst",
+   "size_bytes": 39046,
+   "sha256": "58016c55da854dbdc6e95ef3b35978495072b7ed9798bc9c1743c2c755377b1a",
+   "start": "2025-07-04T13:30:00",
+   "end": "2025-07-04T13:55:00",
+   "record_count": null
+  },
+  "2025-07-29_NQU5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-07-29_NQU5.dbn.zst",
+   "size_bytes": 50106,
+   "sha256": "2c9beb28553ecd7dca357fdd572cba418fac71a03488adc45943192b7bcb39ac",
+   "start": "2025-07-29T13:30:00",
+   "end": "2025-07-29T13:55:00",
+   "record_count": null
+  },
+  "2025-08-01_NQU5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-08-01_NQU5.dbn.zst",
+   "size_bytes": 325042,
+   "sha256": "c0f3992c264d99b395be857c2c3f87fa0d5e37aa881285be5c0819b958fc9372",
+   "start": "2025-08-01T13:30:00",
+   "end": "2025-08-01T16:10:00",
+   "record_count": null
+  },
+  "2025-08-04_NQU5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-08-04_NQU5.dbn.zst",
+   "size_bytes": 727840,
+   "sha256": "78971da0c003e8041545a55fc46149a8bde7d2dc4e30c028ed883ef84cc87f18",
+   "start": "2025-08-04T13:30:00",
+   "end": "2025-08-04T20:05:00",
+   "record_count": null
+  },
+  "2025-09-18_NQZ5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-09-18_NQZ5.dbn.zst",
+   "size_bytes": 52387,
+   "sha256": "1df554729991452e9776e5dd4d0d101ed112ff6b495321deb6d28aee396c3495",
+   "start": "2025-09-18T13:30:00",
+   "end": "2025-09-18T13:55:00",
+   "record_count": null
+  },
+  "2025-10-13_NQZ5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-10-13_NQZ5.dbn.zst",
+   "size_bytes": 761672,
+   "sha256": "090ecfb049ae6c6ed20f561f143015e11cd028cccee7b139e8d446232ab6016b",
+   "start": "2025-10-13T13:30:00",
+   "end": "2025-10-13T20:05:00",
+   "record_count": null
+  },
+  "2025-10-14_NQZ5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-10-14_NQZ5.dbn.zst",
+   "size_bytes": 124789,
+   "sha256": "e6e270b102a1a0f86d63a9d3646eadb95203c0e3a0a56a1cfc66481094d5e053",
+   "start": "2025-10-14T13:30:00",
+   "end": "2025-10-14T14:30:00",
+   "record_count": null
+  },
+  "2025-10-15_NQZ5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-10-15_NQZ5.dbn.zst",
+   "size_bytes": 52196,
+   "sha256": "4a09988d77bf7f6f437c07149e22d113ae0057d1f5b9ca1a043563c91da700e9",
+   "start": "2025-10-15T13:30:00",
+   "end": "2025-10-15T13:55:00",
+   "record_count": null
+  },
+  "2025-11-04_NQZ5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-11-04_NQZ5.dbn.zst",
+   "size_bytes": 54012,
+   "sha256": "718748edb7321f43a756a31582e3a9f5ded886762a939985ec85ed9218cb44e6",
+   "start": "2025-11-04T14:30:00",
+   "end": "2025-11-04T14:55:00",
+   "record_count": null
+  },
+  "2025-11-10_NQZ5": {
+   "file": "E:\\ResearchData\\botTrading\\nq\\databento\\highres\\bbo_1s_o01\\2025-11-10_NQZ5.dbn.zst",
+   "size_bytes": 190215,
+   "sha256": "c1497c99a1bc94fc5e2bea302730ce8ff1cef61692b6efa19c178967746b65e9",
+   "start": "2025-11-10T14:30:00",
+   "end": "2025-11-10T16:05:00",
+   "record_count": null
+  }
+ }
+}

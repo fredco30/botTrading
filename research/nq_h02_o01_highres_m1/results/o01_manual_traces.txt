@@ -1,0 +1,48 @@
+============================================================================
+O01-0000 2020-02-04 LONG contract=NQH0
+  decision=2020-02-04 14:40:00+00:00 activation=2020-02-04 14:40:00+00:00 exit_reason=EOD
+  first eligible quote: ts=1580827200000000000 bid=9229.0 ask=9229.25
+  frozen entry=9228.75 stop=9227.0 frozen exit=9340.75 @ 2020-02-04 20:55:00+00:00
+  [L1_BASE] entry=9229.25 exit=9340.25 gross=111.0 fees=1.0 slip=0.0 NET=110.0 flag=OK
+  [L1_CONSERVATIVE] entry=9229.25 exit=9340.25 gross=110.5 fees=1.0 slip=0.5 NET=109.5 flag=OK
+  [L1_STRESS] entry=9229.25 exit=9340.25 gross=110.0 fees=2.5 slip=1.0 NET=107.5 flag=OK
+============================================================================
+O01-0001 2020-02-05 LONG contract=NQH0
+  decision=2020-02-05 14:40:00+00:00 activation=2020-02-05 14:40:00+00:00 exit_reason=STOP
+  first eligible quote: ts=1580913600000000000 bid=9397.75 ask=9398.0
+  frozen entry=9398.0 stop=9397.5 frozen exit=9379.25 @ 2020-02-05 14:45:00+00:00
+  [L1_BASE] entry=9398.0 exit=9379.0 gross=-19.0 fees=1.0 slip=0.0 NET=-20.0 flag=OK
+  [L1_CONSERVATIVE] entry=9398.0 exit=9379.0 gross=-19.5 fees=1.0 slip=0.5 NET=-20.5 flag=OK
+  [L1_STRESS] entry=9398.0 exit=9379.0 gross=-20.0 fees=2.5 slip=1.0 NET=-22.5 flag=OK
+============================================================================
+O01-0004 2020-03-04 LONG contract=NQH0
+  decision=2020-03-04 14:40:00+00:00 activation=2020-03-04 14:40:00+00:00 exit_reason=STOP
+  first eligible quote: ts=1583332800000000000 bid=8701.25 ask=8701.75
+  frozen entry=8700.5 stop=8687.0 frozen exit=8687.0 @ 2020-03-04 14:50:00+00:00
+  [L1_BASE] entry=8701.75 exit=8686.75 gross=-15.0 fees=1.0 slip=0.0 NET=-16.0 flag=OK
+  [L1_CONSERVATIVE] entry=8701.75 exit=8686.75 gross=-15.5 fees=1.0 slip=0.5 NET=-16.5 flag=OK
+  [L1_STRESS] entry=8701.75 exit=8686.75 gross=-16.0 fees=2.5 slip=1.0 NET=-18.5 flag=OK
+============================================================================
+O01-0002 2020-02-13 SHORT contract=NQH0
+  decision=2020-02-13 14:40:00+00:00 activation=2020-02-13 14:40:00+00:00 exit_reason=STOP
+  first eligible quote: ts=1581604800000000000 bid=9567.25 ask=9567.5
+  frozen entry=9567.5 stop=9578.75 frozen exit=9578.75 @ 2020-02-13 14:45:00+00:00
+  [L1_BASE] entry=9567.25 exit=9578.75 gross=-11.5 fees=1.0 slip=0.0 NET=-12.5 flag=OK
+  [L1_CONSERVATIVE] entry=9567.25 exit=9578.75 gross=-12.0 fees=1.0 slip=0.5 NET=-13.0 flag=OK
+  [L1_STRESS] entry=9567.25 exit=9578.75 gross=-12.5 fees=2.5 slip=1.0 NET=-15.0 flag=OK
+============================================================================
+O01-0003 2020-02-24 SHORT contract=NQH0
+  decision=2020-02-24 14:40:00+00:00 activation=2020-02-24 14:40:00+00:00 exit_reason=STOP
+  first eligible quote: ts=1582555200000000000 bid=9164.0 ask=9164.5
+  frozen entry=9164.25 stop=9174.0 frozen exit=9177.5 @ 2020-02-24 14:45:00+00:00
+  [L1_BASE] entry=9164.0 exit=9177.5 gross=-13.5 fees=1.0 slip=0.0 NET=-14.5 flag=OK
+  [L1_CONSERVATIVE] entry=9164.0 exit=9177.5 gross=-14.0 fees=1.0 slip=0.5 NET=-15.0 flag=OK
+  [L1_STRESS] entry=9164.0 exit=9177.5 gross=-14.5 fees=2.5 slip=1.0 NET=-17.0 flag=OK
+============================================================================
+O01-0005 2020-03-05 SHORT contract=NQH0
+  decision=2020-03-05 14:40:00+00:00 activation=2020-03-05 14:40:00+00:00 exit_reason=STOP
+  first eligible quote: ts=1583419200000000000 bid=8769.0 ask=8769.5
+  frozen entry=8769.25 stop=8781.75 frozen exit=8781.75 @ 2020-03-05 15:15:00+00:00
+  [L1_BASE] entry=8769.0 exit=8781.75 gross=-12.75 fees=1.0 slip=0.0 NET=-13.75 flag=OK
+  [L1_CONSERVATIVE] entry=8769.0 exit=8781.75 gross=-13.25 fees=1.0 slip=0.5 NET=-14.25 flag=OK
+  [L1_STRESS] entry=8769.0 exit=8781.75 gross=-13.75 fees=2.5 slip=1.0 NET=-16.25 flag=OK
