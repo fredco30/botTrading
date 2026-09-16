@@ -1,0 +1,10 @@
+{
+ "ACTIVATION_TIMESTAMP": "2026-09-16T22:01:40.089952+00:00",
+ "MODE": "PROSPECTIVE_PAPER (MODE 2, S1 bar-trigger, quote-window pricing)",
+ "CEILING_USD": 0.5,
+ "PILOT_LENGTH_SESSIONS": 30,
+ "CUMULATIVE_COST_USD": 0.0,
+ "SESSIONS_DONE": [],
+ "DATA_GAPS": [],
+ "NOTE": "Context (z 20d, ATR 14d) builds ONLY from post-activation observations: pre-activation 2026 data is forbidden by the mission seal. Expect ~20 CONTEXT_MISSING sessions before the first eligible signal."
+}
