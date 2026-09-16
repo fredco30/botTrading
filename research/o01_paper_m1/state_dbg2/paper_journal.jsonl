@@ -1,0 +1,2 @@
+{"new_state": "WAITING_SESSION", "contract": "NQH0", "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2020-02-04 05:00:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2020-02-04 14:35:00+00:00", "previous_state": "WAITING_SESSION"}

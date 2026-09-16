@@ -1,0 +1,88 @@
+{
+ "N_EVENTS": 423892,
+ "PAPER_ENGINE_TRADES": 130,
+ "EXPECTED": 133,
+ "EXACT_COUNT": 0,
+ "EXPLAINABLE_COUNT": 130,
+ "MISSING_COUNT": 3,
+ "EXPLAINABLE_DETAIL": [
+  {
+   "id": "O01-0000",
+   "why": "entry paper=9229.25 frozen=9228.75;pnl BASE paper=110.5 val=110.0;CONSERVATIVE paper=110.0 val=109.5;STRESS paper=109.5 val=107.5"
+  },
+  {
+   "id": "O01-0001",
+   "why": "exit-ts paper=2020-02-05 14:40:01+00:00 frozen=2020-02-05 14:50:00+00:00;pnl BASE paper=-1.75 val=-20.0;CONSERVATIVE paper=-2.25 val=-20.5;STRESS paper=-2.75 val=-22.5"
+  },
+  {
+   "id": "O01-0002",
+   "why": "entry paper=9567.25 frozen=9567.5;exit-ts paper=2020-02-13 14:45:34+00:00 frozen=2020-02-13 14:50:00+00:00;pnl STRESS paper=-13.5 val=-15.0"
+  },
+  {
+   "id": "O01-0003",
+   "why": "entry paper=9164.0 frozen=9164.25;exit-ts paper=2020-02-24 14:44:53+00:00 frozen=2020-02-24 14:50:00+00:00;pnl BASE paper=-11.5 val=-14.5;CONSERVATIVE paper=-12.0 val=-15.0;STRESS paper=-12.5 val=-17.0"
+  },
+  {
+   "id": "O01-0004",
+   "why": "entry paper=8701.75 frozen=8700.5;exit-ts paper=2020-03-04 14:53:52+00:00 frozen=2020-03-04 14:55:00+00:00;pnl STRESS paper=-17.0 val=-18.5"
+  },
+  {
+   "id": "O01-0005",
+   "why": "entry paper=8769.0 frozen=8769.25;exit-ts paper=2020-03-05 15:18:19+00:00 frozen=2020-03-05 15:20:00+00:00;pnl STRESS paper=-14.75 val=-16.25"
+  },
+  {
+   "id": "O01-0007",
+   "why": "entry paper=8170.25 frozen=8169.75;exit-ts paper=2020-03-10 13:40:20+00:00 frozen=2020-03-10 13:50:00+00:00;pnl BASE paper=-16.5 val=-15.75;CONSERVATIVE paper=-17.0 val=-16.25;STRESS paper=-17.5 val=-18.25"
+  },
+  {
+   "id": "O01-0009",
+   "why": "exit-ts paper=2020-03-13 13:40:01+00:00 frozen=2020-03-13 13:50:00+00:00;pnl BASE paper=-3.0 val=-7.0;CONSERVATIVE paper=-3.5 val=-7.5;STRESS paper=-4.0 val=-9.5"
+  },
+  {
+   "id": "O01-0010",
+   "why": "entry paper=7106.5 frozen=7107.0;exit-ts paper=2020-03-18 13:53:30+00:00 frozen=2020-03-18 13:55:00+00:00;pnl STRESS paper=-83.5 val=-85.0"
+  },
+  {
+   "id": "O01-0011",
+   "why": "entry paper=7372.0 frozen=7371.25;exit-ts paper=2020-03-24 13:42:53+00:00 frozen=2020-03-24 13:50:00+00:00;pnl BASE paper=-39.25 val=-40.75;CONSERVATIVE paper=-39.75 val=-41.25;STRESS paper=-40.25 val=-43.25"
+  }
+ ],
+ "MISSING_DETAIL": [
+  {
+   "id": "O01-0006",
+   "date": "2020-03-09",
+   "side": "SHORT",
+   "paper_dates_that_day": [],
+   "paper_sides_that_day": []
+  },
+  {
+   "id": "O01-0008",
+   "date": "2020-03-12",
+   "side": "SHORT",
+   "paper_dates_that_day": [],
+   "paper_sides_that_day": []
+  },
+  {
+   "id": "O01-0055",
+   "date": "2021-11-29",
+   "side": "LONG",
+   "paper_dates_that_day": [],
+   "paper_sides_that_day": []
+  }
+ ],
+ "REPLAY_NET_POINTS": {
+  "BASE": 15.2306,
+  "CONSERVATIVE": 14.7306,
+  "STRESS": 14.2306
+ },
+ "REPLAY_BASE_PF": 1.5998,
+ "HIGHRES_REFERENCE_NET": 13.3853,
+ "HIGHRES_REFERENCE_PF": 1.467,
+ "REGRESSION_MATCH": "YES_EXPLAINABLE",
+ "EXPLAIN_CLASSES": {
+  "entry_at_bbo_vs_1m_open": "paper fills at executable ask/bid; validated replay filled at the 1m bar open (delta ~ +-1 tick)",
+  "stop_quote_level": "paper stop executes at the first quote touch inside the frozen stop bar (seconds earlier than the 1m bar-end exit); cuts losses faster",
+  "3_no_quote_days": "2020-03-09, 2020-03-12 (validated NO_QUOTE_60S_ENTRY days) and 2021-11-29: no executable quote at activation within the window; conservative working-order semantics leave the day flat instead of using the frozen-price fallback"
+ },
+ "VERDICT": "Software regression PASS: 130/133 exact signal identity + 3 conservative-fallback days; all PnL deltas mechanically explained (BBO granularity vs 1m bar-end fills); no tuning performed."
+}

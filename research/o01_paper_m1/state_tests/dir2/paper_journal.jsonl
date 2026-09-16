@@ -1,0 +1,958 @@
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-06 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-06 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-07 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-07 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-08 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-08 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-09 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-09 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-10 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-10 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-11 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-11 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-12 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-12 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-13 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-13 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-14 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-14 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-15 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-15 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-16 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-16 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-17 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-17 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-18 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-18 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-19 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-19 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-20 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-20 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-21 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-21 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-22 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-22 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-23 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-23 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-24 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-24 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-25 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-25 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-26 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-26 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-27 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-27 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-28 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-28 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-29 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-29 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-30 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-30 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-06-02 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-06-02 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-06 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-06 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-07 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-07 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-08 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-08 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-09 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-09 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-10 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-10 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-11 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-11 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-12 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-12 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-13 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-13 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-14 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-14 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-15 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-15 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-16 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-16 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-17 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-17 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-18 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-18 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-19 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-19 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-20 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-20 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-21 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-21 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-22 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-22 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-23 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-23 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-24 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-24 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-25 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-25 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-26 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-26 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-27 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-27 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-28 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-28 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-29 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-29 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-30 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-30 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-06-02 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-06-02 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-06 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-06 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-07 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-07 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-08 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-08 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-09 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-09 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-10 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-10 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-11 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-11 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-12 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-12 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-13 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-13 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-14 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-14 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-15 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-15 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-16 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-16 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-17 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-17 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-18 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-18 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-19 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-19 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-20 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-20 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-21 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-21 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-22 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-22 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-23 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-23 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-24 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-24 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-25 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-25 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-26 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-26 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-27 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-27 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-28 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-28 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-29 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-29 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-30 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-30 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-06-02 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-06-02 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-06 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-06 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-07 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-07 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-08 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-08 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-09 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-09 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-10 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-10 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-11 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-11 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-12 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-12 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-13 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-13 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-14 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-14 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-15 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-15 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-16 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-16 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-17 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-17 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-18 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-18 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-19 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-19 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-20 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-20 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-21 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-21 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-22 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-22 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-23 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-23 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-24 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-24 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-25 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-25 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-26 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-26 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-27 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-27 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-28 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-28 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-29 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-29 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-30 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-30 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-06-02 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-06-02 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-06 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-06 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-07 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-07 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-08 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-08 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-09 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-09 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-10 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-10 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-11 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-11 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-12 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-12 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-13 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-13 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-14 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-14 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-15 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-15 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-16 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-16 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-17 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-17 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-18 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-18 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-19 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-19 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-20 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-20 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-21 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-21 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-22 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-22 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-23 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-23 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-24 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-24 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-25 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-25 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-26 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-26 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-27 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-27 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-28 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-28 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-29 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-29 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-30 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-30 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-06-02 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-06-02 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-06 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-06 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-07 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-07 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-08 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-08 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-09 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-09 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-10 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-10 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-11 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-11 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-12 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-12 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-13 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-13 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-14 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-14 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-15 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-15 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-16 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-16 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-17 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-17 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-18 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-18 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-19 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-19 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-20 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-20 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-21 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-21 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-22 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-22 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-23 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-23 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-24 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-24 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-25 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-25 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-26 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-26 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-27 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-27 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-28 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-28 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-29 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-29 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-30 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-30 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-06-02 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-06-02 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-06 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-06 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-07 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-07 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-08 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-08 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-09 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-09 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-10 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-10 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-11 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-11 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-12 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-12 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-13 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-13 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-14 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-14 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-15 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-15 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-16 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-16 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-17 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-17 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-18 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-18 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-19 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-19 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-20 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-20 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-21 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-21 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-22 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-22 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-23 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-23 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-24 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-24 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-25 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-25 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-26 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-26 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-27 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-27 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-28 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-28 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-29 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-29 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-30 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-30 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-06-02 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight move qualified but premarket range too wide.", "event_type": "NO_TRADE", "ts": "2021-06-02 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-06 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-06 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-07 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-07 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-08 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-08 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-09 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-09 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-10 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-10 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-11 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-11 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-12 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-12 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-13 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-13 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-14 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-14 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-15 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-15 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-16 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-16 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-17 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-17 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-18 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-18 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-19 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-19 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-20 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-20 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-21 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-21 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-22 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-22 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-23 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-23 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-24 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-24 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-25 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-25 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-26 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-26 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-27 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-27 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-28 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-28 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-29 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-29 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-30 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-30 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-06-02 08:00:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "ORDER_PENDING", "side": -1, "stop": 90.4, "z": -23.514141356851706, "reason": "O01 SHORT: overnight return z=-23.51, premarket-width condition passed.", "event_type": "SIGNAL", "ts": "2021-06-02 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "ORDER_PENDING", "reason": "no executable quote; order stays working", "event_type": "ENTRY_NO_QUOTE", "ts": "2021-06-02 13:40:00+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "PAPER_POSITION_OPEN", "fills": {"BASE": 89.4, "CONSERVATIVE": 89.15, "STRESS": 88.9}, "side": -1, "reason": "market entry on executable quote", "event_type": "PAPER_FILL", "ts": "2021-06-02 13:40:01+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-06 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-06 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-07 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-07 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-08 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-08 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-09 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-09 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-10 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-10 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-11 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-11 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-12 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-12 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-13 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-13 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-14 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-14 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-15 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-15 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-16 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-16 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-17 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-17 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-18 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-18 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-19 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-19 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-20 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-20 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-21 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-21 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-22 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-22 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-23 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-23 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-24 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-24 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-25 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-25 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-26 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-26 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-27 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-27 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-28 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-28 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-29 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-29 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-30 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-30 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-06-02 08:00:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "ORDER_PENDING", "side": -1, "stop": 90.4, "z": -23.514141356851706, "reason": "O01 SHORT: overnight return z=-23.51, premarket-width condition passed.", "event_type": "SIGNAL", "ts": "2021-06-02 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "ORDER_PENDING", "reason": "no executable quote; order stays working", "event_type": "ENTRY_NO_QUOTE", "ts": "2021-06-02 13:40:00+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "PAPER_POSITION_OPEN", "fills": {"BASE": 89.4, "CONSERVATIVE": 89.15, "STRESS": 88.9}, "side": -1, "reason": "market entry on executable quote", "event_type": "PAPER_FILL", "ts": "2021-06-02 13:40:01+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-06 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-06 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-07 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-07 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-08 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-08 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-09 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-09 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-10 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-10 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-11 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-11 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-12 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-12 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-13 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-13 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-14 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-14 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-15 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-15 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-16 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-16 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-17 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-17 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-18 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-18 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-19 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-19 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-20 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-20 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-21 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-21 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-22 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-22 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-23 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-23 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-24 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-24 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-25 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-25 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-26 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-26 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-27 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-27 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-28 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-28 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-29 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-29 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-30 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-30 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-06-02 08:00:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "ORDER_PENDING", "side": -1, "stop": 90.4, "z": -23.514141356851706, "reason": "O01 SHORT: overnight return z=-23.51, premarket-width condition passed.", "event_type": "SIGNAL", "ts": "2021-06-02 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "ORDER_PENDING", "reason": "no executable quote; order stays working", "event_type": "ENTRY_NO_QUOTE", "ts": "2021-06-02 13:40:00+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "PAPER_POSITION_OPEN", "fills": {"BASE": 89.4, "CONSERVATIVE": 89.15, "STRESS": 88.9}, "side": -1, "reason": "market entry on executable quote", "event_type": "PAPER_FILL", "ts": "2021-06-02 13:40:01+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-06 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-06 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-07 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-07 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-08 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-08 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-09 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-09 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-10 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-10 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-11 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-11 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-12 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-12 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-13 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-13 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-14 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-14 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-15 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-15 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-16 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-16 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-17 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-17 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-18 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-18 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-19 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-19 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-20 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-20 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-21 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-21 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-22 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-22 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-23 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-23 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-24 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-24 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-25 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-25 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-26 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-26 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-27 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-27 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-28 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-28 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-29 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-29 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-30 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-30 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-06-02 08:00:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "ORDER_PENDING", "side": -1, "stop": 90.4, "z": -23.514141356851706, "reason": "O01 SHORT: overnight return z=-23.51, premarket-width condition passed.", "event_type": "SIGNAL", "ts": "2021-06-02 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "ORDER_PENDING", "reason": "no executable quote; order stays working", "event_type": "ENTRY_NO_QUOTE", "ts": "2021-06-02 13:40:00+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "PAPER_POSITION_OPEN", "fills": {"BASE": 89.4, "CONSERVATIVE": 89.15, "STRESS": 88.9}, "side": -1, "reason": "market entry on executable quote", "event_type": "PAPER_FILL", "ts": "2021-06-02 13:40:01+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-06 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-06 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-07 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-07 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-08 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-08 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-09 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-09 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-10 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-10 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-11 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-11 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-12 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-12 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-13 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-13 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-14 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-14 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-15 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-15 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-16 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-16 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-17 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-17 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-18 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-18 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-19 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-19 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-20 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-20 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-21 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-21 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-22 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-22 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-23 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-23 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-24 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-24 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-25 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-25 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-26 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-26 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-27 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-27 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-28 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-28 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-29 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-29 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-30 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-30 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-06-02 08:00:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "ORDER_PENDING", "side": -1, "stop": 90.4, "z": -23.514141356851706, "reason": "O01 SHORT: overnight return z=-23.51, premarket-width condition passed.", "event_type": "SIGNAL", "ts": "2021-06-02 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "ORDER_PENDING", "reason": "no executable quote; order stays working", "event_type": "ENTRY_NO_QUOTE", "ts": "2021-06-02 13:40:00+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "PAPER_POSITION_OPEN", "fills": {"BASE": 89.4, "CONSERVATIVE": 89.15, "STRESS": 88.9}, "side": -1, "reason": "market entry on executable quote", "event_type": "PAPER_FILL", "ts": "2021-06-02 13:40:01+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-06 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-06 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-07 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-07 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-08 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-08 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-09 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-09 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-10 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-10 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-11 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-11 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-12 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-12 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-13 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-13 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-14 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-14 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-15 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-15 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-16 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-16 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-17 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-17 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-18 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-18 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-19 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-19 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-20 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-20 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-21 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-21 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-22 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-22 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-23 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-23 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-24 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-24 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-25 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-25 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-26 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-26 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-27 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-27 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-28 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-28 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-29 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-29 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-30 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-30 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-06-02 08:00:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "ORDER_PENDING", "side": -1, "stop": 90.4, "z": -23.514141356851706, "reason": "O01 SHORT: overnight return z=-23.51, premarket-width condition passed.", "event_type": "SIGNAL", "ts": "2021-06-02 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "ORDER_PENDING", "reason": "no executable quote; order stays working", "event_type": "ENTRY_NO_QUOTE", "ts": "2021-06-02 13:40:00+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "PAPER_POSITION_OPEN", "fills": {"BASE": 89.4, "CONSERVATIVE": 89.15, "STRESS": 88.9}, "side": -1, "reason": "market entry on executable quote", "event_type": "PAPER_FILL", "ts": "2021-06-02 13:40:01+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-06 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-06 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-07 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-07 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-08 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-08 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-09 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-09 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-10 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-10 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-11 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-11 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-12 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-12 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-13 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-13 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-14 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-14 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-15 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-15 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-16 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-16 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-17 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-17 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-18 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-18 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-19 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-19 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-20 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-20 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-21 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-21 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-22 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-22 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-23 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-23 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-24 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-24 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-25 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-25 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-26 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-26 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-27 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-27 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-28 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-28 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-29 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-29 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-30 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-30 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-06-02 08:00:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "ORDER_PENDING", "side": -1, "stop": 90.4, "z": -23.514141356851706, "reason": "O01 SHORT: overnight return z=-23.51, premarket-width condition passed.", "event_type": "SIGNAL", "ts": "2021-06-02 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "ORDER_PENDING", "reason": "no executable quote; order stays working", "event_type": "ENTRY_NO_QUOTE", "ts": "2021-06-02 13:40:00+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "PAPER_POSITION_OPEN", "fills": {"BASE": 89.4, "CONSERVATIVE": 89.15, "STRESS": 88.9}, "side": -1, "reason": "market entry on executable quote", "event_type": "PAPER_FILL", "ts": "2021-06-02 13:40:01+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-06 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-06 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-07 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-07 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-08 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-08 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-09 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-09 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-10 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-10 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-11 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-11 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-12 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-12 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-13 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-13 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-14 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-14 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-15 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-15 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-16 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-16 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-17 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-17 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-18 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-18 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-19 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-19 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-20 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-20 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-21 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-21 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-22 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-22 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-23 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-23 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-24 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-24 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-25 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-25 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-26 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-26 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-27 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-27 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-28 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-28 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-29 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-29 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-30 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-30 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-06-02 08:00:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "ORDER_PENDING", "side": -1, "stop": 90.4, "z": -23.514141356851706, "reason": "O01 SHORT: overnight return z=-23.51, premarket-width condition passed.", "event_type": "SIGNAL", "ts": "2021-06-02 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "ORDER_PENDING", "reason": "no executable quote; order stays working", "event_type": "ENTRY_NO_QUOTE", "ts": "2021-06-02 13:40:00+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "PAPER_POSITION_OPEN", "fills": {"BASE": 89.4, "CONSERVATIVE": 89.15, "STRESS": 88.9}, "side": -1, "reason": "market entry on executable quote", "event_type": "PAPER_FILL", "ts": "2021-06-02 13:40:01+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-06 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-06 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-07 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-07 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-08 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-08 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-09 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-09 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-10 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-10 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-11 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-11 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-12 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-12 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-13 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-13 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-14 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-14 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-15 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-15 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-16 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-16 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-17 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-17 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-18 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-18 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-19 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-19 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-20 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-20 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-21 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-21 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-22 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-22 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-23 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-23 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-24 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-24 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-25 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-25 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-26 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-26 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-27 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-27 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-28 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-28 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-29 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-29 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-30 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-30 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-06-02 08:00:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "ORDER_PENDING", "side": -1, "stop": 90.4, "z": -23.514141356851706, "reason": "O01 SHORT: overnight return z=-23.51, premarket-width condition passed.", "event_type": "SIGNAL", "ts": "2021-06-02 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "ORDER_PENDING", "reason": "no executable quote; order stays working", "event_type": "ENTRY_NO_QUOTE", "ts": "2021-06-02 13:40:00+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "PAPER_POSITION_OPEN", "fills": {"BASE": 89.4, "CONSERVATIVE": 89.15, "STRESS": 88.9}, "side": -1, "reason": "market entry on executable quote", "event_type": "PAPER_FILL", "ts": "2021-06-02 13:40:01+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-06 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-06 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-07 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-07 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-08 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-08 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-09 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-09 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-10 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-10 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-11 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-11 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-12 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-12 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-13 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-13 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-14 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-14 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-15 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-15 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-16 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-16 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-17 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-17 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-18 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-18 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-19 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-19 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-20 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-20 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-21 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-21 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-22 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-22 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-23 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-23 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-24 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-24 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-25 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-25 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-26 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-26 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-27 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-27 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-28 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-28 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-29 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-29 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-30 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-30 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-06-02 08:00:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "ORDER_PENDING", "side": -1, "stop": 90.4, "z": -23.514141356851706, "reason": "O01 SHORT: overnight return z=-23.51, premarket-width condition passed.", "event_type": "SIGNAL", "ts": "2021-06-02 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "ORDER_PENDING", "reason": "no executable quote; order stays working", "event_type": "ENTRY_NO_QUOTE", "ts": "2021-06-02 13:40:00+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "PAPER_POSITION_OPEN", "fills": {"BASE": 89.4, "CONSERVATIVE": 89.15, "STRESS": 88.9}, "side": -1, "reason": "market entry on executable quote", "event_type": "PAPER_FILL", "ts": "2021-06-02 13:40:01+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-06 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-06 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-07 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-07 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-08 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-08 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-09 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-09 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-10 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-10 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-11 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-11 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-12 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-12 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-13 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-13 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-14 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-14 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-15 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-15 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-16 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-16 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-17 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-17 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-18 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-18 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-19 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-19 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-20 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-20 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-21 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-21 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-22 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-22 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-23 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-23 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-24 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-24 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-25 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-25 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-26 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 context not ready (history still accumulating).", "event_type": "NO_TRADE", "ts": "2021-04-26 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-27 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-27 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-28 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-28 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-29 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-29 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-04-30 13:30:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "NO_SETUP", "reason": "O01 no trade \u2014 overnight z-score insufficient.", "event_type": "NO_TRADE", "ts": "2021-04-30 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2021-06-02 08:00:00+00:00", "previous_state": "NO_SETUP"}
+{"new_state": "ORDER_PENDING", "side": -1, "stop": 90.4, "z": -23.514141356851706, "reason": "O01 SHORT: overnight return z=-23.51, premarket-width condition passed.", "event_type": "SIGNAL", "ts": "2021-06-02 13:35:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "ORDER_PENDING", "reason": "no executable quote; order stays working", "event_type": "ENTRY_NO_QUOTE", "ts": "2021-06-02 13:40:00+00:00", "previous_state": "ORDER_PENDING"}
+{"new_state": "PAPER_POSITION_OPEN", "fills": {"BASE": 89.4, "CONSERVATIVE": 89.15, "STRESS": 88.9}, "side": -1, "reason": "market entry on executable quote", "event_type": "PAPER_FILL", "ts": "2021-06-02 13:40:01+00:00", "previous_state": "ORDER_PENDING"}
