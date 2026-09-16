@@ -1,0 +1,237 @@
+{
+ "A": {
+  "NORMAL": {
+   "DAYS_FLOW_BULL": 786,
+   "DAYS_FLOW_BEAR": 510,
+   "DAYS_FLOW_NEUTRAL": 254,
+   "RANGE_FILTER_REJECTS": 1255,
+   "TOTAL_ELIGIBLE_DAYS": 39,
+   "TRADES": 15,
+   "TRADES_PER_WEEK": 0.048,
+   "NET_INDEX_POINTS_PER_TRADE": -7.7283,
+   "NET_TICKS_PER_TRADE": -30.91,
+   "NET_USD_PER_NQ": -154.57,
+   "PF": 0.0831,
+   "EXPECTANCY_R": -0.7074,
+   "WIN_RATE": 0.0667,
+   "AVG_WIN_R": 0.792,
+   "AVG_LOSS_R": -0.815,
+   "MFE_MEAN_PTS": 5.583,
+   "MAE_MEAN_PTS": 11.85,
+   "CAPTURE_RATIO": -2.5595,
+   "STRESS_READY": true,
+   "REMOVE_BEST_1_PERCENT": -9.0304,
+   "MAX_DD_R": -10.611,
+   "MAX_DD_USD_1NQ": -2318.5,
+   "BY_YEAR_NET_PTS": {
+    "2020": -11.879,
+    "2021": -3.5,
+    "2022": -0.917,
+    "2023": -5.25,
+    "2024": -5.899,
+    "2025": -16.104
+   },
+   "BY_YEAR_N": {
+    "2020": 6,
+    "2021": 1,
+    "2022": 3,
+    "2023": 2,
+    "2024": 2,
+    "2025": 1
+   },
+   "EXIT_REASON_BREAKDOWN": {
+    "OPR_BACK": 9,
+    "STOP": 5,
+    "EMA8": 1
+   },
+   "LONG_N": 12,
+   "SHORT_N": 3,
+   "DIAGNOSTICS_2O": {
+    "BY_OPR_WIDTH_QUARTILE": {
+     "Q1": -4.312,
+     "Q2": -1.262,
+     "Q3": -10.167,
+     "Q4": -15.782
+    },
+    "BY_ATR_QUARTILE": {
+     "Q1": -5.762,
+     "Q2": -5.688,
+     "Q3": -2.89,
+     "Q4": -15.364
+    },
+    "BY_SIDE": {
+     "LONG": -7.931,
+     "SHORT": -6.917
+    },
+    "BY_ENTRY_BUCKET": {
+     "0945-1015": -14.701,
+     "1015-1100": -8.254,
+     "1100-1130": -2.81
+    },
+    "BY_FOLD": {
+     "DISCOVERY": -10.682,
+     "REPLICATION": -9.301,
+     "VALIDATION": -2.65
+    }
+   }
+  },
+  "STRESS": {
+   "STRESS_NET_POINTS": -9.2283,
+   "STRESS_PF": 0.061,
+   "STRESS_TRADES": 15,
+   "STRESS_NET_USD": -184.57
+  },
+  "GATE": "FAIL:N<40 (15);net<=0;PF=0.0831;rm_best<=0;pos_years<4"
+ },
+ "B": {
+  "NORMAL": {
+   "DAYS_FLOW_BULL": 786,
+   "DAYS_FLOW_BEAR": 510,
+   "DAYS_FLOW_NEUTRAL": 254,
+   "RANGE_FILTER_REJECTS": 1255,
+   "TOTAL_ELIGIBLE_DAYS": 39,
+   "TRADES": 2,
+   "TRADES_PER_WEEK": 0.006,
+   "NET_INDEX_POINTS_PER_TRADE": -14.9652,
+   "NET_TICKS_PER_TRADE": -59.86,
+   "NET_USD_PER_NQ": -299.3,
+   "PF": 0.0,
+   "EXPECTANCY_R": -1.1114,
+   "WIN_RATE": 0.0,
+   "AVG_WIN_R": null,
+   "AVG_LOSS_R": -1.111,
+   "MFE_MEAN_PTS": 9.5,
+   "MAE_MEAN_PTS": 29.75,
+   "CAPTURE_RATIO": -7.8818,
+   "STRESS_READY": true,
+   "REMOVE_BEST_1_PERCENT": -15.0,
+   "MAX_DD_R": -2.223,
+   "MAX_DD_USD_1NQ": -598.61,
+   "BY_YEAR_NET_PTS": {
+    "2020": -15.0,
+    "2022": -14.93
+   },
+   "BY_YEAR_N": {
+    "2020": 1,
+    "2022": 1
+   },
+   "EXIT_REASON_BREAKDOWN": {
+    "STOP": 2
+   },
+   "LONG_N": 1,
+   "SHORT_N": 1,
+   "DIAGNOSTICS_2O": {
+    "BY_OPR_WIDTH_QUARTILE": {
+     "Q1": -15.0,
+     "Q4": -14.93
+    },
+    "BY_ATR_QUARTILE": {
+     "Q1": -15.0,
+     "Q4": -14.93
+    },
+    "BY_SIDE": {
+     "LONG": -15.0,
+     "SHORT": -14.93
+    },
+    "BY_ENTRY_BUCKET": {
+     "1015-1100": -14.965
+    },
+    "BY_FOLD": {
+     "DISCOVERY": -15.0,
+     "VALIDATION": -14.93
+    }
+   }
+  },
+  "STRESS": {
+   "STRESS_NET_POINTS": -16.4652,
+   "STRESS_PF": 0.0,
+   "STRESS_TRADES": 2,
+   "STRESS_NET_USD": -329.3
+  },
+  "GATE": "FAIL:N<40 (2);net<=0;PF=0.0;rm_best<=0;pos_years<4"
+ },
+ "C": {
+  "NORMAL": {
+   "DAYS_FLOW_BULL": 786,
+   "DAYS_FLOW_BEAR": 510,
+   "DAYS_FLOW_NEUTRAL": 254,
+   "RANGE_FILTER_REJECTS": 1255,
+   "TOTAL_ELIGIBLE_DAYS": 39,
+   "TRADES": 17,
+   "TRADES_PER_WEEK": 0.055,
+   "NET_INDEX_POINTS_PER_TRADE": -8.5797,
+   "NET_TICKS_PER_TRADE": -34.32,
+   "NET_USD_PER_NQ": -171.59,
+   "PF": 0.0672,
+   "EXPECTANCY_R": -0.755,
+   "WIN_RATE": 0.0588,
+   "AVG_WIN_R": 0.792,
+   "AVG_LOSS_R": -0.852,
+   "MFE_MEAN_PTS": 6.044,
+   "MAE_MEAN_PTS": 13.956,
+   "CAPTURE_RATIO": -2.5595,
+   "STRESS_READY": true,
+   "REMOVE_BEST_1_PERCENT": -9.7722,
+   "MAX_DD_R": -12.834,
+   "MAX_DD_USD_1NQ": -2917.11,
+   "BY_YEAR_NET_PTS": {
+    "2020": -12.325,
+    "2021": -3.5,
+    "2022": -4.42,
+    "2023": -5.25,
+    "2024": -5.899,
+    "2025": -16.104
+   },
+   "BY_YEAR_N": {
+    "2020": 7,
+    "2021": 1,
+    "2022": 4,
+    "2023": 2,
+    "2024": 2,
+    "2025": 1
+   },
+   "EXIT_REASON_BREAKDOWN": {
+    "OPR_BACK": 9,
+    "STOP": 7,
+    "EMA8": 1
+   },
+   "LONG_N": 13,
+   "SHORT_N": 4,
+   "DIAGNOSTICS_2O": {
+    "BY_OPR_WIDTH_QUARTILE": {
+     "Q1": -4.2,
+     "Q2": -3.575,
+     "Q3": -11.858,
+     "Q4": -15.782
+    },
+    "BY_ATR_QUARTILE": {
+     "Q1": -5.11,
+     "Q2": -2.438,
+     "Q3": -12.275,
+     "Q4": -15.364
+    },
+    "BY_SIDE": {
+     "LONG": -8.475,
+     "SHORT": -8.92
+    },
+    "BY_ENTRY_BUCKET": {
+     "0945-1015": -14.701,
+     "1015-1100": -9.745,
+     "1100-1130": -2.81
+    },
+    "BY_FOLD": {
+     "DISCOVERY": -11.222,
+     "REPLICATION": -9.301,
+     "VALIDATION": -4.697
+    }
+   }
+  },
+  "STRESS": {
+   "STRESS_NET_POINTS": -10.0797,
+   "STRESS_PF": 0.0499,
+   "STRESS_TRADES": 17,
+   "STRESS_NET_USD": -201.59
+  },
+  "GATE": "FAIL:N<40 (17);net<=0;PF=0.0672;rm_best<=0;pos_years<4"
+ }
+}
