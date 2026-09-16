@@ -1,0 +1,72 @@
+{
+ "A": {
+  "name": "A \u2014 MTF F08 Asia->London continuation (|move|>=10p)",
+  "source_commit": "29dfb7b1710c58bb939e39a869d3aff26be01af9",
+  "source_path": "research/mtf_discovery_m1/families_m3.py::f08_asia_transfer",
+  "params": "mode=\"continuation\", min_move=10.0, signal_tf=M15, EURUSD",
+  "event_count": 1257,
+  "long": 673,
+  "short": 584,
+  "first": "2010-01-04 07:00",
+  "last": "2017-12-29 07:00",
+  "events_per_week": 3.017,
+  "event_hash": "87d603bb8089b19ba2fb777dcbe892b1eafba8c7221b4e28ebbf70ac4ca85782",
+  "hist_screen_N": 1257,
+  "screen_N": 1257,
+  "hist_screen_mean": 3.9016,
+  "screen_mean": 3.9016,
+  "hist_ref": "M3_E015 SCREEN_PASS h=64 gross +3.90 posYR 7/8 (REJECT was side-concentration sanity: S +8.0 / L +0.3, RESULT.md \u00a712)",
+  "ok": true
+ },
+ "B": {
+  "name": "B \u2014 SWING G10 D1-trend x H4-Donchian20 state machine",
+  "source_commit": "7e3bd46baea6dcd6ec4e5bf763e8d3c6eda1233b",
+  "source_path": "research/fx_multipair_swing_m1/families_sw.py::g10_state_machine",
+  "params": "{'fast': 20, 'slow': 50, 'break_n': 20} signal_tf=H4, pairs EURUSD+GBPUSD",
+  "event_count": 3038,
+  "long": 1506,
+  "short": 1532,
+  "pair_counts": {
+   "EURUSD": {
+    "events": 1536,
+    "scan_N": 540,
+    "scan_mean": 1.473
+   },
+   "GBPUSD": {
+    "events": 1502,
+    "scan_N": 517,
+    "scan_mean": 2.1153
+   }
+  },
+  "first": "2010-01-07 12:00",
+  "last": "2017-12-29 16:00",
+  "events_per_week": 7.3,
+  "event_hash": "f1b6385668e8a86c1b3c7273ee931fc67d67f568e612f3f4eaaf49710a7db2c7",
+  "hist_scan_N": 1057,
+  "pooled_scan_N": 1057,
+  "hist_scan_mean": 1.7871,
+  "pooled_scan_mean": 1.7871,
+  "hist_scan_PF": 1.0644,
+  "pooled_scan_PF": 1.0644,
+  "hist_ref": "SW_E029 SCAN h=6 (best of grid, never deepened): N=1057 mean +1.7871 PF 1.0644",
+  "ok": true
+ },
+ "C": {
+  "name": "C \u2014 MTF F04b previous-day H/L fade (M15 07-17h)",
+  "source_commit": "29dfb7b1710c58bb939e39a869d3aff26be01af9",
+  "source_path": "research/mtf_discovery_m1/families_m3.py::f04_prev_day",
+  "params": "mode=\"fade\", M15 trigger 07:00-17:00 UTC, EURUSD; hist exit SL20/TP30/T240",
+  "event_count": 1232,
+  "long": 588,
+  "short": 644,
+  "first": "2010-01-05 07:45",
+  "last": "2017-12-27 07:30",
+  "events_per_week": 2.961,
+  "event_hash": "c19c33252846a8a0460a74505c5576006041958e222e5821981ed0f01cae0140",
+  "mid_finite": 1232,
+  "cached_trades": 1183,
+  "cached_in_events": 1183,
+  "hist_ref": "M3_E023 DEEPEN tick replay SL20/TP30/T240: N=1183 mean +0.388 PF 1.04",
+  "ok": 1.0
+ }
+}
