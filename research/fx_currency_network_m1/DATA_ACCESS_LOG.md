@@ -1,0 +1,1 @@
+- 2026-09-16 DISCOVERY EURUSD/GBPUSD/USDJPY/EURJPY/GBPJPY/EURGBP [2010-01-04, 2019-01-01) 5m BID parquet -> H4/H1/M15 close-labelled bars, all families; loader hard-guards 2019+; VALIDATION/REPLICATION folds never evaluated (no discovery pass); 2019+ never accessed
