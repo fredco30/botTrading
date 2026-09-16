@@ -1,0 +1,2 @@
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2026-09-17 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "PAPER_POSITION_OPEN", "reason": "STOP touched by bar but no executable quote proof", "event_type": "DATA_GAP", "ts": "2026-09-17 13:45:00+00:00", "previous_state": "WAITING_SESSION"}

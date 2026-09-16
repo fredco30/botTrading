@@ -1,0 +1,1 @@
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2026-09-17 14:35:00+00:00", "previous_state": "WAITING_SESSION"}

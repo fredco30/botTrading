@@ -1,0 +1,2 @@
+{"new_state": "WAITING_SESSION", "contract": null, "reason": "new ET trading day", "event_type": "DAY_START", "ts": "2026-09-17 13:30:00+00:00", "previous_state": "WAITING_SESSION"}
+{"new_state": "PAPER_EXITED", "reason": "STOP", "fills": {"BASE": 98.8, "CONSERVATIVE": 98.55, "STRESS": 98.3}, "pnl": {"BASE": -2.2, "CONSERVATIVE": -2.45, "STRESS": -2.7}, "STOP_TS": "2026-09-17 13:41:00+00:00", "event_type": "PAPER_EXIT", "ts": "2026-09-17 13:41:00+00:00", "previous_state": "WAITING_SESSION"}

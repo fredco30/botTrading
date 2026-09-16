@@ -31,7 +31,9 @@ import numpy as np
 import pandas as pd
 
 PAPER_ONLY = True
-MAX_TS_2026 = pd.Timestamp("2026-01-01", tz="UTC")
+MODE_REFERENCE = "REFERENCE_REGRESSION"
+MODE_PROSPECTIVE = "PROSPECTIVE_PAPER"
+MAX_TS_2026 = pd.Timestamp("2026-01-01", tz="UTC")   # historical research seal
 TICK = 0.25
 POINT_USD = 20.0
 FIXED_FEES_RT = 1.0
@@ -193,8 +195,17 @@ def _hm(bar) -> int:
 
 
 class PaperEngine:
-    def __init__(self, journal_root, contract_lookup=None, persist_every=1):
+    def __init__(self, journal_root, contract_lookup=None, persist_every=1,
+                 mode=MODE_REFERENCE, activation_ts=None):
+        """mode=REFERENCE_REGRESSION: hard 2026 research seal (ts>=2026-01-01Z
+        refused). mode=PROSPECTIVE_PAPER: ts < activation_ts refused, ts >=
+        activation allowed (prospective observations)."""
         assert PAPER_ONLY
+        assert mode in (MODE_REFERENCE, MODE_PROSPECTIVE)
+        self.mode = mode
+        self.activation_ts = pd.Timestamp(activation_ts) if activation_ts else None
+        if mode == MODE_PROSPECTIVE and self.activation_ts is None:
+            raise ValueError("PROSPECTIVE_PAPER requires activation_ts")
         self.j = EventJournal(journal_root)
         self.sig = SignalEngine()
         self.pos = PositionState()
@@ -235,6 +246,11 @@ class PaperEngine:
         eid = ev.get("event_id")
         if eid is not None and self.j.seen(eid):
             return
+        ts = pd.Timestamp(ev["ts"])
+        if self.mode == MODE_REFERENCE and ts >= MAX_TS_2026:
+            raise ValueError("REFERENCE mode: 2026 research seal (ts >= 2026-01-01Z)")
+        if self.mode == MODE_PROSPECTIVE and ts < self.activation_ts:
+            raise ValueError("PROSPECTIVE mode: pre-activation timestamp refused")
         self.seq += 1
         ev["event_id"] = ev.get("event_id") or f"E{self.seq}"
         if ev["type"] == "QUOTE":
@@ -278,8 +294,6 @@ class PaperEngine:
     # ---------------- bar processing ----------------
     def _bar(self, ev: dict):
         ts = pd.Timestamp(ev["ts"])
-        if ts >= MAX_TS_2026:
-            raise ValueError("2026 historical bar refused (seal)")
         loc = ts.tz_convert("America/New_York")
         day, hm = loc.date(), loc.hour * 100 + loc.minute
         if self.day != day:
@@ -347,6 +361,11 @@ class PaperEngine:
             k = self._first_touch_quote(bq, start_i, p.side, p.stop)
             if k is not None:
                 self._exit(bq[k], "STOP", {"STOP_TS": str(bq[k][0])})
+                return
+            if self.mode == MODE_PROSPECTIVE:
+                self._log(ev["ts"] + pd.Timedelta(5, "min"), "DATA_GAP",
+                          new_state="PAPER_POSITION_OPEN",
+                          reason="STOP touched by bar but no executable quote proof")
                 return
             px = (min(ev["o"], p.stop) if p.side == 1 else max(ev["o"], p.stop))
             synth = (ev["ts"] + pd.Timedelta(5, "min"), px, px)

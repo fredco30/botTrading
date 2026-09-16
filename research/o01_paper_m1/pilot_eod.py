@@ -66,8 +66,11 @@ def main() -> int:
 
     key = load_key()
     client = databento.Historical(key=key)
-    day_open_utc = pd.Timestamp(f"{target} 09:30", tz="America/New_York").tz_convert("UTC")
+    day_open_utc = (pd.Timestamp(target, tz="America/New_York") -
+                    pd.Timedelta(days=1) + pd.Timedelta(hours=9, minutes=30)
+                    ).tz_convert("UTC")           # D-1 09:30 ET (context origin)
     day_end_utc = pd.Timestamp(f"{target} 16:00", tz="America/New_York").tz_convert("UTC")
+    bbo_open_utc = pd.Timestamp(f"{target} 09:30", tz="America/New_York").tz_convert("UTC")
 
     # ---- contract for the day (free symbology) ----
     res = client.symbology.resolve(
@@ -82,8 +85,9 @@ def main() -> int:
         end=day_end_utc.strftime("%Y-%m-%dT%H:%M:%S"), stype_in="continuous"))
     est_bbo = float(client.metadata.get_cost(
         dataset=DATASET, symbols=[contract], schema="bbo-1s",
-        start=day_open_utc.strftime("%Y-%m-%dT%H:%M:%S"),
-        end=day_end_utc.strftime("%Y-%m-%dT%H:%M:%S"), stype_in="raw_symbol"))
+        start=bbo_open_utc.strftime("%Y-%m-%dT%H:%M:%S"),
+        end=(day_end_utc + pd.Timedelta(5, "min")).strftime("%Y-%m-%dT%H:%M:%S"),
+        stype_in="raw_symbol"))
     est = est_1m + est_bbo
     if cum + est > CEILING:
         print(f"CEILING_STOP cumulative={cum:.4f} + est={est:.4f} > {CEILING}")
@@ -98,7 +102,7 @@ def main() -> int:
     s1 = client.timeseries.get_range(
         dataset=DATASET, symbols=["NQ.v.0"], schema="ohlcv-1m",
         start=day_open_utc.strftime("%Y-%m-%dT%H:%M:%S"),
-        end=day_end_utc.strftime("%Y-%m-%dT%H:%M:%S"), stype_in="continuous")
+        end=day_end_utc.strftime("%Y-%m-%dT%H:%M:%S"), stype_in="continuous")  # context window D-1 09:30 -> D 16:00
     s1.to_file(str(day_1m))
     df1 = s1.to_df().reset_index()
 
@@ -106,8 +110,9 @@ def main() -> int:
     day_bbo = RAW / f"{target}_bbo.dbn.zst"
     s2 = client.timeseries.get_range(
         dataset=DATASET, symbols=[contract], schema="bbo-1s",
-        start=day_open_utc.strftime("%Y-%m-%dT%H:%M:%S"),
-        end=day_end_utc.strftime("%Y-%m-%dT%H:%M:%S"), stype_in="raw_symbol")
+        start=bbo_open_utc.strftime("%Y-%m-%dT%H:%M:%S"),
+        end=(day_end_utc + pd.Timedelta(5, "min")).strftime("%Y-%m-%dT%H:%M:%S"),
+        stype_in="raw_symbol")
     s2.to_file(str(day_bbo))
 
     # ---- build 5m bars + per-bar quotes, feed engine MODE 2 ----
@@ -119,6 +124,10 @@ def main() -> int:
     b5 = df1.resample("5min").agg(open=("open", "first"), high=("high", "max"),
                                   low=("low", "min"), close=("close", "last"),
                                   volume=("volume", "sum")).dropna()
+    on_a = day_open_utc + pd.Timedelta(hours=8, minutes=30)   # D-1 18:00 ET
+    on_mask = (df1.index >= on_a) & (df1.index < day_open_utc)
+    on_hi = float(df1["high"][on_mask].max()) if on_mask.any() else None
+    on_lo = float(df1["low"][on_mask].min()) if on_mask.any() else None
     qb = DBNStore.from_file(str(day_bbo)).to_df()
     qts = qb.index.asi8
     qbid = qb["bid_px_00"].to_numpy(float)
@@ -126,7 +135,9 @@ def main() -> int:
     lo_ns = int(day_open_utc.value)
 
     eng = PaperEngine(HERE / "prospective" / "engine_state",
-                      contract_lookup=lambda d: contract, persist_every=0)
+                      contract_lookup=lambda d: contract, persist_every=0,
+                      mode="PROSPECTIVE_PAPER",
+                      activation_ts=json.loads(STATE_F.read_text())["ACTIVATION_TIMESTAMP"])
     for bts, row in b5.iterrows():
         a = np.searchsorted(qts, int(bts.value), side="left")
         b = np.searchsorted(qts, int(bts.value) + 5 * 60 * NS, side="left")
@@ -135,7 +146,7 @@ def main() -> int:
         ev = {"type": "BAR", "ts": bts, "o": float(row["open"]),
               "h": float(row["high"]), "l": float(row["low"]),
               "c": float(row["close"]), "v": float(row["volume"]),
-              "on_high": None, "on_low": None,
+              "on_high": on_hi, "on_low": on_lo,
               "quotes_at_activation": bar_q, "bar_quotes": bar_q,
               "quotes_at_exit": []}
         # first quote after bar end as quotes_at_exit for the 15:55 bar
