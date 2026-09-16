@@ -1,0 +1,66 @@
+{
+ "L1_BASE": {
+  "N": 420,
+  "NET_POINTS": 1.169,
+  "NET_USD": 23.38,
+  "PF": 1.1136,
+  "WR": 0.4357,
+  "REMOVE_BEST": -0.0919,
+  "MAX_DD_USD": -7862.5,
+  "BY_YEAR": {
+   "2020": -0.121,
+   "2021": 1.496,
+   "2022": -1.176,
+   "2023": 0.961,
+   "2024": 2.312,
+   "2025": 3.226
+  }
+ },
+ "L1_CONSERVATIVE": {
+  "N": 420,
+  "NET_POINTS": 0.7679,
+  "NET_USD": 15.36,
+  "PF": 1.073,
+  "WR": 0.4286,
+  "REMOVE_BEST": -0.4934,
+  "MAX_DD_USD": -8232.5,
+  "BY_YEAR": {
+   "2020": -0.522,
+   "2021": 1.094,
+   "2022": -1.579,
+   "2023": 0.566,
+   "2024": 1.904,
+   "2025": 2.827
+  }
+ },
+ "L1_STRESS": {
+  "N": 420,
+  "NET_POINTS": -1.1333,
+  "NET_USD": -22.67,
+  "PF": 0.9028,
+  "WR": 0.3881,
+  "REMOVE_BEST": -2.3948,
+  "MAX_DD_USD": -14870.0,
+  "BY_YEAR": {
+   "2020": -2.423,
+   "2021": -0.808,
+   "2022": -3.482,
+   "2023": -1.329,
+   "2024": -0.003,
+   "2025": 0.928
+  }
+ },
+ "SPREADS": {
+  "SPREAD_MEDIAN": 0.5,
+  "SPREAD_P90": 0.75,
+  "SPREAD_P95": 1.0,
+  "SPREAD_P99": 2.0
+ },
+ "BBO_RESOLVED_TRADES": 406,
+ "BBO_AMBIGUOUS_TRADES": 14,
+ "AMBIGUOUS_FRACTION": 0.0333,
+ "ENTRY_DELTA_MEDIAN": 0.75,
+ "ENTRY_DELTA_P95": 4.0125,
+ "EXIT_DELTA_MEDIAN": 0.25,
+ "EXIT_DELTA_P95": 0.75
+}
