@@ -41,3 +41,16 @@ SOURCE=../families.py O01 (entry), ../lab_lib.py (engine, causality-tested),
 LIMITS=internal temporal blocks, NOT pristine OOS (only 2026 is sealed); low
   frequency; win rate 26% (trend-shaped PnL, tail-dependent); modeled execution
   (OHLCV-1m); 2020 negative year.
+
+
+---
+
+AUDIT ADDENDUM (2026-09-16, NQ_UNIT_AUDIT — reporting correction only):
+The simulation NATIVE UNIT is INDEX POINTS for every quantity (prices, stops,
+targets, ATR, EMA, costs: NORMAL=1.5 points=$30 RT, STRESS=3.0 points=$60 RT).
+The USD figures printed in this spec were computed with $5 per point (the TICK
+value) instead of $20 per point and are therefore 4x UNDERSTATED.
+Correct rule: USD_1_NQ = index_points x 20 = ticks x 5.
+All verdicts/gates were evaluated in points/PF/R and are UNCHANGED.
+Corrected pooled figures: OPR +$59.88/trade (maxDD -$4,845);
+H02 +$301.39/trade (maxDD -$26,505); O01 +$286.17/trade (maxDD -$12,250).

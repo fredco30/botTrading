@@ -28,7 +28,9 @@ import nq_lib as N  # noqa: E402
 
 ET = N.ET
 NQ_COSTS = N.NQ_COSTS
-POINT_USD = 5.0
+# 1 NQ index point = USD 20 (tick 0.25 pt = USD 5). Unit audit 2026-09-16:
+# was 5.0 (tick value) — reporting-only bug, corrected; decisions never used it.
+POINT_USD = 20.0
 
 
 # ---------------------------------------------------------------------------
