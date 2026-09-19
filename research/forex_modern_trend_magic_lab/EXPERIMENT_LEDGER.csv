@@ -1,0 +1,5 @@
+experiment_id,family,description,pairs,timeframes,period,result_file,verdict
+TM_E001,F01,Trend Magic state-change event study (direction flips, forward returns + MFE/MAE, 45 cells),EURUSD+GBPUSD+USDJPY,M5/M15/H1,2020-2025,EVENT_STUDY_RESULTS.json,NO_EDGE (0/45 cells significant positive; 6 significant negative)
+TM_E002,F02,H1-state conditional per-bar drift screen,EURUSD+GBPUSD+USDJPY,H1/M15,2020-2025,STATE_DRIFT_RESULTS.json,EURUSD/GBPUSD ~0; USDJPY bull +0.22 pips/bar
+TM_E003,F02,Baseline control: unconditional vs in-state 24h drift,EURUSD+GBPUSD+USDJPY,H1,2020-2025,(inline; run_state_drift_control.py),USDJPY bull (+2.77/day) < ALL (+2.84) < bear (+2.99) => state carries no information
+TM_E004,F02,B1-B5 entry families (pre-registered gate decision),EURUSD+GBPUSD+USDJPY,M5/M15,2020-2025,TREND_MAGIC_RESULTS.md,NOT_RUN — gated by TM_E002/E003 null (protocol 25/35)
