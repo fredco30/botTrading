@@ -10,3 +10,5 @@ G_E002,G PDH long,Deep pass per-event stats USDJPY PDH-break 24h,USDJPY,H1,2020-
 G_E003,FX_PDH_001,Frozen-spec backtest (1ATR stop/3ATR trail/48h) NORMAL+STRESS,USDJPY,H1,2020-2025,FX_PDH_001_TRADES.csv,PASS: PF1.37 +5.22 net/t t=2.47 rb1+2.79 stress+3.59; WARN 2022=60% of pips
 G_E004,FX_PDH_001,Pre-registered plateau pass 10 cells,USDJPY,H1,2020-2025,(inline; run_pdh_plateau.py),BROAD plateau PF1.14-1.47 wide-stop gradient; default stays primary (protocol 24)
 G_E005,FX_PDH_001,EUR500 sizing gate + equity sim section 18/19/33,USDJPY,H1,2020-2025,FX_PDH_001_SIZING.csv,PASS: min-lot risk 0.28% med; 500->913 (0.5%) DD14.3%; 500->1470 (1.0%) DD26.3%; margin EUR 85-128
+L_E001,L-session, London morning (07-12UTC) momentum -> 8h continuation drift vs baseline,EURUSD+GBPUSD+USDJPY,H1,2020-2025,(inline; run_session_screens.py),DEAD — marginals -1.57/-0.24/-1.47 (continuation mildly reverses)
+D_E001,D-london-false-break, Asia-range sweep + close-back-inside fade during London,EURUSD+GBPUSD+USDJPY,H1,2020-2025,(inline; run_session_screens.py),DEAD — best marginal +0.43 < 1.0 pip cost
