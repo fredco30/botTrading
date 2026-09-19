@@ -16,3 +16,11 @@ breakout (-1.39), S004 EURUSD Asia false breakout (-1.78),
 fx_multipair_swing_m1 (12 families, no plateau), fx_currency_network_m1
 (no candidate), fx_cross_asset_rv_m1 / fx_macro_rates_swing_m1 (terminal,
 no candidate).
+
+## PERMANENT CLOSURE
+
+TREND_MAGIC_FINAL_STATUS = DEAD_AND_CLOSED (2026-09-19). Standalone verdict
+DEAD (event study + baseline control); interaction test on the FX_PDH_001
+base entry showed no material incremental value (+0.07 pips/trade on 12%
+fewer trades, rb1 worse, equity unchanged). No further Trend Magic
+experiments in any future campaign.
