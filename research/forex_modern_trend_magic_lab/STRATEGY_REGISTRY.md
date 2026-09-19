@@ -12,3 +12,7 @@ Frozen candidates: 1.
 
 TREND_MAGIC_FINAL_STATUS = DEAD_AND_CLOSED (permanent; see
 REJECTED_FAMILIES.md). Trend Magic Enhanced archived with no STRATEGY_ID.
+
+Cross-pair replication (2020-2025, strict frozen rules): 1_OF_6 robust —
+USDJPY only (see cross_pair_replication/CROSS_PAIR_RESULTS.md). Mechanism is
+USDJPY-specific; no generalization. EURJPY = weak near miss, not rescued.
