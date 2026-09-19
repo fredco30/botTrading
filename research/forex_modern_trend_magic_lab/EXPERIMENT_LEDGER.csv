@@ -3,3 +3,10 @@ TM_E001,F01,Trend Magic state-change event study (direction flips, forward retur
 TM_E002,F02,H1-state conditional per-bar drift screen,EURUSD+GBPUSD+USDJPY,H1/M15,2020-2025,STATE_DRIFT_RESULTS.json,EURUSD/GBPUSD ~0; USDJPY bull +0.22 pips/bar
 TM_E003,F02,Baseline control: unconditional vs in-state 24h drift,EURUSD+GBPUSD+USDJPY,H1,2020-2025,(inline; run_state_drift_control.py),USDJPY bull (+2.77/day) < ALL (+2.84) < bear (+2.99) => state carries no information
 TM_E004,F02,B1-B5 entry families (pre-registered gate decision),EURUSD+GBPUSD+USDJPY,M5/M15,2020-2025,TREND_MAGIC_RESULTS.md,NOT_RUN — gated by TM_E002/E003 null (protocol 25/35)
+J_E001,J-momentum,H1 trailing-return momentum terciles vs unconditional 24h baseline,EURUSD+GBPUSD+USDJPY,H1 L=24/72/168,2020-2025,(inline; run_momentum_screen.py),DEAD — marginals +0.99/+2.90/-2.72 but 3/6 negative years each; L>=72 reversal-shaped
+J_E002,J-momentum,D1-horizon multi-week momentum terciles (broad pass 30),EURUSD+GBPUSD+USDJPY,H1 L=5/10/20d,2020-2025,(inline; run_momentum_screen_d1.py),DEAD — EURUSD/GBPUSD null/reversal; USDJPY D10 long = carry regime, -16..-20 pips/day in 2020
+G_E001,G-H PDH/PDL,Break/reject event drift vs unconditional baseline,EURUSD+GBPUSD+USDJPY,H1,2020-2025,PDH_PDL_RESULTS.json,H(rejection): DEAD n=2-13; G(break): only USDJPY PDH long marginal +6.25/day all-years-positive
+G_E002,G PDH long,Deep pass per-event stats USDJPY PDH-break 24h,USDJPY,H1,2020-2025,PDH_BREAK_DEEP_USDJPY.json,SURVIVES: +9.09 gross +8.19 net win .572 CI[3.7,14.7] rb1 +6.37 top5=5.6%
+G_E003,FX_PDH_001,Frozen-spec backtest (1ATR stop/3ATR trail/48h) NORMAL+STRESS,USDJPY,H1,2020-2025,FX_PDH_001_TRADES.csv,PASS: PF1.37 +5.22 net/t t=2.47 rb1+2.79 stress+3.59; WARN 2022=60% of pips
+G_E004,FX_PDH_001,Pre-registered plateau pass 10 cells,USDJPY,H1,2020-2025,(inline; run_pdh_plateau.py),BROAD plateau PF1.14-1.47 wide-stop gradient; default stays primary (protocol 24)
+G_E005,FX_PDH_001,EUR500 sizing gate + equity sim section 18/19/33,USDJPY,H1,2020-2025,FX_PDH_001_SIZING.csv,PASS: min-lot risk 0.28% med; 500->913 (0.5%) DD14.3%; 500->1470 (1.0%) DD26.3%; margin EUR 85-128
